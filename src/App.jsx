@@ -6,10 +6,10 @@ import {
   CalenderMainPage,
   ChatMainPage,
   FamilyMainPage,
+  LadingPage,
   LoginPage,
   MainPage,
   PhotoMainPage,
-  PostMainPage,
   ServiceMainPage,
   SettingMainPage,
   SignupPage,
@@ -19,6 +19,24 @@ import { AuthLayout, HomeLayout } from "./layout";
 const router = createBrowserRouter([
   {
     path: `${PAGE_PATH.BASE}`,
+    element: <AuthLayout />,
+    children: [
+      {
+        index: true,
+        element: <LadingPage />,
+      },
+      {
+        path: `${PAGE_PATH.LOGIN}`,
+        element: <LoginPage />,
+      },
+      {
+        path: `${PAGE_PATH.SIGN_UP}`,
+        element: <SignupPage />,
+      },
+    ],
+  },
+  {
+    path: `${PAGE_PATH.HOME}`,
     element: <HomeLayout />,
     children: [
       {
@@ -52,21 +70,6 @@ const router = createBrowserRouter([
       {
         path: `${PAGE_PATH.SETTING}`,
         element: <SettingMainPage />,
-      },
-    ],
-  },
-  {
-    path: `${PAGE_PATH.AUTH}`,
-    element: <AuthLayout />,
-    children: [
-      {
-        index: true,
-        path: `${PAGE_PATH.LOGIN}`,
-        element: <LoginPage />,
-      },
-      {
-        path: `${PAGE_PATH.SIGN_UP}`,
-        element: <SignupPage />,
       },
     ],
   },

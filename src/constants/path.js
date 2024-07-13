@@ -1,7 +1,7 @@
 const PAGE_PATH = {
   // post
   BASE: "/",
-  AUTH: "/auth",
+  HOME: "/home",
   // Login
   LOGIN: "login",
   // Signup
