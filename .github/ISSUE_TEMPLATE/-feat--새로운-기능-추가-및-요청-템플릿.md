@@ -1,7 +1,7 @@
 ---
 name: "[Feat] 새로운 기능 추가 및 요청 템플릿"
 about: 새로운 기능을 추가하려고 할 때 이 템플릿으로 이슈를 생성해주세요!
-title: "[Feat] 새로운 기능 추가 및 요청 템플릿"
+title: "[Feat] {feature/#이슈번호} 새로운 기능 추가 및 요청 템플릿"
 labels: "✨  Feat"
 assignees: ''
 
