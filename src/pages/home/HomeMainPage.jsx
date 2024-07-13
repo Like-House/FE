@@ -1,7 +1,5 @@
-function HomeMainPage() {
-  return (
-    <div>HomeMainPage</div>
-  )
-}
+const HomeMainPage = () => {
+	return <div>HomeMainPage</div>;
+};
 
-export default HomeMainPage
+export default HomeMainPage;

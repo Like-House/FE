@@ -1,5 +1,5 @@
 const PhotoMainPage = () => {
-  return <div>PhotoMainPage</div>;
+	return <div>PhotoMainPage</div>;
 };
 
 export default PhotoMainPage;

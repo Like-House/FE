@@ -1,5 +1,5 @@
 const AlertMainPage = () => {
-  return <div>AlertMainPage</div>;
+	return <div>AlertMainPage</div>;
 };
 
 export default AlertMainPage;
