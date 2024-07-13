@@ -3,7 +3,7 @@ import * as S from "./LandingPage.style";
 function LadingPage() {
   return (
     <S.Container>
-      <p>LandingPage</p>
+      <div>LandingPage</div>
     </S.Container>
   );
 }

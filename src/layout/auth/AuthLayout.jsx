@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import * as S from "./AuthLayout.style";
-import { Navbar } from "../../components";
+import { Footer, Navbar } from "../../components";
 
 const AuthLayout = () => {
   return (
@@ -10,6 +10,7 @@ const AuthLayout = () => {
         <S.OutletContainer>
           <Outlet />
         </S.OutletContainer>
+        <Footer />
       </S.ContentContainer>
     </S.AuthContainer>
   );

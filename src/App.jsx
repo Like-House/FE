@@ -6,7 +6,7 @@ import {
   CalenderMainPage,
   ChatMainPage,
   FamilyMainPage,
-  LadingPage,
+  LandingPage,
   LoginPage,
   MainPage,
   PhotoMainPage,
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <LadingPage />,
+        element: <LandingPage />,
       },
       {
         path: `${PAGE_PATH.LOGIN}`,

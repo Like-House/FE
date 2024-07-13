@@ -4,8 +4,7 @@ import theme from "../../theme/theme";
 const AuthContainer = styled.div`
   height: 100vh;
   width: 100vw;
-  display: flex;
-  flex-direction: column;
+  ${theme.ALIGN.COLUMN_CENTER}
 `;
 
 const ContentContainer = styled.div`
@@ -16,6 +15,9 @@ const ContentContainer = styled.div`
 
 const OutletContainer = styled.div`
   flex: 1;
+  height: 100%;
+  overflow-y: scroll;
+  background-color: ${theme.COLOR.YELLOW.YELLOW_800};
 `;
 
 export { AuthContainer, ContentContainer, OutletContainer };

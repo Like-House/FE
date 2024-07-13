@@ -8,7 +8,7 @@ import ServiceMainPage from "./service/ServiceMainPage";
 import PhotoMainPage from "./photo/PhotoMainPage";
 import AlertMainPage from "./alert/AlertMainPage";
 import CalenderMainPage from "./calender/CalenderMainPage";
-import LadingPage from "./landing/LadingPage";
+import LandingPage from "./landing/LadingPage";
 
 export {
   MainPage,
@@ -21,5 +21,5 @@ export {
   PhotoMainPage,
   AlertMainPage,
   CalenderMainPage,
-  LadingPage,
+  LandingPage,
 };

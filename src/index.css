@@ -4,7 +4,7 @@
 }
 
 body {
-  font-family: "LINESeedKR";
+    font-family: "LINESeedKR";
   font-weight: 400;
   background-color: #fafafa;
 }
@@ -13,19 +13,19 @@ body {
   font-family: "LINESeedKR";
   font-style: normal;
   font-weight: 250;
-  src: url("../assets/fonts/LINESeedKR-Th.otf") format("opentype");
+  src: url("./assets/fonts/LINESeedKR-Th.otf") format("opentype");
 }
 
 @font-face {
   font-family: "LINESeedKR";
   font-style: normal;
   font-weight: 400;
-  src: url("../assets/fonts/LINESeedKR-Rg.otf") format("opentype");
+  src: url("./assets/fonts/LINESeedKR-Rg.otf") format("opentype");
 }
 
 @font-face {
   font-family: "LINESeedKR";
   font-style: normal;
   font-weight: 700;
-  src: url("../assets/fonts/LINESeedKR-Bd.otf") format("opentype");
+  src: url("./assets/fonts/LINESeedKR-Bd.otf") format("opentype");
 }
