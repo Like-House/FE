@@ -1,5 +1,5 @@
-import Navbar from "./common/navbar/Navbar";
-import SideBar from "./common/sidebar/SideBar";
-import Footer from "./common/footer/Footer";
+import Navbar from './common/navbar/Navbar';
+import Footer from './common/footer/Footer';
+import Sidebar from './common/sidebar/Sidebar';
 
-export { Navbar, SideBar, Footer };
+export { Navbar, Sidebar, Footer };

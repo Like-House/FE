@@ -4,9 +4,23 @@
 }
 
 body {
-    font-family: "LINESeedKR";
+  font-family: "LINESeedKR";
   font-weight: 400;
   background-color: #fafafa;
+}
+
+a {
+  color: #ffc933;
+  text-decoration: none;
+  outline: none;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
 }
 
 @font-face {
