@@ -1,4 +1,5 @@
 const PAGE_PATH = {
+  // post
   BASE: "/",
   AUTH: "/auth",
   // Login
@@ -7,8 +8,6 @@ const PAGE_PATH = {
   SIGN_UP: "signup",
   // Service
   SERVICE: "service",
-  // Post
-  POST: "post",
   // Chat
   CHAT: "chat",
   // Setting
