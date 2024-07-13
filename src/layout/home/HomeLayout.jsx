@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import * as S from './HomeLayout.style';
-import Sidebar from '../../components/common/sidebar/Sidebar';
+import { Sidebar } from '../../components/index.js';
 
 const HomeLayout = () => {
 	return (

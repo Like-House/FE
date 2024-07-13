@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import * as S from './Sidebar.style';
+import * as S from './SideBar.style.js';
 import { TbHome } from 'react-icons/tb';
 import { FaPen } from 'react-icons/fa6';
 import { TbMessageCircle2Filled } from 'react-icons/tb';
