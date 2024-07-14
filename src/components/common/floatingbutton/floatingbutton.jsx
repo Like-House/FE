@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from './floatingbutton.style';
+import theme from '../../../theme/theme';
 
 const FloatingButton = ({
   icon,
@@ -37,8 +38,8 @@ FloatingButton.propTypes = {
 
 FloatingButton.defaultProps = {
   disabled: false,
-  backgroundColor: '#FFC933',
-  borderColor: '#FFE793',
+  backgroundColor: theme.COLOR.MAIN.YELLOW,
+  borderColor: theme.COLOR.MAIN.YELLOW,
   hasShadow: true,
   boxShadowColor: 'rgba(0, 0, 0, 0.2)',
 };
