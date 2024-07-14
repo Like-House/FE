@@ -9,7 +9,7 @@ import {
   ButtonContainer,
   Button,
 } from './alert.style';
-import Exclamationmark from '../../../assets/Exclamationmark.png';
+import Exclamationmark from '../../../assets/images/Exclamationmark.png';
 
 const Alert = ({
   message,

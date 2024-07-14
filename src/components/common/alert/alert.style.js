@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../../../theme/theme';
 
 export const ModalBackground = styled.div`
   position: fixed;
@@ -7,9 +8,7 @@ export const ModalBackground = styled.div`
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${theme.ALIGN.ROW_CENTER};
 `;
 
 const getSize = (size) => {
@@ -23,13 +22,14 @@ const getSize = (size) => {
 };
 
 export const ModalContainer = styled.div`
-  background-color: #ffe793;
+  background-color: ${theme.COLOR.MAIN.YELLOW};
   width: ${({ size }) => getSize(size).split(',')[0]};
   height: ${({ size }) => getSize(size).split(',')[1]};
   border-radius: 20px;
   text-align: center;
   padding: 40px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: 'LINESeedKR-Rg';
 `;
 
 export const Icon = styled.div`
@@ -56,11 +56,11 @@ export const ButtonContainer = styled.div`
   align-items: center;
   justify-content: ${({ singleButton }) =>
     singleButton ? 'center' : 'space-around'};
-  gap: 25px;
+  gap: 20px;
 `;
 
 export const Button = styled.button`
-  background-color: #ffffff;
+  background-color: ${theme.COLOR.COMMON.WHITE};
   border: none;
   border-radius: 10px;
   width: 69px;
@@ -68,6 +68,6 @@ export const Button = styled.button`
   cursor: pointer;
   font-size: 15px;
   &:hover {
-    background-color: #e0e0e0;
+    background-color: ${theme.COLOR.GRAY.GRAY_200};
   }
 `;
