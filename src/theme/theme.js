@@ -33,6 +33,8 @@ const COLOR = {
 	COMMON: {
 		WHITE: '#FFFFFF',
 		BLACK: '#000000',
+		BLUE: '#2A71DD',
+		RED: '#FF000F',
 	},
 	GRAY: {
 		GRAY_100: '#E6E6E6',
