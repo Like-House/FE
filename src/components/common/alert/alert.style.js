@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import theme from '../../../theme/theme';
 import { FONT_SIZE } from '../../../constants/size';
 
+const { COLOR, ALIGN } = theme;
+
 export const ModalBackground = styled.div`
   position: fixed;
   top: 0;
@@ -9,7 +11,7 @@ export const ModalBackground = styled.div`
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  ${theme.ALIGN.ROW_CENTER};
+  ${ALIGN.ROW_CENTER};
 `;
 
 const getSize = (size) => {
@@ -23,7 +25,7 @@ const getSize = (size) => {
 };
 
 export const ModalContainer = styled.div`
-  background-color: ${theme.COLOR.MAIN.YELLOW};
+  background-color: ${COLOR.MAIN.YELLOW};
   width: ${({ size }) => getSize(size).split(',')[0]};
   height: ${({ size }) => getSize(size).split(',')[1]};
   border-radius: 20px;
@@ -61,7 +63,7 @@ export const ButtonContainer = styled.div`
 `;
 
 export const Button = styled.button`
-  background-color: ${theme.COLOR.COMMON.WHITE};
+  background-color: ${COLOR.COMMON.WHITE};
   border: none;
   border-radius: 10px;
   width: 69px;
@@ -69,6 +71,6 @@ export const Button = styled.button`
   cursor: pointer;
   font-size: ${FONT_SIZE.BASE};
   &:hover {
-    background-color: ${theme.COLOR.GRAY.GRAY_200};
+    background-color: ${COLOR.GRAY.GRAY_200};
   }
 `;

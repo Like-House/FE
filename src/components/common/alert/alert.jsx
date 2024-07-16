@@ -11,15 +11,10 @@ import {
 } from './alert.style';
 import Exclamationmark from '../../../assets/images/Exclamationmark.png';
 
-const Alert = ({
-  message,
-  detailMessage,
-  onConfirm,
-  onCancel,
-  isOpen,
-  size,
-}) => {
+const Alert = ({ message, detailMessage, onConfirm, onCancel, isOpen }) => {
   if (!isOpen) return null;
+
+  const size = detailMessage ? 'large' : 'small';
 
   return (
     <ModalBackground>
@@ -46,13 +41,11 @@ Alert.propTypes = {
   onConfirm: PropTypes.func.isRequired,
   onCancel: PropTypes.func,
   isOpen: PropTypes.bool.isRequired,
-  size: PropTypes.oneOf(['small', 'large']),
 };
 
 Alert.defaultProps = {
   detailMessage: null,
   onCancel: null,
-  size: 'small',
 };
 
 export default Alert;
