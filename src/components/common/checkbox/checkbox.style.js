@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import theme from '../../../theme/theme';
+import theme from '../../../thema/thema';
 
 const { COLOR, ALIGN } = theme;
 
@@ -15,12 +15,6 @@ export const CheckBoxOutline = styled.div`
   background-color: ${COLOR.COMMON.WHITE};
   border-radius: 3px;
   ${ALIGN.ROW_CENTER}
-`;
-
-export const CheckBoxWithLabel = styled.div`
-  display: flex;
-  align-items: center;
-  font-family: 'LINESeedKR-Th';
 `;
 
 export const CheckBoxWithBackground = styled.div`
