@@ -1,7 +1,7 @@
 import * as S from './Dropdown.style';
 import { useState } from 'react';
 
-const Dropdown = ({ label, options, size, openIcon, closeIcon }) => {
+const Dropdown = ({ label, options, size, openIcon, closeIcon, onSelect }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedMenu, setSelectedMenu] = useState(null);
 
@@ -12,6 +12,8 @@ const Dropdown = ({ label, options, size, openIcon, closeIcon }) => {
 	const selectMenu = menu => {
 		setSelectedMenu(menu);
 		setIsOpen(false);
+		console.log(menu);
+		onSelect(menu);
 	};
 
 	return (

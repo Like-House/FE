@@ -36,7 +36,7 @@ const DropdownLabel = styled.div`
 
 const DropdownMenuArea = styled.div`
 	width: 100%;
-	margin-top: 20px;
+	margin-top: 10px;
 	padding: 12px 18px;
 	border-radius: 10px;
 	background-color: ${theme.COLOR.COMMON.WHITE};
