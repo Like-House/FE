@@ -1,7 +1,7 @@
 import * as S from './Dropdown.style';
 import { useState } from 'react';
 
-const Dropdown = ({ label, options, size }) => {
+const Dropdown = ({ label, options, size, openIcon, closeIcon }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedMenu, setSelectedMenu] = useState(null);
 
@@ -20,7 +20,7 @@ const Dropdown = ({ label, options, size }) => {
 				<S.DropdownLabel isSelected={selectedMenu !== null}>
 					{selectedMenu || label}
 				</S.DropdownLabel>
-				{isOpen ? <div>▵</div> : <div>▿</div>}
+				{isOpen ? closeIcon : openIcon}
 			</S.DropdownButtonArea>
 			<S.DropdownMenuArea isOpen={isOpen}>
 				{options.map((menu, index) => (

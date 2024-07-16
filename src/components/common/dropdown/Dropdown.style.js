@@ -9,6 +9,7 @@ const DropdownButtonArea = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: center;
 	border-radius: 10px;
 	background-color: ${theme.COLOR.COMMON.WHITE};
 	padding: 12px 18px;
