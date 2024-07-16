@@ -1,8 +1,21 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import theme from '../../../theme/theme';
+import { FONT_SIZE } from '../../../constants/size';
+
+const sizeStyles = {
+	sm: css`
+		width: 268px;
+	`,
+	md: css`
+		width: 332px;
+	`,
+	lg: css`
+		width: 364px;
+	`,
+};
 
 const DropdownContainer = styled.div`
-	width: ${({ size }) => size};
+	${({ size }) => sizeStyles[size] || sizeStyles.md};
 `;
 const DropdownButtonArea = styled.div`
 	width: 100%;
@@ -16,7 +29,7 @@ const DropdownButtonArea = styled.div`
 `;
 
 const DropdownLabel = styled.div`
-	font-size: 1rem;
+	font-size: ${FONT_SIZE.BASE};
 	color: ${({ isSelected }) =>
 		isSelected ? theme.COLOR.GRAY.GRAY_950 : theme.COLOR.GRAY.GRAY_350};
 `;
@@ -39,7 +52,7 @@ const DropdownMenu = styled.div`
 	&:last-child {
 		margin-bottom: 0px;
 	}
-	font-size: 1rem;
+	font-size: ${FONT_SIZE.BASE};
 	color: ${theme.COLOR.GRAY.GRAY_950};
 	cursor: pointer;
 `;
