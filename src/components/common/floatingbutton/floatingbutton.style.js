@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 import theme from '../../../theme/theme';
 
 const getBackgroundColor = (backgroundColor, disabled) =>
@@ -20,9 +21,6 @@ export const Button = styled.button`
     getBoxShadow(hasShadow, boxShadowColor)};
   width: 64.27px;
   height: 64.27px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   transition:
     background-color 0.3s,
@@ -31,7 +29,7 @@ export const Button = styled.button`
 
   &:hover {
     background-color: ${({ backgroundColor, disabled }) =>
-      disabled ? theme.COLOR.GRAY.GRAY_100 : '#e0b30d'};
+      disabled ? theme.COLOR.GRAY.GRAY_100 : darken(0.1, backgroundColor)};
     box-shadow: ${({ hasShadow, boxShadowColor }) =>
       getHoverBoxShadow(hasShadow, boxShadowColor)};
   }

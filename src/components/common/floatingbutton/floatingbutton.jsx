@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from './floatingbutton.style';
 import theme from '../../../theme/theme';
+import DefaultIcon from '../../../assets/images/floatingsetting.png';
 
 const FloatingButton = ({
   icon,
@@ -21,13 +22,13 @@ const FloatingButton = ({
       hasShadow={hasShadow}
       boxShadowColor={boxShadowColor}
     >
-      <img src={icon} alt='icon' />
+      {icon ? icon : <img src={DefaultIcon} alt='default icon' />}
     </Button>
   );
 };
 
 FloatingButton.propTypes = {
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.element,
   onClick: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   backgroundColor: PropTypes.string,
@@ -42,6 +43,7 @@ FloatingButton.defaultProps = {
   borderColor: theme.COLOR.MAIN.YELLOW,
   hasShadow: true,
   boxShadowColor: 'rgba(0, 0, 0, 0.2)',
+  icon: null,
 };
 
 export default FloatingButton;
