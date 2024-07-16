@@ -1,5 +1,27 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import theme from '../../../theme/theme';
+
+const colorOptions = {
+	default: css`
+		background-color: ${theme.COLOR.YELLOW.YELLOW_1000};
+		color: ${theme.COLOR.COMMON.WHITE};
+	`,
+	//red
+	primary: css`
+		background-color: #ff0000;
+		color: ${theme.COLOR.COMMON.WHITE};
+	`,
+	//blue
+	secondary: css`
+		background-color: #0000ff;
+		color: ${theme.COLOR.COMMON.WHITE};
+	`,
+	outlined: css`
+		background-color: ${theme.COLOR.COMMON.WHITE};
+		color: ${theme.COLOR.COMMON.BLACK};
+		border: 1px solid ${theme.COLOR.COMMON.BLACK};
+	`,
+};
 
 const TooltipWrapper = styled.div`
 	position: relative;
@@ -9,9 +31,6 @@ const TooltipWrapper = styled.div`
 const TooltipText = styled.span`
 	visibility: hidden;
 	width: 120px;
-	background-color: ${({ background_color }) =>
-		background_color || theme.COLOR.YELLOW.YELLOW_1000};
-	color: ${theme.COLOR.COMMON.WHITE};
 	text-align: center;
 	border-radius: 6px;
 	padding: 7px;
@@ -22,6 +41,8 @@ const TooltipText = styled.span`
 	margin-left: -60px;
 	opacity: 0;
 	transition: opacity 0.3s;
+	${({ backgroundColor }) =>
+		colorOptions[backgroundColor] || colorOptions.default};
 `;
 
 const TooltipIcon = styled.div`
