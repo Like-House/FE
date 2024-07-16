@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import theme from '../../../theme/theme';
+import { FONT_SIZE } from '../../../constants/size';
 
 export const ModalBackground = styled.div`
   position: fixed;
@@ -41,12 +42,12 @@ export const Icon = styled.div`
 `;
 
 export const ModalMessage = styled.div`
-  font-size: 20px;
+  font-size: ${FONT_SIZE.LG};
   margin-bottom: 40px;
 `;
 
 export const ModalDetailMessage = styled.div`
-  font-size: 16px;
+  font-size: ${FONT_SIZE.BASE};
   gap: 10px;
   margin: 0 40px 40px 40px;
 `;
@@ -66,7 +67,7 @@ export const Button = styled.button`
   width: 69px;
   height: 36px;
   cursor: pointer;
-  font-size: 15px;
+  font-size: ${FONT_SIZE.BASE};
   &:hover {
     background-color: ${theme.COLOR.GRAY.GRAY_200};
   }
