@@ -2,12 +2,29 @@ import styled from 'styled-components';
 import theme from '../../../theme/theme';
 import { FONT_SIZE } from '../../../constants';
 
+const getSize = size => {
+	switch (size) {
+		case 'XS':
+			return '250px';
+		case 'SM':
+			return '400px';
+		case 'LG':
+			return '750px';
+		case 'XL':
+			return '900px';
+		default: // BASE(default)
+			return '600px';
+	}
+};
+
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
 
 const InputContainer = styled.div`
+	width: ${props => getSize(props.$size)};
+	height: 40px;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -64,8 +81,7 @@ const InputContainer = styled.div`
 `;
 
 const Input = styled.input`
-	width: ${props => props.$width};
-	height: ${props => props.$height};
+	width: 97%;
 	border: none;
 	background-color: transparent;
 

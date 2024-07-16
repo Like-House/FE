@@ -2,11 +2,10 @@ import * as S from './CustomInput.style';
 
 const CustomInput = ({
 	name,
-	type,
+	type, // text, number ...
 	placeholder,
-	fiiled,
-	width,
-	height,
+	fiiled, // boolean
+	size, // XS , SM, BASE, LG, XL
 	disabled,
 	icon,
 	errors,
@@ -15,6 +14,7 @@ const CustomInput = ({
 	return (
 		<S.Container>
 			<S.InputContainer
+				$size={size}
 				$disabled={disabled}
 				$fiiled={fiiled}
 				$errors={errors}
@@ -24,8 +24,6 @@ const CustomInput = ({
 					type={type}
 					placeholder={placeholder}
 					disabled={disabled}
-					$width={width}
-					$height={height}
 					$fiiled={fiiled}
 				/>
 				{icon}
