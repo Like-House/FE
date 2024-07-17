@@ -1,6 +1,8 @@
 import * as S from './CustomInput.style';
 
 const CustomInput = ({
+	value,
+	onChange,
 	name,
 	type, // text, number ...
 	placeholder,
@@ -21,6 +23,8 @@ const CustomInput = ({
 				$success={success}
 			>
 				<S.Input
+					value={value}
+					onChange={onChange}
 					type={type}
 					placeholder={placeholder}
 					disabled={disabled}
