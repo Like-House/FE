@@ -1,14 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  ModalBackground,
-  ModalContainer,
-  Icon,
-  ModalMessage,
-  ModalDetailMessage,
-  ButtonContainer,
-  Button,
-} from './alert.style';
+import * as S from './alert.style';
 import Exclamationmark from '../../../assets/images/Exclamationmark.png';
 
 const Alert = ({ message, detailMessage, onConfirm, onCancel, isOpen }) => {
@@ -17,21 +9,24 @@ const Alert = ({ message, detailMessage, onConfirm, onCancel, isOpen }) => {
   const size = detailMessage ? 'large' : 'small';
 
   return (
-    <ModalBackground>
-      <ModalContainer size={size}>
-        <Icon>
+    <S.ModalBackground>
+      <S.ModalContainer size={size}>
+        <S.Icon>
           <img src={Exclamationmark} alt='exclamation mark' />
-        </Icon>
-        <ModalMessage>{message}</ModalMessage>
+        </S.Icon>
+        <S.ModalMessage>{message}</S.ModalMessage>
         {detailMessage && (
-          <ModalDetailMessage>{detailMessage}</ModalDetailMessage>
+          <S.ModalDetailMessage>{detailMessage}</S.ModalDetailMessage>
         )}
-        <ButtonContainer singleButton={!onCancel}>
-          <Button onClick={onConfirm}>확인</Button>
-          {onCancel && <Button onClick={onCancel}>취소</Button>}
-        </ButtonContainer>
-      </ModalContainer>
-    </ModalBackground>
+        <S.ButtonContainer
+          singleButton={!onCancel}
+          hasDetailMessage={!!detailMessage}
+        >
+          <S.Button onClick={onConfirm}>확인</S.Button>
+          {onCancel && <S.Button onClick={onCancel}>취소</S.Button>}
+        </S.ButtonContainer>
+      </S.ModalContainer>
+    </S.ModalBackground>
   );
 };
 
