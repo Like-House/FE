@@ -76,7 +76,7 @@ const InputContainer = styled.div`
 		props.$fiiled &&
 		`
 				border: none;
-				background-color : #F1F2F3;
+				background-color : ${theme.COLOR.GRAY.GRAY_50};
       `}
 `;
 
