@@ -23,6 +23,18 @@ const colorOptions = {
 	`,
 };
 
+const sizeStyles = {
+	sm: css`
+		width: 60px;
+	`,
+	md: css`
+		width: 120px;
+	`,
+	lg: css`
+		width: 180px;
+	`,
+};
+
 const TooltipWrapper = styled.div`
 	position: relative;
 	display: inline-block;
@@ -30,13 +42,20 @@ const TooltipWrapper = styled.div`
 
 const TooltipText = styled.span`
 	visibility: hidden;
-	width: 120px;
+	${({ size }) => sizeStyles[size] || sizeStyles.md};
 	text-align: center;
 	border-radius: 6px;
 	padding: 7px;
 	position: absolute;
 	z-index: 1;
-	top: 125%;
+	${({ position }) =>
+		position === 'top'
+			? css`
+					bottom: 125%;
+				`
+			: css`
+					top: 125%;
+				`}
 	left: 50%;
 	margin-left: -60px;
 	opacity: 0;

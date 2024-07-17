@@ -1,11 +1,19 @@
 import * as S from './Tooltip.style';
 
-const Tooltip = ({ text, children, backgroundColor }) => {
+const Tooltip = ({
+	text,
+	children,
+	size,
+	backgroundColor,
+	position = 'bottom',
+}) => {
 	return (
 		<S.TooltipWrapper>
 			<S.TooltipIcon>
 				{children}
-				<S.TooltipText backgroundColor={backgroundColor}>{text}</S.TooltipText>
+				<S.TooltipText size={size} backgroundColor={backgroundColor} position={position}>
+					{text}
+				</S.TooltipText>
 			</S.TooltipIcon>
 		</S.TooltipWrapper>
 	);
