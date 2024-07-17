@@ -22,7 +22,7 @@ const shapeStyles = shape => {
 		`;
 	} else if (shape === 'rect') {
 		return css`
-			border-radius: 0;
+			border-radius: 10%;
 		`;
 	}
 	return null;
@@ -32,6 +32,7 @@ const Image = styled.img`
 	${({ size }) => sizeStyles[size] || sizeStyles.md};
 	${({ shape }) => shapeStyles(shape)}
 	object-fit: cover;
+	cursor: ${({ onClick }) => (onClick ? 'pointer' : 'default')};
 `;
 
 export { Image };

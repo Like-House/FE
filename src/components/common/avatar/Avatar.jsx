@@ -1,7 +1,10 @@
 import * as S from './Avatar.style';
 
-const Avatar = ({ src, size, shape }) => {
-	return <S.Image src={src} size={size} shape={shape} />;
+const Avatar = ({ src, size='md', shape='circle', onClick}) => {
+	if (!src) {
+		return null;
+	}
+	return <S.Image src={src} size={size} shape={shape} onClick={onClick}/>;
 };
 
 export default Avatar;
