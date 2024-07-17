@@ -68,20 +68,4 @@ const CheckBox = ({ checked, onChange, label, required, type, size }) => {
   );
 };
 
-checkbox.propTypes = {
-  checked: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
-  label: PropTypes.string,
-  required: PropTypes.bool,
-  type: PropTypes.oneOf(['outline', 'background']),
-  size: PropTypes.oneOf(['sm', 'md', 'lg']),
-};
-
-checkbox.defaultProps = {
-  label: '',
-  required: false,
-  type: 'outline',
-  size: 'md',
-};
-
 export default checkbox;
