@@ -55,7 +55,9 @@ const ModalDetailMessage = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  ${ALIGN.ROW_CENTER};
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: ${({ singleButton, hasDetailMessage }) =>
     singleButton ? '0' : hasDetailMessage ? '100px' : '10px'};
 `;
