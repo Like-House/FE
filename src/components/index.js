@@ -2,5 +2,7 @@ import Navbar from './common/navbar/Navbar';
 import Footer from './common/footer/Footer';
 import Sidebar from './common/sidebar/SideBar.jsx';
 import Tooltip from './common/tooltip/Tooltip.jsx';
+import Dropdown from './common/dropdown/Dropdown.jsx';
+import Avatar from './common/avatar/Avatar.jsx';
 
-export { Navbar, Sidebar, Footer, Tooltip };
+export { Navbar, Sidebar, Footer, Dropdown, Avatar, Tooltip };
