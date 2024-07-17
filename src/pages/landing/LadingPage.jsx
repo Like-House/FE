@@ -1,8 +1,6 @@
-import * as S from "./LandingPage.style";
-import CheckBox from "../../components/common/checkbox/checkbox";
+import * as S from './LandingPage.style';
 
 function LadingPage() {
-	const handleChange = () => {};
 	return (
 		<S.Container>
 			<div>LandingPage</div>
