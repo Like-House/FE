@@ -26,13 +26,13 @@ const InputContainer = styled.div`
 	width: ${props => getSize(props.$size)};
 	height: 40px;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
 	background-color: transparent;
 	border-bottom: 1px solid ${theme.COLOR.GRAY.GRAY_300};
 
 	${props =>
-		props.$fiiled &&
+		props.$filled &&
 		`
          border : none;
          background-color: ${theme.COLOR.BACKGROUND.WHITE};
@@ -48,7 +48,7 @@ const InputContainer = styled.div`
 	
 	${props =>
 		props.$success &&
-		props.$fiiled &&
+		props.$filled &&
 		`
          border : 1px solid ${theme.COLOR.COMMON.BLUE};
 		`}
@@ -61,7 +61,7 @@ const InputContainer = styled.div`
 
 	${props =>
 		props.$errors &&
-		props.$fiiled &&
+		props.$filled &&
 		`
          border : 1px solid ${theme.COLOR.COMMON.RED};
 		`}
@@ -73,7 +73,7 @@ const InputContainer = styled.div`
 
 	${props =>
 		props.$disabled &&
-		props.$fiiled &&
+		props.$filled &&
 		`
 				border: none;
 				background-color : ${theme.COLOR.GRAY.GRAY_50};
