@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from './floatingbutton.style';
+import * as S from './floatingbutton.style';
 import theme from '../../../theme/theme';
 import DefaultIcon from '../../../assets/images/floatingsetting.png';
 
@@ -14,7 +14,7 @@ const FloatingButton = ({
   boxShadowColor,
 }) => {
   return (
-    <Button
+    <S.Button
       onClick={onClick}
       disabled={disabled}
       backgroundColor={backgroundColor}
@@ -23,7 +23,7 @@ const FloatingButton = ({
       boxShadowColor={boxShadowColor}
     >
       {icon ? icon : <img src={DefaultIcon} alt='default icon' />}
-    </Button>
+    </S.Button>
   );
 };
 

@@ -11,7 +11,7 @@ const getBoxShadow = (hasShadow, boxShadowColor) =>
 const getHoverBoxShadow = (hasShadow, boxShadowColor) =>
   hasShadow ? `0px 4px 8px ${boxShadowColor}` : 'none';
 
-export const Button = styled.button`
+const Button = styled.button`
   background-color: ${({ backgroundColor, disabled }) =>
     getBackgroundColor(backgroundColor, disabled)};
   border: 1px solid
@@ -44,3 +44,5 @@ export const Button = styled.button`
     height: 24.72px;
   }
 `;
+
+export { Button };
