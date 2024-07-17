@@ -5,8 +5,10 @@ const Button = styled.button`
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	width: ${props => props.$width};
-	height: ${props => props.$height};
+	width: ${props => (props.$width ? props.$width : 'auto')};
+	height: ${props => (props.$height ? props.$height : 'auto')};
+	padding: 15px 35px;
+
 	color: ${theme.COLOR.COMMON.BLACK};
 	border-radius: 10px;
 
