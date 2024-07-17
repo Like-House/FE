@@ -1,26 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  CheckBoxContainer,
-  CheckBoxOutline,
-  CheckBoxWithLabel,
-  CheckBoxWithBackground,
-  CheckMark,
-  CheckBoxLabel,
-  CheckBoxLabelBold,
-  CheckBoxLabelNormal,
-} from './checkbox.style';
-import blackCheck from '../../../assets/images/blackcheck.png';
-import whiteCheck from '../../../assets/images/whitecheck.png';
+import * as S from './checkbox.style';
+import BlackCheck from '../../../assets/images/blackcheck.png';
+import WhiteCheck from '../../../assets/images/whitecheck.png';
 
-const checkbox = ({ checked, onChange, label, required, type }) => {
+const CheckBox = ({ checked, onChange, label, required, type, size }) => {
   const renderCheckBox = () => {
     switch (type) {
+      case 'background':
+        checkBoxElement = (
+          <S.CheckBoxWithBackground checked={checked} size={size}>
+            {checked && (
+              <S.CheckMark src={WhiteCheck} alt='check mark' size={size} />
+            )}
+          </S.CheckBoxWithBackground>
+        );
+        break;
       case 'outline':
-        return (
-          <CheckBoxOutline>
-            {checked && <CheckMark src={blackCheck} alt='check mark' />}
-          </CheckBoxOutline>
+      default:
+        checkBoxElement = (
+          <S.CheckBoxOutline size={size}>
+            {checked && (
+              <S.CheckMark src={BlackCheck} alt='check mark' size={size} />
+            )}
+          </S.CheckBoxOutline>
         );
       case 'withLabel':
         return (
@@ -44,6 +47,20 @@ const checkbox = ({ checked, onChange, label, required, type }) => {
           </CheckBoxWithBackground>
         );
     }
+
+    return (
+      <S.CheckBoxContainer onClick={onChange}>
+        {checkBoxElement}
+        {label && (
+          <S.CheckBoxLabel hasLabel={required} size={size}>
+            {required && <S.CheckBoxLabelBold> [필수] </S.CheckBoxLabelBold>}
+            <S.CheckBoxLabelNormal hasLabel={required} size={size}>
+              {label}
+            </S.CheckBoxLabelNormal>
+          </S.CheckBoxLabel>
+        )}
+      </S.CheckBoxContainer>
+    );
   };
 
   return (
@@ -56,13 +73,15 @@ checkbox.propTypes = {
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
   required: PropTypes.bool,
-  type: PropTypes.oneOf(['outline', 'withLabel', 'background']).isRequired,
+  type: PropTypes.oneOf(['outline', 'background']),
+  size: PropTypes.oneOf(['sm', 'md', 'lg']),
 };
 
 checkbox.defaultProps = {
   label: '',
   required: false,
-  type: 'background',
+  type: 'outline',
+  size: 'md',
 };
 
 export default checkbox;

@@ -3,53 +3,90 @@ import theme from '../../../theme/theme';
 
 const { COLOR, ALIGN } = theme;
 
-export const CheckBoxContainer = styled.div`
+const sizeStyles = {
+  sm: '20px',
+  md: '30px',
+  lg: '40px',
+};
+
+const fontSizeStyles = {
+  sm: '16px',
+  md: '20px',
+  lg: '24px',
+};
+
+const outlineBorderRadiusStyles = {
+  sm: '2px',
+  md: '3px',
+  lg: '4px',
+};
+
+const checkBoxBorderRadiusStyles = {
+  sm: '5px',
+  md: '6px',
+  lg: '7px',
+};
+
+const getSize = (size) => sizeStyles[size] || sizeStyles.md;
+const getFontSize = (size) => fontSizeStyles[size] || fontSizeStyles.md;
+
+const getOutlineBorderRadius = (size) =>
+  outlineBorderRadiusStyles[size] || outlineBorderRadiusStyles.md;
+
+const getCheckBoxBorderRadius = (size) =>
+  checkBoxBorderRadiusStyles[size] || checkBoxBorderRadiusStyles.md;
+
+const CheckBoxContainer = styled.div`
   display: flex;
   align-items: center;
 `;
 
-export const CheckBoxOutline = styled.div`
-  width: 30px;
-  height: 30px;
+const CheckBoxOutline = styled.div`
+  width: ${({ size }) => getSize(size)};
+  height: ${({ size }) => getSize(size)};
   border: 1.5px solid ${COLOR.COMMON.BLACK};
   background-color: ${COLOR.COMMON.WHITE};
-  border-radius: 3px;
+  border-radius: ${({ size }) => getOutlineBorderRadius(size)};
   ${ALIGN.ROW_CENTER}
 `;
 
-export const CheckBoxWithLabel = styled.div`
-  display: flex;
-  align-items: center;
-  font-family: 'LINESeedKR-Th';
-`;
-
-export const CheckBoxWithBackground = styled.div`
-  width: 45px;
-  height: 45px;
+const CheckBoxWithBackground = styled.div`
+  width: ${({ size }) => getSize(size)};
+  height: ${({ size }) => getSize(size)};
   border: 2px solid ${COLOR.GRAY.GRAY_200};
-  border-radius: 10px;
+  border-radius: ${({ size }) => getCheckBoxBorderRadius(size)};
   background-color: ${({ checked }) =>
     checked ? COLOR.YELLOW.YELLOW_500 : COLOR.GRAY.GRAY_100};
   ${ALIGN.ROW_CENTER}
 `;
 
-export const CheckMark = styled.img`
-  width: 21px;
-  height: 18px;
+const CheckMark = styled.img`
+  width: ${({ size }) => (size === 'sm' ? '10px' : '15px')};
+  height: ${({ size }) => (size === 'sm' ? '8px' : '12px')};
 `;
 
-export const CheckBoxLabel = styled.label`
-  font-size: ${({ hasLabel }) => (hasLabel ? '20px' : '24px')};
+const CheckBoxLabel = styled.label`
+  font-size: ${({ hasLabel, size }) => (hasLabel ? getFontSize(size) : '24px')};
   margin-left: 10px;
 `;
 
-export const CheckBoxLabelBold = styled.span`
+const CheckBoxLabelBold = styled.span`
   font-size: 20px;
   color: ${COLOR.MAIN.YELLOW};
   font-weight: bold;
 `;
 
-export const CheckBoxLabelNormal = styled.span`
-  font-size: ${({ hasLabel }) => (hasLabel ? '20px' : '24px')};
+const CheckBoxLabelNormal = styled.span`
+  font-size: ${({ hasLabel, size }) => (hasLabel ? getFontSize(size) : '24px')};
   color: ${COLOR.GRAY.GRAY_900};
 `;
+
+export {
+  CheckBoxContainer,
+  CheckBoxOutline,
+  CheckBoxWithBackground,
+  CheckMark,
+  CheckBoxLabel,
+  CheckBoxLabelBold,
+  CheckBoxLabelNormal,
+};
