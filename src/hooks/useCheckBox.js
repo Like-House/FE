@@ -1,16 +1,16 @@
 import { useState } from 'react';
 
-const useCheckBox = (initialState) => {
-  const [state, setState] = useState(initialState);
+const useCheckBox = (initialState = false) => {
+  const [checked, setChecked] = useState(initialState);
 
-  const toggle = (key) => {
-    setState((prevState) => ({
-      ...prevState,
-      [key]: !prevState[key],
-    }));
+  const toggle = () => {
+    setChecked((prev) => !prev);
   };
 
-  return { state, toggle };
+  return {
+    checked,
+    toggle,
+  };
 };
 
 export default useCheckBox;
