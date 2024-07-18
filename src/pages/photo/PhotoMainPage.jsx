@@ -8,7 +8,17 @@ const PhotoMainPage = () => {
 	const options = Array.from(
 		new Set(pictureData.pictures.map(picture => picture.op)),
 	);
-	
+
+	const [selectedOp, setSelectedOp] = useState('');
+	const handleSelect = op => {
+		setSelectedOp(op);
+		console.log(op);
+	};
+
+	const filteredPicture = selectedOp
+		? pictureData.pictures.filter(picture => picture.op === selectedOp)
+		: pictureData.pictures;
+
 	return (
 		<S.MainContainer>
 			<S.SideContainer>
@@ -22,10 +32,17 @@ const PhotoMainPage = () => {
 						options={options}
 						openIcon={<RiArrowDropDownLine />}
 						closeIcon={<RiArrowDropUpLine />}
+						onSelect={handleSelect}
 					/>
 				</S.DropdownWrapper>
 			</S.SideContainer>
-			<S.AlbumContainer>asdf</S.AlbumContainer>
+			<S.AlbumContainer>
+				{filteredPicture.map(picture => (
+					<S.PictureArea key={picture.id}>
+						<S.Picture src={picture.img} />
+					</S.PictureArea>
+				))}
+			</S.AlbumContainer>
 		</S.MainContainer>
 	);
 };

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import theme from '../../theme/theme';
-import {FONT_SIZE} from '../../constants/size';
+import { FONT_SIZE } from '../../constants/size';
 
 const MainContainer = styled.div`
 	display: flex;
@@ -14,7 +14,7 @@ const SideContainer = styled.div`
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: flex-start;
-  width: 25%;
+	width: 25%;
 	height: 100%;
 	padding: 0 40px;
 	border-right: 8px solid #f6f6f6;
@@ -23,7 +23,13 @@ const SideContainer = styled.div`
 const AlbumContainer = styled.div`
 	width: 75%;
 	height: 100%;
-	
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-rows: 240px;
+	grid-gap: 18px;
+	overflow-y: auto;
+	padding: 0 80px;
+  align-items: start;
 `;
 
 const Title = styled.div`
@@ -37,11 +43,11 @@ const CalendarContainer = styled.div`
 `;
 
 const CalenderLabel = styled.div`
-  margin-top: 40px;
+	margin-top: 40px;
 `;
 
 const DropdownWrapper = styled.div`
-  width: 100%;
+	width: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -53,9 +59,24 @@ const DropdownWrapper = styled.div`
 `;
 
 const DropdownLabel = styled.div`
-  margin-top: 40px;
+	margin-top: 40px;
 `;
 
+const PictureArea = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 10px 0;
+	aspect-ratio: 7/5;
+  width: 100%;
+`;
+
+const Picture = styled.img`
+	max-width: 100%;
+	height: 100%;
+	border-radius: 12px;
+	object-fit: cover;
+`;
 
 export {
 	MainContainer,
@@ -64,6 +85,8 @@ export {
 	Title,
 	CalendarContainer,
 	CalenderLabel,
-  DropdownLabel,
-  DropdownWrapper,
+	DropdownLabel,
+	DropdownWrapper,
+	PictureArea,
+	Picture,
 };
