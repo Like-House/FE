@@ -28,6 +28,10 @@ const TextWrapper = styled.div`
 	p {
 		font-size: ${FONT_SIZE.SM};
 	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		padding: 50px;
+	}
 `;
 
 const LoginFormContainer = styled.form`
@@ -63,6 +67,18 @@ const InputWrapper = styled.div`
 	label {
 		font-size: ${FONT_SIZE.SM};
 		color: ${theme.COLOR.GRAY.GRAY_950};
+	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		width: 250px;
+
+		label {
+			font-size: ${FONT_SIZE.XS};
+		}
+
+		div > div {
+			width: 200px;
+		}
 	}
 `;
 

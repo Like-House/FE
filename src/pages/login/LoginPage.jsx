@@ -89,9 +89,6 @@ const LoginPage = () => {
 						label="로그인"
 						width="80%"
 						onClick={handleSubmit}
-						disabled={
-							loginForm.values.email === '' || loginForm.values.password === ''
-						}
 					/>
 				</S.LoginFormContainer>
 			</S.LoginContainer>
