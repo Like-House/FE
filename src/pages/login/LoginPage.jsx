@@ -4,8 +4,33 @@ import * as S from './LoginPage.style';
 import NAVER from '../../assets/images/naver.svg';
 import KAKAO from '../../assets/images/kakao.svg';
 import GOOGLE from '../../assets/images/google.svg';
+import useForm from '../../hooks/useForm';
+import { useLogin } from '../../hooks/queries/login/useLogin';
+import { useState } from 'react';
 
 const LoginPage = () => {
+	const [errorMessage, setErrorMessage] = useState('');
+
+	const loginForm = useForm({
+		initialValue: {
+			email: '',
+			password: '',
+		},
+	});
+
+	const { mutate } = useLogin();
+
+	const handleSubmit = () => {
+		mutate(loginForm.values, {
+			onError: error => {
+				console.log(error);
+				if (error.response?.status === 400) {
+					setErrorMessage('이메일 및 비밀번호를 다시 확인해주세요.');
+				}
+			},
+		});
+	};
+
 	return (
 		<S.Container>
 			<S.LoginContainer>
@@ -13,21 +38,28 @@ const LoginPage = () => {
 					<h2>로그인</h2>
 					<p>이메일과 비밀번호를 입력해주세요.</p>
 				</S.TextWrapper>
-				<S.LoginFormContainer>
+				<S.LoginFormContainer onSubmit={e => e.preventDefault()}>
 					<S.InputWrapper>
 						<label>이메일</label>
 						<CustomInput
+							{...loginForm.getTextInputProps('email')}
 							placeholder="이메일을 입력해주세요."
 							filled={true}
 							size="SM"
+							type="text"
+							errors={loginForm.touched.email && errorMessage}
 						/>
 					</S.InputWrapper>
 					<S.InputWrapper>
 						<label>비밀번호</label>
 						<CustomInput
+							{...loginForm.getTextInputProps('password')}
 							placeholder="비밀번호를 입력해주세요."
 							filled={true}
 							size="SM"
+							type="password"
+							errors={loginForm.touched.password && errorMessage}
+							message={loginForm.touched.password && errorMessage}
 						/>
 					</S.InputWrapper>
 					<span>
@@ -52,7 +84,15 @@ const LoginPage = () => {
 							icon={<img src={GOOGLE} alt="구글" />}
 						/>
 					</S.IconWrapper>
-					<CustomButton btnType="primary" label="로그인" width="80%" />
+					<CustomButton
+						btnType="primary"
+						label="로그인"
+						width="80%"
+						onClick={handleSubmit}
+						disabled={
+							loginForm.values.email === '' || loginForm.values.password === ''
+						}
+					/>
 				</S.LoginFormContainer>
 			</S.LoginContainer>
 		</S.Container>
