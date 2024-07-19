@@ -8,5 +8,18 @@ import CustomButton from './common/button/CustomButton';
 import Tooltip from './common/tooltip/Tooltip.jsx';
 import Dropdown from './common/dropdown/Dropdown.jsx';
 import Avatar from './common/avatar/Avatar.jsx';
+import Settingbar from './Settingbar/Settingbar.jsx';
 
-export { Navbar, Sidebar, Footer, Dropdown, Avatar, Tooltip, CustomButton, CustomInput, Alert, FloatingButton };
+export {
+  Navbar,
+  Sidebar,
+  Footer,
+  Dropdown,
+  Avatar,
+  Tooltip,
+  CustomButton,
+  CustomInput,
+  Alert,
+  FloatingButton,
+  Settingbar,
+};
