@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import theme from '../../theme/theme';
 import { FONT_SIZE } from '../../constants/size';
 
@@ -28,16 +28,19 @@ const SectionTitle = styled.h2`
   margin-bottom: 30px;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(NavLink)`
   display: block;
-  margin-top: 10px;
-  margin-bottom: 20px;
+  margin: 10px 0;
   color: ${COLOR.GRAY.GRAY_800};
   text-decoration: none;
   font-size: ${FONT_SIZE.BASE};
-  padding: 10px 20px;
+  padding: 15px 20px;
   width: 100%;
   border-radius: 4px;
+
+  &.active {
+    background-color: ${COLOR.COMMON.WHITE};
+  }
 
   &:hover {
     background-color: ${COLOR.COMMON.WHITE};
