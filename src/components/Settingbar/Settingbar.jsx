@@ -6,7 +6,7 @@ function Settingbar({ isopen }) {
   const settingBasePath = `${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}`;
 
   return isopen ? (
-    <S.Container className='Settingbar'>
+    <S.Container>
       <S.Section>
         <S.SectionTitle>가족 설정</S.SectionTitle>
         <S.StyledLink to={`${settingBasePath}/family-space-settings`}>
