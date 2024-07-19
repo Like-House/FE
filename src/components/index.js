@@ -10,6 +10,7 @@ import Dropdown from './common/dropdown/Dropdown.jsx';
 import Avatar from './common/avatar/Avatar.jsx';
 import LoginIcon from './loginIcon/LoginIcon';
 import SignupForm from './form/signupForm/SignupForm';
+import LoginForm from './form/loginForm/LoginForm';
 import CheckBox from './common/checkbox/Checkbox';
 
 export {
@@ -25,5 +26,6 @@ export {
 	FloatingButton,
 	LoginIcon,
 	SignupForm,
+	LoginForm,
 	CheckBox,
 };
