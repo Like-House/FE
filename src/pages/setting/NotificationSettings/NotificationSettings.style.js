@@ -25,7 +25,7 @@ const NotificationItem = styled.div`
 const Label = styled.div`
   flex: 1;
   font-size: ${FONT_SIZE.LG};
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 `;
 
 const LabelBox = styled.div`
