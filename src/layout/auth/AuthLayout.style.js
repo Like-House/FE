@@ -11,6 +11,7 @@ const OutletContainer = styled.div`
 	flex: 1;
 	width: 100%;
 	background-color: ${theme.COLOR.BACKGROUND.WHITE};
+	overflow-x: hidden;
 `;
 
 export { AuthContainer, OutletContainer };
