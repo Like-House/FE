@@ -9,6 +9,8 @@ import Tooltip from './common/tooltip/Tooltip.jsx';
 import Dropdown from './common/dropdown/Dropdown.jsx';
 import Avatar from './common/avatar/Avatar.jsx';
 import LoginIcon from './loginIcon/LoginIcon';
+import SignupForm from './form/signupForm/SignupForm';
+import CheckBox from './common/checkbox/Checkbox';
 
 export {
 	Navbar,
@@ -22,4 +24,6 @@ export {
 	Alert,
 	FloatingButton,
 	LoginIcon,
+	SignupForm,
+	CheckBox,
 };
