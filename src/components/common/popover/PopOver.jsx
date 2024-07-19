@@ -2,31 +2,26 @@ import React from "react";
 import PropTypes from "prop-types";
 import { PopOverContainer, PopOverContent } from "./PopOver.style";
 
-const PopOver = ({
-  topIcon,
-  bottomIcon,
-  topMessage,
-  bottomMessage,
-}) => {
+const PopOver = ({ items }) => {
   return (
     <PopOverContainer>
-      <PopOverContent>
-        <p>{topIcon}</p>
-        <span>{topMessage}</span>
-      </PopOverContent>
-      <PopOverContent>
-        <p>{bottomIcon}</p>
-        <span>{bottomMessage}</span>
-      </PopOverContent>
+      {items.map((item, index) => (
+        <PopOverContent key={index}>
+          <p>{item.icon}</p>
+          <span>{item.message}</span>
+        </PopOverContent>
+      ))}
     </PopOverContainer>
   );
 };
 
 PopOver.propTypes = {
-  topIcon: PropTypes.element.isRequired,
-  bottomIcon: PropTypes.element.isRequired,
-  topMessage: PropTypes.string.isRequired,
-  bottomMessage: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      icon: PropTypes.element.isRequired,
+      message: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default PopOver;
