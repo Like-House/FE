@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import theme from "../../../theme/theme";
-
-const { COLOR, ALIGN } = theme;
+import { FONT_SIZE } from "../../../constants";
 
 export const ModalBackground = styled.div`
   position: fixed;
@@ -9,7 +8,7 @@ export const ModalBackground = styled.div`
   left: 0;
 
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.5);
 
   ${theme.ALIGN.ROW_CENTER};
@@ -17,10 +16,10 @@ export const ModalBackground = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  width: 500px;
-  height: 330px;
+  width: 600px;
+  height: 350px;
   
-  ${theme.COLOR.COMMON.WHITE};
+  background-color: ${theme.COLOR.COMMON.WHITE};
   border-radius: 30px;
   padding: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -37,7 +36,7 @@ export const ModalHeader = styled.div`
   button {
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: ${FONT_SIZE.LG};
     cursor: pointer;
   }
 `;
@@ -45,22 +44,37 @@ export const ModalHeader = styled.div`
 export const ModalContent = styled.div`
   flex: 1;
   ${theme.ALIGN.COLUMN_CENTER};
+  border-bottom: 1px solid #ccc;
 
-  margin-top: 5px;
+  textarea{
+    width: 90%;
+    height: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    resize: none;
+    outline: none;
+  }
 `;
 
-export const Textarea = styled.textarea`
-  width: 90%;
-  height: 200px;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  resize: none;
-`;
-
-export const Footer = styled.div`
+export const ModalFooter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 15px;
+  text-align: center;
+
+  margin: 8px 15px;
+  padding-top: 5px;
+
+  button {
+    width: 80px;
+    height: 30px;
+    border-radius: 7px;
+    ${theme.ALIGN.ROW_CENTER};
+
+    background-color: ${theme.COLOR.YELLOW.YELLOW_300};
+    font-size: ${FONT_SIZE.SM};
+
+    cursor: pointer;
+  }
 `;

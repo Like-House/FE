@@ -1,104 +1,88 @@
-import React, { useState } from "react";
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import useCustomModal from "../../../hooks/useCustomModal";
 import { BsXCircle } from "react-icons/bs";
-import { 
+
+import {
   ModalBackground, 
   ModalContainer, 
   ModalHeader, 
-  ModalContent, 
-  Textarea, 
-  Footer,
+  ModalContent,
+  ModalFooter,
 } from './modal.style';
 
-const PostModal = ({
-  onSubmit,
-  LeftButton,
-  RightButton,
-  select_content
+const PublicPostModal = ({
+  isOpen,
+  closeModal,
+  body,
+  leftButton,
+  leftButtonAction,
+  rightButton,
+  rightButtonAction,
+  totalSteps,
+  currentStep,
 }) => {
-  const { isOpen, closeModal } = useCustomModal();
   const [step, setStep] = useState(1);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [content, setContent] = useState('');
 
-  if(!isOpen) {
-    return null;
-  }
+  useEffect(() => {
+    if (isOpen) {
+      setStep(1);
+    }
+  }, [isOpen]);
 
-  const handleBack = () => {
-    setStep(1);
-  }
+  const handleLeftButtonClick = () => {
+    if (step > 1) {
+      setStep(step - 1);
+      leftButtonAction();
+    }
+  };
 
-  const handleNext = () => {
-    setStep(2);
-  }
-
-  const handleClose = () => {
-    setStep(1);
-    setContent('');
-    setSelectedFile(null);
-    closeModal();
-  }
-
-  const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
-  }
-
-  const handleSubmit = () => {
-    const newPost = {
-      content,
-      photo: selectedFile ? URL.createObjectURL(selectedFile) : null,
-    };
-    onSubmit(newPost);
-    handleClose();
+  const handleRightButtonClick = () => {
+    if (step < totalSteps) {
+      setStep(step + 1);
+      rightButtonAction();
+    } else {
+      closeModal();
+    }
   };
 
   return (
-    <ModalBackground onClick={handleClose}>
-      <ModalContainer onClick={e => e.stopPropagation()}>
-        <ModalHeader>
-          <button onClick={handleClose}><BsXCircle /></button>
-        </ModalHeader>
-        <ModalContent>
-          {step === 1 && (
-            <>
-              <Textarea
-                placeholder="내용을 입력해주세요."
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-              />
-              <Footer>
-                <input
-                  id="file-input"
-                  type="file"
-                  style={{ display: 'none' }}
-                  onChange={ handleFileChange }
-                />
-                <LeftButton onClick={() => document.getElementById('file-input').click()} />
-                <RightButton onClick={handleNext} />
-              </Footer>
-            </>
-          )}
-          {step === 2 && (
-            <>
-              <div>{select_content}</div>
-              <Footer>
-                <LeftButton onClick={handleBack} />
-                <RightButton onClick={handleSubmit} />
-              </Footer>
-            </>
-          )}
-        </ModalContent>
-      </ModalContainer>
-    </ModalBackground>
+    <>
+      {isOpen && (
+      <ModalBackground>
+        <ModalContainer>
+          <ModalHeader>
+            <button onClick={closeModal}>
+              <BsXCircle />
+            </button>
+          </ModalHeader>
+          <ModalContent>
+            {body[step-1]}
+          </ModalContent>
+          <ModalFooter>
+            <button onClick={handleLeftButtonClick}>
+              {step > 1 ? leftButton[step - 2] : ''}
+            </button>
+            <button onClick={handleRightButtonClick}>
+              {step < totalSteps ? rightButton[step - 1] : ''}
+            </button>
+          </ModalFooter>
+        </ModalContainer>
+      </ModalBackground>
+      )};
+    </>
   );
 };
 
-PostModal.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  LeftButton: PropTypes.elementType.isRequired,
-  RightButton: PropTypes.elementType.isRequired,
+PublicPostModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  body: PropTypes.arrayOf(PropTypes.node).isRequired,
+  leftButton: PropTypes.arrayOf(PropTypes.string).isRequired,
+  leftButtonAction: PropTypes.func.isRequired,
+  rightButton: PropTypes.arrayOf(PropTypes.string).isRequired,
+  rightButtonAction: PropTypes.func.isRequired,
+  totalSteps: PropTypes.number.isRequired,
+  currentStep: PropTypes.number,
 };
 
-export default PostModal;
+export default PublicPostModal;
