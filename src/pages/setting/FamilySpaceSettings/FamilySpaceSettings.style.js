@@ -5,7 +5,7 @@ import { FONT_SIZE } from '../../../constants/size';
 const { COLOR } = theme;
 
 const FamilySpaceSettingsContainer = styled.div`
-  padding: 30px;
+  padding: 50px;
   background-color: ${COLOR.BACKGROUND.WHITE};
   height: 100vh;
 `;

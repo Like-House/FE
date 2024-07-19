@@ -13,6 +13,7 @@ import {
   ServiceMainPage,
   SignupPage,
   FamilySpaceSettings,
+  NotificationSettings,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -72,6 +73,7 @@ const router = createBrowserRouter([
         path: `${PAGE_PATH.SETTING}/*`,
         children: [
           { path: 'family-space-settings', element: <FamilySpaceSettings /> },
+          { path: 'notification-settings', element: <NotificationSettings /> },
         ],
       },
     ],
