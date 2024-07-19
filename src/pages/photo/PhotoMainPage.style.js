@@ -25,11 +25,10 @@ const AlbumContainer = styled.div`
 	height: 100%;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  grid-template-rows: 240px;
-	grid-gap: 18px;
+	justify-content: flex-start;
+	grid-gap: 28px 32px;
 	overflow-y: auto;
-	padding: 0 80px;
-  align-items: start;
+	padding: 20px 80px;
 `;
 
 const Title = styled.div`
@@ -63,16 +62,15 @@ const DropdownLabel = styled.div`
 `;
 
 const PictureArea = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 10px 0;
+	position: relative;
+	color: white;
+	box-sizing: border-box;
+	border-radius: 12px;
 	aspect-ratio: 7/5;
-  width: 100%;
 `;
 
 const Picture = styled.img`
-	max-width: 100%;
+	width: 100%;
 	height: 100%;
 	border-radius: 12px;
 	object-fit: cover;
