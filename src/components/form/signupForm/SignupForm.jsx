@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import useForm from '../../../hooks/useForm';
 import { validateSignUp } from '../../../utils/auth';
-import CustomInput from '../../common/input/CustomInput';
 import * as S from './SignupForm.style';
-import CustomButton from '../../common/button/CustomButton';
-import CheckBox from '../../common/checkbox/checkbox';
+import { CustomButton, CheckBox, CustomInput } from '../../';
 
 const SignupForm = () => {
 	const signupForm = useForm({
