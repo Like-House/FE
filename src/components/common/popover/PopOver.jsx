@@ -1,12 +1,12 @@
-import React from "react";
 import PropTypes from "prop-types";
 import { PopOverContainer, PopOverContent } from "./PopOver.style";
 
 const PopOver = ({ items }) => {
+
   return (
     <PopOverContainer>
       {items.map((item, index) => (
-        <PopOverContent key={index}>
+        <PopOverContent key={index} onClick={item.onClick}>
           <p>{item.icon}</p>
           <span>{item.message}</span>
         </PopOverContent>
