@@ -9,12 +9,12 @@ import AlertMainPage from './alert/AlertMainPage';
 import CalenderMainPage from './calender/CalenderMainPage';
 import LandingPage from './landing/LadingPage';
 import FamilySpaceSettings from './setting/FamilySpaceSettings/FamilySpaceSettings';
+import FamilySettings from './setting/FamilySettings/FamilySettings';
 
 export {
   MainPage,
   LoginPage,
   SignupPage,
-  FamilySpaceSettings,
   ChatMainPage,
   FamilyMainPage,
   ServiceMainPage,
@@ -22,4 +22,6 @@ export {
   AlertMainPage,
   CalenderMainPage,
   LandingPage,
+  FamilySpaceSettings,
+  FamilySettings,
 };

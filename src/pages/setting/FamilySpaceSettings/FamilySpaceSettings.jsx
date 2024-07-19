@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './FamilySpaceSettings.style';
 import link from '../../../assets/images/link.png';
-import Alert from '../../../components/common/alert/alert';
+import { Alert, CustomButton } from '../../../components/index';
 import useModal from '../../../hooks/useModal';
 
 function FamilySpaceSettings() {
@@ -33,7 +33,11 @@ function FamilySpaceSettings() {
           </S.DeleteComment>
         </S.DeleteContainer>
 
-        <S.DeleteButton onClick={openModal}>가족 공간 삭제</S.DeleteButton>
+        <CustomButton
+          btnType='primary'
+          label='가족 공간 삭제'
+          onClick={openModal}
+        />
         <Alert
           isOpen={isOpen}
           message='가족 공간이 삭제되었습니다.'

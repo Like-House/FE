@@ -53,20 +53,6 @@ const Content = styled.div`
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.02);
 `;
 
-const DeleteButton = styled.button`
-  background-color: ${COLOR.MAIN.YELLOW};
-  color: ${COLOR.COMMON.BLACK};
-  border: none;
-  padding: 10px 15px;
-  font-size: ${FONT_SIZE.BASE};
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${COLOR.YELLOW.YELLOW_600};
-  }
-`;
-
 const Icon = styled.img`
   width: 30px;
   height: 30px;
@@ -80,6 +66,5 @@ export {
   DeleteComment,
   InviteLinkInput,
   Content,
-  DeleteButton,
   Icon,
 };
