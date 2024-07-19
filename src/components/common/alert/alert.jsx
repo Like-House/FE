@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import * as S from './alert.style';
 import Exclamationmark from '../../../assets/images/Exclamationmark.png';
 
@@ -7,6 +6,15 @@ const Alert = ({ message, detailMessage, onConfirm, onCancel, isOpen }) => {
   if (!isOpen) return null;
 
   const size = detailMessage ? 'large' : 'small';
+
+  const formatDetailMessage = (message) => {
+    return message.split('\n').map((line, index) => (
+      <span key={index}>
+        {line}
+        <br />
+      </span>
+    ));
+  };
 
   return (
     <S.ModalBackground>
@@ -16,7 +24,9 @@ const Alert = ({ message, detailMessage, onConfirm, onCancel, isOpen }) => {
         </S.Icon>
         <S.ModalMessage>{message}</S.ModalMessage>
         {detailMessage && (
-          <S.ModalDetailMessage>{detailMessage}</S.ModalDetailMessage>
+          <S.ModalDetailMessage>
+            {formatDetailMessage(detailMessage)}
+          </S.ModalDetailMessage>
         )}
         <S.ButtonContainer
           singleButton={!onCancel}
@@ -28,19 +38,6 @@ const Alert = ({ message, detailMessage, onConfirm, onCancel, isOpen }) => {
       </S.ModalContainer>
     </S.ModalBackground>
   );
-};
-
-Alert.propTypes = {
-  message: PropTypes.string.isRequired,
-  detailMessage: PropTypes.string,
-  onConfirm: PropTypes.func.isRequired,
-  onCancel: PropTypes.func,
-  isOpen: PropTypes.bool.isRequired,
-};
-
-Alert.defaultProps = {
-  detailMessage: null,
-  onCancel: null,
 };
 
 export default Alert;
