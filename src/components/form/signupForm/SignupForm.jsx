@@ -11,19 +11,81 @@ const SignupForm = () => {
 			username: '',
 			email: '',
 			password: '',
+			passwordCheck: '',
 		},
 		validate: validateSignUp,
 	});
 
 	const [file, setFile] = useState(null);
-	const { checked: checkAll, toggle: toggleAll } = useCheckBox(false);
-	const { checked: checkFirst, toggle: toggleFirst } = useCheckBox(false);
-	const { checked: checkSecond, toggle: toggleSecond } = useCheckBox(false);
+
+	const [msg, setMsg] = useState({
+		send: {
+			errors: '',
+			success: '',
+		},
+		check: {
+			errors: '',
+			success: '',
+		},
+	});
+
+	const { checked: checkAll, setChecked: setCheckAll } = useCheckBox(false);
+	const {
+		checked: checkFirst,
+		toggle: toggleFirst,
+		setChecked: setCheckFirst,
+	} = useCheckBox(false);
+	const {
+		checked: checkSecond,
+		toggle: toggleSecond,
+		setChecked: setCheckSecond,
+	} = useCheckBox(false);
 
 	const onClickToggle = () => {
-		toggleAll();
-		toggleFirst();
-		toggleSecond();
+		const newCheckAll = !checkAll;
+		setCheckAll(newCheckAll);
+		setCheckFirst(newCheckAll);
+		setCheckSecond(newCheckAll);
+	};
+
+	const handleMessage = () => {
+		// 인증번호 전송 로직
+		// 전송 성공
+		setMsg(prev => ({
+			...prev,
+			send: {
+				errors: '',
+				success: '인증번호 발송 완료!',
+			},
+		}));
+		// 전송 실패
+		// setMsg(prev => ({
+		// 	...prev,
+		// 	send: {
+		// 		errors: '인증번호 발송에 실패하였습니다.',
+		// 		success: '',
+		// 	},
+		// }));
+	};
+
+	const handleCheckMessage = () => {
+		// 인증번호 확인 로직
+		// 보냈는데 성공하면
+		setMsg(prev => ({
+			...prev,
+			check: {
+				errors: '',
+				success: '인증번호 확인 완료!',
+			},
+		}));
+		// 인증 번호가 일치하지 않는 경우
+		// setMsg(prev => ({
+		// 	...prev,
+		// 	check: {
+		// 		success: '',
+		// 		errors: '인증번호가 일치하지 않습니다.',
+		// 	},
+		// }));
 	};
 
 	const handleChangeFile = e => {
@@ -59,17 +121,26 @@ const SignupForm = () => {
 					<CustomInput
 						{...signupForm.getTextInputProps('email')}
 						errors={
-							signupForm.touched.email && signupForm.message.errors?.email
+							(signupForm.touched.email && signupForm.message.errors?.email) ||
+							msg.send.errors
 						}
 						size="LG"
 						type="text"
 						placeholder="이름을 입력해 주세요."
 						message={
-							signupForm.touched.email && signupForm.message.errors?.email
+							(signupForm.touched.email && signupForm.message.errors?.email) ||
+							msg.send.success ||
+							msg.send.errors
 						}
+						success={msg.send.success}
 					/>
 				</S.InputWrapper>
-				<CustomButton btnType="primary" label="인증번호 전송" />
+				<CustomButton
+					btnType="primary"
+					label="인증번호 전송"
+					disabled={signupForm.message.errors?.email}
+					onClick={handleMessage}
+				/>
 			</S.InputWithBtn>
 			<S.InputWithBtn>
 				<S.InputWrapper>
@@ -78,9 +149,17 @@ const SignupForm = () => {
 						placeholder="인증번호를 입력해 주세요."
 						size="LG"
 						type="text"
+						errors={msg.check.errors}
+						success={msg.check.success}
+						message={msg.check.success || msg.check.errors}
 					/>
 				</S.InputWrapper>
-				<CustomButton btnType="primary" label="인증번호 확인" disabled={true} />
+				<CustomButton
+					btnType="primary"
+					label="인증번호 확인"
+					disabled={!msg.send.success}
+					onClick={handleCheckMessage}
+				/>
 			</S.InputWithBtn>
 
 			<S.InputWrapper>
@@ -90,14 +169,36 @@ const SignupForm = () => {
 					placeholder="비밀번호를 설정해주세요."
 					size="XL"
 					type="password"
+					errors={
+						signupForm.touched.password && signupForm.message.errors?.password
+					}
+					message={
+						signupForm.touched.password && signupForm.message.errors?.password
+					}
+					success={
+						signupForm.touched.password && signupForm.message.success?.password
+					}
 				/>
 			</S.InputWrapper>
 			<S.InputWrapper>
 				<label>비밀번호 확인</label>
 				<CustomInput
+					{...signupForm.getTextInputProps('passwordCheck')}
 					placeholder="비밀번호를 확인해주세요."
 					size="XL"
 					type="password"
+					errors={
+						signupForm.touched.passwordCheck &&
+						signupForm.message.errors?.passwordCheck
+					}
+					message={
+						signupForm.touched.passwordCheck &&
+						signupForm.message.errors?.passwordCheck
+					}
+					success={
+						signupForm.touched.passwordCheck &&
+						signupForm.message.success?.passwordCheck
+					}
 				/>
 			</S.InputWrapper>
 			<S.InputWrapper>
