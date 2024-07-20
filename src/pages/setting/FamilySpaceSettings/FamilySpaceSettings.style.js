@@ -39,7 +39,7 @@ const InviteLinkInput = styled.input`
   padding: 8px;
   font-size: ${FONT_SIZE.SM};
   border: none;
-  text-decoration: underline;
+  text-decoration: none; /* 밑줄 제거 */
   color: ${COLOR.GRAY.GRAY_900};
 `;
 
