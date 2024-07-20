@@ -1,16 +1,9 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BsXCircle } from "react-icons/bs";
+import * as S from "./PostModal.style";
 
-import {
-  ModalBackground, 
-  ModalContainer, 
-  ModalHeader, 
-  ModalContent,
-  ModalFooter,
-} from './modal.style';
-
-const PublicPostModal = ({
+const PostModal = ({
   isOpen,
   closeModal,
   body,
@@ -48,32 +41,32 @@ const PublicPostModal = ({
   return (
     <>
       {isOpen && (
-      <ModalBackground>
-        <ModalContainer>
-          <ModalHeader>
+      <S.ModalBackground>
+        <S.ModalContainer>
+          <S.ModalHeader>
             <button onClick={closeModal}>
               <BsXCircle />
             </button>
-          </ModalHeader>
-          <ModalContent>
+          </S.ModalHeader>
+          <S.ModalContent>
             {body[step-1]}
-          </ModalContent>
-          <ModalFooter>
+          </S.ModalContent>
+          <S.ModalFooter>
             <button onClick={handleLeftButtonClick}>
-              {step > 1 ? leftButton[step - 2] : ''}
+              {step > 0 ? leftButton[step - 1] : ''}
             </button>
             <button onClick={handleRightButtonClick}>
-              {step < totalSteps ? rightButton[step - 1] : ''}
+              {step < totalSteps + 1 ? rightButton[step - 1] : ''}
             </button>
-          </ModalFooter>
-        </ModalContainer>
-      </ModalBackground>
+          </S.ModalFooter>
+        </S.ModalContainer>
+      </S.ModalBackground>
       )};
     </>
   );
 };
 
-PublicPostModal.propTypes = {
+PostModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
   body: PropTypes.arrayOf(PropTypes.node).isRequired,
@@ -85,4 +78,4 @@ PublicPostModal.propTypes = {
   currentStep: PropTypes.number,
 };
 
-export default PublicPostModal;
+export default PostModal;
