@@ -3,6 +3,7 @@ import useForm from '../../../hooks/useForm';
 import { validateSignUp } from '../../../utils/auth';
 import * as S from './SignupForm.style';
 import { CustomButton, CheckBox, CustomInput } from '../../';
+import useCheckBox from '../../../hooks/useCheckBox';
 
 const SignupForm = () => {
 	const signupForm = useForm({
@@ -15,6 +16,15 @@ const SignupForm = () => {
 	});
 
 	const [file, setFile] = useState(null);
+	const { checked: checkAll, toggle: toggleAll } = useCheckBox(false);
+	const { checked: checkFirst, toggle: toggleFirst } = useCheckBox(false);
+	const { checked: checkSecond, toggle: toggleSecond } = useCheckBox(false);
+
+	const onClickToggle = () => {
+		toggleAll();
+		toggleFirst();
+		toggleSecond();
+	};
 
 	const handleChangeFile = e => {
 		if (e.target.files) {
@@ -111,16 +121,31 @@ const SignupForm = () => {
 				<p>개인정보 처리 및 서비스 이용에 대한 약관에 동의해주세요.</p>
 			</S.TextWrapper>
 			<S.TermsContainer>
-				<CheckBox label="전체 동의" type="outline" size="sm" />
+				<CheckBox
+					label="전체 동의"
+					type="outline"
+					size="sm"
+					checked={checkAll}
+					onChange={onClickToggle}
+				/>
 				<hr />
 				<S.CheckBoxWrapper>
 					<CheckBox
+						checked={checkFirst}
+						onChange={toggleFirst}
 						label="개인정보 처리방침"
 						required
 						type="outline"
 						size="sm"
 					/>
-					<CheckBox label="서비스 이용약관" required type="outline" size="sm" />
+					<CheckBox
+						label="서비스 이용약관"
+						required
+						type="outline"
+						size="sm"
+						checked={checkSecond}
+						onChange={toggleSecond}
+					/>
 				</S.CheckBoxWrapper>
 			</S.TermsContainer>
 			<CustomButton btnType="primary" label="회원가입 완료" width="100%" />
