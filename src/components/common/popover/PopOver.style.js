@@ -18,6 +18,7 @@ export const PopOverContent = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+  cursor: pointer;
 
   p {
     display: flex;

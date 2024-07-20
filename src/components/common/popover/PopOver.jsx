@@ -1,17 +1,17 @@
 import PropTypes from "prop-types";
-import { PopOverContainer, PopOverContent } from "./PopOver.style";
+import * as S from "./PopOver.style";
 
 const PopOver = ({ items }) => {
 
   return (
-    <PopOverContainer>
+    <S.PopOverContainer>
       {items.map((item, index) => (
-        <PopOverContent key={index} onClick={item.onClick}>
+        <S.PopOverContent key={index} onClick={item.onClick}>
           <p>{item.icon}</p>
           <span>{item.message}</span>
-        </PopOverContent>
+        </S.PopOverContent>
       ))}
-    </PopOverContainer>
+    </S.PopOverContainer>
   );
 };
 
