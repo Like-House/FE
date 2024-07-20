@@ -4,7 +4,6 @@ import link from '../../../assets/images/link.png';
 import { Alert, CustomButton, FloatingButton } from '../../../components/index';
 import useModal from '../../../hooks/useModal';
 
-// 랜덤 초대 코드 생성 함수
 const generateInviteCode = () => {
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -22,7 +21,6 @@ function FamilySpaceSettings() {
   const [inviteCode, setInviteCode] = useState('');
 
   useEffect(() => {
-    // 컴포넌트가 처음 렌더링될 때 랜덤 초대 코드 생성
     setInviteCode(generateInviteCode());
   }, []);
 
