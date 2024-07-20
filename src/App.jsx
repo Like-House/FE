@@ -13,6 +13,7 @@ import {
   ServiceMainPage,
   SignupPage,
   FamilySpaceSettings,
+  ChangePassword,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -72,6 +73,7 @@ const router = createBrowserRouter([
         path: `${PAGE_PATH.SETTING}/*`,
         children: [
           { path: 'family-space-settings', element: <FamilySpaceSettings /> },
+          { path: 'change-password', element: <ChangePassword /> },
         ],
       },
     ],

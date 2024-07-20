@@ -9,6 +9,7 @@ import AlertMainPage from './alert/AlertMainPage';
 import CalenderMainPage from './calender/CalenderMainPage';
 import LandingPage from './landing/LadingPage';
 import FamilySpaceSettings from './setting/FamilySpaceSettings/FamilySpaceSettings';
+import ChangePassword from './setting/ChangePassword/ChangePassword';
 
 export {
   MainPage,
@@ -22,4 +23,5 @@ export {
   AlertMainPage,
   CalenderMainPage,
   LandingPage,
+  ChangePassword,
 };
