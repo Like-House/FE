@@ -21,10 +21,19 @@ const LoginForm = () => {
 	const { mutate } = useLogin();
 
 	const handleSubmit = () => {
+		if (loginForm.values.email === '' || loginForm.values.password === '') {
+			loginForm.setTouched({
+				email: true,
+				password: true,
+			});
+			setErrorMessage('이메일 및 비밀번호를 입력해주세요.');
+			return;
+		}
 		mutate(loginForm.values, {
 			onError: error => {
 				console.log(error);
 				if (error.response?.status === 400) {
+					// 에러메세지는 api 연결시 수정
 					setErrorMessage('이메일 및 비밀번호를 다시 확인해주세요.');
 				}
 			},

@@ -35,6 +35,7 @@ function useForm({ initialValue, validate }) {
 		touched,
 		values,
 		message,
+		setTouched,
 	};
 }
 
