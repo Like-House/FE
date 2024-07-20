@@ -95,6 +95,10 @@ const SignupForm = () => {
 		}
 	};
 
+	const handleSubmit = () => {
+		// 여기에 회원가입 전송 로직
+	};
+
 	return (
 		<S.FormContainer>
 			<S.InputWrapper>
@@ -249,7 +253,23 @@ const SignupForm = () => {
 					/>
 				</S.CheckBoxWrapper>
 			</S.TermsContainer>
-			<CustomButton btnType="primary" label="회원가입 완료" width="100%" />
+			<CustomButton
+				btnType="primary"
+				label="회원가입 완료"
+				width="100%"
+				onClick={handleSubmit}
+				disabled={
+					!(
+						signupForm.message.success?.username &&
+						signupForm.message.success?.email &&
+						signupForm.message.success?.password &&
+						signupForm.message.success?.passwordCheck &&
+						msg.send.success &&
+						msg.check.success &&
+						(checkAll || (checkFirst && checkSecond))
+					)
+				}
+			/>
 		</S.FormContainer>
 	);
 };
