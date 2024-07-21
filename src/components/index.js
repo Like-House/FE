@@ -1,6 +1,7 @@
 import Navbar from './common/navbar/Navbar';
 import Footer from './common/footer/Footer';
 import Sidebar from './common/sidebar/SideBar.jsx';
+import PostModal from './common/modal/PostModal.jsx';
 import FloatingButton from './common/floatingbutton/floatingbutton.jsx';
 import Alert from './common/alert/alert.jsx';
 import CustomInput from './common/input/CustomInput';
@@ -22,4 +23,5 @@ export {
   Alert,
   FloatingButton,
   Settingbar,
+  PostModal
 };
