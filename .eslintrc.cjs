@@ -44,5 +44,6 @@ module.exports = {
 				arrowParens: 'avoid',
 			},
 		],
+		"react/prop-types": "off" 
 	},
 };

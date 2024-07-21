@@ -1,19 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-const useDebounce = (value, delay) => {
-	const [debouncedValue, setDebouncedValue] = useState(value);
+const useModal = () => {
+	const [isOpen, setIsOpen] = useState(false);
 
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setDebouncedValue(value);
-		}, delay);
+	const openModal = () => setIsOpen(true);
+	const closeModal = () => setIsOpen(false);
 
-		return () => {
-			clearTimeout(timer);
-		};
-	}, [value, delay]);
-
-	return debouncedValue;
+	return {
+		isOpen,
+		openModal,
+		closeModal,
+	};
 };
 
-export default useDebounce;
+export default useModal;

@@ -1,4 +1,4 @@
-import * as S from "./LandingPage.style";
+import * as S from './LandingPage.style';
 
 function LadingPage() {
   return (
