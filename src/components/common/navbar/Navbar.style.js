@@ -16,6 +16,10 @@ const Logo = styled.h1`
 	font-weight: bold;
 	color: ${theme.COLOR.MAIN.YELLOW};
 	font-size: ${FONT_SIZE.TWO_XL};
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		font-size: ${FONT_SIZE.XL};
+	}
 `;
 const NavContainer = styled.nav`
 	${theme.ALIGN.ROW_CENTER};
@@ -36,6 +40,25 @@ const NavContainer = styled.nav`
 			}
 		}
 	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		display: none;
+	}
 `;
 
-export { Container, Logo, NavContainer };
+const MobileContainer = styled.div`
+	display: none;
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		${theme.ALIGN.ROW_CENTER};
+	}
+
+	svg {
+		cursor: pointer;
+
+		&:hover {
+			color: ${theme.COLOR.MAIN.YELLOW};
+		}
+	}
+`;
+
+export { Container, Logo, NavContainer, MobileContainer };
