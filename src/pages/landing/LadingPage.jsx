@@ -1,5 +1,4 @@
-import * as S from "./LandingPage.style";
-import CheckBox from "../../components/common/checkbox/CheckBox";
+import * as S from './LandingPage.style';
 
 function LadingPage() {
 	return (
