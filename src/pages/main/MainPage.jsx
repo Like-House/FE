@@ -6,10 +6,18 @@ import Avatar from "../../components/common/avatar/Avatar.jsx";
 const MainPage = () => {
   const [showMenu, setShowMenu] = useState(null);
   const [likes, setLikes] = useState(
-    boardList.reduce((acc, post) => ({ ...acc, [post.id]: post.likes }), {}));
+    boardList.reduce((acc, post) => ({ ...acc, [post.id]: { count: post.likes, liked: false } }), {})
+  );
 
   const handleLike = (postid) => {
-    setLikes(prev => ({ ...prev, [postid]: (prev[postid] || 0) + 1 }));
+    setLikes(prev => {
+      const currentLike = prev[postid];
+      const newCount = currentLike.liked ? currentLike.count - 1 : currentLike.count + 1;
+      return {
+        ...prev,
+        [postid]: { count: newCount, liked: !currentLike.liked }
+      };
+    });
   };
 
 
@@ -40,7 +48,7 @@ const MainPage = () => {
                 <S.Content>{post.content}</S.Content>
                 {post.photo && <S.Photo src={post.photo} alt="post photo" />}
                 <S.Footer>
-                  <p onClick={() => handleLike(post.id)}>좋아요 {likes[post.id]}</p>
+                  <p onClick={() => handleLike(post.id)}>좋아요 {likes[post.id].count}</p>
                   <p>댓글 {post.comments}</p>
                 </S.Footer>
               </S.Board>

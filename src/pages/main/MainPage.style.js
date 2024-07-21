@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import RESPONSIVE_SIZE from "../../theme/theme";
 
 const PostContainer = styled.div`
   display: flex;
