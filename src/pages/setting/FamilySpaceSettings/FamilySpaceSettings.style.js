@@ -39,7 +39,7 @@ const InviteLinkInput = styled.input`
   padding: 8px;
   font-size: ${FONT_SIZE.SM};
   border: none;
-  text-decoration: none; /* 밑줄 제거 */
+  text-decoration: none;
   color: ${COLOR.GRAY.GRAY_900};
 `;
 
@@ -53,9 +53,22 @@ const Content = styled.div`
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.02);
 `;
 
+const ExpirationNotice = styled.p`
+  color: ${COLOR.GRAY.GRAY_200};
+  font-size: ${FONT_SIZE.XS};
+  margin-top: -15px;
+  margin-left: 10px;
+`;
+
 const Icon = styled.img`
   width: 30px;
   height: 30px;
+`;
+
+const IconButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
 `;
 
 export {
@@ -66,5 +79,7 @@ export {
   DeleteComment,
   InviteLinkInput,
   Content,
+  ExpirationNotice,
   Icon,
+  IconButton,
 };

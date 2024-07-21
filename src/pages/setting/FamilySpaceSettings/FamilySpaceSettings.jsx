@@ -1,50 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import * as S from './FamilySpaceSettings.style';
 import link from '../../../assets/images/link.png';
-import { Alert, CustomButton, FloatingButton } from '../../../components/index';
+import { Alert, CustomButton, Tooltip } from '../../../components/index';
 import useModal from '../../../hooks/useModal';
-
-const generateInviteCode = () => {
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let inviteCode = '';
-  for (let i = 0; i < 12; i++) {
-    inviteCode += characters.charAt(
-      Math.floor(Math.random() * characters.length)
-    );
-  }
-  return inviteCode;
-};
 
 function FamilySpaceSettings() {
   const { isOpen, openModal, closeModal } = useModal();
-  const [inviteCode, setInviteCode] = useState('');
-
-  useEffect(() => {
-    setInviteCode(generateInviteCode());
-  }, []);
+  const [inviteCode, setInviteCode] = useState('dlrjszheozhem12');
 
   const handleConfirm = () => {
     console.log('Confirmed!');
     closeModal();
   };
 
-  const handleInviteCodeChange = (event) => {
-    setInviteCode(event.target.value);
+  const handleRegenerateCode = () => {
+    setInviteCode('newcode123456');
   };
 
   return (
     <S.FamilySpaceSettingsContainer>
       <S.Title>가족 공간 초대 코드</S.Title>
       <S.Content>
-        <S.InviteLinkInput
-          type='text'
-          value={inviteCode}
-          onChange={handleInviteCodeChange}
-          readOnly={false}
-        />
-        <S.Icon src={link} alt='link Icon' />
+        <S.InviteLinkInput type='text' value={inviteCode} readOnly />
+        <Tooltip text='코드 재발급' size='sm' position='top'>
+          <S.IconButton onClick={handleRegenerateCode}>
+            <S.Icon src={link} alt='link Icon' />
+          </S.IconButton>
+        </Tooltip>
       </S.Content>
+      <S.ExpirationNotice>초대 코드는 7일 후 만료됩니다.</S.ExpirationNotice>
 
       <S.SettingsSection>
         <S.DeleteContainer>
