@@ -2,12 +2,22 @@ import { useState } from "react";
 import * as S from "./MainPage.style.js";
 import boardList from "../../constants/boardList";
 import Avatar from "../../components/common/avatar/Avatar.jsx";
+import CustomButton from "../../components/common/button/CustomButton.jsx";
 
 const MainPage = () => {
   const [showMenu, setShowMenu] = useState(null);
   const [likes, setLikes] = useState(
     boardList.reduce((acc, post) => ({ ...acc, [post.id]: { count: post.likes, liked: false } }), {})
   );
+
+  const [comments, setComments] = useState(
+    boardList.reduce((acc, post) => ({ ...acc, [post.id]: [] }), {})
+  );
+  const [commentCounts, setCommentCounts] = useState(
+    boardList.reduce((acc, post) => ({ ...acc, [post.id]: post.comments }), {})
+  );
+  const [commentInputs, setCommentInputs] = useState({});
+  const [showCommentInput, setShowCommentInput] = useState({});
 
   const handleLike = (postid) => {
     setLikes(prev => {
@@ -18,6 +28,35 @@ const MainPage = () => {
         [postid]: { count: newCount, liked: !currentLike.liked }
       };
     });
+  };
+
+  const handleCommentClick = (postid) => {
+    setShowCommentInput(prev => ({
+      ...prev,
+      [postid]: !prev[postid] // 클릭 시 상태 토글
+    }));
+    if (!showCommentInput[postid]) {
+      setCommentInputs(prev => ({ ...prev, [postid]: "" })); // 댓글 입력 초기화
+    }
+  };
+
+  const handleCommentChange = (postid, value) => {
+    setCommentInputs(prev => ({ ...prev, [postid]: value }));
+  };
+
+  const handleCommentSubmit = (postid) => {
+    if (commentInputs[postid]) {
+      setComments(prev => ({
+        ...prev,
+        [postid]: [...prev[postid], commentInputs[postid]]
+      }));
+      setCommentCounts(prev => ({
+        ...prev,
+        [postid]: prev[postid] + 1
+      }));
+
+      setCommentInputs(prev => ({ ...prev, [postid]: "" }));
+    }
   };
 
 
@@ -49,8 +88,36 @@ const MainPage = () => {
                 {post.photo && <S.Photo src={post.photo} alt="post photo" />}
                 <S.Footer>
                   <p onClick={() => handleLike(post.id)}>좋아요 {likes[post.id].count}</p>
-                  <p>댓글 {post.comments}</p>
+                  <p onClick={() => handleCommentClick(post.id)}>댓글 {commentCounts[post.id]}</p>
                 </S.Footer>
+
+                {/* 댓글 입력 필드와 제출 버튼 */}
+                {showCommentInput[post.id] && (
+                  <S.CommentInput>
+                    <input 
+                      type="text"
+                      value={commentInputs[post.id]}
+                      onChange={(e) => handleCommentChange(post.id, e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          handleCommentSubmit(post.id);
+                        }
+                      }}
+                      placeholder="댓글 달기"
+                    />
+                    <CustomButton
+                      btnType="secondary"
+                      label="댓글 달기"
+                      disabled={!commentInputs[post.id] || commentInputs[post.id].trim() === ""}
+                      onClick={() => handleCommentSubmit(post.id)}
+                      width="140px"
+                    />
+                  </S.CommentInput>
+                )}
+                {comments[post.id] && comments[post.id].map((comment, index) => (
+                  <S.Comment key={index}>{comment}</S.Comment>
+                ))}
+
               </S.Board>
             </S.PostWrapper>
             <S.Divider />

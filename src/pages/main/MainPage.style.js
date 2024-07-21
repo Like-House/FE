@@ -14,11 +14,13 @@ const PostList = styled.div`
   width: 1200px;
 
   @media (max-width: 768px) { /* 화면 너비가 768px 이하일 때 */
-    width: 90%; /* 너비를 90%로 줄임 */
+    width: 90%;
+    min-width: auto;
   }
 
   @media (max-width: 480px) { /* 화면 너비가 480px 이하일 때 */
-    width: 100%; /* 최대 너비를 100%로 설정 */
+    width: 100%;
+    min-width: auto;
   }
 `;
 
@@ -138,6 +140,24 @@ const Footer = styled.div`
   }
 `;
 
+const CommentInput = styled.div`
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+
+
+  input {
+    width: 400px;
+    border: none;
+    outline: none;
+    background-color: #FAFAFA;
+  }
+`;
+
+const Comment = styled.div`
+  margin: 30px 0 0 0;
+`;
+
 export {
   PostContainer,
   PostList,
@@ -155,5 +175,7 @@ export {
   Divider,
   Menu,
   MenuButton,
-  MenuItem
+  MenuItem,
+  CommentInput,
+  Comment
 }
