@@ -17,7 +17,7 @@ const SideContainer = styled.div`
 	width: 25%;
 	height: 100%;
 	padding: 0 40px;
-	border-right: 8px solid #f6f6f6;
+	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 
 	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
 		width: 30%;
@@ -107,6 +107,7 @@ const Picture = styled.img`
   object-fit: cover;
   border-radius: 12px;
   aspect-ratio: 7/5;
+  cursor: pointer;
 `;
 
 export {
