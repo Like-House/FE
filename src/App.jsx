@@ -73,7 +73,7 @@ const router = createBrowserRouter([
         path: `${PAGE_PATH.SETTING}/*`,
         children: [
           { path: 'family-space-settings', element: <FamilySpaceSettings /> },
-          { path: 'logout', element: <Logout /> },
+          { path: `${PAGE_PATH.LOGOUT}`, element: <Logout /> },
         ],
       },
     ],
