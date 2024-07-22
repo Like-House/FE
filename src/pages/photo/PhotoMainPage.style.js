@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import theme from '../../theme/theme';
-import { FONT_SIZE } from '../../constants/size';
+import { RESPONSIVE_SIZE, FONT_SIZE } from '../../constants/size';
 
 const MainContainer = styled.div`
 	display: flex;
@@ -18,6 +18,17 @@ const SideContainer = styled.div`
 	height: 100%;
 	padding: 0 40px;
 	border-right: 8px solid #f6f6f6;
+
+	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
+		width: 30%;
+		padding: 0 20px;
+	}
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		width: 100%;
+		padding: 0 10px;
+		border-right: none;
+	}
 `;
 
 const AlbumContainer = styled.div`
@@ -25,10 +36,19 @@ const AlbumContainer = styled.div`
 	height: 100%;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-	justify-content: flex-start;
-	grid-gap: 28px 32px;
+  grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
+	grid-gap: 28px;
 	overflow-y: auto;
 	padding: 20px 80px;
+
+	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
+		width: 70%;
+		padding: 10px 20px;
+	}
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		width: 100%;
+		padding: 10px 10px;
+	}
 `;
 
 const Title = styled.div`
@@ -55,6 +75,17 @@ const DropdownWrapper = styled.div`
 	& > div {
 		width: 100%;
 	}
+
+	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
+		& > div {
+			max-width: 300px;
+		}
+	}
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		& > div {
+			max-width: 100%;
+		}
+	}
 `;
 
 const DropdownLabel = styled.div`
@@ -62,18 +93,20 @@ const DropdownLabel = styled.div`
 `;
 
 const PictureArea = styled.div`
-	position: relative;
-	color: white;
-	box-sizing: border-box;
-	border-radius: 12px;
-	aspect-ratio: 7/5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 7/5;
 `;
 
 const Picture = styled.img`
-	width: 100%;
-	height: 100%;
-	border-radius: 12px;
-	object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  aspect-ratio: 7/5;
 `;
 
 export {
