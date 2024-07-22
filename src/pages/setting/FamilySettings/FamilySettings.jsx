@@ -51,10 +51,16 @@ function FamilySettings() {
       setFamilyMembers(
         familyMembers.filter((member) => member !== selectedMember)
       );
+    } else if (selectedAction === 'unblock') {
+      setBlockedMembers(
+        blockedMembers.filter((member) => member !== selectedMember)
+      );
+      setFamilyMembers([...familyMembers, selectedMember]);
     }
     setIsEditing(null);
     closeModal();
     setAlert(true);
+    setSelectedAction(null); // Reset selectedAction
   };
 
   const handleCancel = () => {
@@ -74,11 +80,6 @@ function FamilySettings() {
   };
 
   const handleSecondModalConfirm = () => {
-    if (selectedAction === 'unblock') {
-      setBlockedMembers(
-        blockedMembers.filter((member) => member !== selectedMember)
-      );
-    }
     setAlert(false);
   };
 
