@@ -82,7 +82,6 @@ function FamilyMain() {
             onChange={(e) =>
               setTempMember({ ...tempMember, name: e.target.value })
             }
-            size='XL'
             name='name'
             type='text'
             placeholder='가족을 부를 명칭을 입력해주세요.'
@@ -96,7 +95,6 @@ function FamilyMain() {
                 description: e.target.value,
               })
             }
-            size='XL'
             name='description'
             type='text'
             placeholder='여기에 입력해주세요.'
