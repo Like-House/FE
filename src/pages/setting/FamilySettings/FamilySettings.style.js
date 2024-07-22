@@ -5,7 +5,7 @@ import { FONT_SIZE } from '../../../constants/size';
 const { COLOR } = theme;
 
 const Container = styled.div`
-  padding: 30px;
+  padding: 50px;
 `;
 
 const Section = styled.div`
@@ -20,6 +20,7 @@ const SectionTitle = styled.h2`
 const FamilyList = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 50px;
 `;
 
 const FamilyMember = styled.div`
@@ -56,6 +57,12 @@ const Actions = styled.div`
   gap: 10px;
 `;
 
+const EmptyMessage = styled.div`
+  font-size: 16px;
+  color: ${COLOR.GRAY.GRAY_500};
+  margin-top: 20px;
+`;
+
 export {
   Container,
   Section,
@@ -67,4 +74,5 @@ export {
   MemberName,
   MemberRole,
   Actions,
+  EmptyMessage,
 };

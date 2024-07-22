@@ -34,6 +34,7 @@ function FamilySettings() {
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1iHaiD-giZi3Jqu-1Pm-5RK-CQHisYtiwAQ&s',
     },
   ]);
+  const [blockedMembers, setBlockedMembers] = useState([]);
   const [selectedMember, setSelectedMember] = useState(null);
   const [selectedAction, setSelectedAction] = useState(null);
   const [alert, setAlert] = useState(false);
@@ -41,18 +42,22 @@ function FamilySettings() {
   const { isOpen, openModal, closeModal } = useModal();
 
   const handleConfirm = () => {
-    console.log('Confirmed!', selectedMember, selectedAction);
-    const updatedMembers = familyMembers.filter(
-      (member) => member !== selectedMember
-    );
-    setFamilyMembers(updatedMembers);
+    if (selectedAction === 'block') {
+      setBlockedMembers([...blockedMembers, selectedMember]);
+      setFamilyMembers(
+        familyMembers.filter((member) => member !== selectedMember)
+      );
+    } else if (selectedAction === 'release') {
+      setFamilyMembers(
+        familyMembers.filter((member) => member !== selectedMember)
+      );
+    }
     setIsEditing(null);
     closeModal();
     setAlert(true);
   };
 
   const handleCancel = () => {
-    console.log('Cancelled!');
     closeModal();
   };
 
@@ -61,14 +66,26 @@ function FamilySettings() {
   };
 
   const handleOpenModal = (index, action) => {
-    setSelectedMember(familyMembers[index]);
+    setSelectedMember(
+      action === 'unblock' ? blockedMembers[index] : familyMembers[index]
+    );
     setSelectedAction(action);
     openModal();
   };
 
   const handleSecondModalConfirm = () => {
+    if (selectedAction === 'unblock') {
+      setBlockedMembers(
+        blockedMembers.filter((member) => member !== selectedMember)
+      );
+    }
     setAlert(false);
-    console.log('Second Confirmed!');
+  };
+
+  const handleUnblock = (index) => {
+    setSelectedMember(blockedMembers[index]);
+    setSelectedAction('unblock');
+    openModal();
   };
 
   return (
@@ -134,6 +151,37 @@ function FamilySettings() {
             </S.FamilyMember>
           ))}
         </S.FamilyList>
+        <S.SectionTitle>차단 목록</S.SectionTitle>
+        <S.FamilyList>
+          {blockedMembers.length === 0 ? (
+            <S.EmptyMessage>차단된 가족이 없습니다.</S.EmptyMessage>
+          ) : (
+            blockedMembers.map((member, index) => (
+              <S.FamilyMember key={index}>
+                <S.MemberInfo>
+                  <Avatar
+                    src={member.imgSrc}
+                    size='md'
+                    shape='circle'
+                    alt={`${member.name} avatar`}
+                  />
+                  <S.MemberDetails>
+                    <S.MemberName>{member.name}</S.MemberName>
+                    <S.MemberRole>{member.role}</S.MemberRole>
+                  </S.MemberDetails>
+                </S.MemberInfo>
+                <S.Actions>
+                  <CustomButton
+                    btnType='outline'
+                    outlineColor={COLOR.MAIN.YELLOW}
+                    label='차단 해제'
+                    onClick={() => handleOpenModal(index, 'unblock')}
+                  />
+                </S.Actions>
+              </S.FamilyMember>
+            ))
+          )}
+        </S.FamilyList>
       </S.Section>
 
       {alert && (
@@ -142,9 +190,24 @@ function FamilySettings() {
           message={
             selectedAction === 'release'
               ? '해당 가족이 해제되었습니다.'
-              : '해당 가족이 차단되었습니다.'
+              : selectedAction === 'block'
+                ? '해당 가족이 차단되었습니다.'
+                : '해당 가족이 차단 해제되었습니다.'
           }
           onConfirm={handleSecondModalConfirm}
+        />
+      )}
+
+      {isOpen && selectedAction === 'unblock' && (
+        <Alert
+          isOpen={isOpen}
+          message='해당 가족을 차단 해제할까요?'
+          detailMessage='이 가족을 차단 해제하면 차단 목록에서 보이지 않게 됩니다. 해당 가족은 다시 가족으로 추가하여 가족 공간에 참여할 수 있습니다.'
+          onConfirm={() => {
+            handleConfirm();
+            setAlert(true);
+          }}
+          onCancel={handleCancel}
         />
       )}
     </S.Container>
