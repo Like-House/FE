@@ -27,20 +27,12 @@ const Title = styled.div`
 const ProfilePictureContainer = styled.div`
   display: flex;
   align-items: center;
+  gap: 20px;
   margin-bottom: 40px;
 `;
 
 const Button = styled.div`
   margin-bottom: 115px;
-`;
-
-const ProfilePicture = styled.img`
-  width: 150px;
-  height: 150px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  margin-right: 20px;
-  background-color: ${COLOR.GRAY.GRAY_200};
 `;
 
 const FileInput = styled.input`
@@ -69,7 +61,6 @@ export {
   Title,
   ProfilePictureContainer,
   Button,
-  ProfilePicture,
   FileInput,
   Field,
   Label,

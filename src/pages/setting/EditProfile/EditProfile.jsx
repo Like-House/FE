@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import * as S from './EditProfile.style';
-import { CustomButton, CustomInput, Alert } from '../../../components/index';
+import {
+  CustomButton,
+  CustomInput,
+  Alert,
+  Avatar,
+} from '../../../components/index';
 
 const EditProfile = () => {
   const [name, setName] = useState('');
@@ -56,11 +61,13 @@ const EditProfile = () => {
       <S.Field>
         <S.Title>프로필 사진</S.Title>
         <S.ProfilePictureContainer>
-          <S.ProfilePicture
+          <Avatar
             src={
               profilePicture ||
               'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"%3E%3Crect width="100%25" height="100%25" fill="%23e0e0e0"/%3E%3C/svg%3E'
             }
+            size='four_xl'
+            shape='rect'
             alt='프로필 사진'
           />
           <S.Button>
