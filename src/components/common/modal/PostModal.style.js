@@ -70,6 +70,7 @@ export const ModalFooter = styled.div`
     width: 80px;
     height: 30px;
     border-radius: 7px;
+    border: none;
     ${theme.ALIGN.ROW_CENTER};
 
     background-color: ${theme.COLOR.YELLOW.YELLOW_300};
