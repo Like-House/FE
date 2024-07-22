@@ -73,7 +73,7 @@ const router = createBrowserRouter([
         path: `${PAGE_PATH.SETTING}/*`,
         children: [
           { path: 'family-space-settings', element: <FamilySpaceSettings /> },
-          { path: 'my-posts', element: <MyPosts /> },
+          { path: `${PAGE_PATH.MY_POSTS}`, element: <MyPosts /> },
         ],
       },
     ],
