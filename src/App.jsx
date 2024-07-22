@@ -73,7 +73,10 @@ const router = createBrowserRouter([
         path: `${PAGE_PATH.SETTING}/*`,
         children: [
           { path: 'family-space-settings', element: <FamilySpaceSettings /> },
-          { path: 'notification-settings', element: <NotificationSettings /> },
+          {
+            path: `${PAGE_PATH.NOTIFICATION_SETTINGS}`,
+            element: <NotificationSettings />,
+          },
         ],
       },
     ],
