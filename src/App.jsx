@@ -73,7 +73,7 @@ const router = createBrowserRouter([
         path: `${PAGE_PATH.SETTING}/*`,
         children: [
           { path: 'family-space-settings', element: <FamilySpaceSettings /> },
-          { path: 'delete-account', element: <DeleteAccount /> },
+          { path: `${PAGE_PATH.DELETE_ACCOUNT}`, element: <DeleteAccount /> },
         ],
       },
     ],
