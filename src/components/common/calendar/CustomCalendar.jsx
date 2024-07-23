@@ -2,20 +2,42 @@ import { toDate } from 'date-fns-tz';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import * as S from './CustomCalendar.style';
 import { DAY_OF_WEEK } from '../../../constants';
-import { getDayList, isCurrentMonth } from '../../../utils/time';
+import { getDayList, isCurrentMonth } from '../../../utils';
 import useCalender from '../../../hooks/useCalender';
+import { FaStar } from 'react-icons/fa';
+import { SlPresent } from 'react-icons/sl';
+import theme from '../../../theme/theme';
 
-const CustomCalendar = ({ size, background }) => {
+const CustomCalendar = ({ size, background, events }) => {
 	const {
 		handleDayClick,
 		handleLeftClick,
 		handleRightClick,
 		selectedYearAndMonth,
 		selectedTimestamp,
-		date,
 	} = useCalender();
 
-	console.log(date);
+	const hasEvent = (timestamp, events) => {
+		const event = events.find(e => {
+			const eventDate = new Date(e.date);
+			return (
+				eventDate.getFullYear() === selectedYearAndMonth.year &&
+				eventDate.getMonth() === selectedYearAndMonth.month &&
+				eventDate.getDate() === new Date(timestamp).getDate()
+			);
+		});
+		return event ? event.type : null;
+	};
+
+	const getIcon = type => {
+		if (type === 'birthday') {
+			return <SlPresent color={theme.COLOR.YELLOW.YELLOW_800} />;
+		}
+		if (type === 'important') {
+			return <FaStar color={theme.COLOR.YELLOW.YELLOW_500} />;
+		}
+		return null;
+	};
 
 	return (
 		<S.Container $size={size} $background={background}>
@@ -38,18 +60,18 @@ const CustomCalendar = ({ size, background }) => {
 					{getDayList(
 						selectedYearAndMonth.year,
 						selectedYearAndMonth.month,
-					).map(timestamp => (
+					).map(e => (
 						<S.Day
 							$size={size}
-							key={timestamp}
-							$isSelected={timestamp === selectedTimestamp}
-							$isCurrentMonth={isCurrentMonth(
-								timestamp,
-								selectedYearAndMonth.month,
-							)}
-							onClick={handleDayClick(timestamp)}
+							key={e}
+							$isSelected={e === selectedTimestamp}
+							$isCurrentMonth={isCurrentMonth(e, selectedYearAndMonth.month)}
+							onClick={handleDayClick(e)}
 						>
-							<p> {toDate(timestamp, { timeZone: 'Asia/Seoul' }).getDate()}</p>
+							<span>{toDate(e, { timeZone: 'Asia/Seoul' }).getDate()}</span>
+							{size === 'LG' && events && hasEvent(e, events) && (
+								<p>{getIcon(hasEvent(e, events))}</p>
+							)}
 						</S.Day>
 					))}
 				</S.DayWrapper>

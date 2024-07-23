@@ -1,7 +1,7 @@
 import { toDate } from 'date-fns-tz';
 import { useEffect, useState } from 'react';
 
-const useCalender = () => {
+const useCalendar = () => {
 	const nowDate = toDate(Date.now(), { timeZone: 'Asia/Seoul' });
 
 	const [selectedYearAndMonth, setSelectedYearAndMonth] = useState({
@@ -13,26 +13,28 @@ const useCalender = () => {
 		nowDate.setHours(0, 0, 0, 0),
 	);
 
-	const [date, setDate] = useState(null);
+	const [date, setDate] = useState(new Date(nowDate).toISOString());
 
 	const handleLeftClick = () => {
 		if (selectedYearAndMonth.month === 0) {
-			return setSelectedYearAndMonth(prev => ({
+			setSelectedYearAndMonth(prev => ({
 				year: prev.year - 1,
 				month: 11,
 			}));
+		} else {
+			setSelectedYearAndMonth(prev => ({ ...prev, month: prev.month - 1 }));
 		}
-		setSelectedYearAndMonth(prev => ({ ...prev, month: prev.month - 1 }));
 	};
 
 	const handleRightClick = () => {
 		if (selectedYearAndMonth.month === 11) {
-			return setSelectedYearAndMonth(prev => ({
+			setSelectedYearAndMonth(prev => ({
 				year: prev.year + 1,
 				month: 0,
 			}));
+		} else {
+			setSelectedYearAndMonth(prev => ({ ...prev, month: prev.month + 1 }));
 		}
-		setSelectedYearAndMonth(prev => ({ ...prev, month: prev.month + 1 }));
 	};
 
 	const handleDayClick = timestamp => () => {
@@ -45,7 +47,7 @@ const useCalender = () => {
 			year: selectedDate.getFullYear(),
 			month: selectedDate.getMonth(),
 		});
-		setDate(selectedDate.toISOString());
+		setDate(new Date(selectedDate).toISOString());
 	}, [selectedTimestamp]);
 
 	return {
@@ -58,4 +60,4 @@ const useCalender = () => {
 	};
 };
 
-export default useCalender;
+export default useCalendar;

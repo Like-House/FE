@@ -70,22 +70,31 @@ const DayWrapper = styled.div`
 
 const Day = styled.div`
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+
 	height: ${props =>
 		props.$size === 'BASE' ? '60px' : props.$size === 'LG' ? '50px' : '35px'};
-	color: ${props =>
-		props.$isSelected ? theme.COLOR.COMMON.WHITE : theme.COLOR.COMMON.BLACK};
+
 	opacity: ${props => (props.$isCurrentMonth ? 1 : 0.1)};
 	font-size: ${FONT_SIZE.SM};
 	cursor: pointer;
 
-	p {
+	span {
+		color: ${props =>
+			props.$isSelected ? theme.COLOR.COMMON.WHITE : theme.COLOR.COMMON.BLACK};
 		${theme.ALIGN.ROW_CENTER};
 		width: 25px;
 		height: 25px;
 		border-radius: 50%;
 		background: ${props =>
 			props.$isSelected ? theme.COLOR.YELLOW.YELLOW_500 : 'transparent'};
+	}
+
+	svg {
+		width: 10px;
+		height: 10px;
 	}
 `;
 
