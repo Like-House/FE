@@ -16,12 +16,11 @@ const PhotoMainPage = () => {
 
 	const handleSelect = op => {
 		setSelectedOp(op);
-		console.log(op);
 	};
 
-	const filteredPicture = selectedOp
-		? pictureData.pictures.filter(picture => picture.op === selectedOp)
-		: pictureData.pictures;
+	const filteredPicture = pictureData.pictures.filter(picture => {
+		return !selectedOp || picture.op === selectedOp;
+	});
 
 	const handleClickOutside = event => {
 		if (
@@ -79,7 +78,7 @@ const PhotoMainPage = () => {
 			<S.ToggleButton onClick={() => setShowSideContent(!showSideContent)}>
 				{showSideContent ? 'Close' : 'Open'}
 			</S.ToggleButton>
-			<S.AlbumContainer>
+			<S.AlbumContainer show={showSideContent}>
 				{filteredPicture.map(picture => (
 					<S.PictureArea key={picture.id}>
 						<S.Picture src={picture.img} />

@@ -20,7 +20,8 @@ const SideContainer = styled.div`
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 
 	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
-		width: 100%;
+		width: 30%;
+		padding: 0 20px;
 		display: ${({ show }) => (show ? 'flex' : 'none')};
 	}
 `;
@@ -30,7 +31,6 @@ const ToggleButton = styled.button`
 	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
 		display: block;
 		height: 30px;
-		padding: 10px 20px;
 		background-color: ${theme.COLOR.YELLOW.YELLOW_200};
 		color: ${theme.COLOR.COMMON.BLACK};
 		border: none;
@@ -67,7 +67,7 @@ const Title = styled.div`
 const CalendarContainer = styled.div`
 	width: 100%;
 	height: 300px;
-  display: ${({ show }) => (show ? 'block' : 'none')};
+	display: ${({ show }) => (show ? 'block' : 'none')};
 `;
 
 const CalenderLabel = styled.div`
