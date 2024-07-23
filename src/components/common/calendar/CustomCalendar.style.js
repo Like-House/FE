@@ -17,7 +17,6 @@ const Container = styled.div`
 	width: 100%;
 	min-width: 230px;
 	max-width: ${props => getSize(props.$size)};
-	/* height: 350px; */
 	border-radius: 10px;
 	box-shadow: ${props =>
 		props.$background ? ' 0px 4px 10px 0px rgba(0, 0, 0, 0.02)' : 'none'};
