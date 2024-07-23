@@ -38,6 +38,10 @@ const router = createBrowserRouter([
 				path: `${PAGE_PATH.QNA}`,
 				element: <QnaPage />,
 			},
+			{
+				path: `${PAGE_PATH.SERVICE}`,
+				element: <ServiceMainPage />,
+			},
 		],
 	},
 	{
@@ -67,10 +71,6 @@ const router = createBrowserRouter([
 			{
 				path: `${PAGE_PATH.PHOTO}`,
 				element: <PhotoMainPage />,
-			},
-			{
-				path: `${PAGE_PATH.SERVICE}`,
-				element: <ServiceMainPage />,
 			},
 			{
 				path: `${PAGE_PATH.SETTING}`,
