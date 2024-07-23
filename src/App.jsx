@@ -10,6 +10,7 @@ import {
 	LoginPage,
 	MainPage,
 	PhotoMainPage,
+	QnaPage,
 	ServiceMainPage,
 	SettingMainPage,
 	SignupPage,
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
 			{
 				path: `${PAGE_PATH.SIGN_UP}`,
 				element: <SignupPage />,
+			},
+			{
+				path: `${PAGE_PATH.QNA}`,
+				element: <QnaPage />,
 			},
 		],
 	},
