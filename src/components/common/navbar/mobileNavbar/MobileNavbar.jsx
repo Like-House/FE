@@ -17,13 +17,13 @@ const MobileNavbar = () => {
 	if (login) {
 		content = (
 			<S.NavContainer>
-				<NavLink to={`${PAGE_PATH.BASE}`} onClick={handleClick}>
+				<NavLink to={`${PAGE_PATH.SERVICE}`} onClick={handleClick}>
 					서비스 이용
 				</NavLink>
 				<NavLink to={`${PAGE_PATH.HOME}`} onClick={handleClick}>
 					가족 공간
 				</NavLink>
-				<NavLink to={'/아직 어디로 갈지 몰라'} onClick={handleClick}>
+				<NavLink to={`${PAGE_PATH.EDIT_PROFILE}`} onClick={handleClick}>
 					마이 페이지
 				</NavLink>
 			</S.NavContainer>
@@ -31,7 +31,7 @@ const MobileNavbar = () => {
 	} else {
 		content = (
 			<S.NavContainer>
-				<NavLink to={`${PAGE_PATH.BASE}`} onClick={handleClick}>
+				<NavLink to={`${PAGE_PATH.SERVICE}`} onClick={handleClick}>
 					서비스 이용
 				</NavLink>
 				<NavLink to={`${PAGE_PATH.LOGIN}`} onClick={handleClick}>

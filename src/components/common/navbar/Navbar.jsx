@@ -20,9 +20,9 @@ function Navbar() {
 	if (login) {
 		content = (
 			<S.NavContainer>
-				<NavLink to={`${PAGE_PATH.BASE}`}>서비스 이용</NavLink>
+				<NavLink to={`${PAGE_PATH.SERVICE}`}>서비스 이용</NavLink>
 				<NavLink to={`${PAGE_PATH.HOME}`}>가족 공간</NavLink>
-				<NavLink to={'/아직 어디로 갈지 몰라'}>
+				<NavLink to={`${PAGE_PATH.EDIT_PROFILE}`}>
 					<p>
 						<Avatar src={data.img} size="sm" />
 						{data.username}
@@ -33,7 +33,7 @@ function Navbar() {
 	} else {
 		content = (
 			<S.NavContainer>
-				<NavLink to={`${PAGE_PATH.BASE}`}>서비스 이용</NavLink>
+				<NavLink to={`${PAGE_PATH.SERVICE}`}>서비스 이용</NavLink>
 				<NavLink to={`${PAGE_PATH.LOGIN}`}>로그인</NavLink>
 				<NavLink to={`${PAGE_PATH.SIGN_UP}`}>회원가입</NavLink>
 				<NavLink to={'/아직 어디로 갈지 몰라'}>Q/A</NavLink>
