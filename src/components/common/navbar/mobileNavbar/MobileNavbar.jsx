@@ -40,7 +40,7 @@ const MobileNavbar = () => {
 				<NavLink to={`${PAGE_PATH.SIGN_UP}`} onClick={handleClick}>
 					회원가입
 				</NavLink>
-				<NavLink to={'/아직 어디로 갈지 몰라'} onClick={handleClick}>
+				<NavLink to={`${PAGE_PATH.QNA}`} onClick={handleClick}>
 					Q/A
 				</NavLink>
 			</S.NavContainer>

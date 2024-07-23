@@ -6,7 +6,7 @@ import { MobileNavbar, Avatar } from '../../';
 import useModalStore from '../../../store/useModalStore';
 
 function Navbar() {
-	// Q/A 경로 수정 & 이름 클릭시 이동 경로 수정 필요 (모바일에는 마이페이지로 해놨으나 수정 필요) & 로그인 유지 로직 변경 예정
+	// 경로 수정 필요  & 로그인 유지 로직 변경 예정
 	const { open } = useModalStore(state => state);
 
 	const data = {
@@ -36,7 +36,7 @@ function Navbar() {
 				<NavLink to={`${PAGE_PATH.SERVICE}`}>서비스 이용</NavLink>
 				<NavLink to={`${PAGE_PATH.LOGIN}`}>로그인</NavLink>
 				<NavLink to={`${PAGE_PATH.SIGN_UP}`}>회원가입</NavLink>
-				<NavLink to={'/아직 어디로 갈지 몰라'}>Q/A</NavLink>
+				<NavLink to={`${PAGE_PATH.QNA}`}>Q/A</NavLink>
 			</S.NavContainer>
 		);
 	}
