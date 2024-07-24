@@ -46,6 +46,7 @@ const InviteLinkInput = styled.input`
 const Content = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 20px;
   background-color: ${COLOR.COMMON.WHITE};
   padding: 8px;
@@ -69,6 +70,37 @@ const IconButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
+  margin-left: 10px;
+`;
+
+const CustomButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: ${(props) => props.width || '80px'};
+  height: ${(props) => props.height || '30px'};
+  background-color: ${COLOR.YELLOW.YELLOW_1000};
+  color: ${COLOR.COMMON.WHITE};
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: ${FONT_SIZE.XS};
+  white-space: nowrap;
+  margin-bottom: 10px;
+
+  &:hover {
+    transform: scale(0.99);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    transform: scale(1);
+  }
+`;
+
+const CodeContent = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 export {
@@ -82,4 +114,6 @@ export {
   ExpirationNotice,
   Icon,
   IconButton,
+  CustomButton,
+  CodeContent,
 };
