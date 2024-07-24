@@ -1,13 +1,15 @@
-import * as S from './CheckBox.style.js';
-import BlackCheck from '../../../assets/images/blackcheck.png';
-import WhiteCheck from '../../../assets/images/whitecheck.png';
+import React from "react";
+import PropTypes from "prop-types";
+import * as S from "./CheckBox.style.js";
+import BlackCheck from "../../../assets/images/blackcheck.png";
+import WhiteCheck from "../../../assets/images/whitecheck.png";
 
 const CheckBox = ({ checked, onChange, label, required, type, size }) => {
 	const renderCheckBox = () => {
 		let checkBoxElement;
 
 		switch (type) {
-			case 'background':
+			case "background":
 				checkBoxElement = (
 					<S.CheckBoxWithBackground checked={checked} size={size}>
 						{checked && (
@@ -16,7 +18,7 @@ const CheckBox = ({ checked, onChange, label, required, type, size }) => {
 					</S.CheckBoxWithBackground>
 				);
 				break;
-			case 'outline':
+			case "outline":
 			default:
 				checkBoxElement = (
 					<S.CheckBoxOutline size={size}>
