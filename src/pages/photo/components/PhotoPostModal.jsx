@@ -1,6 +1,6 @@
 import { Avatar } from '../../../components';
 import * as S from './PhotoPostModal.style';
-import { IoClose } from 'react-icons/io5';
+import CloseIcon from '../../../assets/images/whiteX.png';
 
 const PhotoPostModal = ({ avatar, op, date, comment, img, onClose }) => {
 	return (
@@ -8,7 +8,7 @@ const PhotoPostModal = ({ avatar, op, date, comment, img, onClose }) => {
 			<S.ModalContainer>
 				<S.ModalHeader>
 					<S.CloseButton onClick={onClose}>
-						<IoClose />
+						<img src={CloseIcon} />
 					</S.CloseButton>
 				</S.ModalHeader>
 				<S.ContentContainer>
