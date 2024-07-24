@@ -1,6 +1,8 @@
 import Navbar from './common/navbar/Navbar';
 import Footer from './common/footer/Footer';
 import Sidebar from './common/sidebar/SideBar.jsx';
+import ModalPortal from './common/portal/Portal';
+import MobileNavbar from './common/navbar/mobileNavbar/MobileNavbar';
 import PopOver from './common/popover/PopOver.jsx';
 import PostModal from './common/modal/PostModal.jsx';
 import FloatingButton from './common/floatingbutton/floatingbutton.jsx';
@@ -20,6 +22,8 @@ export {
 	Navbar,
 	Sidebar,
 	Footer,
+  ModalPortal,
+  MobileNavbar,
 	Dropdown,
 	Avatar,
 	Tooltip,

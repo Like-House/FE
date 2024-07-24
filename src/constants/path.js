@@ -20,6 +20,8 @@ const PAGE_PATH = {
 	ALERT: 'alert',
 	// Family
 	FAMILY: 'family',
+	// Q/A
+	QNA: 'qna',
 };
 
 export { PAGE_PATH };
