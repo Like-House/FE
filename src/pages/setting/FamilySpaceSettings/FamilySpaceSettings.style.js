@@ -62,8 +62,8 @@ const ExpirationNotice = styled.p`
 `;
 
 const Icon = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
 `;
 
 const IconButton = styled.button`
@@ -77,8 +77,8 @@ const CustomButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${(props) => props.width || '80px'};
-  height: ${(props) => props.height || '30px'};
+  width: 80px;
+  height: 30px;
   background-color: ${COLOR.YELLOW.YELLOW_1000};
   color: ${COLOR.COMMON.WHITE};
   border: none;

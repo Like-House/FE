@@ -3,9 +3,6 @@ import * as S from './FamilySpaceSettings.style';
 import link from '../../../assets/images/link.png';
 import { Alert, CustomButton } from '../../../components/index';
 import useModal from '../../../hooks/useModal';
-import theme from '../../../theme/theme';
-
-const { COLOR } = theme;
 
 function FamilySpaceSettings() {
   const { isOpen, openModal, closeModal } = useModal();
