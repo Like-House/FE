@@ -1,6 +1,8 @@
 import Navbar from './common/navbar/Navbar';
 import Footer from './common/footer/Footer';
 import Sidebar from './common/sidebar/SideBar.jsx';
+import PopOver from './common/popover/PopOver.jsx';
+import PostModal from './common/modal/PostModal.jsx';
 import FloatingButton from './common/floatingbutton/floatingbutton.jsx';
 import Alert from './common/alert/alert.jsx';
 import CustomInput from './common/input/CustomInput';
@@ -11,7 +13,8 @@ import Avatar from './common/avatar/Avatar.jsx';
 import LoginIcon from './loginIcon/LoginIcon';
 import SignupForm from './form/signupForm/SignupForm';
 import LoginForm from './form/loginForm/LoginForm';
-import CheckBox from './common/checkbox/Checkbox';
+import CheckBox from './common/CheckBox/CheckBox';
+import Settingbar from './Settingbar/Settingbar.jsx';
 
 export {
 	Navbar,
@@ -28,4 +31,7 @@ export {
 	SignupForm,
 	LoginForm,
 	CheckBox,
+	PopOver,
+	PostModal,
+	Settingbar,
 };
