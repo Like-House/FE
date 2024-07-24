@@ -8,12 +8,12 @@ const colorOptions = {
   `,
   //red
   primary: css`
-    background-color: #ff0000;
+    background-color: ${theme.COLOR.COMMON.RED};
     color: ${theme.COLOR.COMMON.WHITE};
   `,
   //blue
   secondary: css`
-    background-color: #0000ff;
+    background-color: ${theme.COLOR.COMMON.BLUE};
     color: ${theme.COLOR.COMMON.WHITE};
   `,
   outlined: css`
@@ -26,7 +26,6 @@ const colorOptions = {
 const sizeStyles = {
   sm: css`
     width: 60px;
-    font-size: 9px;
   `,
   md: css`
     width: 120px;
@@ -52,13 +51,13 @@ const TooltipText = styled.span`
   ${({ position }) =>
     position === 'top'
       ? css`
-          bottom: 150%;
+          bottom: 125%;
         `
       : css`
-          top: 150%;
+          top: 125%;
         `}
   left: 50%;
-  transform: translateX(-50%);
+  margin-left: -60px;
   opacity: 0;
   transition: opacity 0.3s;
   ${({ backgroundColor }) =>
