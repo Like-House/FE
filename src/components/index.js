@@ -15,15 +15,15 @@ import Avatar from './common/avatar/Avatar.jsx';
 import LoginIcon from './loginIcon/LoginIcon';
 import SignupForm from './form/signupForm/SignupForm';
 import LoginForm from './form/loginForm/LoginForm';
-import CheckBox from './common/CheckBox/CheckBox';
 import Settingbar from './Settingbar/Settingbar.jsx';
+import CheckBox from './common/checkbox/checkbox';
 
 export {
 	Navbar,
 	Sidebar,
 	Footer,
-  ModalPortal,
-  MobileNavbar,
+	ModalPortal,
+	MobileNavbar,
 	Dropdown,
 	Avatar,
 	Tooltip,

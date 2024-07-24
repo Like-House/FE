@@ -11,7 +11,11 @@ const Tooltip = ({
 		<S.TooltipWrapper>
 			<S.TooltipIcon>
 				{children}
-				<S.TooltipText size={size} backgroundColor={backgroundColor} position={position}>
+				<S.TooltipText
+					size={size}
+					backgroundColor={backgroundColor}
+					position={position}
+				>
 					{text}
 				</S.TooltipText>
 			</S.TooltipIcon>
