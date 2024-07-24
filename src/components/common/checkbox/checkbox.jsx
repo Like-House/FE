@@ -7,25 +7,22 @@ const CheckBox = ({ checked, onChange, label, required, type, size }) => {
   const renderCheckBox = () => {
     let checkBoxElement;
 
-    switch (type) {
-      case 'background':
-        checkBoxElement = (
-          <S.CheckBoxWithBackground checked={checked} size={size}>
-            {checked && (
-              <S.CheckMark src={WhiteCheck} alt='check mark' size={size} />
-            )}
-          </S.CheckBoxWithBackground>
-        );
-        break;
-      case 'outline':
-      default:
-        checkBoxElement = (
-          <S.CheckBoxOutline size={size}>
-            {checked && (
-              <S.CheckMark src={BlackCheck} alt='check mark' size={size} />
-            )}
-          </S.CheckBoxOutline>
-        );
+    if (type === 'background') {
+      checkBoxElement = (
+        <S.CheckBoxWithBackground checked={checked} size={size}>
+          {checked && (
+            <S.CheckMark src={WhiteCheck} alt='check mark' size={size} />
+          )}
+        </S.CheckBoxWithBackground>
+      );
+    } else {
+      checkBoxElement = (
+        <S.CheckBoxOutline size={size}>
+          {checked && (
+            <S.CheckMark src={BlackCheck} alt='check mark' size={size} />
+          )}
+        </S.CheckBoxOutline>
+      );
     }
 
     return (

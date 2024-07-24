@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import theme from '../../../theme/theme';
+import { FONT_SIZE, RESPONSIVE_SIZE } from '../../../constants/size';
 
 const { COLOR, ALIGN } = theme;
 
@@ -10,9 +11,9 @@ const sizeStyles = {
 };
 
 const fontSizeStyles = {
-  sm: '16px',
-  md: '20px',
-  lg: '24px',
+  sm: FONT_SIZE.SM,
+  md: FONT_SIZE.BASE,
+  lg: FONT_SIZE.LG,
 };
 
 const outlineBorderRadiusStyles = {
@@ -39,6 +40,7 @@ const getCheckBoxBorderRadius = (size) =>
 const CheckBoxContainer = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const CheckBoxOutline = styled.div`
@@ -66,18 +68,20 @@ const CheckMark = styled.img`
 `;
 
 const CheckBoxLabel = styled.label`
-  font-size: ${({ hasLabel, size }) => (hasLabel ? getFontSize(size) : '24px')};
+  font-size: ${({ hasLabel, size }) =>
+    hasLabel ? getFontSize(size) : FONT_SIZE.BASE};
   margin-left: 10px;
 `;
 
 const CheckBoxLabelBold = styled.span`
-  font-size: 20px;
+  font-size: ${FONT_SIZE.LG};
   color: ${COLOR.MAIN.YELLOW};
   font-weight: bold;
 `;
 
 const CheckBoxLabelNormal = styled.span`
-  font-size: ${({ hasLabel, size }) => (hasLabel ? getFontSize(size) : '24px')};
+  font-size: ${({ hasLabel, size }) =>
+    hasLabel ? getFontSize(size) : FONT_SIZE.BASE};
   color: ${COLOR.GRAY.GRAY_900};
 `;
 
