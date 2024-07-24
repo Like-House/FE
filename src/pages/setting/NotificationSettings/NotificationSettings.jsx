@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from './NotificationSettings.style';
 import CheckBox from '../../../components/common/checkbox/checkbox';
+import { RESPONSIVE_SIZE } from '../../../constants/size';
 
 export default function NotificationSettings() {
   const [notifications, setNotifications] = useState({
@@ -9,6 +10,23 @@ export default function NotificationSettings() {
     reply: false,
     event: false,
   });
+
+  const [checkboxSize, setCheckboxSize] = useState('md');
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= parseInt(RESPONSIVE_SIZE.TABLET)) {
+        setCheckboxSize('sm');
+      } else {
+        setCheckboxSize('md');
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleCheckboxChange = (name) => {
     setNotifications((prev) => ({
@@ -29,7 +47,7 @@ export default function NotificationSettings() {
           checked={notifications.chat}
           onChange={() => handleCheckboxChange('chat')}
           type='background'
-          size='md'
+          size={checkboxSize}
         />
       </S.NotificationItem>
       <S.NotificationItem>
@@ -43,7 +61,7 @@ export default function NotificationSettings() {
           checked={notifications.comment}
           onChange={() => handleCheckboxChange('comment')}
           type='background'
-          size='md'
+          size={checkboxSize}
         />
       </S.NotificationItem>
       <S.NotificationItem>
@@ -57,7 +75,7 @@ export default function NotificationSettings() {
           checked={notifications.reply}
           onChange={() => handleCheckboxChange('reply')}
           type='background'
-          size='md'
+          size={checkboxSize}
         />
       </S.NotificationItem>
       <S.NotificationItem>
@@ -71,7 +89,7 @@ export default function NotificationSettings() {
           checked={notifications.event}
           onChange={() => handleCheckboxChange('event')}
           type='background'
-          size='md'
+          size={checkboxSize}
         />
       </S.NotificationItem>
     </S.Container>
