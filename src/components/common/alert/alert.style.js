@@ -57,8 +57,8 @@ const ModalDetailMessage = styled.div`
 
 const ButtonContainer = styled.div`
   ${ALIGN.ROW_CENTER};
-  gap: ${({ singleButton, hasDetailMessage }) =>
-    singleButton ? '0' : hasDetailMessage ? '100px' : '10px'};
+  gap: ${({ $singleButton, $hasDetailMessage }) =>
+    $singleButton ? '0' : $hasDetailMessage ? '100px' : '10px'};
 `;
 
 const Button = styled.button`
