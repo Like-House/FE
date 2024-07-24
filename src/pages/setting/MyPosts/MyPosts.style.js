@@ -44,8 +44,8 @@ const PostText = styled.p`
   text-overflow: ellipsis;
   white-space: normal;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  word-break: keep-all; // 문단으로 끊어져서 줄바꿈 됨
 `;
 
 const Tag = styled.span`
