@@ -1,45 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as S from './FamilySettings.style';
 import { Avatar, CustomButton, Alert } from '../../../components/index';
 import useModal from '../../../hooks/useModal';
 import theme from '../../../theme/theme';
+import { PAGE_PATH } from '../../../constants/path';
+import MOCK_FAMILY_MEMBERS from '../../../assets/data/data';
 
 const { COLOR } = theme;
 
 function FamilySettings() {
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(null);
-  const [familyMembers, setFamilyMembers] = useState([
-    {
-      name: '김oo',
-      role: '아빠',
-      imgSrc:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1iHaiD-giZi3Jqu-1Pm-5RK-CQHisYtiwAQ&s',
-    },
-    {
-      name: '조oo',
-      role: '엄마',
-      imgSrc:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1iHaiD-giZi3Jqu-1Pm-5RK-CQHisYtiwAQ&s',
-    },
-    {
-      name: '김oo',
-      role: '여동생',
-      imgSrc:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1iHaiD-giZi3Jqu-1Pm-5RK-CQHisYtiwAQ&s',
-    },
-    {
-      name: '김oo',
-      role: '남동생',
-      imgSrc:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1iHaiD-giZi3Jqu-1Pm-5RK-CQHisYtiwAQ&s',
-    },
-  ]);
+  const [familyMembers, setFamilyMembers] = useState([]);
   const [blockedMembers, setBlockedMembers] = useState([]);
   const [selectedMember, setSelectedMember] = useState(null);
   const [selectedAction, setSelectedAction] = useState(null);
   const [alert, setAlert] = useState(false);
-
+  const [isOwner, setIsOwner] = useState(false);
   const { isOpen, openModal, closeModal } = useModal();
+
+  useEffect(() => {
+    setFamilyMembers(MOCK_FAMILY_MEMBERS);
+    setIsOwner(false);
+  }, []);
 
   const handleConfirm = () => {
     if (selectedAction === 'block') {
@@ -60,15 +44,11 @@ function FamilySettings() {
     setIsEditing(null);
     closeModal();
     setAlert(true);
-    setSelectedAction(null); // Reset selectedAction
+    setSelectedAction(null);
   };
 
   const handleCancel = () => {
     closeModal();
-  };
-
-  const handleEditClick = (index) => {
-    setIsEditing(index === isEditing ? null : index);
   };
 
   const handleOpenModal = (index, action) => {
@@ -79,14 +59,8 @@ function FamilySettings() {
     openModal();
   };
 
-  const handleSecondModalConfirm = () => {
-    setAlert(false);
-  };
-
-  const handleUnblock = (index) => {
-    setSelectedMember(blockedMembers[index]);
-    setSelectedAction('unblock');
-    openModal();
+  const handleInfoEdit = () => {
+    navigate(`${PAGE_PATH.HOME}/${PAGE_PATH.FAMILY}`);
   };
 
   return (
@@ -109,14 +83,18 @@ function FamilySettings() {
                 </S.MemberDetails>
               </S.MemberInfo>
               <S.Actions>
-                {isEditing === index ? (
+                {isOwner ? (
                   <>
                     <CustomButton
                       btnType='secondary'
                       label='가족 해제'
                       onClick={() => handleOpenModal(index, 'release')}
                     />
-                    <CustomButton btnType='secondary' label='상태 변경' />
+                    <CustomButton
+                      btnType='secondary'
+                      label='정보 수정'
+                      onClick={handleInfoEdit}
+                    />
                     <CustomButton
                       btnType='outline'
                       outlineColor={COLOR.MAIN.YELLOW}
@@ -128,27 +106,10 @@ function FamilySettings() {
                   <CustomButton
                     btnType='secondary'
                     label='정보 수정'
-                    onClick={() => handleEditClick(index)}
+                    onClick={handleInfoEdit}
                   />
                 )}
               </S.Actions>
-              {isEditing === index && (
-                <Alert
-                  isOpen={isOpen}
-                  message={
-                    selectedAction === 'release'
-                      ? '해당 가족을 해제할까요?'
-                      : '해당 가족을 차단할까요?'
-                  }
-                  detailMessage={
-                    selectedAction === 'release'
-                      ? '이 가족을 해제하면 가족과 관련된 게시글, 채팅, 알림, 일정 등이 모두 삭제됩니다. 가족을 다시 가족 공간에 초대되면 모든 데이터가 복구됩니다.'
-                      : '이 가족을 차단하면 가족과 관련된 게시글, 채팅, 알림, 일정 등이 모두 삭제됩니다. 한 번 삭제된 가족 데이터는 다시 복구할 수 없습니다.'
-                  }
-                  onConfirm={handleConfirm}
-                  onCancel={handleCancel}
-                />
-              )}
             </S.FamilyMember>
           ))}
         </S.FamilyList>
@@ -185,6 +146,33 @@ function FamilySettings() {
         </S.FamilyList>
       </S.Section>
 
+      <Alert
+        isOpen={isOpen && selectedAction !== 'unblock'}
+        message={
+          selectedAction === 'release'
+            ? '해당 가족을 해제할까요?'
+            : '해당 가족을 차단할까요?'
+        }
+        detailMessage={
+          selectedAction === 'release'
+            ? '이 가족을 해제하면 가족과 관련된 게시글, 채팅, 알림, 일정 등이 모두 삭제됩니다. 가족을 다시 가족 공간에 초대되면 모든 데이터가 복구됩니다.'
+            : '이 가족을 차단하면 가족과 관련된 게시글, 채팅, 알림, 일정 등이 모두 삭제됩니다. 한 번 삭제된 가족 데이터는 다시 복구할 수 없습니다.'
+        }
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
+
+      <Alert
+        isOpen={isOpen && selectedAction === 'unblock'}
+        message='해당 가족을 차단 해제할까요?'
+        detailMessage='이 가족을 차단 해제하면 차단 목록에서 보이지 않게 됩니다. 해당 가족은 다시 가족으로 추가하여 가족 공간에 참여할 수 있습니다.'
+        onConfirm={() => {
+          handleConfirm();
+          setAlert(true);
+        }}
+        onCancel={handleCancel}
+      />
+
       {alert && (
         <Alert
           isOpen={alert}
@@ -195,20 +183,7 @@ function FamilySettings() {
                 ? '해당 가족이 차단되었습니다.'
                 : '해당 가족이 차단 해제되었습니다.'
           }
-          onConfirm={handleSecondModalConfirm}
-        />
-      )}
-
-      {isOpen && selectedAction === 'unblock' && (
-        <Alert
-          isOpen={isOpen}
-          message='해당 가족을 차단 해제할까요?'
-          detailMessage='이 가족을 차단 해제하면 차단 목록에서 보이지 않게 됩니다. 해당 가족은 다시 가족으로 추가하여 가족 공간에 참여할 수 있습니다.'
-          onConfirm={() => {
-            handleConfirm();
-            setAlert(true);
-          }}
-          onCancel={handleCancel}
+          onConfirm={() => setAlert(false)}
         />
       )}
     </S.Container>
