@@ -22,7 +22,7 @@ function FamilySettings() {
 
   useEffect(() => {
     setFamilyMembers(MOCK_FAMILY_MEMBERS);
-    setIsOwner(false);
+    setIsOwner(true);
   }, []);
 
   const handleConfirm = () => {
