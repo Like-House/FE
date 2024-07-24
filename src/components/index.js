@@ -10,20 +10,28 @@ import CustomButton from './common/button/CustomButton';
 import Tooltip from './common/tooltip/Tooltip.jsx';
 import Dropdown from './common/dropdown/Dropdown.jsx';
 import Avatar from './common/avatar/Avatar.jsx';
+import LoginIcon from './loginIcon/LoginIcon';
+import SignupForm from './form/signupForm/SignupForm';
+import LoginForm from './form/loginForm/LoginForm';
+import CheckBox from './common/CheckBox/CheckBox';
 import Settingbar from './Settingbar/Settingbar.jsx';
 
 export {
-  Navbar,
-  Sidebar,
-  Footer,
-  Dropdown,
-  Avatar,
-  Tooltip,
-  CustomButton,
-  CustomInput,
-  Alert,
-  FloatingButton,
-  Settingbar,
-  PopOver,
-  PostModal
+	Navbar,
+	Sidebar,
+	Footer,
+	Dropdown,
+	Avatar,
+	Tooltip,
+	CustomButton,
+	CustomInput,
+	Alert,
+	FloatingButton,
+	LoginIcon,
+	SignupForm,
+	LoginForm,
+	CheckBox,
+	PopOver,
+	PostModal,
+	Settingbar,
 };
