@@ -8,11 +8,11 @@ const AlertMainPage = () => {
 	return (
 		<S.MainContainer>
 			<S.AlertConatainer>
-				<S.TapBarContainer>
+				<S.TabBarContainer>
 					{menuList.map(menu => (
-						<S.TapBarMenu key={menu}>{menu}</S.TapBarMenu>
+						<S.TabBarMenu key={menu}>{menu}</S.TabBarMenu>
 					))}
-				</S.TapBarContainer>
+				</S.TabBarContainer>
 				<S.ContentContainer>
 					<AlertBox icon={Messenger} />
 					<AlertBox icon={Calendar} />

@@ -15,7 +15,7 @@ const AlertConatainer = styled.div`
 	width: 75%;
 `;
 
-const TapBarContainer = styled.div`
+const TabBarContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	height: 12%;
@@ -26,7 +26,7 @@ const TapBarContainer = styled.div`
 	border-bottom: 1px solid ${theme.COLOR.GRAY.GRAY_200};
 `;
 
-const TapBarMenu = styled.div`
+const TabBarMenu = styled.div`
 
 `;
 
@@ -45,7 +45,7 @@ export {
 	MainContainer,
 	AlertConatainer,
 	SideContainer,
-	TapBarContainer,
+	TabBarContainer,
 	ContentContainer,
-	TapBarMenu,
+	TabBarMenu,
 };
