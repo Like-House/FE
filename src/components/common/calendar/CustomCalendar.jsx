@@ -1,21 +1,24 @@
 import { toDate } from 'date-fns-tz';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import * as S from './CustomCalendar.style';
 import { DAY_OF_WEEK } from '../../../constants';
 import { getDayList, isCurrentMonth } from '../../../utils';
-import useCalender from '../../../hooks/useCalender';
+import theme from '../../../theme/theme';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { GoDotFill } from 'react-icons/go';
 import { FaStar } from 'react-icons/fa';
 import { SlPresent } from 'react-icons/sl';
-import theme from '../../../theme/theme';
+import CalendarBtnBox from './calendarBtnBox/CalendarBtnBox';
+import useCalendarStore from '../../../store/useCalendarStore';
 
-const CustomCalendar = ({ size, background, events }) => {
+const CustomCalendar = ({ size, background }) => {
 	const {
 		handleDayClick,
 		handleLeftClick,
 		handleRightClick,
 		selectedYearAndMonth,
 		selectedTimestamp,
-	} = useCalender();
+		events,
+	} = useCalendarStore();
 
 	const hasEvent = (timestamp, events) => {
 		const event = events.find(e => {
@@ -35,6 +38,9 @@ const CustomCalendar = ({ size, background, events }) => {
 		}
 		if (type === 'important') {
 			return <FaStar color={theme.COLOR.YELLOW.YELLOW_500} />;
+		}
+		if (type === 'plan') {
+			return <GoDotFill />;
 		}
 		return null;
 	};
@@ -66,15 +72,16 @@ const CustomCalendar = ({ size, background, events }) => {
 							key={e}
 							$isSelected={e === selectedTimestamp}
 							$isCurrentMonth={isCurrentMonth(e, selectedYearAndMonth.month)}
-							onClick={handleDayClick(e)}
+							onClick={() => handleDayClick(e)}
 						>
 							<span>{toDate(e, { timeZone: 'Asia/Seoul' }).getDate()}</span>
-							{size === 'LG' && events && hasEvent(e, events) && (
+							{events && hasEvent(e, events) && (
 								<p>{getIcon(hasEvent(e, events))}</p>
 							)}
 						</S.Day>
 					))}
 				</S.DayWrapper>
+				{size === 'SM' && <CalendarBtnBox />}
 			</S.CalendarContainer>
 		</S.Container>
 	);

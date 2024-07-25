@@ -34,7 +34,7 @@ const DateHeader = styled.div`
 	svg {
 		cursor: pointer;
 		&:hover {
-			color: ${theme.COLOR.MAIN.YELLOW};
+			color: ${theme.COLOR.YELLOW.YELLOW_500};
 		}
 	}
 
@@ -73,10 +73,10 @@ const Day = styled.div`
 	align-items: center;
 
 	height: ${props =>
-		props.$size === 'BASE' ? '60px' : props.$size === 'LG' ? '50px' : '35px'};
+		props.$size === 'BASE' ? '50px' : props.$size === 'LG' ? '45px' : '40px'};
 
 	opacity: ${props => (props.$isCurrentMonth ? 1 : 0.1)};
-	font-size: ${FONT_SIZE.SM};
+	font-size: ${props => (props.$size === 'SM' ? FONT_SIZE.XS : FONT_SIZE.SM)};
 	cursor: pointer;
 
 	span {
