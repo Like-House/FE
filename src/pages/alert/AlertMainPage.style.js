@@ -27,7 +27,9 @@ const TabBarContainer = styled.div`
 `;
 
 const TabBarMenu = styled.div`
-
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
 `;
 
 const ContentContainer = styled.div`

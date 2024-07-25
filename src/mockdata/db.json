@@ -102,5 +102,142 @@
       "comment": "고양이 귀엽다 고양이 귀엽다 고양이 귀엽다 고양이 귀엽다 고양이 귀엽다 고양이 귀엽다",
       "op": "누나"
     }
+  ],
+
+  "notifications": [
+    {
+      "type": "chat",
+      "items": [
+        {
+          "id": 1,
+          "user": "아빠",
+          "message": "chat1",
+          "date": "2024-07-01",
+          "icon": "Messenger"
+        },
+        {
+          "id": 2,
+          "user": "아빠",
+          "message": "chat2",
+          "date": "2024-07-05",
+          "icon": "Messenger"
+        },
+        {
+          "id": 3,
+          "user": "형",
+          "message": "chat3",
+          "date": "2024-07-02",
+          "icon": "Messenger"
+        },
+        {
+          "id": 4,
+          "user": "누나",
+          "message": "chat4",
+          "date": "2024-07-06",
+          "icon": "Messenger"
+        },
+        {
+          "id": 5,
+          "user": "아빠",
+          "message": "chat5",
+          "date": "2024-07-04",
+          "icon": "Messenger"
+        },
+        {
+          "id": 6,
+          "user": "엄마",
+          "message": "chat6",
+          "date": "2024-07-01",
+          "icon": "Messenger"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "items": [
+        {
+          "id": 1,
+          "user": "아빠",
+          "message": "event1",
+          "date": "2024-07-03",
+          "icon": "Calendar"
+        },
+        {
+          "id": 2,
+          "user": "아빠",
+          "message": "event2",
+          "date": "2024-07-02",
+          "icon": "Calendar"
+        },
+        {
+          "id": 3,
+          "user": "향",
+          "message": "event3",
+          "date": "2024-07-01",
+          "icon": "Calendar"
+        },
+        {
+          "id": 4,
+          "user": "엄마",
+          "message": "event4",
+          "date": "2024-07-06",
+          "icon": "Calendar"
+        },
+        {
+          "id": 5,
+          "user": "아빠",
+          "message": "event5",
+          "date": "2024-07-09",
+          "icon": "Calendar"
+        },
+        {
+          "id": 6,
+          "user": "누나",
+          "message": "event6",
+          "date": "2024-07-01",
+          "icon": "Calendar"
+        },
+        {
+          "id": 7,
+          "user": "엄마",
+          "message": "event7",
+          "date": "2024-07-04",
+          "icon": "Calendar"
+        }
+      ]
+    },
+    {
+      "type": "post",
+      "items": [
+        {
+          "id": 1,
+          "user": "아빠",
+          "message": "post1",
+          "date": "2024-07-05",
+          "icon": "Messenger"
+        },
+        {
+          "id": 2,
+          "user": "형",
+          "message": "post2",
+          "date": "2024-07-01",
+          "icon": "Messenger"
+        },
+        {
+          "id": 3,
+          "user": "엄마",
+          "message": "post3",
+          "date": "2024-07-02",
+          "icon": "Messenger"
+        },
+        {
+          "id": 4,
+          "user": "형",
+          "message": "post4",
+          "date": "2024-07-05",
+          "icon": "Messenger"
+        }
+      ]
+    }
   ]
 }
