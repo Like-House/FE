@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import * as S from './ChangePassword.style';
-import { CustomButton, Alert, CustomInput } from '../../../components/index';
+import { CustomButton, Alert, CustomInput } from '../../../components';
 
 export default function ChangePassword() {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState({});
-  const [focusField, setFocusField] = useState(null);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const validatePassword = (password) => {
@@ -34,14 +33,6 @@ export default function ChangePassword() {
       setIsAlertOpen(true);
       setErrorMessage({});
     }
-  };
-
-  const handleFocus = (field) => {
-    setFocusField(field);
-  };
-
-  const handleBlur = () => {
-    setFocusField(null);
   };
 
   useEffect(() => {
@@ -84,7 +75,6 @@ export default function ChangePassword() {
               });
             }
           }}
-          onBlur={handleBlur}
           name='currentPassword'
           type='password'
           placeholder='현재 비밀번호를 입력해주세요.'
@@ -92,7 +82,6 @@ export default function ChangePassword() {
           errors={errorMessage.currentPassword}
           success={currentPassword === 'correct_password'}
           message={errorMessage.currentPassword}
-          onFocus={() => handleFocus('currentPassword')}
         />
         <S.NewContent>
           <S.LabelContent>
@@ -113,7 +102,6 @@ export default function ChangePassword() {
                   });
                 }
               }}
-              onBlur={handleBlur}
               name='newPassword'
               type='password'
               placeholder='새로운 비밀번호를 입력해주세요.'
@@ -121,8 +109,10 @@ export default function ChangePassword() {
               errors={errorMessage.newPassword}
               success={validatePassword(newPassword)}
               message={errorMessage.newPassword}
-              onFocus={() => handleFocus('newPassword')}
             />
+            {errorMessage.newPassword && (
+              <S.Error>{errorMessage.newPassword}</S.Error>
+            )}
           </S.LabelContent>
           <S.Label>새로운 비밀번호 확인</S.Label>
           <CustomInput
@@ -141,7 +131,6 @@ export default function ChangePassword() {
                 });
               }
             }}
-            onBlur={handleBlur}
             name='confirmPassword'
             type='password'
             placeholder='새로운 비밀번호를 다시 입력해주세요.'
@@ -149,8 +138,10 @@ export default function ChangePassword() {
             errors={errorMessage.confirmPassword}
             success={confirmPassword !== '' && confirmPassword === newPassword}
             message={errorMessage.confirmPassword}
-            onFocus={() => handleFocus('confirmPassword')}
           />
+          {errorMessage.confirmPassword && (
+            <S.Error>{errorMessage.confirmPassword}</S.Error>
+          )}
         </S.NewContent>
       </S.Form>
       <S.Button>
