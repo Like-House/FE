@@ -23,10 +23,11 @@ const CustomCalendar = ({ size, background }) => {
 	const hasEvent = (timestamp, events) => {
 		const event = events.find(e => {
 			const eventDate = new Date(e.date);
+			const date = new Date(timestamp);
 			return (
-				eventDate.getFullYear() === selectedYearAndMonth.year &&
-				eventDate.getMonth() === selectedYearAndMonth.month &&
-				eventDate.getDate() === new Date(timestamp).getDate()
+				eventDate.getFullYear() === date.getFullYear() &&
+				eventDate.getMonth() === date.getMonth() &&
+				eventDate.getDate() === date.getDate()
 			);
 		});
 		return event ? event.type : null;
