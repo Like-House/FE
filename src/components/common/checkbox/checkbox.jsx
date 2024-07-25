@@ -1,4 +1,4 @@
-import * as S from './CheckBox.style.js';
+import * as S from './checkbox.style.js';
 import BlackCheck from '../../../assets/images/blackcheck.png';
 import WhiteCheck from '../../../assets/images/whitecheck.png';
 

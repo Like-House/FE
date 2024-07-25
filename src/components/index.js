@@ -16,7 +16,7 @@ import LoginIcon from './loginIcon/LoginIcon';
 import SignupForm from './form/signupForm/SignupForm';
 import LoginForm from './form/loginForm/LoginForm';
 import Settingbar from './Settingbar/Settingbar';
-import CheckBox from './common/checkbox/CheckBox';
+import CheckBox from './common/checkbox/checkbox';
 
 export {
 	Navbar,
