@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import theme from '../../theme/theme';
+import { FONT_SIZE } from '../../constants';
 
 const MainContainer = styled.div`
 	display: flex;
@@ -29,7 +30,24 @@ const TabBarContainer = styled.div`
 const TabBarMenu = styled.div`
 	cursor: pointer;
 	position: relative;
-	display: inline-block;
+	display: flex;
+	align-items: center;
+`;
+
+const NotificationCount = styled.span`
+	${theme.ALIGN.COLUMN_CENTER};
+	text-align: center;
+	background-color: ${theme.COLOR.YELLOW.YELLOW_500};
+	color: ${theme.COLOR.COMMON.WHITE};
+	border-radius: 50%;
+	line-height: 1;
+	font-size: ${FONT_SIZE.BASE};
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	padding: 2px;
+	top: -2px;
+	right: -8px;
 `;
 
 const ContentContainer = styled.div`
@@ -48,6 +66,7 @@ export {
 	AlertConatainer,
 	SideContainer,
 	TabBarContainer,
+	NotificationCount,
 	ContentContainer,
 	TabBarMenu,
 };

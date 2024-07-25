@@ -26,6 +26,11 @@ const AlertMainPage = () => {
 		return notification ? notification.items : [];
 	};
 
+	const getNotificationCount = type => {
+		const items = getNotificationItems(type);
+		return items.length;
+	};
+
 	const renderAlerts = type => {
 		const items = getNotificationItems(type);
 		const icon = iconMap[type];
@@ -56,6 +61,17 @@ const AlertMainPage = () => {
 							isActive={activeTab === menu}
 						>
 							{menu}
+							{menu !== '전체' && (
+								<S.NotificationCount>
+									{getNotificationCount(
+										menu === '채팅'
+											? 'chat'
+											: menu === '일정'
+												? 'event'
+												: 'post',
+									)}
+								</S.NotificationCount>
+							)}
 						</S.TabBarMenu>
 					))}
 				</S.TabBarContainer>
