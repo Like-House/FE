@@ -7,6 +7,11 @@ const AlertConatainer = styled.div`
 	justify-content: space-between;
 	width: 100%;
 	padding: 30px 40px;
+	border-radius: 20px;
+	cursor: pointer;
+	&:hover {
+		background-color: ${theme.COLOR.COMMON.WHITE};
+	}
 `;
 
 const AlertContent = styled.div`
