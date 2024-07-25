@@ -38,23 +38,9 @@ const Label = styled.label`
   color: ${theme.COLOR.GRAY.GRAY_700};
 `;
 
-const Error = styled.p`
-  color: ${theme.COLOR.COMMON.RED};
-  font-size: ${FONT_SIZE.SM};
-`;
-
 const Button = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
 
-export {
-  Container,
-  Title,
-  Form,
-  NewContent,
-  LabelContent,
-  Label,
-  Error,
-  Button,
-};
+export { Container, Title, Form, NewContent, LabelContent, Label, Button };

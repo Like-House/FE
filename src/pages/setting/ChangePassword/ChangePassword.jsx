@@ -94,9 +94,6 @@ export default function ChangePassword() {
           message={errorMessage.currentPassword}
           onFocus={() => handleFocus('currentPassword')}
         />
-        {errorMessage.currentPassword && (
-          <S.Error>{errorMessage.currentPassword}</S.Error>
-        )}
         <S.NewContent>
           <S.LabelContent>
             <S.Label>새로운 비밀번호</S.Label>
@@ -126,9 +123,6 @@ export default function ChangePassword() {
               message={errorMessage.newPassword}
               onFocus={() => handleFocus('newPassword')}
             />
-            {errorMessage.newPassword && (
-              <S.Error>{errorMessage.newPassword}</S.Error>
-            )}
           </S.LabelContent>
           <S.Label>새로운 비밀번호 확인</S.Label>
           <CustomInput
@@ -157,9 +151,6 @@ export default function ChangePassword() {
             message={errorMessage.confirmPassword}
             onFocus={() => handleFocus('confirmPassword')}
           />
-          {errorMessage.confirmPassword && (
-            <S.Error>{errorMessage.confirmPassword}</S.Error>
-          )}
         </S.NewContent>
       </S.Form>
       <S.Button>
