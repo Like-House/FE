@@ -17,15 +17,15 @@ const sizeStyles = {
     width: 100px;
     height: 100px;
   `,
-  two_xl: css`
+  '2xl': css`
     width: 120px;
     height: 120px;
   `,
-  three_xl: css`
+  '3xl': css`
     width: 140px;
     height: 140px;
   `,
-  four_xl: css`
+  '4xl': css`
     width: 160px;
     height: 160px;
   `,
@@ -46,7 +46,7 @@ const shapeStyles = (shape) => {
 
 const Image = styled.img`
   ${({ size }) => sizeStyles[size] || sizeStyles.md};
-  ${({ shape }) => shapeStyles(shape)}
+  ${({ shape }) => shapeStyles(shape)};
   object-fit: cover;
   cursor: ${({ onClick }) => (onClick ? 'pointer' : 'default')};
 `;

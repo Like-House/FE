@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import * as S from './EditProfile.style';
 import {
   CustomButton,
@@ -6,28 +6,15 @@ import {
   Alert,
   Avatar,
 } from '../../../components/index';
+import useImageUpload from '../../../hooks/useImageUpload';
 
 const EditProfile = () => {
   const [name, setName] = useState('');
-  const [profilePicture, setProfilePicture] = useState('');
   const [birthday, setBirthday] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormModified, setIsFormModified] = useState(false);
-
-  const handlePictureChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setProfilePicture(event.target.result);
-        setIsFormModified(true);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      setProfilePicture('');
-      checkIfFormModified(name, '', birthday);
-    }
-  };
+  const [profilePicture, handlePictureChange, resetPicture] =
+    useImageUpload('');
 
   const handleDateChange = (e) => {
     setBirthday(e.target.value);
@@ -66,7 +53,7 @@ const EditProfile = () => {
               profilePicture ||
               'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"%3E%3Crect width="100%25" height="100%25" fill="%23e0e0e0"/%3E%3C/svg%3E'
             }
-            size='four_xl'
+            size='4xl'
             shape='rect'
             alt='프로필 사진'
           />
@@ -82,7 +69,10 @@ const EditProfile = () => {
             id='fileInput'
             type='file'
             accept='image/*'
-            onChange={handlePictureChange}
+            onChange={(e) => {
+              handlePictureChange(e);
+              setIsFormModified(true);
+            }}
           />
         </S.ProfilePictureContainer>
       </S.Field>
