@@ -27,6 +27,16 @@ const ALIGN = {
     justify-content: center;
     align-items: center;
   `,
+	ROW_SPACE_BETWEEN: `	
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	`,
+	COLUMN_SPACE_BETWEEN: `
+  	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;`,
 };
 
 const COLOR = {

@@ -25,7 +25,7 @@ const Chatbar = () => {
 				<CiSearch size={20} />
 			</S.Search>
 			{DUMMY_CHAT_LIST.map(e => (
-				<ChatRoom key={e.chatId} chat={e} />
+				<ChatRoom key={e.chatRoomId} chat={e} />
 			))}
 		</S.Container>
 	);
