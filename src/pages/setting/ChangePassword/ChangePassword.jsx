@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import * as S from './ChangePassword.style';
 import { CustomButton, Alert, CustomInput } from '../../../components/index';
+import { MdOutlineCancel } from 'react-icons/md';
 
 export default function ChangePassword() {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState({});
-  const [focusField, setFocusField] = useState(null);
+  const [touchedFields, setTouchedFields] = useState({});
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [focusField, setFocusField] = useState(null); // 추가된 부분
 
   const validatePassword = (password) => {
     const passwordRegex =
@@ -37,11 +39,17 @@ export default function ChangePassword() {
   };
 
   const handleFocus = (field) => {
-    setFocusField(field);
+    setTouchedFields((prev) => ({ ...prev, [field]: true }));
+    setFocusField(field); // 추가된 부분
   };
 
-  const handleBlur = () => {
-    setFocusField(null);
+  const handleBlur = (field) => {
+    setTouchedFields((prev) => ({ ...prev, [field]: true }));
+    setFocusField(null); // 추가된 부분
+  };
+
+  const handleIconClick = (setValue) => {
+    setValue('');
   };
 
   useEffect(() => {
@@ -84,7 +92,7 @@ export default function ChangePassword() {
               });
             }
           }}
-          onBlur={handleBlur}
+          onBlur={() => handleBlur('currentPassword')}
           name='currentPassword'
           type='password'
           placeholder='현재 비밀번호를 입력해주세요.'
@@ -92,6 +100,14 @@ export default function ChangePassword() {
           errors={errorMessage.currentPassword}
           success={currentPassword === 'correct_password'}
           message={errorMessage.currentPassword}
+          icon={
+            !errorMessage.currentPassword &&
+            touchedFields.currentPassword && (
+              <MdOutlineCancel
+                onClick={() => handleIconClick(setCurrentPassword)}
+              />
+            )
+          }
           onFocus={() => handleFocus('currentPassword')}
         />
         <S.NewContent>
@@ -113,7 +129,7 @@ export default function ChangePassword() {
                   });
                 }
               }}
-              onBlur={handleBlur}
+              onBlur={() => handleBlur('newPassword')}
               name='newPassword'
               type='password'
               placeholder='새로운 비밀번호를 입력해주세요.'
@@ -121,8 +137,19 @@ export default function ChangePassword() {
               errors={errorMessage.newPassword}
               success={validatePassword(newPassword)}
               message={errorMessage.newPassword}
+              icon={
+                !errorMessage.newPassword &&
+                touchedFields.newPassword && (
+                  <MdOutlineCancel
+                    onClick={() => handleIconClick(setNewPassword)}
+                  />
+                )
+              }
               onFocus={() => handleFocus('newPassword')}
             />
+            {errorMessage.newPassword && (
+              <S.Error>{errorMessage.newPassword}</S.Error>
+            )}
           </S.LabelContent>
           <S.Label>새로운 비밀번호 확인</S.Label>
           <CustomInput
@@ -141,7 +168,7 @@ export default function ChangePassword() {
                 });
               }
             }}
-            onBlur={handleBlur}
+            onBlur={() => handleBlur('confirmPassword')}
             name='confirmPassword'
             type='password'
             placeholder='새로운 비밀번호를 다시 입력해주세요.'
@@ -149,8 +176,19 @@ export default function ChangePassword() {
             errors={errorMessage.confirmPassword}
             success={confirmPassword !== '' && confirmPassword === newPassword}
             message={errorMessage.confirmPassword}
+            icon={
+              !errorMessage.confirmPassword &&
+              touchedFields.confirmPassword && (
+                <MdOutlineCancel
+                  onClick={() => handleIconClick(setConfirmPassword)}
+                />
+              )
+            }
             onFocus={() => handleFocus('confirmPassword')}
           />
+          {errorMessage.confirmPassword && (
+            <S.Error>{errorMessage.confirmPassword}</S.Error>
+          )}
         </S.NewContent>
       </S.Form>
       <S.Button>
