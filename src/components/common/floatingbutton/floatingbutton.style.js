@@ -12,13 +12,13 @@ const getHoverBoxShadow = (hasShadow, boxShadowColor) =>
 	hasShadow ? `0px 4px 8px ${boxShadowColor}` : 'none';
 
 const Button = styled.button`
-	background-color: ${({ backgroundColor, disabled }) =>
-		getBackgroundColor(backgroundColor, disabled)};
+	background-color: ${({ $backgroundColor, disabled }) =>
+		getBackgroundColor($backgroundColor, disabled)};
 	border: 1px solid
-		${({ borderColor }) => borderColor || theme.COLOR.MAIN.YELLOW};
+		${({ $borderColor }) => $borderColor || theme.COLOR.MAIN.YELLOW};
 	border-radius: 50%;
-	box-shadow: ${({ hasShadow, boxShadowColor }) =>
-		getBoxShadow(hasShadow, boxShadowColor)};
+	box-shadow: ${({ $hasShadow, $boxShadowColor }) =>
+		getBoxShadow($hasShadow, $boxShadowColor)};
 	width: ${props => (props.$size === 'sm' ? '50px' : '64.27px')};
 	height: ${props => (props.$size === 'sm' ? '50px' : '64.27px')};
 	cursor: pointer;
@@ -28,10 +28,10 @@ const Button = styled.button`
 	${theme.ALIGN.ROW_CENTER};
 
 	&:hover {
-		background-color: ${({ backgroundColor, disabled }) =>
-			disabled ? theme.COLOR.GRAY.GRAY_100 : darken(0.1, backgroundColor)};
-		box-shadow: ${({ hasShadow, boxShadowColor }) =>
-			getHoverBoxShadow(hasShadow, boxShadowColor)};
+		background-color: ${({ $backgroundColor, disabled }) =>
+			disabled ? theme.COLOR.GRAY.GRAY_100 : darken(0.1, $backgroundColor)};
+		box-shadow: ${({ $hasShadow, $boxShadowColor }) =>
+			getHoverBoxShadow($hasShadow, $boxShadowColor)};
 	}
 
 	&:disabled {
@@ -41,7 +41,7 @@ const Button = styled.button`
 
 	img {
 		width: ${props => (props.$size === 'sm' ? '20px' : '24.72px')};
-		height: ${props => (props.$size === 'sm' ? '20px' : '24.72px')};
+		height: ${props => (props.$size ? '20px' : '24.72px')};
 	}
 `;
 

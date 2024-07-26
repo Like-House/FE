@@ -15,10 +15,10 @@ const FloatingButton = ({
 		<S.Button
 			onClick={onClick}
 			disabled={disabled}
-			backgroundColor={backgroundColor}
-			borderColor={borderColor}
-			hasShadow={hasShadow}
-			boxShadowColor={boxShadowColor}
+			$backgroundColor={backgroundColor}
+			$borderColor={borderColor}
+			$hasShadow={hasShadow}
+			$boxShadowColor={boxShadowColor}
 			$size={size}
 		>
 			{icon ? icon : <img src={DefaultIcon} alt="default icon" />}
