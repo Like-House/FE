@@ -19,8 +19,8 @@ const Button = styled.button`
 	border-radius: 50%;
 	box-shadow: ${({ hasShadow, boxShadowColor }) =>
 		getBoxShadow(hasShadow, boxShadowColor)};
-	width: 64.27px;
-	height: 64.27px;
+	width: ${props => (props.$size === 'sm' ? '50px' : '64.27px')};
+	height: ${props => (props.$size === 'sm' ? '50px' : '64.27px')};
 	cursor: pointer;
 	transition:
 		background-color 0.3s,
@@ -40,8 +40,8 @@ const Button = styled.button`
 	}
 
 	img {
-		width: 24.72px;
-		height: 24.72px;
+		width: ${props => (props.$size === 'sm' ? '20px' : '24.72px')};
+		height: ${props => (props.$size === 'sm' ? '20px' : '24.72px')};
 	}
 `;
 

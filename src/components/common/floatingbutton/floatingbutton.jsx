@@ -9,6 +9,7 @@ const FloatingButton = ({
 	borderColor,
 	hasShadow,
 	boxShadowColor,
+	size,
 }) => {
 	return (
 		<S.Button
@@ -18,6 +19,7 @@ const FloatingButton = ({
 			borderColor={borderColor}
 			hasShadow={hasShadow}
 			boxShadowColor={boxShadowColor}
+			$size={size}
 		>
 			{icon ? icon : <img src={DefaultIcon} alt="default icon" />}
 		</S.Button>

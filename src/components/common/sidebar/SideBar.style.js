@@ -18,7 +18,7 @@ const Logo = styled.div`
 `;
 
 const NavContainer = styled.nav`
-	height: 70%;
+	height: 65%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
@@ -37,10 +37,6 @@ const NavContainer = styled.nav`
 		margin-top: 5px;
 		color: ${theme.COLOR.COMMON.BLACK};
 		font-size: 12px;
-	}
-
-	a.post {
-		margin-top: 30px;
 	}
 `;
 
@@ -67,7 +63,8 @@ const IconRound = styled(Icon)`
 `;
 
 const Profile = styled.div`
-	margin-top: 60px;
+	position: absolute;
+	bottom: 40px;
 	img {
 		width: 50px;
 		height: 50px;
@@ -76,4 +73,24 @@ const Profile = styled.div`
 	}
 `;
 
-export { Container, Logo, NavContainer, Icon, IconRound, Profile };
+const ButtonBox = styled.div`
+	position: relative;
+	${theme.ALIGN.COLUMN_CENTER};
+	flex: 1;
+`;
+
+const PostIcon = styled.div`
+	position: absolute;
+	top: 20px;
+`;
+
+export {
+	Container,
+	Logo,
+	NavContainer,
+	Icon,
+	IconRound,
+	Profile,
+	ButtonBox,
+	PostIcon,
+};

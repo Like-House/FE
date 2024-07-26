@@ -1,7 +1,6 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import * as S from './SideBar.style.js';
 import { TbHome } from 'react-icons/tb';
-import { FaPen } from 'react-icons/fa6';
 import { TbMessageCircle2Filled } from 'react-icons/tb';
 import { IoPersonOutline } from 'react-icons/io5';
 import { GoBell } from 'react-icons/go';
@@ -9,6 +8,7 @@ import { LuCalendar } from 'react-icons/lu';
 import Profile from '../../../assets/images/profile.png';
 import settingIcon from '../../../assets/images/settingIcon.svg';
 import { PAGE_PATH } from '../../../constants/path';
+import FloatingButton from '../floatingbutton/floatingbutton';
 
 const Sidebar = () => {
 	const { pathname } = useLocation();
@@ -56,16 +56,23 @@ const Sidebar = () => {
 					</S.Icon>
 					<p>설정</p>
 				</NavLink>
-				<NavLink to={PAGE_PATH.HOME} className="post">
-					<S.IconRound>
-						<FaPen size={18} />
-					</S.IconRound>
-				</NavLink>
 			</S.NavContainer>
 
-			<S.Profile>
-				<img src={Profile} />
-			</S.Profile>
+			<S.ButtonBox>
+				<S.PostIcon>
+					{pathname === PAGE_PATH.HOME && (
+						<FloatingButton
+							onClick={() => console.log('동작')}
+							backgroundColor="#FFC933"
+							borderColor="#FFC933"
+							size="sm"
+						/>
+					)}
+				</S.PostIcon>
+				<S.Profile>
+					<img src={Profile} />
+				</S.Profile>
+			</S.ButtonBox>
 		</S.Container>
 	);
 };
