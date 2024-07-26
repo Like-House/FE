@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import theme from '../../../theme/theme';
 import { FONT_SIZE } from '../../../constants';
 
-const getSize = size => {
+const getWidth = size => {
 	switch (size) {
 		case 'SM':
 			return '300px';
@@ -13,10 +13,21 @@ const getSize = size => {
 	}
 };
 
+const getHight = size => {
+	switch (size) {
+		case 'SM':
+			return '260px';
+		case 'LG':
+			return '241px';
+		default:
+			return '320px';
+	}
+};
+
 const Container = styled.div`
 	width: 100%;
 	min-width: 230px;
-	max-width: ${props => getSize(props.$size)};
+	max-width: ${props => getWidth(props.$size)};
 	border-radius: 10px;
 	box-shadow: ${props =>
 		props.$background ? ' 0px 4px 10px 0px rgba(0, 0, 0, 0.02)' : 'none'};
@@ -62,6 +73,7 @@ const DayofWeekWrapper = styled.div`
 
 const DayWrapper = styled.div`
 	width: 100%;
+	height: ${props => getHight(props.$size)};
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
 	gap: 4px;

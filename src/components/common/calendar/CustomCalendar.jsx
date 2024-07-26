@@ -63,7 +63,7 @@ const CustomCalendar = ({ size, background }) => {
 					))}
 				</S.DayofWeekWrapper>
 
-				<S.DayWrapper>
+				<S.DayWrapper $size={size}>
 					{getDayList(
 						selectedYearAndMonth.year,
 						selectedYearAndMonth.month,
