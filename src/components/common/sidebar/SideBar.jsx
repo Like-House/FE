@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import * as S from './SideBar.style.js';
 import { TbHome } from 'react-icons/tb';
 import { FaPen } from 'react-icons/fa6';
@@ -11,16 +11,21 @@ import settingIcon from '../../../assets/images/settingIcon.svg';
 import { PAGE_PATH } from '../../../constants/path';
 
 const Sidebar = () => {
+	const { pathname } = useLocation();
+
 	return (
 		<S.Container>
 			<S.Logo>가족같은</S.Logo>
 			<S.NavContainer>
-				<NavLink to={PAGE_PATH.HOME}>
+				<Link
+					to={PAGE_PATH.HOME}
+					className={pathname === PAGE_PATH.HOME ? 'active' : ''}
+				>
 					<S.Icon>
 						<TbHome size={28} />
 					</S.Icon>
 					<p>홈</p>
-				</NavLink>
+				</Link>
 				<NavLink to={PAGE_PATH.CALENDER}>
 					<S.Icon>
 						<LuCalendar size={25} />
