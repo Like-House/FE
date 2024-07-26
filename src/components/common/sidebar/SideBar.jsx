@@ -7,6 +7,7 @@ import { IoPersonOutline } from 'react-icons/io5';
 import { GoBell } from 'react-icons/go';
 import { LuCalendar } from 'react-icons/lu';
 import Profile from '../../../assets/images/profile.png';
+import settingIcon from '../../../assets/images/settingIcon.svg';
 import { PAGE_PATH } from '../../../constants/path';
 
 const Sidebar = () => {
@@ -43,6 +44,12 @@ const Sidebar = () => {
 						<IoPersonOutline size={25} />
 					</S.Icon>
 					<p>가족</p>
+				</NavLink>
+				<NavLink to={PAGE_PATH.SETTING}>
+					<S.Icon>
+						<img src={settingIcon} alt="setting" />
+					</S.Icon>
+					<p>설정</p>
 				</NavLink>
 				<NavLink to={PAGE_PATH.HOME} className="post">
 					<S.IconRound>
