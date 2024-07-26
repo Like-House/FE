@@ -8,10 +8,8 @@ import { LuCalendar } from 'react-icons/lu';
 import Profile from '../../../assets/images/profile.png';
 import settingIcon from '../../../assets/images/settingIcon.svg';
 import { PAGE_PATH } from '../../../constants/path';
-import FloatingButton from '../floatingbutton/floatingbutton';
 import theme from '../../../theme/theme.js';
-import Tooltip from '../tooltip/Tooltip.jsx';
-import Avatar from '../avatar/Avatar.jsx';
+import { Avatar, Tooltip, FloatingButton } from '../../';
 
 const Sidebar = () => {
 	const { pathname } = useLocation();
