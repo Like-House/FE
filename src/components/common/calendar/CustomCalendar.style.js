@@ -30,9 +30,11 @@ const Container = styled.div`
 	max-width: ${props => getWidth(props.$size)};
 	border-radius: 10px;
 	box-shadow: ${props =>
-		props.$background ? ' 0px 4px 10px 0px rgba(0, 0, 0, 0.02)' : 'none'};
-	background: ${props =>
-		props.$background ? theme.COLOR.COMMON.WHITE : 'transparent'};
+		props.$hasBackgroundColor
+			? ' 0px 4px 10px 0px rgba(0, 0, 0, 0.02)'
+			: 'none'};
+	background-color: ${props =>
+		props.$hasBackgroundColor ? theme.COLOR.COMMON.WHITE : 'transparent'};
 	padding: 5px;
 `;
 

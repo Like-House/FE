@@ -10,7 +10,7 @@ import { SlPresent } from 'react-icons/sl';
 import CalendarBtnBox from './calendarBtnBox/CalendarBtnBox';
 import useCalendarStore from '../../../store/useCalendarStore';
 
-const CustomCalendar = ({ size, background }) => {
+const CustomCalendar = ({ size, hasBackgroundColor }) => {
 	const {
 		handleDayClick,
 		handleLeftClick,
@@ -47,7 +47,7 @@ const CustomCalendar = ({ size, background }) => {
 	};
 
 	return (
-		<S.Container $size={size} $background={background}>
+		<S.Container $size={size} $hasBackgroundColor={hasBackgroundColor}>
 			<S.DateHeader $size={size}>
 				<IoIosArrowBack size={20} onClick={handleLeftClick} />
 				<p>
