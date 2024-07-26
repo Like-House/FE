@@ -5,7 +5,8 @@ import {
   AlertMainPage,
   CalenderMainPage,
   ChatMainPage,
-  FamilyMainPage,
+  FamilyList,
+  FamilyEdit,
   LandingPage,
   LoginPage,
   MainPage,
@@ -57,8 +58,11 @@ const router = createBrowserRouter([
         element: <ChatMainPage />,
       },
       {
-        path: `${PAGE_PATH.FAMILY}`,
-        element: <FamilyMainPage />,
+        path: `${PAGE_PATH.FAMILY}/*`,
+        children: [
+          { index: true, element: <FamilyList /> },
+          { path: `${PAGE_PATH.FAMILY_EDIT}`, element: <FamilyEdit /> },
+        ],
       },
       {
         path: `${PAGE_PATH.PHOTO}`,
