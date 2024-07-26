@@ -8,6 +8,7 @@ const Container = styled.div`
 	align-items: center;
 	background-color: #fff1cc;
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+	z-index: 99;
 `;
 
 const Logo = styled.div`
