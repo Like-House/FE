@@ -1,4 +1,4 @@
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import * as S from './SideBar.style.js';
 import { TbHome } from 'react-icons/tb';
 import { TbMessageCircle2Filled } from 'react-icons/tb';
@@ -11,9 +11,11 @@ import { PAGE_PATH } from '../../../constants/path';
 import FloatingButton from '../floatingbutton/floatingbutton';
 import theme from '../../../theme/theme.js';
 import Tooltip from '../tooltip/Tooltip.jsx';
+import Avatar from '../avatar/Avatar.jsx';
 
 const Sidebar = () => {
 	const { pathname } = useLocation();
+	const nav = useNavigate();
 
 	return (
 		<S.Container>
@@ -75,7 +77,14 @@ const Sidebar = () => {
 				</S.PostIcon>
 
 				<S.Profile>
-					<img src={Profile} />
+					<Avatar
+						src={Profile}
+						onClick={() =>
+							nav(
+								`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`,
+							)
+						}
+					/>
 				</S.Profile>
 			</S.ButtonBox>
 		</S.Container>
