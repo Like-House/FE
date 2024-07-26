@@ -81,7 +81,11 @@ const ButtonBox = styled.div`
 
 const PostIcon = styled.div`
 	position: absolute;
-	top: 20px;
+	top: 15px;
+
+	span {
+		left: 37px;
+	}
 `;
 
 export {

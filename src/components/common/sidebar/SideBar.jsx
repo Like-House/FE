@@ -9,6 +9,8 @@ import Profile from '../../../assets/images/profile.png';
 import settingIcon from '../../../assets/images/settingIcon.svg';
 import { PAGE_PATH } from '../../../constants/path';
 import FloatingButton from '../floatingbutton/floatingbutton';
+import theme from '../../../theme/theme.js';
+import Tooltip from '../tooltip/Tooltip.jsx';
 
 const Sidebar = () => {
 	const { pathname } = useLocation();
@@ -60,15 +62,18 @@ const Sidebar = () => {
 
 			<S.ButtonBox>
 				<S.PostIcon>
-					{pathname === PAGE_PATH.HOME && (
-						<FloatingButton
-							onClick={() => console.log('동작')}
-							backgroundColor="#FFC933"
-							borderColor="#FFC933"
-							size="sm"
-						/>
-					)}
+					<Tooltip text="게시글 작성" size="sm">
+						{pathname === PAGE_PATH.HOME && (
+							<FloatingButton
+								onClick={() => console.log('post 모달 뜨우기')}
+								backgroundColor={theme.COLOR.YELLOW.YELLOW_500}
+								borderColor={theme.COLOR.YELLOW.YELLOW_500}
+								size="sm"
+							/>
+						)}
+					</Tooltip>
 				</S.PostIcon>
+
 				<S.Profile>
 					<img src={Profile} />
 				</S.Profile>
