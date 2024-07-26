@@ -22,7 +22,9 @@ function Navbar() {
 			<S.NavContainer>
 				<NavLink to={`${PAGE_PATH.SERVICE}`}>서비스 이용</NavLink>
 				<NavLink to={`${PAGE_PATH.HOME}`}>가족 공간</NavLink>
-				<NavLink to={`${PAGE_PATH.EDIT_PROFILE}`}>
+				<NavLink
+					to={`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`}
+				>
 					<p>
 						<Avatar src={data.img} size="sm" />
 						{data.username}
