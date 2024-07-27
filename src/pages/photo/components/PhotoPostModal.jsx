@@ -2,7 +2,19 @@ import { Avatar } from '../../../components';
 import * as S from './PhotoPostModal.style';
 import CloseIcon from '../../../assets/images/whiteX.png';
 
-const PhotoPostModal = ({ avatar, op, date, comment, img, onClose }) => {
+const PhotoPostModal = ({
+	avatar,
+	op,
+	date,
+	comment,
+	img,
+	onClose,
+	goPostDetail,
+}) => {
+	const handleClick = () => {
+		goPostDetail();
+	};
+
 	return (
 		<S.Backdrop>
 			<S.ModalContainer>
@@ -23,7 +35,7 @@ const PhotoPostModal = ({ avatar, op, date, comment, img, onClose }) => {
 					</S.Content>
 				</S.ContentContainer>
 				<S.ModalFooter>
-					<S.Button>게시글확인</S.Button>
+					<S.Button onClick={handleClick}>게시글확인</S.Button>
 				</S.ModalFooter>
 			</S.ModalContainer>
 		</S.Backdrop>

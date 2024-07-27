@@ -77,12 +77,16 @@ const PhotoMainPage = () => {
 		return profile ? profile.profile_img : '';
 	};
 
+	const goPostDetail = () => {
+		console.log('게시물 확인할게여');
+	};
+
 	return (
 		<S.MainContainer>
-			<S.SideContainer ref={sideContainerRef} show={showSideContent}>
+			<S.SideContainer ref={sideContainerRef} $show={showSideContent}>
 				<S.Title>가족 앨범 보기</S.Title>
 				<S.CalenderLabel>날짜 선택</S.CalenderLabel>
-				<S.CalendarContainer show={showSideContent}></S.CalendarContainer>
+				<S.CalendarContainer $show={showSideContent}></S.CalendarContainer>
 				<S.DropdownLabel>가족 선택</S.DropdownLabel>
 				<S.DropdownWrapper>
 					<Dropdown
@@ -97,7 +101,7 @@ const PhotoMainPage = () => {
 			<S.ToggleButton onClick={() => setShowSideContent(!showSideContent)}>
 				{showSideContent ? 'Close' : 'Open'}
 			</S.ToggleButton>
-			<S.AlbumContainer show={showSideContent}>
+			<S.AlbumContainer $show={showSideContent}>
 				{filteredPicture.map(picture => (
 					<S.PictureArea key={picture.id}>
 						<S.Picture
@@ -117,6 +121,7 @@ const PhotoMainPage = () => {
 					img={selectedPicture.img}
 					onClose={handleClosePost}
 					avatar={getProfileImageUrl(selectedPicture.op)}
+					goPostDetail={goPostDetail}
 				/>
 			)}
 		</S.MainContainer>

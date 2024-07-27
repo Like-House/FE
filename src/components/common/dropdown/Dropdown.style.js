@@ -30,8 +30,8 @@ const DropdownButtonArea = styled.div`
 
 const DropdownLabel = styled.div`
 	font-size: ${FONT_SIZE.BASE};
-	color: ${({ isSelected }) =>
-		isSelected ? theme.COLOR.GRAY.GRAY_950 : theme.COLOR.GRAY.GRAY_350};
+	color: ${({ $isSelected }) =>
+		$isSelected ? theme.COLOR.GRAY.GRAY_950 : theme.COLOR.GRAY.GRAY_350};
 `;
 
 const DropdownMenuArea = styled.div`
@@ -40,12 +40,12 @@ const DropdownMenuArea = styled.div`
 	padding: 12px 18px;
 	border-radius: 10px;
 	background-color: ${theme.COLOR.COMMON.WHITE};
-	max-height: ${({ isOpen }) => (isOpen ? '500px' : '0')};
+	max-height: ${({ $isOpen }) => ($isOpen ? '500px' : '0')};
 	overflow: hidden;
 	transition:
 		max-height 0.5s ease-out,
 		opacity 0.5s ease-out;
-	opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
+	opacity: ${({ $isOpen }) => ($isOpen ? '1' : '0')};
 `;
 const DropdownMenu = styled.div`
 	margin-bottom: 22px;
