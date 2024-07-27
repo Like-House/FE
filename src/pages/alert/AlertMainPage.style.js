@@ -32,6 +32,15 @@ const TabBarMenu = styled.div`
 	position: relative;
 	display: flex;
 	align-items: center;
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: -10px;
+		left: 0;
+		width: 100%;
+		border-bottom: ${({ $isActive }) =>
+			$isActive ? '3px solid black' : 'none'};
+	}
 `;
 
 const NotificationCount = styled.span`

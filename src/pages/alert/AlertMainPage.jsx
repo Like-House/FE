@@ -58,7 +58,7 @@ const AlertMainPage = () => {
 						<S.TabBarMenu
 							key={menu}
 							onClick={() => handleTabClick(menu)}
-							isActive={activeTab === menu}
+							$isActive={activeTab === menu}
 						>
 							{menu}
 							{menu !== '전체' && (
