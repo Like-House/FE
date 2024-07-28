@@ -31,9 +31,7 @@ const LoginForm = () => {
 		}
 		mutate(loginForm.values, {
 			onError: error => {
-				console.log(error);
 				if (error.response?.status === 400) {
-					// 에러메세지는 api 연결시 수정
 					setErrorMessage('이메일 및 비밀번호를 다시 확인해주세요.');
 				}
 			},
