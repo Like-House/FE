@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useForm from '../../../hooks/useForm';
-import { validateSignUp } from '../../../utils/auth';
+import { validateSignUp } from '../../../utils';
 import * as S from './SignupForm.style';
 import { CustomButton, CheckBox, CustomInput } from '../../';
 import useCheckBox from '../../../hooks/useCheckBox';
