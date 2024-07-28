@@ -1,12 +1,5 @@
-import * as S from "./LandingPage.style";
-import CheckBox from "../../components/common/checkbox/CheckBox";
-
-function LadingPage() {
-	return (
-		<S.Container>
-			<div>LandingPage</div>
-		</S.Container>
-	);
-}
+const LadingPage = () => {
+	return <div>Landing page</div>;
+};
 
 export default LadingPage;
