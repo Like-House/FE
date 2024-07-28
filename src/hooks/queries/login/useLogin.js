@@ -1,14 +1,16 @@
 import { useMutation } from '@tanstack/react-query';
 import { login } from '../../../apis';
 import { useNavigate } from 'react-router-dom';
-import { setHeader } from '../../../utils';
+import useAuthStore from '../../../store/useAuthStore';
 
 const useLogin = () => {
 	const navigation = useNavigate();
+	const { setLoggedIn } = useAuthStore(state => state);
+
 	return useMutation({
 		mutationFn: login,
 		onSuccess: data => {
-			setHeader('Authorization', data.result.accessToken);
+			setLoggedIn(data);
 			navigation('/');
 		},
 		throwOnError: error => Number(error.response?.status) >= 500,
