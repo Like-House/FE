@@ -14,4 +14,20 @@ const login = async ({ email, password }) => {
 	}
 };
 
-export { login };
+const signup = async ({ name, email, password, birthDate, profileImage }) => {
+	try {
+		const { data } = await axiosInstance.post(`${API_PATH.SIGNUP}`, {
+			name,
+			email,
+			password,
+			birthDate,
+			profileImage,
+		});
+		return data;
+	} catch (err) {
+		console.log(err);
+		throw err;
+	}
+};
+
+export { login, signup };

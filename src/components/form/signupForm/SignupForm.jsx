@@ -4,6 +4,7 @@ import { validateSignUp } from '../../../utils/auth';
 import * as S from './SignupForm.style';
 import { CustomButton, CheckBox, CustomInput } from '../../';
 import useCheckBox from '../../../hooks/useCheckBox';
+import { useLogin } from '../../../hooks/queries/login/useLogin';
 
 const SignupForm = () => {
 	const signupForm = useForm({
@@ -12,6 +13,7 @@ const SignupForm = () => {
 			email: '',
 			password: '',
 			passwordCheck: '',
+			birthDate: '',
 		},
 		validate: validateSignUp,
 	});
@@ -95,8 +97,16 @@ const SignupForm = () => {
 		}
 	};
 
+	const { mutate } = useLogin();
+
 	const handleSubmit = () => {
 		// 여기에 회원가입 전송 로직
+		mutate({
+			name: signupForm.values.username,
+			email: signupForm.values.email,
+			password: signupForm.values.password,
+			birthDate: signupForm.values.birthDate,
+		});
 	};
 
 	return (
@@ -210,9 +220,21 @@ const SignupForm = () => {
 			<S.InputWrapper>
 				<label>생년월일</label>
 				<CustomInput
-					placeholder="생년월일을 확인해주세요."
+					{...signupForm.getBirthDateInputProps('birthDate')}
+					placeholder="YYYY-MM-DD"
 					size="XL"
 					type="text"
+					maxLength="10"
+					errors={
+						signupForm.touched.birthDate && signupForm.message.errors?.birthDate
+					}
+					message={
+						signupForm.touched.birthDate && signupForm.message.errors?.birthDate
+					}
+					success={
+						signupForm.touched.birthDate &&
+						signupForm.message.success?.birthDate
+					}
 				/>
 			</S.InputWrapper>
 			<S.FileWrapper>

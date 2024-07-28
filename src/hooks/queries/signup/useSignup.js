@@ -1,10 +1,11 @@
-// import { useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { signup } from '../../../apis';
 
-// const useSignup = () => {
-// 	return useMutation({
-// 		mutationFn: postSignup,
-// 		throwOnError: error => Number(error.response?.status) >= 500,
-// 	});
-// };
+const useSignup = () => {
+	return useMutation({
+		mutationFn: signup,
+		throwOnError: error => Number(error.response?.status) >= 500,
+	});
+};
 
-// export { useSignup }
+export { useSignup };

@@ -5,12 +5,14 @@ function validateSignUp(values) {
 			email: '',
 			password: '',
 			passwordCheck: '',
+			birthDate: '',
 		},
 		success: {
 			username: '',
 			email: '',
 			password: '',
 			passwordCheck: '',
+			birthDate: '',
 		},
 	};
 
@@ -41,6 +43,12 @@ function validateSignUp(values) {
 			'대문자 / 소문자 / 특수문자 포함, 8자리 이상';
 	} else {
 		message.success.passwordCheck = '성공';
+	}
+
+	if (!/^\d{4}-\d{2}-\d{2}$/.test(values.birthDate)) {
+		message.errors.birthDate = 'YYYY-MM-DD 형식으로 입력해주세요.';
+	} else {
+		message.success.birthDate = '성공';
 	}
 
 	return message;
