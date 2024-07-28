@@ -4,16 +4,11 @@ import * as S from './MobileNavbar.style';
 import { PAGE_PATH } from '../../../../constants';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import ModalPortal from '../../portal/Portal';
-import { useEffect } from 'react';
-import useAuthStore from '../../../../store/useAuthStore';
+import useAuth from '../../../../hooks/useAuth';
 
 const MobileNavbar = () => {
 	const { navModal, open } = useModalStore(state => state);
-	const { isLoggedIn, checkAuth } = useAuthStore(state => state);
-
-	useEffect(() => {
-		checkAuth();
-	}, [checkAuth]);
+	const isAuthenticated = useAuth();
 
 	let content;
 
@@ -21,7 +16,7 @@ const MobileNavbar = () => {
 		open();
 	};
 
-	if (isLoggedIn) {
+	if (isAuthenticated) {
 		content = (
 			<S.NavContainer>
 				<NavLink to={`${PAGE_PATH.SERVICE}`} onClick={handleClick}>
