@@ -48,7 +48,14 @@ function validateSignUp(values) {
 	if (!/^\d{4}-\d{2}-\d{2}$/.test(values.birthDate)) {
 		message.errors.birthDate = 'YYYY-MM-DD 형식으로 입력해주세요.';
 	} else {
-		message.success.birthDate = '성공';
+		const [year, month, day] = values.birthDate.split('-').map(Number);
+		if (month < 1 || month > 12) {
+			message.errors.birthDate = '월은 1월 ~ 12월 사이여야 합니다.';
+		} else if (day < 1 || day > 31) {
+			message.errors.birthDate = '일은 1일 ~ 31일 사이여야 합니다.';
+		} else {
+			message.success.birthDate = '성공';
+		}
 	}
 
 	return message;
