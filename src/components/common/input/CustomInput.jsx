@@ -13,6 +13,8 @@ const CustomInput = ({
 	errors,
 	success,
 	message,
+	maxLength,
+	autoComplete,
 }) => {
 	return (
 		<S.Container>
@@ -24,6 +26,8 @@ const CustomInput = ({
 				$success={success}
 			>
 				<S.Input
+					autoComplete={autoComplete}
+					maxLength={maxLength}
 					value={value}
 					onChange={onChange}
 					onBlur={onBlur}
