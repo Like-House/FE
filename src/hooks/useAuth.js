@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import axiosInstance from '../apis/axios';
 
 const useAuth = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -6,6 +7,8 @@ const useAuth = () => {
 	useEffect(() => {
 		const token = localStorage.getItem('accessToken');
 		if (token) {
+			axiosInstance.defaults.headers.common['Authorization'] =
+				`Bearer ${token}`;
 			setIsAuthenticated(true);
 		}
 	}, []);
