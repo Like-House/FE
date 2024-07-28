@@ -4,7 +4,7 @@ import { validateSignUp } from '../../../utils/auth';
 import * as S from './SignupForm.style';
 import { CustomButton, CheckBox, CustomInput } from '../../';
 import useCheckBox from '../../../hooks/useCheckBox';
-import { useLogin } from '../../../hooks/queries/login/useLogin';
+import { useSignup } from '../../../hooks/queries/signup/useSignup';
 
 const SignupForm = () => {
 	const signupForm = useForm({
@@ -97,16 +97,26 @@ const SignupForm = () => {
 		}
 	};
 
-	const { mutate } = useLogin();
+	const { mutate } = useSignup();
 
 	const handleSubmit = () => {
-		// 여기에 회원가입 전송 로직
-		mutate({
-			name: signupForm.values.username,
-			email: signupForm.values.email,
-			password: signupForm.values.password,
-			birthDate: signupForm.values.birthDate,
-		});
+		// TODO: 이미지 로직 수정
+		mutate(
+			{
+				name: signupForm.values.username,
+				email: signupForm.values.email,
+				password: signupForm.values.password,
+				birthDate: signupForm.values.birthDate,
+				profileImage: '프로필',
+			},
+			{
+				onError: error => {
+					if (error.response?.status === 400) {
+						alert(error.response.data?.message);
+					}
+				},
+			},
+		);
 	};
 
 	return (
