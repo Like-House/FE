@@ -17,6 +17,7 @@ import SignupForm from './form/signupForm/SignupForm';
 import LoginForm from './form/loginForm/LoginForm';
 import Settingbar from './Settingbar/Settingbar';
 import CheckBox from './common/checkbox/CheckBox';
+import CustomCalendar from './common/calendar/CustomCalendar';
 
 export {
 	Navbar,
@@ -38,4 +39,5 @@ export {
 	PopOver,
 	PostModal,
 	Settingbar,
+	CustomCalendar,
 };

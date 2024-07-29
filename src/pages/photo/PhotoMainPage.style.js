@@ -68,9 +68,11 @@ const CalendarContainer = styled.div`
 	width: 100%;
 	height: 300px;
 	display: ${({ $show }) => ($show ? 'block' : 'none')};
+	margin: 0;
 `;
 
 const CalenderLabel = styled.div`
+	font-size: ${FONT_SIZE.SM};
 	margin-top: 40px;
 `;
 
@@ -96,7 +98,7 @@ const DropdownWrapper = styled.div`
 `;
 
 const DropdownLabel = styled.div`
-	margin-top: 40px;
+	margin-top: 160px;
 `;
 
 const PictureArea = styled.div`
