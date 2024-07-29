@@ -101,7 +101,6 @@ const Input = styled.input`
 `;
 
 const MsgWrapper = styled.p`
-	margin: 0 11px;
 	font-size: ${FONT_SIZE.XS};
 	color: ${props =>
 		props.$errors ? theme.COLOR.COMMON.RED : theme.COLOR.COMMON.BLUE};

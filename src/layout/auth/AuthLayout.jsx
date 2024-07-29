@@ -1,19 +1,16 @@
-import { Outlet } from "react-router-dom";
-import * as S from "./AuthLayout.style";
-import { Footer, Navbar } from "../../components";
+import { Outlet } from 'react-router-dom';
+import * as S from './AuthLayout.style';
+import { Navbar } from '../../components';
 
 const AuthLayout = () => {
-  return (
-    <S.AuthContainer>
-      <S.ContentContainer>
-        <Navbar />
-        <S.OutletContainer>
-          <Outlet />
-        </S.OutletContainer>
-        <Footer />
-      </S.ContentContainer>
-    </S.AuthContainer>
-  );
+	return (
+		<S.AuthContainer>
+			<Navbar />
+			<S.OutletContainer>
+				<Outlet />
+			</S.OutletContainer>
+		</S.AuthContainer>
+	);
 };
 
 export default AuthLayout;
