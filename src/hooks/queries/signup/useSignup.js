@@ -8,7 +8,7 @@ const useSignup = () => {
 	return useMutation({
 		mutationFn: signup,
 		onSuccess: () => {
-			navigation(`${PAGE_PATH.LOGIN}`);
+			navigation(`/${PAGE_PATH.LOGIN}`);
 		},
 		throwOnError: error => Number(error.response?.status) >= 500,
 	});
