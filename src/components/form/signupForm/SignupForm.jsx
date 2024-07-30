@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useForm from '../../../hooks/useForm';
 import { validateSignUp } from '../../../utils';
 import * as S from './SignupForm.style';
 import { CustomButton, CheckBox, CustomInput } from '../../';
 import useCheckBox from '../../../hooks/useCheckBox';
 import { useSignup } from '../../../hooks/queries/signup/useSignup';
+import { useNavigate } from 'react-router-dom';
+import { PAGE_PATH } from '../../../constants';
 
 const SignupForm = () => {
+	const nav = useNavigate();
 	const signupForm = useForm({
 		initialValue: {
 			username: '',
@@ -113,11 +116,20 @@ const SignupForm = () => {
 				onError: error => {
 					if (error.response?.status === 400) {
 						alert(error.response.data?.message);
+						nav(`/${PAGE_PATH.LOGIN}`);
 					}
 				},
 			},
 		);
 	};
+
+	useEffect(() => {
+		if (checkFirst && checkSecond) {
+			setCheckAll(true);
+		} else {
+			setCheckAll(false);
+		}
+	}, [checkFirst, checkSecond]);
 
 	return (
 		<S.FormContainer>
@@ -300,7 +312,7 @@ const SignupForm = () => {
 						signupForm.message.success?.passwordCheck &&
 						msg.send.success &&
 						msg.check.success &&
-						(checkAll || (checkFirst && checkSecond))
+						checkAll
 					)
 				}
 			/>
