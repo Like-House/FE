@@ -18,20 +18,22 @@ const AlertConatainer = styled.div`
 
 const TabBarContainer = styled.div`
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	height: 12%;
-	padding: 60px 0px 10px 0px;
+	padding: 60px 100px 10px 100px;
 	overflow-x: auto;
 	white-space: nowrap;
 	border-bottom: 1px solid ${theme.COLOR.GRAY.GRAY_200};
-	gap: 200px;
+	gap: 100px;
 
 	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
-		gap: 70px;
+		gap: 40px;
+		padding: 60px 20px 10px 20px;
 	}
 
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
-		gap: 50px;
+		gap: 30px;
+		padding: 60px 14px 10px 14px;
 	}
 `;
 
