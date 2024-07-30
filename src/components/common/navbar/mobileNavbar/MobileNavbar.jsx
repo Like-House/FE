@@ -8,7 +8,7 @@ import useAuth from '../../../../hooks/useAuth';
 
 const MobileNavbar = () => {
 	const { navModal, open } = useModalStore(state => state);
-	const isAuthenticated = useAuth();
+	const { isAuthenticated } = useAuth();
 
 	let content;
 

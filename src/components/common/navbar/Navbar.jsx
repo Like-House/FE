@@ -9,7 +9,7 @@ import useAuth from '../../../hooks/useAuth';
 function Navbar() {
 	// 경로 수정 필요  & 로그인 유지 로직 변경 예정
 	const { open } = useModalStore(state => state);
-	const isAuthenticated = useAuth();
+	const { isAuthenticated } = useAuth();
 
 	const data = {
 		img: '/src/assets/images/profile.png',
