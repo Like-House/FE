@@ -16,6 +16,7 @@ import {
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
+import useAuthToken from './hooks/useAuth';
 
 const router = createBrowserRouter([
 	{
@@ -86,6 +87,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+	useAuthToken();
 	return <RouterProvider router={router} />;
 }
 

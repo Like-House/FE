@@ -4,11 +4,11 @@ import * as S from './MobileNavbar.style';
 import { PAGE_PATH } from '../../../../constants';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import ModalPortal from '../../portal/Portal';
-import useAuth from '../../../../hooks/useAuth';
+import useAuthStore from '../../../../store/useAuthStore';
 
 const MobileNavbar = () => {
 	const { navModal, open } = useModalStore(state => state);
-	const { isAuthenticated } = useAuth();
+	const { isAuthenticated } = useAuthStore();
 
 	let content;
 

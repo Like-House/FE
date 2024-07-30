@@ -4,12 +4,12 @@ import { PAGE_PATH } from '../../../constants';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { MobileNavbar, Avatar } from '../../';
 import useModalStore from '../../../store/useModalStore';
-import useAuth from '../../../hooks/useAuth';
+import useAuthStore from '../../../store/useAuthStore';
 
 function Navbar() {
 	// 경로 수정 필요  & 로그인 유지 로직 변경 예정
 	const { open } = useModalStore(state => state);
-	const { isAuthenticated } = useAuth();
+	const { isAuthenticated } = useAuthStore();
 
 	const data = {
 		img: '/src/assets/images/profile.png',
