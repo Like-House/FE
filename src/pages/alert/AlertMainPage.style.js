@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import theme from '../../theme/theme';
-import { FONT_SIZE } from '../../constants';
+import { FONT_SIZE, RESPONSIVE_SIZE } from '../../constants';
 
 const MainContainer = styled.div`
 	display: flex;
@@ -21,10 +21,18 @@ const TabBarContainer = styled.div`
 	justify-content: center;
 	height: 12%;
 	padding: 60px 0px 10px 0px;
-	gap: 200px;
 	overflow-x: auto;
 	white-space: nowrap;
 	border-bottom: 1px solid ${theme.COLOR.GRAY.GRAY_200};
+	gap: 200px;
+
+	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
+		gap: 70px;
+	}
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		gap: 50px;
+	}
 `;
 
 const TabBarMenu = styled.div`
@@ -32,6 +40,7 @@ const TabBarMenu = styled.div`
 	position: relative;
 	display: flex;
 	align-items: center;
+	font-size: ${FONT_SIZE.LG};
 	&::after {
 		content: '';
 		position: absolute;
@@ -40,6 +49,14 @@ const TabBarMenu = styled.div`
 		width: 100%;
 		border-bottom: ${({ $isActive }) =>
 			$isActive ? '3px solid black' : 'none'};
+	}
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		font-size: ${FONT_SIZE.BASE};
+	}
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		font-size: ${FONT_SIZE.SM};
 	}
 `;
 
@@ -57,12 +74,30 @@ const NotificationCount = styled.span`
 	padding: 2px;
 	top: -2px;
 	right: -8px;
+
+	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
+		width: 14px;
+		height: 14px;
+		font-size: ${FONT_SIZE.SM};
+	}
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		width: 12px;
+		height: 12px;
+		font-size: ${FONT_SIZE.XS};
+		top: 2px;
+		right: -6px;
+	}
 `;
 
 const ContentContainer = styled.div`
 	height: 88%;
 	padding: 20px 40px;
 	overflow-y: auto;
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		padding: 20px 10px;
+	}
 `;
 
 const SideContainer = styled.div`

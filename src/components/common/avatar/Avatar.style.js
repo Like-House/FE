@@ -1,11 +1,16 @@
 import styled, { css } from 'styled-components';
 import theme from '../../../theme/theme';
 import defaultAvatar from '../../../assets/images/avatar.png';
+import { RESPONSIVE_SIZE } from '../../../constants';
 
 const sizeStyles = {
 	sm: css`
 		width: 40px;
 		height: 40px;
+	`,
+	smd: css`
+		width: 50px;
+		height: 50px;
 	`,
 	md: css`
 		width: 60px;
@@ -41,6 +46,14 @@ const Image = styled.img`
 	background-position: center;
 	object-fit: cover;
 	cursor: ${({ onClick }) => (onClick ? 'pointer' : 'default')};
+
+	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
+		${sizeStyles.smd};
+	}
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		${sizeStyles.sm};
+	}
 `;
 
 export { Image };
