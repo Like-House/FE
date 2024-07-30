@@ -60,7 +60,7 @@ const AlbumContainer = styled.div`
 `;
 
 const Title = styled.div`
-	margin-top: 40px;
+	margin-top: 30px;
 	font-size: ${FONT_SIZE.LG};
 `;
 
@@ -73,7 +73,7 @@ const CalendarContainer = styled.div`
 
 const CalenderLabel = styled.div`
 	font-size: ${FONT_SIZE.SM};
-	margin-top: 40px;
+	margin-top: 30px;
 `;
 
 const DropdownWrapper = styled.div`
@@ -98,7 +98,7 @@ const DropdownWrapper = styled.div`
 `;
 
 const DropdownLabel = styled.div`
-	margin-top: 160px;
+	margin-top: 170px;
 `;
 
 const PictureArea = styled.div`
