@@ -12,15 +12,10 @@ const Container = styled.div`
 	background-color: ${theme.COLOR.BACKGROUND.WHITE};
 `;
 
-const Logo = styled.h1`
-	font-weight: bold;
-	color: ${theme.COLOR.MAIN.YELLOW};
-	font-size: ${FONT_SIZE.TWO_XL};
-
-	@media ${theme.WINDOW_SIZE.MOBILE} {
-		font-size: ${FONT_SIZE.XL};
-	}
+const Logo = styled.img`
+	width: 150px;
 `;
+
 const NavContainer = styled.nav`
 	${theme.ALIGN.ROW_CENTER};
 	a {
