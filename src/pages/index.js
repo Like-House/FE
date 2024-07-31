@@ -8,6 +8,7 @@ import PhotoMainPage from './photo/PhotoMainPage';
 import AlertMainPage from './alert/AlertMainPage';
 import CalenderMainPage from './calender/CalenderMainPage';
 import LandingPage from './landing/LadingPage';
+import QnaPage from './qna/QnaPage';
 import FamilySpaceSettings from './setting/FamilySpaceSettings/FamilySpaceSettings';
 import NotificationSettings from './setting/NotificationSettings/NotificationSettings';
 
@@ -23,5 +24,7 @@ export {
   AlertMainPage,
   CalenderMainPage,
   LandingPage,
+  QnaPage,
+	FamilySpaceSettings,
   NotificationSettings,
 };

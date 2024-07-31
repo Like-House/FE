@@ -4,7 +4,6 @@ const CustomInput = ({
 	value,
 	onChange,
 	onBlur,
-	name,
 	type, // text, number ...
 	placeholder,
 	filled, // boolean
@@ -14,7 +13,8 @@ const CustomInput = ({
 	errors,
 	success,
 	message,
-	touched,
+	maxLength,
+	autoComplete,
 }) => {
 	return (
 		<S.Container>
@@ -22,10 +22,12 @@ const CustomInput = ({
 				$size={size}
 				$disabled={disabled}
 				$filled={filled}
-				$errors={errors || (touched && message?.errors[name])}
-				$success={success || (touched && message?.success[name])}
+				$errors={errors}
+				$success={success}
 			>
 				<S.Input
+					autoComplete={autoComplete}
+					maxLength={maxLength}
 					value={value}
 					onChange={onChange}
 					onBlur={onBlur}
@@ -36,15 +38,9 @@ const CustomInput = ({
 				/>
 				{icon}
 			</S.InputContainer>
-			{touched && (
-				<S.MsgWrapper
-					$errors={message.errors[name]}
-					$success={message.success[name]}
-				>
-					{message.success[name]}
-					{message.errors[name]}
-				</S.MsgWrapper>
-			)}
+			<S.MsgWrapper $errors={errors} $success={success}>
+				{message}
+			</S.MsgWrapper>
 		</S.Container>
 	);
 };
