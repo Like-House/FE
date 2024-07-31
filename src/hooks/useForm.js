@@ -23,6 +23,28 @@ function useForm({ initialValue, validate }) {
 		return { value, onChange, onBlur };
 	};
 
+	const handleBirthDate = (name, text) => {
+		text = text.replace(/[^\d-]/g, '');
+
+		if (text.length > 4 && text[4] !== '-') {
+			text = text.slice(0, 4) + '-' + text.slice(4);
+		}
+		if (text.length > 7 && text[7] !== '-') {
+			text = text.slice(0, 7) + '-' + text.slice(7);
+		}
+		if (text.length > 10) {
+			text = text.slice(0, 10);
+		}
+		setValues({ ...values, [name]: text });
+	};
+
+	const getBirthDateInputProps = name => {
+		const value = values[name];
+		const onChange = event => handleBirthDate(name, event.target.value);
+		const onBlur = () => handleBlur(name);
+		return { value, onChange, onBlur };
+	};
+
 	useEffect(() => {
 		if (validate) {
 			const message = validate(values);
@@ -36,6 +58,7 @@ function useForm({ initialValue, validate }) {
 		values,
 		message,
 		setTouched,
+		getBirthDateInputProps,
 	};
 }
 

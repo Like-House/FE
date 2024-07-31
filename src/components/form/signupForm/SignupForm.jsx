@@ -1,17 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useForm from '../../../hooks/useForm';
-import { validateSignUp } from '../../../utils/auth';
+import { validateSignUp } from '../../../utils';
 import * as S from './SignupForm.style';
 import { CustomButton, CheckBox, CustomInput } from '../../';
 import useCheckBox from '../../../hooks/useCheckBox';
+import { useSignup } from '../../../hooks/queries/signup/useSignup';
+import { useNavigate } from 'react-router-dom';
+import { PAGE_PATH } from '../../../constants';
 
 const SignupForm = () => {
+	const nav = useNavigate();
 	const signupForm = useForm({
 		initialValue: {
 			username: '',
 			email: '',
 			password: '',
 			passwordCheck: '',
+			birthDate: '',
 		},
 		validate: validateSignUp,
 	});
@@ -95,9 +100,36 @@ const SignupForm = () => {
 		}
 	};
 
+	const { mutate } = useSignup();
+
 	const handleSubmit = () => {
-		// 여기에 회원가입 전송 로직
+		// TODO: 이미지 로직 수정
+		mutate(
+			{
+				name: signupForm.values.username,
+				email: signupForm.values.email,
+				password: signupForm.values.password,
+				birthDate: signupForm.values.birthDate,
+				profileImage: '프로필',
+			},
+			{
+				onError: error => {
+					if (error.response?.status === 400) {
+						alert(error.response.data?.message);
+						nav(`/${PAGE_PATH.LOGIN}`);
+					}
+				},
+			},
+		);
 	};
+
+	useEffect(() => {
+		if (checkFirst && checkSecond) {
+			setCheckAll(true);
+		} else {
+			setCheckAll(false);
+		}
+	}, [checkFirst, checkSecond]);
 
 	return (
 		<S.FormContainer>
@@ -210,9 +242,21 @@ const SignupForm = () => {
 			<S.InputWrapper>
 				<label>생년월일</label>
 				<CustomInput
-					placeholder="생년월일을 확인해주세요."
+					{...signupForm.getBirthDateInputProps('birthDate')}
+					placeholder="YYYY-MM-DD"
 					size="XL"
 					type="text"
+					maxLength="10"
+					errors={
+						signupForm.touched.birthDate && signupForm.message.errors?.birthDate
+					}
+					message={
+						signupForm.touched.birthDate && signupForm.message.errors?.birthDate
+					}
+					success={
+						signupForm.touched.birthDate &&
+						signupForm.message.success?.birthDate
+					}
 				/>
 			</S.InputWrapper>
 			<S.FileWrapper>
@@ -268,7 +312,7 @@ const SignupForm = () => {
 						signupForm.message.success?.passwordCheck &&
 						msg.send.success &&
 						msg.check.success &&
-						(checkAll || (checkFirst && checkSecond))
+						checkAll
 					)
 				}
 			/>

@@ -4,20 +4,21 @@ import { PAGE_PATH } from '../../../constants';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { MobileNavbar, Avatar } from '../../';
 import useModalStore from '../../../store/useModalStore';
+import useAuthStore from '../../../store/useAuthStore';
 
 function Navbar() {
 	// 경로 수정 필요  & 로그인 유지 로직 변경 예정
 	const { open } = useModalStore(state => state);
+	const { isAuthenticated } = useAuthStore();
 
 	const data = {
 		img: '/src/assets/images/profile.png',
 		username: '정혜원',
 	};
 
-	let login = false;
 	let content;
 
-	if (login) {
+	if (isAuthenticated) {
 		content = (
 			<S.NavContainer>
 				<NavLink to={`${PAGE_PATH.SERVICE}`}>서비스 이용</NavLink>

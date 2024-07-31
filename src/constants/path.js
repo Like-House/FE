@@ -24,4 +24,11 @@ const PAGE_PATH = {
 	QNA: 'qna',
 };
 
-export { PAGE_PATH };
+const API_PATH = {
+	//auth
+	SIGNUP: '/api/v0/auth/signup',
+	LOGIN: '/api/v0/auth/signin',
+	LOGOUT: '/api/v0/auth/signout',
+};
+
+export { PAGE_PATH, API_PATH };
