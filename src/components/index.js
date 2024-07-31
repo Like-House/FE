@@ -2,7 +2,6 @@ import Navbar from './common/navbar/Navbar';
 import Footer from './common/footer/Footer';
 import Sidebar from './common/sidebar/SideBar';
 import ModalPortal from './common/portal/Portal';
-import MobileNavbar from './common/navbar/mobileNavbar/MobileNavbar';
 import PopOver from './common/popover/PopOver';
 import PostModal from './common/modal/PostModal';
 import FloatingButton from './common/floatingbutton/floatingbutton';
@@ -23,7 +22,6 @@ export {
 	Sidebar,
 	Footer,
 	ModalPortal,
-	MobileNavbar,
 	Dropdown,
 	Avatar,
 	Tooltip,
