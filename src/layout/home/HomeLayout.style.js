@@ -1,9 +1,14 @@
 import styled from 'styled-components';
+import theme from '../../theme/theme';
 
 const HomeContainer = styled.div`
 	height: 100vh;
 	width: 100vw;
 	display: flex;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		flex-direction: column-reverse;
+	}
 `;
 
 const OutletContainer = styled.div`

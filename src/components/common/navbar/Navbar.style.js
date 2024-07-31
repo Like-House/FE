@@ -1,14 +1,72 @@
-import styled from "styled-components";
-import theme from "../../../theme/theme";
+import styled from 'styled-components';
+import theme from '../../../theme/theme';
+import { FONT_SIZE } from '../../../constants';
 
 const Container = styled.div`
-  ${theme.ALIGN.COLUMN_CENTER};
-  height: 60px;
-  background-color: ${theme.COLOR.YELLOW.YELLOW_200};
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 50px;
+	width: 100%;
+	height: 75px;
+	background-color: ${theme.COLOR.BACKGROUND.WHITE};
 
-  @media ${theme.WINDOW_SIZE.MOBILE} {
-    background-color: ${theme.COLOR.GRAY.GRAY_300};
-  }
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		border: 1px solid ${theme.COLOR.GRAY.GRAY_350};
+		padding: 0 15px;
+	}
 `;
 
-export { Container };
+const Logo = styled.img`
+	width: 150px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		display: none;
+	}
+`;
+
+const NavContainer = styled.nav`
+	${theme.ALIGN.ROW_CENTER};
+	a {
+		font-size: ${FONT_SIZE.SM};
+		color: ${theme.COLOR.COMMON.BLACK};
+		margin: 0 13px;
+
+		&.active {
+			font-weight: bold;
+		}
+
+		p {
+			${theme.ALIGN.ROW_CENTER};
+			img {
+				margin-right: 20px;
+				cursor: pointer;
+			}
+		}
+	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		width: 100%;
+		a {
+			font-size: ${FONT_SIZE.BASE};
+			margin: 0 17px;
+		}
+	}
+`;
+
+const MobileContainer = styled.div`
+	display: none;
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		${theme.ALIGN.ROW_CENTER};
+	}
+
+	svg {
+		cursor: pointer;
+
+		&:hover {
+			color: ${theme.COLOR.MAIN.YELLOW};
+		}
+	}
+`;
+
+export { Container, Logo, NavContainer, MobileContainer };

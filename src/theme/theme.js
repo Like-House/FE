@@ -27,6 +27,11 @@ const ALIGN = {
     justify-content: center;
     align-items: center;
   `,
+	ROW_SPACE_BETWEEN: `
+  	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`,
 };
 
 const COLOR = {
@@ -44,8 +49,10 @@ const COLOR = {
 		GRAY_350: '#B4B4B4',
 		GRAY_400: '#999999',
 		GRAY_500: '#808080',
+		GRAY_550: '#72787F',
 		GRAY_600: '#666666',
 		GRAY_700: '#4D4D4D',
+		GRAY_750: '#3E3E3E',
 		GRAY_800: '#333333',
 		GRAY_900: '#1A1A1A',
 		GRAY_950: '#2A2A2A',
