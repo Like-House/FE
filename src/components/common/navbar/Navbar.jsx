@@ -1,14 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import * as S from './Navbar.style';
 import { PAGE_PATH } from '../../../constants';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import { MobileNavbar, Avatar } from '../../';
-import useModalStore from '../../../store/useModalStore';
+import { Avatar } from '../../';
 import useAuthStore from '../../../store/useAuthStore';
+import LOGO from '../../../assets/images/likeHouseLogo.svg';
 
 function Navbar() {
-	// 경로 수정 필요  & 로그인 유지 로직 변경 예정
-	const { open } = useModalStore(state => state);
 	const { isAuthenticated } = useAuthStore();
 
 	const data = {
@@ -46,12 +43,8 @@ function Navbar() {
 
 	return (
 		<S.Container>
-			<S.Logo>가족같은</S.Logo>
+			<S.Logo src={LOGO} />
 			{content}
-			<S.MobileContainer>
-				<GiHamburgerMenu onClick={() => open()} />
-				<MobileNavbar />
-			</S.MobileContainer>
 		</S.Container>
 	);
 }
