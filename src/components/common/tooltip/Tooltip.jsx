@@ -12,9 +12,9 @@ const Tooltip = ({
 			<S.TooltipIcon>
 				{children}
 				<S.TooltipText
-					size={size}
-					backgroundColor={backgroundColor}
-					position={position}
+					$size={size}
+					$backgroundColor={backgroundColor}
+					$position={position}
 				>
 					{text}
 				</S.TooltipText>

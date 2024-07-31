@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import theme from '../../../theme/theme';
+import { FONT_SIZE } from '../../../constants';
 
 const colorOptions = {
 	default: css`
@@ -24,8 +25,11 @@ const colorOptions = {
 };
 
 const sizeStyles = {
-	sm: css`
+	xs: css`
 		width: 60px;
+	`,
+	sm: css`
+		width: 90px;
 	`,
 	md: css`
 		width: 120px;
@@ -42,14 +46,14 @@ const TooltipWrapper = styled.div`
 
 const TooltipText = styled.span`
 	visibility: hidden;
-	${({ size }) => sizeStyles[size] || sizeStyles.md};
+	${({ $size }) => sizeStyles[$size] || sizeStyles.md};
 	text-align: center;
 	border-radius: 6px;
 	padding: 7px;
 	position: absolute;
 	z-index: 1;
-	${({ position }) =>
-		position === 'top'
+	${({ $position }) =>
+		$position === 'top'
 			? css`
 					bottom: 125%;
 				`
@@ -60,8 +64,9 @@ const TooltipText = styled.span`
 	margin-left: -60px;
 	opacity: 0;
 	transition: opacity 0.3s;
-	${({ backgroundColor }) =>
-		colorOptions[backgroundColor] || colorOptions.default};
+	${({ $backgroundColor }) =>
+		colorOptions[$backgroundColor] || colorOptions.default};
+	font-size: ${FONT_SIZE.XS};
 `;
 
 const TooltipIcon = styled.div`
@@ -71,6 +76,11 @@ const TooltipIcon = styled.div`
 		visibility: visible;
 		opacity: 1;
 	}
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 `;
 
 export { TooltipWrapper, TooltipText, TooltipIcon };

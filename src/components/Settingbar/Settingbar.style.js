@@ -15,6 +15,11 @@ const Container = styled.nav`
 	align-items: flex-start;
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 	z-index: 2;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		// display none이 아니라 반응형에 맞게 수정해주세요
+		display: none;
+	}
 `;
 
 const Section = styled.div`
