@@ -61,7 +61,7 @@ const PostModal = ({
           </S.ModalFooter>
         </S.ModalContainer>
       </S.ModalBackground>
-      )};
+      )}
     </>
   );
 };
