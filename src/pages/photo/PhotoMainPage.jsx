@@ -98,7 +98,7 @@ const PhotoMainPage = () => {
 				<S.Title>가족 앨범 보기</S.Title>
 				<S.CalenderLabel>날짜 선택</S.CalenderLabel>
 				<S.CalendarContainer $show={showSideContent}>
-					<CustomCalendar size="BASE" />
+					<CustomCalendar size="BASE" hasBackgroundColor={true} />
 				</S.CalendarContainer>
 				<S.DropdownLabel>가족 선택</S.DropdownLabel>
 				<S.DropdownWrapper>
