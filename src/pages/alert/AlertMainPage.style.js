@@ -20,19 +20,16 @@ const TabBarContainer = styled.div`
 	display: flex;
 	justify-content: space-around;
 	height: 12%;
-	padding: 60px 100px 10px 100px;
+	padding: 60px 30px 10px 30px;
 	overflow-x: auto;
 	white-space: nowrap;
 	border-bottom: 1px solid ${theme.COLOR.GRAY.GRAY_200};
-	gap: 100px;
 
 	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
-		gap: 40px;
 		padding: 60px 20px 10px 20px;
 	}
 
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
-		gap: 30px;
 		padding: 60px 14px 10px 14px;
 	}
 `;
@@ -97,8 +94,12 @@ const ContentContainer = styled.div`
 	padding: 20px 40px;
 	overflow-y: auto;
 
+	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
+		padding: 10px 20px;
+	}
+
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
-		padding: 20px 10px;
+		padding: 0 10px;
 	}
 `;
 
