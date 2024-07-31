@@ -10,7 +10,7 @@ const MainContainer = styled.div`
 `;
 
 const SideContainer = styled.div`
-	display: ${({ show }) => (show ? 'flex' : 'none')};
+	display: ${({ $show }) => ($show ? 'flex' : 'none')};
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: flex-start;
@@ -22,7 +22,7 @@ const SideContainer = styled.div`
 	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
 		width: 30%;
 		padding: 0 20px;
-		display: ${({ show }) => (show ? 'flex' : 'none')};
+		display: ${({ $show }) => ($show ? 'flex' : 'none')};
 	}
 `;
 
@@ -67,7 +67,7 @@ const Title = styled.div`
 const CalendarContainer = styled.div`
 	width: 100%;
 	height: 300px;
-	display: ${({ show }) => (show ? 'block' : 'none')};
+	display: ${({ $show }) => ($show ? 'block' : 'none')};
 `;
 
 const CalenderLabel = styled.div`
