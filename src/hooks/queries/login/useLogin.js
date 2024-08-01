@@ -7,15 +7,22 @@ import useAuthStore from '../../../store/useAuthStore';
 
 const useLogin = () => {
 	const navigation = useNavigate();
-	const { login: authLogin } = useAuthStore();
+	const { setIsAuthenticated } = useAuthStore();
 
 	return useMutation({
 		mutationFn: login,
 		onSuccess: data => {
-			localStorage.setItem('accessToken', data.result.accessToken);
-			setHeader('Authorization', `Bearer ${data.result.accessToken}`);
+			const accessToken = data.result.accessToken;
+			localStorage.setItem('accessToken', accessToken);
+			setHeader('Authorization', accessToken);
+			console.log(setHeader('Authorization', accessToken));
 			navigation(`${PAGE_PATH.BASE}`);
-			authLogin(data.result.accessToken);
+			setIsAuthenticated(true);
+		},
+		onSettled: data => {
+			const accessToken = data.result.accessToken;
+			setHeader('Authorization', accessToken);
+			console.log('settled');
 		},
 		throwOnError: error => Number(error.response?.status) >= 500,
 	});

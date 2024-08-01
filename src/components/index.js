@@ -16,7 +16,7 @@ import LoginIcon from './loginIcon/LoginIcon';
 import SignupForm from './form/signupForm/SignupForm';
 import LoginForm from './form/loginForm/LoginForm';
 import Settingbar from './Settingbar/Settingbar';
-import CheckBox from './common/checkbox/CheckBox';
+import Checkbox from './common/checkbox/checkbox.jsx';
 
 // chat
 import Chatbar from './chat/chatbar/Chatbar';
@@ -39,11 +39,11 @@ export {
 	LoginIcon,
 	SignupForm,
 	LoginForm,
-	CheckBox,
 	PopOver,
 	PostModal,
 	Settingbar,
 	Chatbar,
 	ChatRoom,
 	Message,
+	Checkbox,
 };

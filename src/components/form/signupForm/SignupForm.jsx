@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import useForm from '../../../hooks/useForm';
 import { validateSignUp } from '../../../utils';
 import * as S from './SignupForm.style';
-import { CustomButton, CheckBox, CustomInput } from '../../';
+import { CustomButton, CustomInput } from '../../';
 import useCheckBox from '../../../hooks/useCheckBox';
 import { useSignup } from '../../../hooks/queries/signup/useSignup';
 import { useNavigate } from 'react-router-dom';
 import { PAGE_PATH } from '../../../constants';
+import CheckBox from '../../common/checkbox/checkbox.jsx';
 
 const SignupForm = () => {
 	const nav = useNavigate();
