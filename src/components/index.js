@@ -18,6 +18,11 @@ import LoginForm from './form/loginForm/LoginForm';
 import Settingbar from './Settingbar/Settingbar';
 import CheckBox from './common/checkbox/CheckBox';
 
+// chat
+import Chatbar from './chat/chatbar/Chatbar';
+import ChatRoom from './chat/chatroom/ChatRoom';
+import Message from './chat/message/Message';
+
 export {
 	Navbar,
 	Sidebar,
@@ -38,4 +43,7 @@ export {
 	PopOver,
 	PostModal,
 	Settingbar,
+	Chatbar,
+	ChatRoom,
+	Message,
 };
