@@ -14,6 +14,7 @@ import {
 	SignupPage,
 	FamilySpaceSettings,
 	KakaoPage,
+	GooglePage,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -43,9 +44,13 @@ const router = createBrowserRouter([
 				path: `${PAGE_PATH.SERVICE}`,
 				element: <ServiceMainPage />,
 			},
+			// {
+			// 	path: `${PAGE_PATH.KAKAO}`,
+			// 	element: <KakaoPage />,
+			// },
 			{
-				path: `${PAGE_PATH.KAKAO}`,
-				element: <KakaoPage />,
+				path: `${PAGE_PATH.GOOGLE}`,
+				element: <GooglePage />,
 			},
 		],
 	},

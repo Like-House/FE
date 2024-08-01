@@ -10,7 +10,11 @@ import CalenderMainPage from './calender/CalenderMainPage';
 import QnaPage from './qna/QnaPage';
 import FamilySpaceSettings from './setting/FamilySpaceSettings/FamilySpaceSettings';
 import LandingPage from './landing/LadingPage';
+
+// social
 import KakaoPage from './social/kakao/KakaoPage';
+import NaverPage from './social/naver/NaverPage';
+import GooglePage from './social/google/GooglePage';
 
 export {
 	MainPage,
@@ -25,7 +29,7 @@ export {
 	LandingPage,
 	QnaPage,
 	FamilySpaceSettings,
-
-	// social
 	KakaoPage,
+	NaverPage,
+	GooglePage,
 };

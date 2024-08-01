@@ -25,6 +25,7 @@ const PAGE_PATH = {
 
 	// social login
 	KAKAO: 'login/oauth2/code/kakao',
+	GOOGLE: 'login/oauth2/code/google',
 };
 
 const API_PATH = {
@@ -36,6 +37,9 @@ const API_PATH = {
 	// social login
 	KAKAO: 'https://kauth.kakao.com/oauth/token',
 	KAKAO_REDIRECT: 'oauth2/authorization/kakao',
+	GOOGLE: 'https://oauth2.googleapis.com/token',
+	GOOGLE_REDITECT: 'oauth2/authorization/google',
+	NAVER_REDITECT: 'oauth2/authorization/naver',
 };
 
 export { PAGE_PATH, API_PATH };

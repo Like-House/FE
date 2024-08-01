@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { kakaoLogin, login } from '../../../apis';
+import { googleLogin, kakaoLogin, login } from '../../../apis';
 import { useNavigate } from 'react-router-dom';
 import { setHeader } from '../../../utils';
 import { PAGE_PATH } from '../../../constants';
@@ -36,4 +36,21 @@ const useKakaoLogin = () => {
 		throwOnError: error => Number(error.response?.status) >= 500,
 	});
 };
-export { useLogin, useKakaoLogin };
+
+const useGoogleLogin = () => {
+	const navigation = useNavigate();
+	const { login: authLogin } = useAuthStore();
+
+	return useMutation({
+		mutationFn: googleLogin,
+		onSuccess: data => {
+			localStorage.setItem('accessToken', data.access_token);
+			setHeader('Authorization', `Bearer ${data.access_token}`);
+			navigation(`${PAGE_PATH.BASE}`, { replace: true });
+			authLogin(data.access_token);
+		},
+		throwOnError: error => Number(error.response?.status) >= 500,
+	});
+};
+
+export { useLogin, useKakaoLogin, useGoogleLogin };

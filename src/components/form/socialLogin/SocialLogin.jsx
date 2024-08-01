@@ -12,9 +12,13 @@ const SocialLogin = () => {
 		location.href = `${VITE_API_URL}/${API_PATH.KAKAO_REDIRECT}`;
 	};
 
-	const handleNaver = () => {};
+	const handleNaver = () => {
+		location.href = `${VITE_API_URL}/${API_PATH.NAVER_REDITECT}`;
+	};
 
-	const handleGoogle = () => {};
+	const handleGoogle = () => {
+		location.href = `${VITE_API_URL}/${API_PATH.GOOGLE_REDITECT}`;
+	};
 
 	return (
 		<S.IconWrapper>
