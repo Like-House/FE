@@ -17,6 +17,7 @@ import SignupForm from './form/signupForm/SignupForm';
 import LoginForm from './form/loginForm/LoginForm';
 import Settingbar from './Settingbar/Settingbar';
 import CheckBox from './common/checkbox/CheckBox';
+import SocialLogin from './form/socialLogin/SocialLogin';
 
 export {
 	Navbar,
@@ -38,4 +39,5 @@ export {
 	PopOver,
 	PostModal,
 	Settingbar,
+	SocialLogin,
 };
