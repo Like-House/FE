@@ -10,6 +10,7 @@ import CalenderMainPage from './calender/CalenderMainPage';
 import QnaPage from './qna/QnaPage';
 import FamilySpaceSettings from './setting/FamilySpaceSettings/FamilySpaceSettings';
 import LandingPage from './landing/LadingPage';
+import KakaoPage from './social/kakao/KakaoPage';
 
 export {
 	MainPage,
@@ -24,4 +25,7 @@ export {
 	LandingPage,
 	QnaPage,
 	FamilySpaceSettings,
+
+	// social
+	KakaoPage,
 };

@@ -22,6 +22,9 @@ const PAGE_PATH = {
 	FAMILY: 'family',
 	// Q/A
 	QNA: 'qna',
+
+	// social login
+	KAKAO: 'login/oauth2/code/kakao',
 };
 
 const API_PATH = {
@@ -29,6 +32,10 @@ const API_PATH = {
 	SIGNUP: '/api/v0/auth/signup',
 	LOGIN: '/api/v0/auth/signin',
 	LOGOUT: '/api/v0/auth/signout',
+
+	// social login
+	KAKAO: 'https://kauth.kakao.com/oauth/token',
+	KAKAO_REDIRECT: 'oauth2/authorization/kakao',
 };
 
 export { PAGE_PATH, API_PATH };

@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { login } from '../../../apis';
+import { kakaoLogin, login } from '../../../apis';
 import { useNavigate } from 'react-router-dom';
 import { setHeader } from '../../../utils';
 import { PAGE_PATH } from '../../../constants';
@@ -21,4 +21,19 @@ const useLogin = () => {
 	});
 };
 
-export { useLogin };
+const useKakaoLogin = () => {
+	const navigation = useNavigate();
+	const { login: authLogin } = useAuthStore();
+
+	return useMutation({
+		mutationFn: kakaoLogin,
+		onSuccess: data => {
+			localStorage.setItem('accessToken', data.access_token);
+			setHeader('Authorization', `Bearer ${data.access_token}`);
+			navigation(`${PAGE_PATH.BASE}`);
+			authLogin(data.access_token);
+		},
+		throwOnError: error => Number(error.response?.status) >= 500,
+	});
+};
+export { useLogin, useKakaoLogin };
