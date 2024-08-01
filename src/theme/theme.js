@@ -31,7 +31,13 @@ const ALIGN = {
   	display: flex;
 	justify-content: space-between;
 	align-items: center;
-`,
+  `,
+	COLUMN_SPACE_BETWEEN: `
+	 display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   align-items: center;
+	`,
 };
 
 const COLOR = {
@@ -42,6 +48,7 @@ const COLOR = {
 		RED: '#FF000F',
 	},
 	GRAY: {
+		GRAY_0: '#F5F5F5',
 		GRAY_50: '#F1F2F3',
 		GRAY_100: '#E6E6E6',
 		GRAY_200: '#CCCCCC',
