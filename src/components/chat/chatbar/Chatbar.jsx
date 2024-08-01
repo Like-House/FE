@@ -4,6 +4,8 @@ import { CiSearch } from 'react-icons/ci';
 import useDropdownStore from '../../../store/useDropdownStore';
 import Modal from '../modal/Modal';
 import useModalStore from '../../../store/useModalStore';
+import ChatRoom from '../chatroom/ChatRoom';
+import useChatRoomGet from '../../../hooks/queries/chat/useChatRoomGet';
 
 const Chatbar = () => {
 	const { chatDropdown, chatDropdownOpen } = useDropdownStore(state => state);
@@ -13,6 +15,25 @@ const Chatbar = () => {
 		open();
 		chatDropdownOpen();
 	};
+
+	const { data } = useChatRoomGet({
+		familySpaceId: 1,
+		cursor: -1,
+		take: 1,
+	});
+
+	let content;
+
+	if (data) {
+		console.log(data);
+		content = (
+			<>
+				{data.result.chatRoomResponses.map(e => (
+					<ChatRoom room={e} key={e.chatRoomId} />
+				))}
+			</>
+		);
+	}
 
 	return (
 		<S.Container>
@@ -31,6 +52,7 @@ const Chatbar = () => {
 				<input type="text" placeholder="메시지방, 메시지 검색" />
 				<CiSearch size={20} />
 			</S.Search>
+			{content}
 		</S.Container>
 	);
 };
