@@ -5,6 +5,8 @@ import pictureData from '../../mockdata/db.json';
 import { useState, useEffect, useRef } from 'react';
 import { RESPONSIVE_SIZE } from '../../constants/size';
 import PhotoPostModal from './components/PhotoPostModal';
+import CustomCalendar from '../../components/common/calendar/CustomCalendar';
+import useCalendarStore from '../../store/useCalendarStore';
 
 const PhotoMainPage = () => {
 	const options = Array.from(
@@ -14,13 +16,22 @@ const PhotoMainPage = () => {
 	const [selectedOp, setSelectedOp] = useState('');
 	const [showSideContent, setShowSideContent] = useState(true);
 	const sideContainerRef = useRef(null);
+	const { date } = useCalendarStore();
+
+	console.log(date);
 
 	const handleSelect = op => {
 		setSelectedOp(op);
 	};
 
 	const filteredPicture = pictureData.pictures.filter(picture => {
-		return !selectedOp || picture.op === selectedOp;
+		const selectedDate = date ? new Date(date).toDateString() : null;
+		const pictureDate = new Date(picture.date).toDateString();
+
+		return (
+			(!selectedOp || picture.op === selectedOp) &&
+			(!selectedDate || selectedDate === pictureDate)
+		);
 	});
 
 	const handleClickOutside = event => {
@@ -86,7 +97,9 @@ const PhotoMainPage = () => {
 			<S.SideContainer ref={sideContainerRef} $show={showSideContent}>
 				<S.Title>가족 앨범 보기</S.Title>
 				<S.CalenderLabel>날짜 선택</S.CalenderLabel>
-				<S.CalendarContainer $show={showSideContent}></S.CalendarContainer>
+				<S.CalendarContainer $show={showSideContent}>
+					<CustomCalendar size="BASE" hasBackgroundColor={true} />
+				</S.CalendarContainer>
 				<S.DropdownLabel>가족 선택</S.DropdownLabel>
 				<S.DropdownWrapper>
 					<Dropdown

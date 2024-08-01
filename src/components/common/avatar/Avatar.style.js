@@ -1,9 +1,16 @@
 import styled, { css } from 'styled-components';
+import theme from '../../../theme/theme';
+import defaultAvatar from '../../../assets/images/avatar.png';
+import { RESPONSIVE_SIZE } from '../../../constants';
 
 const sizeStyles = {
 	sm: css`
 		width: 40px;
 		height: 40px;
+	`,
+	smd: css`
+		width: 50px;
+		height: 50px;
 	`,
 	md: css`
 		width: 60px;
@@ -30,9 +37,23 @@ const shapeStyles = shape => {
 
 const Image = styled.img`
 	${({ size }) => sizeStyles[size] || sizeStyles.md};
-	${({ shape }) => shapeStyles(shape)}
+	${({ shape }) => shapeStyles(shape)};
+	background-color: ${({ src }) =>
+		src ? 'transparent' : `${theme.COLOR.GRAY.GRAY_100}`};
+	background-image: ${({ src }) =>
+		src ? `url(${src})` : `url(${defaultAvatar})`};
+	background-repeat: no-repeat;
+	background-position: center;
 	object-fit: cover;
 	cursor: ${({ onClick }) => (onClick ? 'pointer' : 'default')};
+
+	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
+		${sizeStyles.smd};
+	}
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		${sizeStyles.sm};
+	}
 `;
 
 export { Image };
