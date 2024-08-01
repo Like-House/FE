@@ -26,11 +26,11 @@ const Sidebar = () => {
   };
 
   const handleRightButtonClick = () => {
-    if (step === totalSteps) {
-      setStep(step + 1);
-    } else {
-      setStep(step + 1);
-    }
+	if (step === 1 && inputValue.trim() === '') {
+	  return;
+	} else {
+		setStep(step + 1);
+	}
   };
 
   const handleInputChange = (e) => {
@@ -98,16 +98,16 @@ const Sidebar = () => {
 			</S.Profile>
 
 			<PostModal
-        isOpen={isOpen}
-        closeModal={closeModal}
-        body={body}
-        leftButton={['이전', '이전']}
-        leftButtonAction={handleLeftButtonClick}
-        rightButton={['다음', '제출']}
-        rightButtonAction={handleRightButtonClick}
-        totalSteps={totalSteps}
-        currentStep={step}
-      />
+				isOpen={isOpen}
+				closeModal={closeModal}
+				body={body}
+				leftButton={['사진첨부', '이전']}
+				leftButtonAction={handleLeftButtonClick}
+				rightButton={['다음', '제출']}
+				rightButtonAction={handleRightButtonClick}
+				totalSteps={totalSteps}
+				currentStep={step}
+			/>
 		</S.Container>
 	);
 };
