@@ -14,7 +14,7 @@ const useLogin = () => {
 		onSuccess: data => {
 			localStorage.setItem('accessToken', data.result.accessToken);
 			setHeader('Authorization', `Bearer ${data.result.accessToken}`);
-			navigation(`${PAGE_PATH.BASE}`);
+			navigation(`${PAGE_PATH.BASE}`, { replace: true });
 			authLogin(data.result.accessToken);
 		},
 		throwOnError: error => Number(error.response?.status) >= 500,
@@ -30,7 +30,7 @@ const useKakaoLogin = () => {
 		onSuccess: data => {
 			localStorage.setItem('accessToken', data.access_token);
 			setHeader('Authorization', `Bearer ${data.access_token}`);
-			navigation(`${PAGE_PATH.BASE}`);
+			navigation(`${PAGE_PATH.BASE}`, { replace: true });
 			authLogin(data.access_token);
 		},
 		throwOnError: error => Number(error.response?.status) >= 500,
