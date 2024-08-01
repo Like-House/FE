@@ -3,6 +3,9 @@ import * as S from "./MainPage.style.js";
 import boardList from "../../constants/boardList";
 import Avatar from "../../components/common/avatar/Avatar.jsx";
 import CommentInput from "../../components/Comment/Comment.jsx";
+import PopOver from "../../components/common/popover/PopOver.jsx";
+
+import { FaEllipsisH, FaEdit, FaTrashAlt, FaRegBellSlash } from "react-icons/fa";
 
 const MainPage = () => {
   const [showMenu, setShowMenu] = useState(null);
@@ -59,6 +62,43 @@ const MainPage = () => {
     }
   };
 
+  const handleMenuToggle = (postid) => {
+    setShowMenu(prev => (prev === postid ? null : postid));
+  };
+
+  const handleMouseLeave = () => {
+    setShowMenu(false);
+  };
+
+  const menuItems = [
+    {
+      icon: <FaEdit />,
+      message: "수정하기",
+      onClick: () => {
+        console.log("수정하기 클릭됨");
+        setShowMenu(null);
+        // 수정 로직 추가
+      },
+    },
+    {
+      icon: <FaTrashAlt />,
+      message: "삭제하기",
+      onClick: () => {
+        console.log("삭제하기 클릭됨");
+        setShowMenu(null);
+        // 삭제 로직 추가
+      },
+    },
+    {
+      icon: <FaRegBellSlash />,
+      message: "알림끄기",
+      onClick: () => {
+        console.log("알림끄기 클릭됨");
+        setShowMenu(null);
+        // 알림끄기 로직 추가
+      },
+    },
+  ];
 
   return (
     <S.PostContainer>
@@ -76,12 +116,9 @@ const MainPage = () => {
                     <S.Author>{post.author}</S.Author>
                     <S.DateTime>{post.date} {post.time}</S.DateTime>
                   </S.AuthorWrapper>
-                  <S.MenuButton onClick={() => handleMenuToggle(post.id)}>⋮</S.MenuButton>
+                  <S.MenuButton onClick={() => handleMenuToggle(post.id)}><FaEllipsisH /></S.MenuButton>
                   {showMenu === post.id && (
-                    <S.Menu>
-                      <S.MenuItem>수정하기</S.MenuItem>
-                      <S.MenuItem>삭제하기</S.MenuItem>
-                    </S.Menu>
+                    <PopOver items={menuItems} onMouseLeave={handleMouseLeave}/>
                   )}
                 </S.PostHeader>
                 <S.Content>{post.content}</S.Content>

@@ -3,6 +3,10 @@ import theme from '../../../theme/theme';
 import { FONT_SIZE } from '../../../constants/size';
 
 export const PopOverContainer = styled.div`
+  position: absolute;
+  left: 70%;
+  z-index: 10;
+
   display: flex;
   flex-direction: column;
 
