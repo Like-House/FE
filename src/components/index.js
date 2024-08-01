@@ -16,7 +16,7 @@ import LoginIcon from './loginIcon/LoginIcon';
 import SignupForm from './form/signupForm/SignupForm';
 import LoginForm from './form/loginForm/LoginForm';
 import Settingbar from './Settingbar/Settingbar';
-import Checkbox from './common/checkbox/checkbox.jsx';
+import Checkbox from './common/checkbox/CheckBox.jsx';
 
 // chat
 import Chatbar from './chat/chatbar/Chatbar';
