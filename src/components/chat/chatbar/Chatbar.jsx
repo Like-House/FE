@@ -5,27 +5,36 @@ import useDropdownStore from '../../../store/useDropdownStore';
 import Modal from '../modal/Modal';
 import useModalStore from '../../../store/useModalStore';
 import ChatRoom from '../chatroom/ChatRoom';
-import useChatRoomGet from '../../../hooks/queries/chat/useChatRoomGet';
+import useGetChatRoom from '../../../hooks/queries/chat/useGetChatRoom';
+import { useChatRoom } from '../../../store';
+import { useEffect } from 'react';
 
 const Chatbar = () => {
 	const { chatDropdown, chatDropdownOpen } = useDropdownStore(state => state);
 	const { open } = useModalStore(state => state);
+	const { setChatRoom } = useChatRoom();
 
 	const onClick = () => {
 		open();
 		chatDropdownOpen();
 	};
 
-	const { data } = useChatRoomGet({
+	const { data, isSuccess } = useGetChatRoom({
 		familySpaceId: 1,
 		cursor: -1,
-		take: 1,
+		take: 5,
 	});
+
+	useEffect(() => {
+		if (isSuccess && data.result.chatRoomResponses) {
+			const { chatRoomId, title, imageUrl } = data.result.chatRoomResponses[0];
+			setChatRoom({ chatRoomId, chatTitle: title, chatImg: imageUrl });
+		}
+	}, [isSuccess, data]);
 
 	let content;
 
 	if (data) {
-		console.log(data);
 		content = (
 			<>
 				{data.result.chatRoomResponses.map(e => (

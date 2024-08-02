@@ -3,13 +3,35 @@ import { FaRegSmile } from 'react-icons/fa';
 import { HiOutlinePhotograph } from 'react-icons/hi';
 import * as S from './Message.style';
 import { useChatRoom } from '../../../store';
-// import PopOver from '../../common/popover/PopOver';
-// import { GoBellSlash } from 'react-icons/go';
+import PopOver from '../../common/popover/PopOver';
+import { GoBellSlash } from 'react-icons/go';
+import { RxExit } from 'react-icons/rx';
+import { TbPhoto } from 'react-icons/tb';
+import { useState } from 'react';
+import useExitChatRoom from '../../../hooks/queries/chat/useExitChatRoom';
 
 const Message = () => {
-	const { chatTitle, chatImg } = useChatRoom();
+	const { chatTitle, chatImg, chatRoomId } = useChatRoom();
+	const [open, setOpen] = useState();
+	const { mutate } = useExitChatRoom();
 
-	// const items = [{ icon: <GoBellSlash />, message: '알람 끄기' }];
+	const handleExitChatRoom = () => {
+		mutate(chatRoomId, {
+			onError: e => console.log(e),
+		});
+		setOpen(false);
+	};
+
+	const items = [
+		{ icon: <GoBellSlash />, message: '알람 끄기' },
+		{
+			icon: <RxExit />,
+			message: '채팅방 나가기',
+			onClick: handleExitChatRoom,
+		},
+
+		{ icon: <TbPhoto />, message: '커버 이미지 변경' },
+	];
 
 	return (
 		<S.Container>
@@ -18,7 +40,12 @@ const Message = () => {
 					<img src={chatImg} alt="profile" />
 					<p>{chatTitle}</p>
 				</S.UserContainer>
-				{/* <PopOver items={items} /> */}
+				<S.Menu>
+					<p onClick={() => setOpen(!open)}>메뉴</p>
+					<S.PopoverWrapper $open={open}>
+						<PopOver items={items} />
+					</S.PopoverWrapper>
+				</S.Menu>
 			</S.NavContainer>
 
 			<S.InputContainer>

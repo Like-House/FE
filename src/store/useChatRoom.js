@@ -4,6 +4,13 @@ const useChatRoom = create(set => ({
 	chatRoomId: null,
 	chatTitle: '',
 	chatImg: '',
+
+	clear: () =>
+		set(() => ({
+			chatRoomId: null,
+			chatTitle: '',
+			chatImg: '',
+		})),
 	setChatRoom: ({ chatRoomId, chatTitle, chatImg }) =>
 		set(() => ({
 			chatRoomId,

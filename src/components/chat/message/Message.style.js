@@ -65,4 +65,30 @@ const UserContainer = styled.div`
 	}
 `;
 
-export { InputContainer, IconWrapper, Container, NavContainer, UserContainer };
+const Menu = styled.div`
+	position: relative;
+
+	p {
+		cursor: pointer;
+		&:hover {
+			color: ${theme.COLOR.YELLOW.YELLOW_400};
+		}
+	}
+`;
+
+const PopoverWrapper = styled.div`
+	display: ${({ $open }) => ($open ? '' : 'none')};
+	position: absolute;
+	top: 30px;
+	right: 0;
+`;
+
+export {
+	InputContainer,
+	IconWrapper,
+	Container,
+	NavContainer,
+	UserContainer,
+	Menu,
+	PopoverWrapper,
+};
