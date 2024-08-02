@@ -32,6 +32,9 @@ const API_PATH = {
 
 	// chat
 	CHAT: '/api/v0/chat-rooms',
+
+	// family
+	FAMILY: 'api/v0/user-management',
 };
 
 export { PAGE_PATH, API_PATH };

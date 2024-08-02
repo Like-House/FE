@@ -83,6 +83,15 @@ const PopoverWrapper = styled.div`
 	right: 0;
 `;
 
+const NoChatContainer = styled.div`
+	${theme.ALIGN.COLUMN_CENTER}
+	height: 100vh;
+	flex: 1;
+	p {
+		margin-top: 10px;
+	}
+`;
+
 export {
 	InputContainer,
 	IconWrapper,
@@ -91,4 +100,5 @@ export {
 	UserContainer,
 	Menu,
 	PopoverWrapper,
+	NoChatContainer,
 };
