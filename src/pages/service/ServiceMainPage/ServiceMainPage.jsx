@@ -8,22 +8,28 @@ import { PAGE_PATH } from '../../../constants/path';
 const ServiceMainPage = () => {
   const navigate = useNavigate();
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [isNoFamilySpace, setIsNoFamilySpace] = useState(false);
 
   const handleInvitationLinkClick = () => {
-    navigate(`/${PAGE_PATH.SERVICE}/${PAGE_PATH.SERVICE_INVITATION_LINK}`);
+    const hasFamilySpace = true;
+    if (!hasFamilySpace) {
+      setIsNoFamilySpace(true);
+    } else {
+      navigate(`/${PAGE_PATH.SERVICE}/${PAGE_PATH.SERVICE_INVITATION_LINK}`);
+    }
   };
 
   const handleCreateSpaceClick = () => {
-    setIsAlertOpen(true);
+    navigate(`/${PAGE_PATH.SERVICE}/${PAGE_PATH.CREATE_SPACE}`);
   };
 
   const handleConfirm = () => {
     setIsAlertOpen(false);
-    navigate(`/${PAGE_PATH.SERVICE}/${PAGE_PATH.CREATE_SPACE}`);
   };
 
   const handleCancel = () => {
     setIsAlertOpen(false);
+    setIsNoFamilySpace(false);
   };
 
   return (
@@ -100,6 +106,12 @@ const ServiceMainPage = () => {
         onConfirm={handleConfirm}
         onCancel={handleCancel}
         isOpen={isAlertOpen}
+      />
+      <Alert
+        message='이용 가능한 가족 공간이 없습니다.'
+        detailMessage='다른 가족에게 공간을 초대 받거나, 다른 가족들을 초대할 수 있는 공간을 만들고 가족 공간에서 추억을 쌓아보세요.'
+        onConfirm={handleCancel}
+        isOpen={isNoFamilySpace}
       />
     </S.Container>
   );
