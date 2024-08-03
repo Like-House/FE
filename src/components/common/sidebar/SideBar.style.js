@@ -25,7 +25,7 @@ const Container = styled.div`
 const Logo = styled.img`
 	${theme.ALIGN.ROW_CENTER};
 	width: 140px;
-	height: 9%;
+	margin: 30px;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		display: none;
@@ -98,7 +98,7 @@ const Icon = styled.div`
 
 const Profile = styled.div`
 	position: absolute;
-	bottom: 40px;
+	bottom: 30px;
 
 	img {
 		width: 50px;
