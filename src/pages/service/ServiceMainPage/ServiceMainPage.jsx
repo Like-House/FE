@@ -23,6 +23,10 @@ const ServiceMainPage = () => {
     navigate(`/${PAGE_PATH.SERVICE}/${PAGE_PATH.CREATE_SPACE}`);
   };
 
+  const handleSignupClick = () => {
+    navigate(`/${PAGE_PATH.SIGN_UP}`);
+  };
+
   const handleConfirm = () => {
     setIsAlertOpen(false);
   };
@@ -82,7 +86,11 @@ const ServiceMainPage = () => {
       <S.SubContent>
         <S.SubTitle>아직 계정이 없어요!</S.SubTitle>
         <S.Button bgColor={S.BgColor.YELLOW}>
-          <CustomButton btnType='primary' label='회원가입 하러가기' />
+          <CustomButton
+            btnType='primary'
+            label='회원가입 하러가기'
+            onClick={handleSignupClick}
+          />
         </S.Button>
       </S.SubContent>
       <S.HelpSection>
