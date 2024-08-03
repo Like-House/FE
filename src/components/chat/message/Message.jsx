@@ -12,6 +12,7 @@ import { IoChatbubbles } from 'react-icons/io5';
 import theme from '../../../theme/theme';
 import useModal from '../../../hooks/useModal';
 import { ChangeRoom, Alert, PopOver } from '../../';
+import useGetRealImageUrl from '../../../hooks/queries/image/useGetRealImage.js';
 
 const Message = () => {
 	const { chatTitle, chatImg, chatRoomId, changeRoomInfo, setChangeRoomInfo } =
@@ -20,6 +21,8 @@ const Message = () => {
 	const { mutate } = useExitChatRoom();
 
 	const { isOpen, openModal, closeModal } = useModal();
+
+	const { data } = useGetRealImageUrl({ chatRoomId, imageUrl: chatImg });
 
 	const handleConfirm = () => {
 		mutate(chatRoomId, {
@@ -58,7 +61,7 @@ const Message = () => {
 			return (
 				<S.NoChatContainer>
 					<IoChatbubbles size={30} color={theme.COLOR.YELLOW.YELLOW_500} />
-					<p> 현재 참여중인 채팅방이 없습니다.</p>
+					<p>현재 참여중인 채팅방이 없습니다.</p>
 				</S.NoChatContainer>
 			);
 		} else {
@@ -72,7 +75,7 @@ const Message = () => {
 					/>
 					<S.NavContainer>
 						<S.UserContainer>
-							<img src={chatImg} alt="profile" />
+							<img src={data?.result.url} alt="profile" />
 							<p>{chatTitle}</p>
 						</S.UserContainer>
 						<S.Menu>

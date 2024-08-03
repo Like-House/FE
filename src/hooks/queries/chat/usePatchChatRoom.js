@@ -7,7 +7,9 @@ const usePatchChatRoom = () => {
 	return useMutation({
 		mutationFn: patchChatRoom,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.CHATROOMS] });
+			queryClient.resetQueries({
+				queryKey: [QUERY_KEYS.CHATROOMS],
+			});
 		},
 	});
 };

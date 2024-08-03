@@ -6,10 +6,14 @@ import { useChatRoom } from '../../../store';
 import { useState } from 'react';
 import { createPresinedURL, uploadImageToS3 } from '../../../apis/image';
 import usePatchChatRoom from '../../../hooks/queries/chat/usePatchChatRoom';
+import queryClient from '../../../apis/queryClient.js';
+import { useMutation } from '@tanstack/react-query';
+import { patchChatRoom } from '../../../apis/index.js';
+import { useNavigate } from 'react-router-dom';
 
 const ChangeRoom = () => {
-	const { chatRoomId, chatTitle, setChangeRoomInfo, chatImg } = useChatRoom();
-	const { mutate } = usePatchChatRoom();
+	const { chatRoomId, chatTitle, setChangeRoomInfo } = useChatRoom();
+	const { mutate: modifyChatInfo } = usePatchChatRoom();
 	const [file, setFile] = useState(null);
 	const [filePreview, setFilePreview] = useState(null);
 
@@ -22,18 +26,19 @@ const ChangeRoom = () => {
 	};
 
 	const handleClick = async () => {
-		const data = await createPresinedURL(file.name); // Presined url & keyName 가져옴
+		const data = await createPresinedURL(file.name);
+		await uploadImageToS3({ url: data.result.url, file: file });
 
-		await uploadImageToS3({ url: data.result.url, file: file }); // url 로 파일 업로드
-		console.log(data);
-
-		// 수정
-		mutate({
-			chatRoomId,
-			title: chatTitle,
-			imageUrl: data.result.keyName,
-		});
-		setChangeRoomInfo();
+		try {
+			modifyChatInfo({
+				chatRoomId,
+				title: chatTitle,
+				imageUrl: data.result.keyName,
+			});
+			setChangeRoomInfo();
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (

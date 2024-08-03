@@ -6,7 +6,7 @@ const createPresinedURL = async filename => {
 	const { data } = await axiosInstance.get(
 		`${API_PATH.IMAGE}/upload?filename=${filename}`,
 	);
-
+	console.log(data);
 	return data;
 };
 
@@ -17,12 +17,22 @@ const uploadImageToS3 = async ({ url, file }) => {
 				'Content-Type': file.type,
 			},
 		});
-		console.log(res);
-
 		return res;
 	} catch (error) {
 		console.log(error);
 	}
 };
 
-export { createPresinedURL, uploadImageToS3 };
+const getRealImageUrl = async imageUrl => {
+	try {
+		const { data } = await axiosInstance.get(
+			`/api/v0/s3/presigned/download?keyName=${imageUrl}`,
+		);
+
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export { createPresinedURL, uploadImageToS3, getRealImageUrl };

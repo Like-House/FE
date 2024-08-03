@@ -40,9 +40,6 @@ const patchChatRoom = async ({ chatRoomId, title, imageUrl }) => {
 			title,
 			imageUrl,
 		});
-
-		console.log(data);
-
 		return data;
 	} catch (err) {
 		console.log(err);
