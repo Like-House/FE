@@ -10,9 +10,7 @@ const CheckBox = ({ checked, onChange, label, required, type, size }) => {
       case 'background':
         checkBoxElement = (
           <S.CheckBoxWithBackground checked={checked} size={size}>
-            {checked && (
-              <S.CheckMark src={WhiteCheck} alt='check mark' size={size} />
-            )}
+            {checked && <S.CheckMark src={WhiteCheck} size={size} />}
           </S.CheckBoxWithBackground>
         );
         break;
@@ -20,9 +18,7 @@ const CheckBox = ({ checked, onChange, label, required, type, size }) => {
       default:
         checkBoxElement = (
           <S.CheckBoxOutline size={size}>
-            {checked && (
-              <S.CheckMark src={BlackCheck} alt='check mark' size={size} />
-            )}
+            {checked && <S.CheckMark src={BlackCheck} size={size} />}
           </S.CheckBoxOutline>
         );
     }
@@ -41,6 +37,7 @@ const CheckBox = ({ checked, onChange, label, required, type, size }) => {
       </S.CheckBoxContainer>
     );
   };
+
   return renderCheckBox();
 };
 
