@@ -9,6 +9,7 @@ import useGetChatRoom from '../../../hooks/queries/chat/useGetChatRoom';
 import { useChatRoom } from '../../../store';
 import { useEffect } from 'react';
 import useGetFamilyList from '../../../hooks/queries/family/useGetFamilyList';
+import useCreateChatRoom from '../../../hooks/queries/chat/useCreateChatRoom';
 
 const Chatbar = () => {
 	const { chatDropdown, chatDropdownOpen } = useDropdownStore(state => state);
@@ -16,10 +17,28 @@ const Chatbar = () => {
 	const { setChatRoom, clear } = useChatRoom();
 
 	const { data: familyData } = useGetFamilyList();
+	const { mutate } = useCreateChatRoom();
 
 	const onClick = () => {
 		open();
 		chatDropdownOpen();
+	};
+
+	const creatGroupChatRoom = () => {
+		if (familyData) {
+			const members = familyData.familyDataList.map(e => e.name);
+			const membersId = familyData.familyDataList
+				.map(e => e.userId)
+				.filter(id => id !== 1); // 1은 지금 내 아이디라 변경할 필요 있음
+			mutate({
+				familySpaceId: 1, // 여기도 내꺼로 변경
+				title: members.join(',') + ' (' + familyData.size + ')',
+				imageUrl: '프로필',
+				chatRoomType: 'GROUP',
+				roomParticipantIds: membersId,
+			});
+			chatDropdownOpen();
+		}
 	};
 
 	const { data, isSuccess } = useGetChatRoom({
@@ -62,7 +81,7 @@ const Chatbar = () => {
 				<S.CreateBox $open={chatDropdown}>
 					<li onClick={onClick}>일반 채팅방</li>
 					{familyData && <Modal members={familyData.familyDataList} />}
-					<li>가족 단체 채팅방</li>
+					<li onClick={creatGroupChatRoom}>가족 단체 채팅방</li>
 				</S.CreateBox>
 			</S.ButtonContainer>
 			<S.Search>
