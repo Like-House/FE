@@ -16,7 +16,6 @@ const ChatRoom = ({ room }) => {
 			<S.UserContainer>
 				<div>
 					<h4>{title}</h4>
-					<p></p>
 				</div>
 			</S.UserContainer>
 		</S.Container>

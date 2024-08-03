@@ -5,6 +5,8 @@ const useChatRoom = create(set => ({
 	chatTitle: '',
 	chatImg: '',
 
+	changeRoomInfo: false,
+
 	clear: () =>
 		set(() => ({
 			chatRoomId: null,
@@ -16,6 +18,11 @@ const useChatRoom = create(set => ({
 			chatRoomId,
 			chatTitle,
 			chatImg,
+		})),
+
+	setChangeRoomInfo: () =>
+		set(state => ({
+			changeRoomInfo: !state.changeRoomInfo,
 		})),
 }));
 

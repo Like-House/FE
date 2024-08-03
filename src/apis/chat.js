@@ -34,13 +34,19 @@ const exitChatRoom = async chatRoomId => {
 };
 
 const patchChatRoom = async ({ chatRoomId, title, imageUrl }) => {
-	const { data } = await axiosInstance.patch(`${API_PATH.CHAT}`, {
-		chatRoomId,
-		title,
-		imageUrl,
-	});
+	try {
+		const { data } = await axiosInstance.patch(`${API_PATH.CHAT}`, {
+			chatRoomId,
+			title,
+			imageUrl,
+		});
 
-	return data;
+		console.log(data);
+
+		return data;
+	} catch (err) {
+		console.log(err);
+	}
 };
 
 export { getChatRooms, createChatRoom, exitChatRoom, patchChatRoom };

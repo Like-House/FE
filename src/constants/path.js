@@ -35,6 +35,9 @@ const API_PATH = {
 
 	// family
 	FAMILY: 'api/v0/user-management',
+
+	// image
+	IMAGE: 'api/v0/s3/presigned',
 };
 
 export { PAGE_PATH, API_PATH };
