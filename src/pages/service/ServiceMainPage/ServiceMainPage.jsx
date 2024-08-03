@@ -1,9 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as S from './ServiceMainPage.style';
-import { CustomButton } from '../../components';
+import { CustomButton } from '../../../components';
 import { AiOutlineArrowRight } from 'react-icons/ai';
+import { PAGE_PATH } from '../../../constants/path';
 
 const ServiceMainPage = () => {
+  const navigate = useNavigate();
+
+  const handleInvitationLinkClick = () => {
+    navigate(`/${PAGE_PATH.SERVICE}/${PAGE_PATH.SERVICE_INVITATION_LINK}`);
+  };
+
   return (
     <S.Container>
       <S.Title>서비스 이용</S.Title>
@@ -23,6 +31,7 @@ const ServiceMainPage = () => {
                   btnType='primary'
                   label='초대링크 입력'
                   icon={<AiOutlineArrowRight />}
+                  onClick={handleInvitationLinkClick}
                 />
               </S.Button>
             </S.CardContent>

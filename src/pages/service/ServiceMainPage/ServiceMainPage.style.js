@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import theme from '../../theme/theme';
-import { FONT_SIZE } from '../../constants/size';
+import theme from '../../../theme/theme';
+import { FONT_SIZE } from '../../../constants/size';
 
 const { COLOR } = theme;
 
