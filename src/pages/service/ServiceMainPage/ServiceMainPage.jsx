@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './ServiceMainPage.style';
-import { CustomButton } from '../../../components';
+import { CustomButton, Alert } from '../../../components';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { PAGE_PATH } from '../../../constants/path';
 
 const ServiceMainPage = () => {
   const navigate = useNavigate();
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const handleInvitationLinkClick = () => {
     navigate(`/${PAGE_PATH.SERVICE}/${PAGE_PATH.SERVICE_INVITATION_LINK}`);
   };
 
   const handleCreateSpaceClick = () => {
+    setIsAlertOpen(true);
+  };
+
+  const handleConfirm = () => {
+    setIsAlertOpen(false);
     navigate(`/${PAGE_PATH.SERVICE}/${PAGE_PATH.CREATE_SPACE}`);
+  };
+
+  const handleCancel = () => {
+    setIsAlertOpen(false);
   };
 
   return (
@@ -85,6 +95,12 @@ const ServiceMainPage = () => {
           <S.HelpItem>새로운 가족 공간을 만들고 싶어요.</S.HelpItem>
         </S.HelpList>
       </S.HelpSection>
+      <Alert
+        message='이미 초대된 가족 공간으로 이동합니다.'
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+        isOpen={isAlertOpen}
+      />
     </S.Container>
   );
 };
