@@ -11,6 +11,7 @@ import QnaPage from './qna/QnaPage';
 import FamilySpaceSettings from './setting/FamilySpaceSettings/FamilySpaceSettings';
 import LandingPage from './landing/LadingPage';
 import InvitationLink from './service/InvitationLink/InvitationLink';
+import CreateSpace from './service/CreateSpace/CreateSpace';
 
 export {
   MainPage,
@@ -26,4 +27,5 @@ export {
   QnaPage,
   FamilySpaceSettings,
   InvitationLink,
+  CreateSpace,
 };

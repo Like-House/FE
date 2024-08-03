@@ -14,6 +14,7 @@ import {
   SignupPage,
   FamilySpaceSettings,
   InvitationLink,
+  CreateSpace,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
           {
             path: `${PAGE_PATH.SERVICE_INVITATION_LINK}`,
             element: <InvitationLink />,
+          },
+          {
+            path: `${PAGE_PATH.CREATE_SPACE}`,
+            element: <CreateSpace />,
           },
         ],
       },

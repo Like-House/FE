@@ -12,6 +12,10 @@ const ServiceMainPage = () => {
     navigate(`/${PAGE_PATH.SERVICE}/${PAGE_PATH.SERVICE_INVITATION_LINK}`);
   };
 
+  const handleCreateSpaceClick = () => {
+    navigate(`/${PAGE_PATH.SERVICE}/${PAGE_PATH.CREATE_SPACE}`);
+  };
+
   return (
     <S.Container>
       <S.Title>서비스 이용</S.Title>
@@ -52,6 +56,7 @@ const ServiceMainPage = () => {
                   btnType='primary'
                   label='가족 공간 만들기'
                   icon={<AiOutlineArrowRight />}
+                  onClick={handleCreateSpaceClick}
                 />
               </S.Button>
             </S.CardContent>

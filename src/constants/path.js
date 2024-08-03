@@ -10,6 +10,8 @@ const PAGE_PATH = {
   SERVICE: 'service',
   // Service/InvitationLink
   SERVICE_INVITATION_LINK: 'invitationlink',
+  //Service/CreateSpace
+  CREATE_SPACE: 'createspace',
   // Chat
   CHAT: 'chat',
   // Setting
