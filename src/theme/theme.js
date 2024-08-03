@@ -28,10 +28,10 @@ const ALIGN = {
     align-items: center;
   `,
 	ROW_SPACE_BETWEEN: `
-  	display: flex;
-	justify-content: space-between;
-	align-items: center;
-`,
+  	 display: flex;
+	 justify-content: space-between;
+	 align-items: center;
+  `,
 };
 
 const COLOR = {

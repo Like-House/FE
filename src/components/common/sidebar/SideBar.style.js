@@ -12,18 +12,20 @@ const Container = styled.div`
 	z-index: 99;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
+		position: fixed;
+		bottom: 0;
 		background-color: ${theme.COLOR.COMMON.WHITE};
 		flex-direction: row;
 		box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.25);
 		width: 100%;
-		height: 100px;
+		height: 80px;
 	}
 `;
 
 const Logo = styled.img`
 	${theme.ALIGN.ROW_CENTER};
 	width: 140px;
-	height: 10%;
+	height: 9%;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		display: none;
@@ -31,18 +33,22 @@ const Logo = styled.img`
 `;
 
 const NavContainer = styled.nav`
-	height: 65%;
+	height: 520px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	margin-top: 6px;
 
 	a {
 		${theme.ALIGN.COLUMN_CENTER};
-
+		margin-bottom: 17px;
 		&.active {
 			div {
 				border: 3px solid #ffc933;
 			}
+		}
+
+		@media ${theme.WINDOW_SIZE.MOBILE} {
+			margin-bottom: 0;
 		}
 	}
 
@@ -54,8 +60,10 @@ const NavContainer = styled.nav`
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		flex-direction: row;
-		width: 72%;
-		margin-left: 5px;
+		justify-content: space-around;
+		width: 100%;
+		height: 100%;
+		padding: 0 10px;
 	}
 `;
 
@@ -96,16 +104,6 @@ const Profile = styled.div`
 		width: 50px;
 		height: 50px;
 	}
-
-	@media ${theme.WINDOW_SIZE.MOBILE} {
-		position: static;
-		height: 40px;
-
-		img {
-			width: 35px;
-			height: 35px;
-		}
-	}
 `;
 
 const ButtonBox = styled.div`
@@ -114,11 +112,7 @@ const ButtonBox = styled.div`
 	flex: 1;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		position: static;
-		flex-direction: row;
-		justify-content: space-around;
-		margin-bottom: 20px;
-		margin-right: 8px;
+		display: none;
 	}
 `;
 
@@ -129,19 +123,36 @@ const PostIcon = styled.div`
 	span {
 		left: 37px;
 	}
+`;
 
+const PC = styled.div`
+	a {
+		margin-bottom: 17px;
+	}
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		position: static;
-		button {
-			width: 35px;
-			height: 35px;
-		}
-
-		img {
-			width: 19px;
-			height: 19px;
-		}
+		display: none;
 	}
 `;
 
-export { Container, Logo, NavContainer, Icon, Profile, ButtonBox, PostIcon };
+const Mobile = styled.div`
+	display: none;
+
+	img {
+		width: 17px;
+		height: 17px;
+	}
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		display: flex;
+	}
+`;
+export {
+	Container,
+	Logo,
+	NavContainer,
+	Icon,
+	Profile,
+	ButtonBox,
+	PostIcon,
+	PC,
+	Mobile,
+};
