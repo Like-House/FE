@@ -11,16 +11,26 @@ import { useState } from 'react';
 import useExitChatRoom from '../../../hooks/queries/chat/useExitChatRoom';
 import { IoChatbubbles } from 'react-icons/io5';
 import theme from '../../../theme/theme';
+import Alert from '../../common/alert/alert';
+import useModal from '../../../hooks/useModal';
 
 const Message = () => {
 	const { chatTitle, chatImg, chatRoomId } = useChatRoom();
 	const [open, setOpen] = useState();
 	const { mutate } = useExitChatRoom();
 
-	const handleExitChatRoom = () => {
+	const { isOpen, openModal, closeModal } = useModal();
+
+	const handleConfirm = () => {
 		mutate(chatRoomId, {
 			onError: e => console.log(e),
 		});
+		closeModal();
+	};
+
+	const handleExitChatRoom = () => {
+		openModal();
+
 		setOpen(false);
 	};
 
@@ -45,6 +55,12 @@ const Message = () => {
 	} else {
 		return (
 			<S.Container>
+				<Alert
+					isOpen={isOpen}
+					message="채팅방을 나가시겠습니까?"
+					onConfirm={handleConfirm}
+					onCancel={closeModal}
+				/>
 				<S.NavContainer>
 					<S.UserContainer>
 						<img src={chatImg} alt="profile" />
