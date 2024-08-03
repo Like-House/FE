@@ -41,7 +41,6 @@ const CheckBox = ({ checked, onChange, label, required, type, size }) => {
       </S.CheckBoxContainer>
     );
   };
-
   return renderCheckBox();
 };
 
