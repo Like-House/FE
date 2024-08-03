@@ -10,6 +10,7 @@ import settingIcon from '../../../assets/images/settingIcon.svg';
 import { PAGE_PATH } from '../../../constants/path';
 import theme from '../../../theme/theme.js';
 import { Avatar, Tooltip, FloatingButton } from '../../';
+import LOGO from '../../../assets/images/likeHouseLogo.svg';
 
 const Sidebar = () => {
 	const { pathname } = useLocation();
@@ -17,7 +18,7 @@ const Sidebar = () => {
 
 	return (
 		<S.Container>
-			<S.Logo>가족같은</S.Logo>
+			<S.Logo src={LOGO} />
 			<S.NavContainer>
 				<Link
 					to={PAGE_PATH.HOME}

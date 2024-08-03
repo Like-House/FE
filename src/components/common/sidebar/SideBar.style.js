@@ -20,10 +20,9 @@ const Container = styled.div`
 	}
 `;
 
-const Logo = styled.div`
+const Logo = styled.img`
 	${theme.ALIGN.ROW_CENTER};
-	font-weight: 700;
-	font-size: ${FONT_SIZE.LG};
+	width: 140px;
 	height: 10%;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
