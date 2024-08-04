@@ -2,7 +2,7 @@ import axios from 'axios';
 import { API_PATH } from '../constants';
 import axiosInstance from './axios';
 
-const createPresinedURL = async filename => {
+const createPresignedURL = async filename => {
 	const { data } = await axiosInstance.get(
 		`${API_PATH.IMAGE}/upload?filename=${filename}`,
 	);
@@ -35,4 +35,4 @@ const getRealImageUrl = async imageUrl => {
 	}
 };
 
-export { createPresinedURL, uploadImageToS3, getRealImageUrl };
+export { createPresignedURL, uploadImageToS3, getRealImageUrl };

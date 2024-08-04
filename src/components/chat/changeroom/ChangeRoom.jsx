@@ -4,12 +4,8 @@ import { Avatar, CustomButton } from '../../';
 import { MdOutlineFileUpload } from 'react-icons/md';
 import { useChatRoom } from '../../../store';
 import { useState } from 'react';
-import { createPresinedURL, uploadImageToS3 } from '../../../apis/image';
+import { createPresignedURL, uploadImageToS3 } from '../../../apis/image';
 import usePatchChatRoom from '../../../hooks/queries/chat/usePatchChatRoom';
-import queryClient from '../../../apis/queryClient.js';
-import { useMutation } from '@tanstack/react-query';
-import { patchChatRoom } from '../../../apis/index.js';
-import { useNavigate } from 'react-router-dom';
 
 const ChangeRoom = () => {
 	const { chatRoomId, chatTitle, setChangeRoomInfo } = useChatRoom();
@@ -26,7 +22,7 @@ const ChangeRoom = () => {
 	};
 
 	const handleClick = async () => {
-		const data = await createPresinedURL(file.name);
+		const data = await createPresignedURL(file.name);
 		await uploadImageToS3({ url: data.result.url, file: file });
 
 		try {
