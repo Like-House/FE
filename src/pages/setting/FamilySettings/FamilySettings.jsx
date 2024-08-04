@@ -31,10 +31,6 @@ function FamilySettings() {
       setFamilyMembers(
         familyMembers.filter((member) => member !== selectedMember)
       );
-    } else if (selectedAction === 'release') {
-      setFamilyMembers(
-        familyMembers.filter((member) => member !== selectedMember)
-      );
     } else if (selectedAction === 'unblock') {
       setBlockedMembers(
         blockedMembers.filter((member) => member !== selectedMember)
@@ -85,11 +81,6 @@ function FamilySettings() {
               <S.Actions>
                 {isOwner ? (
                   <>
-                    <CustomButton
-                      btnType='secondary'
-                      label='가족 해제'
-                      onClick={() => handleOpenModal(index, 'release')}
-                    />
                     <CustomButton
                       btnType='secondary'
                       label='정보 수정'
@@ -148,16 +139,8 @@ function FamilySettings() {
 
       <Alert
         isOpen={isOpen && selectedAction !== 'unblock'}
-        message={
-          selectedAction === 'release'
-            ? '해당 가족을 해제할까요?'
-            : '해당 가족을 차단할까요?'
-        }
-        detailMessage={
-          selectedAction === 'release'
-            ? '이 가족을 해제하면 가족과 관련된 게시글, 채팅, 알림, 일정 등이 모두 삭제됩니다. 가족을 다시 가족 공간에 초대되면 모든 데이터가 복구됩니다.'
-            : '이 가족을 차단하면 가족과 관련된 게시글, 채팅, 알림, 일정 등이 모두 삭제됩니다. 한 번 삭제된 가족 데이터는 다시 복구할 수 없습니다.'
-        }
+        message='해당 가족을 차단할까요?'
+        detailMessage='이 가족을 차단하면 가족과 관련된 게시글, 채팅, 알림, 일정 등이 모두 삭제됩니다. 한 번 삭제된 가족 데이터는 다시 복구할 수 없습니다.'
         onConfirm={handleConfirm}
         onCancel={handleCancel}
       />
