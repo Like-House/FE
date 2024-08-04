@@ -26,7 +26,7 @@ const uploadImageToS3 = async ({ url, file }) => {
 const getRealImageUrl = async imageUrl => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/api/v0/s3/presigned/download?keyName=${imageUrl}`,
+			`${API_PATH.IMAGE}/download?keyName=${imageUrl}`,
 		);
 
 		return data;
