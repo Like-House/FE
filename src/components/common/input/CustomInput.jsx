@@ -1,54 +1,48 @@
 import * as S from './CustomInput.style';
 
 const CustomInput = ({
-  value,
-  onChange,
-  onBlur,
-  name,
-  type, // text, number ...
-  placeholder,
-  filled, // boolean
-  size, // XS , SM, BASE, LG, XL
-  disabled,
-  icon,
-  errors,
-  success,
-  message,
-  touched,
-  noBorder = false,
+	value,
+	onChange,
+	onBlur,
+	type, // text, number ...
+	placeholder,
+	filled, // boolean
+	size, // XS , SM, BASE, LG, XL
+	disabled,
+	icon,
+	errors,
+	success,
+	message,
+	maxLength,
+	autoComplete,
 }) => {
-  return (
-    <S.Container>
-      <S.InputContainer
-        $size={size}
-        $disabled={disabled}
-        $filled={filled}
-        $errors={errors || (touched && message?.errors[name])}
-        $success={success || (touched && message?.success[name])}
-        $noBorder={noBorder}
-      >
-        <S.Input
-          value={value}
-          onChange={onChange}
-          onBlur={onBlur}
-          type={type}
-          placeholder={placeholder}
-          disabled={disabled}
-          $filled={filled}
-        />
-        {icon}
-      </S.InputContainer>
-      {touched && (
-        <S.MsgWrapper
-          $errors={message.errors[name]}
-          $success={message.success[name]}
-        >
-          {message.success[name]}
-          {message.errors[name]}
-        </S.MsgWrapper>
-      )}
-    </S.Container>
-  );
+	return (
+		<S.Container>
+			<S.InputContainer
+				$size={size}
+				$disabled={disabled}
+				$filled={filled}
+				$errors={errors}
+				$success={success}
+			>
+				<S.Input
+					autoComplete={autoComplete}
+					maxLength={maxLength}
+					value={value}
+					onChange={onChange}
+					onBlur={onBlur}
+					type={type}
+					placeholder={placeholder}
+					disabled={disabled}
+					$filled={filled}
+				/>
+				{icon}
+			</S.InputContainer>
+			<S.MsgWrapper $errors={errors} $success={success}>
+				{message}
+			</S.MsgWrapper>
+		</S.Container>
+	);
 };
 
 export default CustomInput;
