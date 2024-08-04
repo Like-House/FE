@@ -9,6 +9,7 @@ import AlertMainPage from './alert/AlertMainPage';
 import CalenderMainPage from './calender/CalenderMainPage';
 import QnaPage from './qna/QnaPage';
 import FamilySpaceSettings from './setting/FamilySpaceSettings/FamilySpaceSettings';
+import EditProfile from './setting/EditProfile/EditProfile';
 import LandingPage from './landing/LadingPage';
 
 export {
@@ -24,4 +25,5 @@ export {
 	LandingPage,
 	QnaPage,
 	FamilySpaceSettings,
+  EditProfile
 };
