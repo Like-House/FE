@@ -13,8 +13,10 @@ const MainContainer = styled.div`
 const AlertConatainer = styled.div`
 	display: flex;
 	flex-direction: column;
+	min-width: 500px;
 	width: 75%;
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		min-width: 0;
 		width: 100%;
 	}
 `;
@@ -106,10 +108,16 @@ const ContentContainer = styled.div`
 `;
 
 const SideContainer = styled.div`
+	display: flex;
+	justify-content: center;
 	width: 25%;
+	min-width: 300px;
 	background-color: rgba(250, 250, 250, 1);
 	padding: 80px 50px 0px 50px;
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
+	> div {
+		max-height: 500px;
+	}
 
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
 		display: none;
