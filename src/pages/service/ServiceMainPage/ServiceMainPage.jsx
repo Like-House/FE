@@ -43,7 +43,12 @@ const ServiceMainPage = () => {
         <S.InviteSection>
           <S.InviteTitle>가족에게 초대링크를 받았어요!</S.InviteTitle>
           <S.Card bgColor={S.BgColor.YELLOW}>
-            <S.Picture>그림</S.Picture>
+            <S.PictureContainer>
+              <S.Picture
+                src='/src/assets/images/InvitationLink.png'
+                alt='Invitation Link'
+              />
+            </S.PictureContainer>
             <S.CardContent>
               <S.CardTitle>
                 초대 받은 가족 공간
@@ -64,7 +69,12 @@ const ServiceMainPage = () => {
         <S.CreateSection>
           <S.CreateTitle>새로운 가족 공간을 만들고 싶어요.</S.CreateTitle>
           <S.Card bgColor={S.BgColor.WHITE}>
-            <S.Picture>그림</S.Picture>
+            <S.PictureContainer>
+              <S.Picture
+                src='/src/assets/images/CreateSpace.png'
+                alt='Create Space'
+              />
+            </S.PictureContainer>
             <S.CardContent>
               <S.CardTitle>
                 새로운 가족 공간
