@@ -1,11 +1,5 @@
-import * as S from './LandingPage.style';
-
-function LadingPage() {
-  return (
-    <S.Container>
-      <div>LandingPage</div>
-    </S.Container>
-  );
-}
+const LadingPage = () => {
+	return <div>Landing page</div>;
+};
 
 export default LadingPage;

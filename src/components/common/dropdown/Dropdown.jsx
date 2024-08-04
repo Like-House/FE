@@ -19,12 +19,12 @@ const Dropdown = ({ label, options, size, openIcon, closeIcon, onSelect }) => {
 	return (
 		<S.DropdownContainer size={size}>
 			<S.DropdownButtonArea onClick={handleDropdown}>
-				<S.DropdownLabel isSelected={selectedMenu !== null}>
+				<S.DropdownLabel $isSelected={selectedMenu !== null}>
 					{selectedMenu || label}
 				</S.DropdownLabel>
 				{isOpen ? closeIcon : openIcon}
 			</S.DropdownButtonArea>
-			<S.DropdownMenuArea isOpen={isOpen}>
+			<S.DropdownMenuArea $isOpen={isOpen}>
 				{options.map((menu, index) => (
 					<S.DropdownMenu key={index} onClick={() => selectMenu(menu)}>
 						{menu}
