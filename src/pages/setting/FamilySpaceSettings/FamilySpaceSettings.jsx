@@ -43,14 +43,14 @@ function FamilySpaceSettings() {
       </S.Content>
       <S.ExpirationNotice>초대 코드는 7일 후 만료됩니다.</S.ExpirationNotice>
 
-      <S.SettingsSection>
-        <S.DeleteContainer>
-          <S.Title>가족 공간 삭제</S.Title>
-          <S.DeleteComment>
-            가족들이 초대된 가족 공간을 삭제합니다. 이 작업은 되돌릴 수
-            없습니다.
-          </S.DeleteComment>
-        </S.DeleteContainer>
+			<S.SettingsSection>
+				<S.DeleteContainer>
+					<S.Title>가족 공간 삭제</S.Title>
+					<S.DeleteComment>
+						가족들이 초대된 가족 공간을 삭제합니다. 이 작업은 되돌릴 수
+						없습니다.
+					</S.DeleteComment>
+				</S.DeleteContainer>
 
         <CustomButton
           btnType='primary'

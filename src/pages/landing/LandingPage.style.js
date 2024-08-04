@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import theme from "../../theme/theme";
+import styled from 'styled-components';
+import theme from '../../theme/theme';
 
 const Container = styled.div`
-  ${theme.ALIGN.COLUMN_CENTER};
+	${theme.ALIGN.COLUMN_CENTER};
 
-  div {
-    height: 300px;
-  }
+	div {
+		height: 300px;
+	}
 `;
 
 export { Container };

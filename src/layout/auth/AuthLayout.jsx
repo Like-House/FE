@@ -1,18 +1,18 @@
 import { Outlet } from 'react-router-dom';
 import * as S from './AuthLayout.style';
-import { Footer, Navbar } from '../../components';
+import { Navbar } from '../../components';
+import { ErrorBoundaryProvider } from '../../container/ErrorBoundaryProvider.jsx';
 
 const AuthLayout = () => {
 	return (
-		<S.AuthContainer>
-			<S.ContentContainer>
+		<ErrorBoundaryProvider>
+			<S.AuthContainer>
 				<Navbar />
 				<S.OutletContainer>
 					<Outlet />
 				</S.OutletContainer>
-				<Footer />
-			</S.ContentContainer>
-		</S.AuthContainer>
+			</S.AuthContainer>
+		</ErrorBoundaryProvider>
 	);
 };
 
