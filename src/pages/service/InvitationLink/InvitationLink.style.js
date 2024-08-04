@@ -7,6 +7,9 @@ const OuterContainer = styled.div`
   justify-content: center;
   background-color: ${theme.COLOR.BACKGROUND};
   padding: 50px;
+  @media ${theme.WINDOW_SIZE.MOBILE} {
+    padding: 30px;
+  }
 `;
 
 const Container = styled.div`
@@ -19,6 +22,9 @@ const Container = styled.div`
   padding: 70px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
+  @media ${theme.WINDOW_SIZE.MOBILE} {
+    padding: 30px;
+  }
 `;
 
 const Title = styled.h1`
