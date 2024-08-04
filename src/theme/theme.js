@@ -29,8 +29,8 @@ const ALIGN = {
   `,
 	ROW_SPACE_BETWEEN: `
   	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	  justify-content: space-between;
+	  align-items: center;
   `,
 	COLUMN_SPACE_BETWEEN: `
 	 display: flex;
@@ -55,6 +55,7 @@ const COLOR = {
 		GRAY_300: '#B3B3B3',
 		GRAY_350: '#B4B4B4',
 		GRAY_400: '#999999',
+		GRAY_450: '#838383',
 		GRAY_500: '#808080',
 		GRAY_550: '#72787F',
 		GRAY_600: '#666666',

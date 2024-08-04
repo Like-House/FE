@@ -60,7 +60,7 @@ const AlbumContainer = styled.div`
 `;
 
 const Title = styled.div`
-	margin-top: 40px;
+	margin-top: 30px;
 	font-size: ${FONT_SIZE.LG};
 `;
 
@@ -68,10 +68,13 @@ const CalendarContainer = styled.div`
 	width: 100%;
 	height: 300px;
 	display: ${({ $show }) => ($show ? 'block' : 'none')};
+	margin-bottom: 36px;
 `;
 
 const CalenderLabel = styled.div`
-	margin-top: 40px;
+	font-size: ${FONT_SIZE.SM};
+	margin-top: 30px;
+	margin-bottom: 20px;
 `;
 
 const DropdownWrapper = styled.div`
@@ -96,7 +99,8 @@ const DropdownWrapper = styled.div`
 `;
 
 const DropdownLabel = styled.div`
-	margin-top: 40px;
+	font-size: ${FONT_SIZE.SM};
+	margin-top: 170px;
 `;
 
 const PictureArea = styled.div`

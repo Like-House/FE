@@ -13,6 +13,7 @@ import {
 	ServiceMainPage,
 	SignupPage,
 	FamilySpaceSettings,
+  EditProfile,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -73,15 +74,16 @@ const router = createBrowserRouter([
 				path: `${PAGE_PATH.PHOTO}`,
 				element: <PhotoMainPage />,
 			},
-			{
-				path: `${PAGE_PATH.SETTING}/*`,
-				children: [
-					{
-						path: 'family-space-settings',
-						element: <FamilySpaceSettings />,
-					},
-				],
-			},
+		  {
+        path: `${PAGE_PATH.SETTING}/*`,
+        children: [
+          {
+            path: `${PAGE_PATH.FAMILY_SPACE_SETTINGS}`,
+            element: <FamilySpaceSettings />,
+          },
+          { path: `${PAGE_PATH.EDIT_PROFILE}`, element: <EditProfile /> },
+        ],
+      },
 		],
 	},
 ]);
