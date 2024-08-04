@@ -48,6 +48,10 @@ const InputContainer = styled.div`
   width: 100%;
   position: relative;
   margin-bottom: 100px;
+
+  div {
+    width: 100%;
+  }
 `;
 
 const ErrorMsg = styled.div`

@@ -54,6 +54,10 @@ const InputContainer = styled.div`
   width: 100%;
   position: relative;
   margin-bottom: 40px;
+
+  div {
+    width: 100%;
+  }
 `;
 
 const ButtonContainer = styled.div`
