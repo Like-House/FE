@@ -17,6 +17,7 @@ import {
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
+import { ErrorBoundaryProvider } from './container/ErrorBoundaryProvider.jsx';
 
 const router = createBrowserRouter([
 	{

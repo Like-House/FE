@@ -15,7 +15,7 @@ const sizeStyles = {
 };
 
 const DropdownContainer = styled.div`
-	${({ size }) => sizeStyles[size] || sizeStyles.md};
+	${({ $size }) => sizeStyles[$size] || sizeStyles.md};
 `;
 const DropdownButtonArea = styled.div`
 	width: 100%;
@@ -24,7 +24,8 @@ const DropdownButtonArea = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	border-radius: 10px;
-	background-color: ${theme.COLOR.COMMON.WHITE};
+	background-color: ${({ $bgColor }) =>
+		$bgColor ? $bgColor : theme.COLOR.COMMON.WHITE};
 	padding: 12px 18px;
 `;
 
@@ -39,7 +40,8 @@ const DropdownMenuArea = styled.div`
 	margin-top: 10px;
 	padding: 12px 18px;
 	border-radius: 10px;
-	background-color: ${theme.COLOR.COMMON.WHITE};
+	background-color: ${({ $bgColor }) =>
+		$bgColor ? $bgColor : theme.COLOR.COMMON.WHITE};
 	max-height: ${({ $isOpen }) => ($isOpen ? '500px' : '0')};
 	overflow: hidden;
 	transition:
