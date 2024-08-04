@@ -14,6 +14,9 @@ const AlertConatainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 75%;
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		width: 100%;
+	}
 `;
 
 const TabBarContainer = styled.div`
@@ -84,8 +87,7 @@ const NotificationCount = styled.span`
 		width: 12px;
 		height: 12px;
 		font-size: ${FONT_SIZE.XS};
-		top: 2px;
-		right: -6px;
+		top: -12px;
 	}
 `;
 
@@ -108,6 +110,10 @@ const SideContainer = styled.div`
 	background-color: rgba(250, 250, 250, 1);
 	padding: 80px 50px 0px 50px;
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		display: none;
+	}
 `;
 
 export {

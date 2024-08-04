@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import theme from '../../../theme/theme';
-import { FONT_SIZE } from '../../../constants/size';
+import { FONT_SIZE, RESPONSIVE_SIZE } from '../../../constants/size';
 
 const sizeStyles = {
 	sm: css`
@@ -32,6 +32,10 @@ const DropdownLabel = styled.div`
 	font-size: ${FONT_SIZE.BASE};
 	color: ${({ $isSelected }) =>
 		$isSelected ? theme.COLOR.GRAY.GRAY_950 : theme.COLOR.GRAY.GRAY_350};
+
+	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
+		font-size: ${FONT_SIZE.SM};
+	}
 `;
 
 const DropdownMenuArea = styled.div`
@@ -40,8 +44,8 @@ const DropdownMenuArea = styled.div`
 	padding: 12px 18px;
 	border-radius: 10px;
 	background-color: ${theme.COLOR.COMMON.WHITE};
-	max-height: ${({ $isOpen }) => ($isOpen ? '500px' : '0')};
-	overflow: hidden;
+	max-height: ${({ $isOpen }) => ($isOpen ? '140px' : '0')};
+	overflow-y: auto;
 	transition:
 		max-height 0.5s ease-out,
 		opacity 0.5s ease-out;
