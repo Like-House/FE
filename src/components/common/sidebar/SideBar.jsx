@@ -10,6 +10,8 @@ import settingIcon from '../../../assets/images/settingIcon.svg';
 import { PAGE_PATH } from '../../../constants/path';
 import theme from '../../../theme/theme.js';
 import { Avatar, Tooltip, FloatingButton } from '../../';
+import LOGO from '../../../assets/images/likeHouseLogo.svg';
+import MORE from '../../../assets/images/moreBox.svg';
 
 const Sidebar = () => {
 	const { pathname } = useLocation();
@@ -17,7 +19,7 @@ const Sidebar = () => {
 
 	return (
 		<S.Container>
-			<S.Logo>가족같은</S.Logo>
+			<S.Logo src={LOGO} />
 			<S.NavContainer>
 				<Link
 					to={PAGE_PATH.HOME}
@@ -46,18 +48,28 @@ const Sidebar = () => {
 					</S.Icon>
 					<p>메세지</p>
 				</NavLink>
-				<NavLink to={PAGE_PATH.FAMILY}>
-					<S.Icon>
-						<IoPersonOutline size={25} />
-					</S.Icon>
-					<p>가족</p>
-				</NavLink>
-				<NavLink to={PAGE_PATH.SETTING}>
-					<S.Icon>
-						<img src={settingIcon} alt="setting" />
-					</S.Icon>
-					<p>설정</p>
-				</NavLink>
+				<S.PC>
+					<NavLink to={PAGE_PATH.FAMILY}>
+						<S.Icon>
+							<IoPersonOutline size={25} />
+						</S.Icon>
+						<p>가족</p>
+					</NavLink>
+					<NavLink to={PAGE_PATH.SETTING}>
+						<S.Icon>
+							<img src={settingIcon} alt="setting" />
+						</S.Icon>
+						<p>설정</p>
+					</NavLink>
+				</S.PC>
+				<S.Mobile>
+					<NavLink to={PAGE_PATH.FAMILY}>
+						<S.Icon>
+							<img src={MORE} alt="more" />
+						</S.Icon>
+						<p>더보기</p>
+					</NavLink>
+				</S.Mobile>
 			</S.NavContainer>
 
 			<S.ButtonBox>

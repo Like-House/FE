@@ -1,21 +1,20 @@
 import { useMutation } from '@tanstack/react-query';
 import { login } from '../../../apis';
 import { useNavigate } from 'react-router-dom';
-import { setHeader } from '../../../utils';
 import { PAGE_PATH } from '../../../constants';
 import useAuthStore from '../../../store/useAuthStore';
 
 const useLogin = () => {
 	const navigation = useNavigate();
-	const { login: authLogin } = useAuthStore();
+	const { setIsAuthenticated } = useAuthStore();
 
 	return useMutation({
 		mutationFn: login,
 		onSuccess: data => {
-			localStorage.setItem('accessToken', data.result.accessToken);
-			setHeader('Authorization', `Bearer ${data.result.accessToken}`);
+			const accessToken = data.result.accessToken;
+			localStorage.setItem('accessToken', accessToken);
 			navigation(`${PAGE_PATH.BASE}`);
-			authLogin(data.result.accessToken);
+			setIsAuthenticated(true);
 		},
 		throwOnError: error => Number(error.response?.status) >= 500,
 	});
