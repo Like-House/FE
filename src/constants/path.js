@@ -35,7 +35,6 @@ const API_PATH = {
 	SIGNUP: '/api/v0/auth/signup',
 	LOGIN: '/api/v0/auth/signin',
 	LOGOUT: '/api/v0/auth/signout',
-	PROFILE: '/api/v0/auth/profile',
 
 	// chat
 	CHAT: '/api/v0/chat-rooms',
@@ -45,6 +44,9 @@ const API_PATH = {
 
 	// image
 	IMAGE: 'api/v0/s3/presigned',
+
+	// users
+	PROFILE: '/api/v0/users/profile',
 };
 
 export { PAGE_PATH, API_PATH };
