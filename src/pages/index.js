@@ -12,20 +12,22 @@ import FamilySpaceSettings from './setting/FamilySpaceSettings/FamilySpaceSettin
 import EditProfile from './setting/EditProfile/EditProfile';
 import LandingPage from './landing/LadingPage';
 import FamilySettings from './setting/FamilySettings/FamilySettings';
+import ChatMessagePage from './chat/message/ChatMessagePage';
 
 export {
-  MainPage,
-  LoginPage,
-  SignupPage,
-  ChatMainPage,
-  FamilyMainPage,
-  ServiceMainPage,
-  PhotoMainPage,
-  AlertMainPage,
-  CalenderMainPage,
-  LandingPage,
-  QnaPage,
-  FamilySpaceSettings,
-  EditProfile,
-  FamilySettings,
+	MainPage,
+	LoginPage,
+	SignupPage,
+	ChatMainPage,
+	FamilyMainPage,
+	ServiceMainPage,
+	PhotoMainPage,
+	AlertMainPage,
+	CalenderMainPage,
+	LandingPage,
+	QnaPage,
+	FamilySpaceSettings,
+	EditProfile,
+	FamilySettings,
+	ChatMessagePage,
 };
