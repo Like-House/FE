@@ -54,19 +54,4 @@ const NavContainer = styled.nav`
 	}
 `;
 
-const MobileContainer = styled.div`
-	display: none;
-	@media ${theme.WINDOW_SIZE.MOBILE} {
-		${theme.ALIGN.ROW_CENTER};
-	}
-
-	svg {
-		cursor: pointer;
-
-		&:hover {
-			color: ${theme.COLOR.MAIN.YELLOW};
-		}
-	}
-`;
-
-export { Container, Logo, NavContainer, MobileContainer };
+export { Container, Logo, NavContainer };
