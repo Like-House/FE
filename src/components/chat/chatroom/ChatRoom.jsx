@@ -5,13 +5,16 @@ import useGetRealImageUrl from '../../../hooks/queries/image/useGetRealImage';
 
 const ChatRoom = ({ room }) => {
 	const { setChatRoom } = useChatRoom();
-	const { chatRoomId, title, imageUrl } = room;
+	const { chatRoomId, title, imageKeyName } = room;
 
 	const handleClick = () => {
-		setChatRoom({ chatRoomId, chatTitle: title, chatImg: imageUrl });
+		setChatRoom({ chatRoomId, chatTitle: title, chatImg: imageKeyName });
 	};
 
-	const { data, isPending } = useGetRealImageUrl({ imageUrl, chatRoomId });
+	const { data, isPending } = useGetRealImageUrl({
+		imageUrl: imageKeyName,
+		chatRoomId,
+	});
 
 	return (
 		<S.Container onClick={handleClick}>

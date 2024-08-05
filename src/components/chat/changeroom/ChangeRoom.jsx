@@ -10,6 +10,7 @@ import usePatchChatRoom from '../../../hooks/queries/chat/usePatchChatRoom';
 const ChangeRoom = () => {
 	const { chatRoomId, chatTitle, setChangeRoomInfo } = useChatRoom();
 	const { mutate: modifyChatInfo } = usePatchChatRoom();
+	// const {file, filePreview, } = useFile();
 	const [file, setFile] = useState(null);
 	const [filePreview, setFilePreview] = useState(null);
 
@@ -29,7 +30,7 @@ const ChangeRoom = () => {
 			modifyChatInfo({
 				chatRoomId,
 				title: chatTitle,
-				imageUrl: data.result.keyName,
+				imageKeyName: data.result.keyName,
 			});
 			setChangeRoomInfo();
 		} catch (error) {
