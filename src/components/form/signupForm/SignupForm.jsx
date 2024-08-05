@@ -100,7 +100,6 @@ const SignupForm = () => {
 
 	const handleSubmit = async () => {
 		if (file) {
-			// jwt 없으면 url을 못받아서 수정중
 			const data = await createPresignedURL(file.name);
 			await uploadImageToS3({ url: data.result.url, file: file });
 
@@ -128,7 +127,7 @@ const SignupForm = () => {
 					email: signupForm.values.email,
 					password: signupForm.values.password,
 					birthDate: signupForm.values.birthDate,
-					profileImage: '프로필', // 현재 null 이 불가해서 백엔드 수정후 null 로 변경예정
+					profileImage: null,
 				},
 				{
 					onError: error => {
