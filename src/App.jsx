@@ -14,6 +14,7 @@ import {
   FamilySpaceSettings,
   FamilySettings,
   EditProfile,
+  AddSchedulePage,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: `${PAGE_PATH.CALENDER}${PAGE_PATH.ADD_SCHEDULE}`,
+        element: <AddSchedulePage />,
+      }
     ],
   },
 ]);

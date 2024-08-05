@@ -12,6 +12,7 @@ import FamilySpaceSettings from './setting/FamilySpaceSettings/FamilySpaceSettin
 import EditProfile from './setting/EditProfile/EditProfile';
 import LandingPage from './landing/LadingPage';
 import FamilySettings from './setting/FamilySettings/FamilySettings';
+import AddSchedulePage from './calender/AddSchedule';
 
 export {
   MainPage,
@@ -28,4 +29,5 @@ export {
   FamilySpaceSettings,
   EditProfile,
   FamilySettings,
+  AddSchedulePage,
 };

@@ -16,6 +16,7 @@ const PAGE_PATH = {
   PHOTO: 'photo',
   // Calender
   CALENDER: 'calender',
+  ADD_SCHEDULE: '/add-schedule',
   // Alert
   ALERT: 'alert',
   // Family
