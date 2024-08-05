@@ -16,6 +16,13 @@ const SignupContainer = styled.div`
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 	border-radius: 10px;
 	padding-bottom: 80px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		margin-top: 0;
+		background-color: ${theme.COLOR.BACKGROUND.WHITE};
+		box-shadow: none;
+		width: 100%;
+	}
 `;
 
 const TextWrapper = styled.div`
@@ -33,7 +40,10 @@ const TextWrapper = styled.div`
 	}
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		padding: 50px;
+		padding: 30px 50px 0;
+		p {
+			width: 150px;
+		}
 	}
 `;
 
