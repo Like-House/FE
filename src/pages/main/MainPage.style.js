@@ -5,7 +5,7 @@ import { FONT_SIZE } from "../../constants";
 const PostContainer = styled.div`
   display: flex;
   padding: 50px;
-  background-color: ${theme.COLOR.BACKGROUND.WHITE};
+  background-color: #FAFAFA;
 `;
 
 const PostList = styled.div`
@@ -142,6 +142,31 @@ const Comment = styled.div`
   margin: 30px 0 0 0;
 `;
 
+const RightSidebar = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: 100vh;
+  gap: 30px;
+  padding: 20px 0 0 50px;
+
+  p {
+    margin: 30px;
+  }
+`;
+
+const CalendarWrapper = styled.div`
+  height: 50%;
+  background-color: ${theme.COLOR.GRAY.GRAY_100};
+  border-radius: 20px;
+`;
+
+const AlbumWrapper = styled.div`
+  height: 30%;
+  background-color: ${theme.COLOR.GRAY.GRAY_100};
+  border-radius: 20px;
+`;
+
 export {
   PostContainer,
   PostList,
@@ -161,4 +186,7 @@ export {
   MenuButton,
   MenuItem,
   Comment,
+  RightSidebar,
+  CalendarWrapper,
+  AlbumWrapper,
 }

@@ -147,6 +147,14 @@ const MainPage = () => {
           </S.PostItem>
         ))}
       </S.PostList>
+      <S.RightSidebar>
+        <S.CalendarWrapper>
+          <p>달력자리</p>
+        </S.CalendarWrapper>
+        <S.AlbumWrapper>
+          <p>가족 앨범 보기</p>
+        </S.AlbumWrapper>
+      </S.RightSidebar>
     </S.PostContainer>
   );
 };

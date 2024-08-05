@@ -4,7 +4,7 @@ import { FONT_SIZE } from '../../../constants/size';
 
 export const PopOverContainer = styled.div`
   position: absolute;
-  left: 70%;
+  left: 75%;
   z-index: 10;
 
   display: flex;
