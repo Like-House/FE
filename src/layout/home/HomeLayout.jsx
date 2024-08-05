@@ -2,23 +2,26 @@ import { Outlet, useLocation } from 'react-router-dom';
 import * as S from './HomeLayout.style';
 import { Sidebar, Settingbar } from '../../components/index';
 import { useEffect, useState } from 'react';
+import { PAGE_PATH } from '../../constants';
 
 const HomeLayout = () => {
-	const location = useLocation();
+	const { pathname } = useLocation();
 	const [isSetting, setIsSetting] = useState(false);
-	const path = location.pathname;
+	const noDisplaySidebar = pathname.startsWith(
+		`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}/${PAGE_PATH.CHAT_MESSAGE}`,
+	);
 
 	useEffect(() => {
-		if (path.startsWith('/home/setting')) {
+		if (pathname.startsWith(`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}`)) {
 			setIsSetting(true);
 		} else setIsSetting(false);
-	}, [path]);
+	}, [pathname]);
 
 	return (
 		<S.HomeContainer>
 			<Sidebar />
 			<Settingbar isopen={isSetting} />
-			<S.OutletContainer>
+			<S.OutletContainer $noDisplaySidebar={noDisplaySidebar}>
 				<Outlet />
 			</S.OutletContainer>
 		</S.HomeContainer>

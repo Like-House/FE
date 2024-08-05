@@ -13,8 +13,15 @@ import theme from '../../../theme/theme';
 import useModal from '../../../hooks/useModal';
 import { ChangeRoom, Alert, PopOver } from '../../';
 import useGetRealImageUrl from '../../../hooks/queries/image/useGetRealImage.js';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { PAGE_PATH } from '../../../constants';
+import { IoIosArrowBack } from 'react-icons/io';
 
 const Message = () => {
+	const { pathname } = useLocation();
+	const nav = useNavigate();
+	const mobile = pathname.includes(`${PAGE_PATH.CHAT_MESSAGE}`);
+
 	const { chatTitle, chatImg, chatRoomId, changeRoomInfo, setChangeRoomInfo } =
 		useChatRoom();
 	const [open, setOpen] = useState();
@@ -66,7 +73,7 @@ const Message = () => {
 			);
 		} else {
 			return (
-				<S.Container>
+				<S.Container $mobile={mobile}>
 					<Alert
 						isOpen={isOpen}
 						message="채팅방을 나가시겠습니까?"
@@ -75,6 +82,7 @@ const Message = () => {
 					/>
 					<S.NavContainer>
 						<S.UserContainer>
+							{mobile && <IoIosArrowBack size={25} onClick={() => nav(-1)} />}
 							<img src={data?.result.url} alt="profile" />
 							<p>{chatTitle}</p>
 						</S.UserContainer>
@@ -85,15 +93,19 @@ const Message = () => {
 							</S.PopoverWrapper>
 						</S.Menu>
 					</S.NavContainer>
-
-					<S.InputContainer>
-						<S.IconWrapper>
-							<HiOutlinePhotograph size={25} />
-							<FaRegSmile size={23} />
-						</S.IconWrapper>
-						<input placeholder="메시지를 입력해주세요. (Enter: 전송 / Shift + Enter: 줄바꿈)" />
-						<FiSend size={25} />
-					</S.InputContainer>
+					<S.MessageContainer>
+						<S.test>여기에 내용</S.test>
+					</S.MessageContainer>
+					<S.SendContainer>
+						<S.InputContainer>
+							<S.IconWrapper>
+								<HiOutlinePhotograph size={25} />
+								<FaRegSmile size={23} />
+							</S.IconWrapper>
+							<input placeholder="메시지를 입력해주세요. (Enter: 전송 / Shift + Enter: 줄바꿈)" />
+							<FiSend size={25} />
+						</S.InputContainer>
+					</S.SendContainer>
 				</S.Container>
 			);
 		}

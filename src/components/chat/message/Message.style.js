@@ -2,11 +2,18 @@ import styled from 'styled-components';
 import theme from '../../../theme/theme';
 
 const Container = styled.div`
+	position: relative;
 	flex: 1;
-	${theme.ALIGN.COLUMN_SPACE_BETWEEN};
+	height: 100vh;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 
 	@media ${theme.WINDOW_SIZE.PC} {
-		display: none;
+		display: ${props => (props.$mobile ? 'flex' : 'none')};
+		height: 100%;
+		width: 100%;
 	}
 `;
 
@@ -17,7 +24,7 @@ const InputContainer = styled.div`
 	height: 60px;
 	background-color: ${theme.COLOR.GRAY.GRAY_0};
 	border-radius: 20px;
-	margin-bottom: 30px;
+
 	input {
 		border: none;
 		background-color: inherit;
@@ -36,6 +43,7 @@ const InputContainer = styled.div`
 
 const IconWrapper = styled.div`
 	${theme.ALIGN.ROW_CENTER};
+	margin-right: 5px;
 	svg {
 		margin-left: 15px;
 		margin-right: 0;
@@ -66,6 +74,11 @@ const UserContainer = styled.div`
 	p {
 		font-size: 20px;
 		font-weight: 700;
+	}
+
+	svg {
+		cursor: pointer;
+		margin-right: 20px;
 	}
 `;
 
@@ -100,6 +113,30 @@ const NoChatContainer = styled.div`
 	}
 `;
 
+const SendContainer = styled.div`
+	${theme.ALIGN.COLUMN_CENTER};
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	margin-bottom: 10px;
+`;
+
+const MessageContainer = styled.div`
+	${theme.ALIGN.COLUMN_CENTER};
+	width: 100%;
+	height: calc(100% - 120px);
+	margin-bottom: 40px;
+	padding: 0 20px;
+`;
+
+const test = styled.div`
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	margin-bottom: 60px;
+	overflow-x: hidden;
+`;
+
 export {
 	InputContainer,
 	IconWrapper,
@@ -109,4 +146,7 @@ export {
 	Menu,
 	PopoverWrapper,
 	NoChatContainer,
+	SendContainer,
+	MessageContainer,
+	test,
 };

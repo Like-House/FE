@@ -1,5 +1,7 @@
+import { Message } from '../../../components';
+
 const ChatMessagePage = () => {
-	return <>dd</>;
+	return <Message />;
 };
 
 export default ChatMessagePage;
