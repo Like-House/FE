@@ -22,6 +22,7 @@ const SignupContainer = styled.div`
 		background-color: ${theme.COLOR.BACKGROUND.WHITE};
 		box-shadow: none;
 		width: 100%;
+		padding-bottom: 0;
 	}
 `;
 
