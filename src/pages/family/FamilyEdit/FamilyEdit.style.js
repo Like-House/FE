@@ -6,6 +6,10 @@ const { COLOR } = theme;
 
 const Container = styled.div`
   padding: 50px;
+  @media ${theme.WINDOW_SIZE.MOBILE} {
+    margin-top: 30px;
+    padding: 20px;
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -23,6 +27,12 @@ const EditProfile = styled.div`
   display: flex;
   gap: 30px;
   margin-top: 30px;
+  @media ${theme.WINDOW_SIZE.MOBILE} {
+    img {
+      width: 60px;
+      height: 60px;
+    }
+  }
 `;
 
 const EditContent = styled.div`

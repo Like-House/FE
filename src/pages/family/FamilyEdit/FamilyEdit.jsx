@@ -54,7 +54,6 @@ function FamilyEdit() {
           placeholder='여기에 입력해주세요.'
           noBorder
         />
-
         <S.ButtonContainer>
           <CustomButton
             btnType='primary'
