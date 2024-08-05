@@ -21,7 +21,6 @@ const MainContainer = styled.div`
 const SideContainerWrapper = styled.div`
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
 		overflow-y: visible;
-		max-height: 100vh;
 	}
 `;
 
@@ -38,7 +37,6 @@ const SideContainer = styled.div`
 	}
 
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
-		max-height: 100vh;
 		width: 100%;
 		flex-direction: column;
 		justify-content: center;
@@ -67,7 +65,7 @@ const AlbumContainer = styled.div`
 		width: 100%;
 		padding: 10px;
 		height: auto;
-		overflow: visible;
+		overflow: hidden;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		grid-gap: 10px;
 		box-sizing: border-box;
@@ -114,10 +112,7 @@ const DropdownLabel = styled.div`
 
 const DropdownWrapper = styled.div`
 	width: 100%;
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	align-items: center;
+	${theme.ALIGN.COLUMN_CENTER};
 	& > div {
 		width: 100%;
 	}
@@ -129,7 +124,6 @@ const DropdownWrapper = styled.div`
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
 		& > div {
 			max-width: 100%;
-			z-index: 999;
 		}
 	}
 `;
