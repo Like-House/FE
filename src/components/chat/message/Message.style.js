@@ -4,6 +4,10 @@ import theme from '../../../theme/theme';
 const Container = styled.div`
 	flex: 1;
 	${theme.ALIGN.COLUMN_SPACE_BETWEEN};
+
+	@media ${theme.WINDOW_SIZE.PC} {
+		display: none;
+	}
 `;
 
 const InputContainer = styled.div`
@@ -89,6 +93,10 @@ const NoChatContainer = styled.div`
 	flex: 1;
 	p {
 		margin-top: 10px;
+	}
+
+	@media ${theme.WINDOW_SIZE.PC} {
+		display: none;
 	}
 `;
 

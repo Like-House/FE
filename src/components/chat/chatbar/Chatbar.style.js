@@ -10,11 +10,19 @@ const Container = styled.div`
 	align-items: center;
 	background-color: ${theme.COLOR.BACKGROUND.WHITE};
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
+
+	@media ${theme.WINDOW_SIZE.PC} {
+		width: 100%;
+	}
 `;
 
 const ButtonContainer = styled.div`
 	position: relative;
 	${theme.ALIGN.COLUMN_CENTER};
+
+	@media ${theme.WINDOW_SIZE.PC} {
+		width: 70%;
+	}
 `;
 
 const CreateBox = styled.div`
@@ -38,6 +46,10 @@ const CreateBox = styled.div`
 			background-color: ${theme.COLOR.GRAY.GRAY_50};
 		}
 	}
+
+	@media ${theme.WINDOW_SIZE.PC} {
+		width: 100%;
+	}
 `;
 
 const Button = styled.button`
@@ -49,12 +61,18 @@ const Button = styled.button`
 	font-weight: bold;
 	border-radius: 10px;
 	${theme.ALIGN.ROW_CENTER};
+	color: ${theme.COLOR.COMMON.BLACK};
+
 	p {
 		margin-right: 5px;
 		font-size: ${FONT_SIZE.SM};
 	}
 	&:hover {
 		cursor: pointer;
+	}
+
+	@media ${theme.WINDOW_SIZE.PC} {
+		width: 100%;
 	}
 `;
 
@@ -80,6 +98,45 @@ const Search = styled.div`
 			color: ${theme.COLOR.GRAY.GRAY_350};
 		}
 	}
+
+	@media ${theme.WINDOW_SIZE.PC} {
+		display: none;
+	}
 `;
 
-export { Container, ButtonContainer, CreateBox, Button, Search };
+const HeaderContaienr = styled.div`
+	${theme.ALIGN.ROW_CENTER};
+
+	h1 {
+		display: none;
+	}
+
+	@media ${theme.WINDOW_SIZE.PC} {
+		width: 100%;
+		padding-right: 50px;
+		margin-bottom: 40px;
+
+		h1 {
+			display: block;
+			width: 80px;
+			margin-top: 30px;
+			${theme.ALIGN.ROW_CENTER};
+			font-size: ${FONT_SIZE.TWO_XL};
+		}
+	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		h1 {
+			font-size: ${FONT_SIZE.XL};
+		}
+	}
+`;
+
+export {
+	Container,
+	ButtonContainer,
+	CreateBox,
+	Button,
+	Search,
+	HeaderContaienr,
+};
