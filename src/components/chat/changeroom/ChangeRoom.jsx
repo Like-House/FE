@@ -3,7 +3,7 @@ import CoverImg from '../../../assets/images/chatRoomImg.webp';
 import { Avatar, CustomButton } from '../../';
 import { MdOutlineFileUpload } from 'react-icons/md';
 import { useChatRoom } from '../../../store';
-import { createPresignedURL, uploadImageToS3 } from '../../../apis/image';
+import { createPresignedURL, uploadImageToS3 } from '../../../apis';
 import usePatchChatRoom from '../../../hooks/queries/chat/usePatchChatRoom';
 import useFile from '../../../hooks/useFile';
 
