@@ -19,7 +19,7 @@ function FamilyList() {
       updatedMembers[location.state.index] = location.state.updatedMember;
       setFamilyMembers(updatedMembers);
     }
-  }, [location.state, familyMembers]);
+  }, [location.state]);
 
   const handleEditClick = (index) => {
     navigate(`${PAGE_PATH.FAMILY_EDIT}`, {
@@ -36,27 +36,31 @@ function FamilyList() {
       <S.FamilyList>
         {familyMembers.map((member, index) => (
           <S.FamilyMember key={index}>
-            <S.MemberInfo>
-              <Avatar
-                src={member.imgSrc}
-                size='md'
-                shape='circle'
-                alt={`${member.name} avatar`}
+            <S.MemberInfoWrapper>
+              <S.MemberInfo>
+                <Avatar
+                  src={member.imgSrc}
+                  size='md'
+                  shape='circle'
+                  alt={`${member.name} avatar`}
+                />
+                <S.MemberDetails>
+                  <S.MemberNameRole>
+                    <S.MemberName>
+                      {member.name}
+                      {member.isHost && <S.HostTag>주최자</S.HostTag>}
+                    </S.MemberName>
+                    <S.MemberRole>{member.role}</S.MemberRole>
+                  </S.MemberNameRole>
+                </S.MemberDetails>
+              </S.MemberInfo>
+              <CustomButton
+                btnType='secondary'
+                label='정보 수정'
+                onClick={() => handleEditClick(index)}
               />
-              <S.MemberDetails>
-                <S.MemberName>
-                  {member.name}
-                  {member.isHost && <S.HostTag>주최자</S.HostTag>}
-                </S.MemberName>
-                <S.MemberRole>{member.role}</S.MemberRole>
-                <S.MemberDescription>{member.description}</S.MemberDescription>
-              </S.MemberDetails>
-            </S.MemberInfo>
-            <CustomButton
-              btnType='secondary'
-              label='정보 수정'
-              onClick={() => handleEditClick(index)}
-            />
+            </S.MemberInfoWrapper>
+            <S.MemberDescription>{member.description}</S.MemberDescription>
           </S.FamilyMember>
         ))}
       </S.FamilyList>
