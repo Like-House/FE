@@ -27,11 +27,10 @@ function Navbar() {
 						<p>loading...</p>
 					) : (
 						<p>
-							{profile?.profileImage ? (
-								<Avatar src={userImg?.url} size="sm" />
-							) : (
-								<Avatar src={NOIMG} size="sm" />
-							)}
+							<Avatar
+								src={profile?.profileImage ? userImg?.url : NOIMG}
+								size="sm"
+							/>
 							{profile?.name}
 						</p>
 					)}
