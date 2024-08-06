@@ -2,8 +2,7 @@ import { Dropdown } from '../../components';
 import * as S from './PhotoMainPage.style';
 import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 import pictureData from '../../mockdata/db.json';
-import { useState, useEffect, useRef } from 'react';
-import { RESPONSIVE_SIZE } from '../../constants/size';
+import { useState } from 'react';
 import PhotoPostModal from './components/PhotoPostModal';
 import CustomCalendar from '../../components/common/calendar/CustomCalendar';
 import useCalendarStore from '../../store/useCalendarStore';
@@ -14,8 +13,6 @@ const PhotoMainPage = () => {
 	);
 
 	const [selectedOp, setSelectedOp] = useState('');
-	const [showSideContent, setShowSideContent] = useState(true);
-	const sideContainerRef = useRef(null);
 	const { date } = useCalendarStore();
 
 	console.log(date);
@@ -33,42 +30,6 @@ const PhotoMainPage = () => {
 			(!selectedDate || selectedDate === pictureDate)
 		);
 	});
-
-	const handleClickOutside = event => {
-		if (
-			sideContainerRef.current &&
-			!sideContainerRef.current.contains(event.target) &&
-			!event.target.closest('button')
-		) {
-			setShowSideContent(false);
-		}
-	};
-
-	useEffect(() => {
-		const mediaQuery = window.matchMedia(
-			`(max-width: ${RESPONSIVE_SIZE.TABLET})`,
-		);
-
-		const handleMediaQueryChange = event => {
-			if (event.matches) {
-				document.addEventListener('click', handleClickOutside, true);
-			} else {
-				document.removeEventListener('click', handleClickOutside, true);
-				setShowSideContent(true);
-			}
-		};
-
-		mediaQuery.addEventListener('change', handleMediaQueryChange);
-
-		if (mediaQuery.matches) {
-			document.addEventListener('click', handleClickOutside, true);
-		}
-
-		return () => {
-			mediaQuery.removeEventListener('change', handleMediaQueryChange);
-			document.removeEventListener('click', handleClickOutside, true);
-		};
-	}, []);
 
 	const [openPost, setOpenPost] = useState(false);
 	const [selectedPicture, setSelectPicture] = useState(null);
@@ -94,27 +55,27 @@ const PhotoMainPage = () => {
 
 	return (
 		<S.MainContainer>
-			<S.SideContainer ref={sideContainerRef} $show={showSideContent}>
+			<S.SideContainer>
 				<S.Title>가족 앨범 보기</S.Title>
-				<S.CalenderLabel>날짜 선택</S.CalenderLabel>
-				<S.CalendarContainer $show={showSideContent}>
-					<CustomCalendar size="BASE" hasBackgroundColor={true} />
-				</S.CalendarContainer>
-				<S.DropdownLabel>가족 선택</S.DropdownLabel>
-				<S.DropdownWrapper>
-					<Dropdown
-						label="보고싶은 가족을 선택해주세요."
-						options={options}
-						openIcon={<RiArrowDropDownLine />}
-						closeIcon={<RiArrowDropUpLine />}
-						onSelect={handleSelect}
-					/>
-				</S.DropdownWrapper>
+				<S.SideContainerWrapper>
+					<S.CalenderLabel>날짜 선택</S.CalenderLabel>
+					<S.CalendarContainer>
+						<CustomCalendar size="BASE" hasBackgroundColor={true} />
+					</S.CalendarContainer>
+					<S.DropdownWrapper>
+						<S.DropdownLabel>가족 선택</S.DropdownLabel>
+						<Dropdown
+							label="보고싶은 가족을 선택해주세요."
+							options={options}
+							openIcon={<RiArrowDropDownLine />}
+							closeIcon={<RiArrowDropUpLine />}
+							onSelect={handleSelect}
+						/>
+					</S.DropdownWrapper>
+				</S.SideContainerWrapper>
 			</S.SideContainer>
-			<S.ToggleButton onClick={() => setShowSideContent(!showSideContent)}>
-				{showSideContent ? 'Close' : 'Open'}
-			</S.ToggleButton>
-			<S.AlbumContainer $show={showSideContent}>
+
+			<S.AlbumContainer>
 				{filteredPicture.map(picture => (
 					<S.PictureArea key={picture.id}>
 						<S.Picture

@@ -33,7 +33,7 @@ const Chatbar = () => {
 			mutate({
 				familySpaceId: 1, // 여기도 내꺼로 변경
 				title: members.join(',') + ' (' + familyData.size + ')',
-				imageUrl: '프로필',
+				imageKeyName: '프로필',
 				chatRoomType: 'GROUP',
 				roomParticipantIds: membersId,
 			});
@@ -52,9 +52,9 @@ const Chatbar = () => {
 			if (data.result.chatRoomResponses.length === 0) {
 				clear();
 			} else {
-				const { chatRoomId, title, imageUrl } =
+				const { chatRoomId, title, imageKeyName } =
 					data.result.chatRoomResponses[0];
-				setChatRoom({ chatRoomId, chatTitle: title, chatImg: imageUrl });
+				setChatRoom({ chatRoomId, chatTitle: title, chatImg: imageKeyName });
 			}
 		}
 	}, [isSuccess, data]);
