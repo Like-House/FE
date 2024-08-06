@@ -6,6 +6,7 @@ const useGetMemberProfile = ({ imageUrl, userId }) => {
 	return useQuery({
 		queryFn: () => getRealImageUrl(imageUrl),
 		queryKey: [QUERY_KEYS.CHATROOMS, userId],
+		enabled: !!imageUrl,
 	});
 };
 
