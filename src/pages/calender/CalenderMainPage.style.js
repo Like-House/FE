@@ -40,20 +40,28 @@ const ScheduleList = styled.div`
       transition: background-color 0.3s;
       margin-bottom: 20px;
 
+      display: flex;
+      position: relative;
+
       p {
         font-size: 14px;
         margin: 5px 0;
       }
 
-        &:hover {
-          cursor: pointer;
-        }
+      &:hover {
+        cursor: pointer;
+      }
 
-        strong {
-          font-size: 1.2em;
-          color: #333;
-        }
+      strong {
+        font-size: 1.2em;
+        color: #333;
+      }
+
     }
+`;
+
+const PopOver = styled.div`
+  
 `;
 
 const RightSidebar = styled.div`
@@ -90,4 +98,4 @@ const RightSidebar = styled.div`
     }
 `;
 
-export {Container, Schedule, Calender, ScheduleList, RightSidebar}
+export {Container, Schedule, Calender, ScheduleList, PopOver, RightSidebar}

@@ -4,19 +4,22 @@ import * as A from './AddSchedule.style';
 import Dropdown from '../../components/common/dropdown/Dropdown';
 import FloatingButton from '../../components/common/floatingbutton/floatingbutton';
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
+import DefaultIcon from '../../assets/images/floatingsetting.png';
+import Alert from '../../components/common/alert/alert';
 
 const AddSchedulePage = () => {
 	const [title, setTitle] = useState('');
 	const [date, setDate] = useState('');
   const [content, setContent] = useState('');
   const [scheduleType, setScheduleType] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
 
   const navigate = useNavigate(); 
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
     if (!title || !date || !content || !scheduleType) {
-			alert('모든 필드를 채워주세요.');
+			setShowAlert(true);
 			return;
 		}
 		const newSchedule = { title, date, content, scheduleType };
@@ -26,12 +29,12 @@ const AddSchedulePage = () => {
 	};
 
   const handleClick = () => {
-    if (!title || !date || !content || !scheduleType) {
-			alert('모든 필드를 채워주세요😓');
-			return;
-		}
 		document.querySelector('form').dispatchEvent(new Event('submit', { bubbles: true }));
   };
+
+  const handleAlertConfirm = () => {
+		setShowAlert(false);
+	};
 
 	return (
     <A.Container>
@@ -74,12 +77,18 @@ const AddSchedulePage = () => {
         <A.Button>
           <FloatingButton
             onClick={handleClick}
-            backgroundColor='#FFC932'
-            borderColor='#FFC932'
-            icon={<span style={{ color: 'white', fontSize: '16px' }}>추가</span>}
+            backgroundColor='#FFC933'
+            borderColor='#FFC933'
+            icon={<img src={DefaultIcon} alt='default icon' />}
           />
         </A.Button>
       </A.Content>
+
+      <Alert
+				message="모든 필드를 채워주세요."
+				onConfirm={handleAlertConfirm}
+				isOpen={showAlert}
+			/>
     </A.Container>
 	);
 };
