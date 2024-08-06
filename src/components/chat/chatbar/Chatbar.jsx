@@ -73,17 +73,20 @@ const Chatbar = () => {
 
 	return (
 		<S.Container>
-			<S.ButtonContainer>
-				<S.Button onClick={chatDropdownOpen}>
-					<p>새로 만들기</p>
-					<IoIosArrowDown />
-				</S.Button>
-				<S.CreateBox $open={chatDropdown}>
-					<li onClick={onClick}>일반 채팅방</li>
-					{familyData && <Modal members={familyData.familyDataList} />}
-					<li onClick={creatGroupChatRoom}>가족 단체 채팅방</li>
-				</S.CreateBox>
-			</S.ButtonContainer>
+			<S.HeaderContaienr>
+				<h1>채팅</h1>
+				<S.ButtonContainer>
+					<S.Button onClick={chatDropdownOpen}>
+						<p>새로 만들기</p>
+						<IoIosArrowDown />
+					</S.Button>
+					<S.CreateBox $open={chatDropdown}>
+						<li onClick={onClick}>일반 채팅방</li>
+						{familyData && <Modal members={familyData.familyDataList} />}
+						<li onClick={creatGroupChatRoom}>가족 단체 채팅방</li>
+					</S.CreateBox>
+				</S.ButtonContainer>
+			</S.HeaderContaienr>
 			<S.Search>
 				<input type="text" placeholder="메시지방, 메시지 검색" />
 				<CiSearch size={20} />
