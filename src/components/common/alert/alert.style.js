@@ -69,6 +69,7 @@ const Button = styled.button`
 	height: 36px;
 	cursor: pointer;
 	font-size: ${FONT_SIZE.BASE};
+	color: ${theme.COLOR.COMMON.BLACK};
 	&:hover {
 		background-color: ${COLOR.GRAY.GRAY_200};
 	}
