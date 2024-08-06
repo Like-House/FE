@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import theme from '../../theme/theme';
 
 const HomeContainer = styled.div`
-	height: 100vh;
+	height: 100dvh;
 	width: 100vw;
 	display: flex;
 
