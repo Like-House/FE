@@ -14,6 +14,7 @@ const Container = styled.div`
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		border: 1px solid ${theme.COLOR.GRAY.GRAY_350};
 		padding: 0 15px;
+		background-color: ${theme.COLOR.COMMON.WHITE};
 	}
 `;
 

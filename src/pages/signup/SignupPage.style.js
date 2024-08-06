@@ -6,6 +6,10 @@ const Container = styled.div`
 	width: 100%;
 	${theme.ALIGN.COLUMN_CENTER};
 	margin-bottom: 100px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		margin-bottom: 20px;
+	}
 `;
 
 const SignupContainer = styled.div`
@@ -19,7 +23,6 @@ const SignupContainer = styled.div`
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		margin-top: 0;
-		background-color: ${theme.COLOR.BACKGROUND.WHITE};
 		box-shadow: none;
 		width: 100%;
 		padding-bottom: 0;
