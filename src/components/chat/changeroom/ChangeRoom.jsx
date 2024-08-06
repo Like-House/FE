@@ -2,13 +2,15 @@ import * as S from './ChangeRoom.style';
 import CoverImg from '../../../assets/images/chatRoomImg.webp';
 import { Avatar, CustomButton } from '../../';
 import { MdOutlineFileUpload } from 'react-icons/md';
-import { useChatRoom } from '../../../store';
 import { createPresignedURL, uploadImageToS3 } from '../../../apis';
 import usePatchChatRoom from '../../../hooks/queries/chat/usePatchChatRoom';
 import useFile from '../../../hooks/useFile';
+import { useNavigate } from 'react-router-dom';
+import { PAGE_PATH } from '../../../constants';
 
-const ChangeRoom = () => {
-	const { chatRoomId, chatTitle, setChangeRoomInfo } = useChatRoom();
+const ChangeRoom = ({ room }) => {
+	const nav = useNavigate();
+	const { chatRoomId, title } = room;
 	const { mutate: modifyChatInfo } = usePatchChatRoom();
 	const { file, filePreview, handleChangeFile } = useFile();
 
@@ -19,13 +21,15 @@ const ChangeRoom = () => {
 		try {
 			modifyChatInfo({
 				chatRoomId,
-				title: chatTitle,
+				title,
 				imageKeyName: data.result.keyName,
 			});
-			setChangeRoomInfo();
 		} catch (error) {
 			console.log(error);
 		}
+		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}/${PAGE_PATH.ROOM}/${chatRoomId}`, {
+			state: { ...room },
+		});
 	};
 
 	return (

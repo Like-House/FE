@@ -1,23 +1,23 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import * as S from './HomeLayout.style';
-import { Sidebar, Settingbar } from '../../components/index';
+import { Sidebar, Settingbar } from '../../components';
 import { useEffect, useState } from 'react';
 
 const HomeLayout = () => {
-	const location = useLocation();
+	const { pathname } = useLocation();
 	const [isSetting, setIsSetting] = useState(false);
-	const path = location.pathname;
 
 	useEffect(() => {
-		if (path.startsWith('/home/setting')) {
+		if (pathname.startsWith('/home/setting')) {
 			setIsSetting(true);
 		} else setIsSetting(false);
-	}, [path]);
+	}, [pathname]);
 
 	return (
 		<S.HomeContainer>
 			<Sidebar />
 			<Settingbar isopen={isSetting} />
+
 			<S.OutletContainer>
 				<Outlet />
 			</S.OutletContainer>

@@ -1,7 +1,14 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
+	width: 100%;
+	height: 100%;
 	display: flex;
 `;
 
-export { Container };
+const OutletWrapper = styled.div`
+	flex: 1;
+	height: 100%;
+`;
+
+export { Container, OutletWrapper };

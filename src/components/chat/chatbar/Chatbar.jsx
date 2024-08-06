@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 import useGetFamilyList from '../../../hooks/queries/family/useGetFamilyList';
 import useCreateChatRoom from '../../../hooks/queries/chat/useCreateChatRoom';
 
-const Chatbar = () => {
+const Chatbar = ({ isopen }) => {
 	const { chatDropdown, chatDropdownOpen } = useDropdownStore(state => state);
 	const { open } = useModalStore(state => state);
 	const { setChatRoom, clear } = useChatRoom();
@@ -72,7 +72,7 @@ const Chatbar = () => {
 	}
 
 	return (
-		<S.Container>
+		<S.Container $isopen={isopen}>
 			<S.ButtonContainer>
 				<S.Button onClick={chatDropdownOpen}>
 					<p>새로 만들기</p>
