@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { FONT_SIZE } from '../../../constants';
+import theme from '../../../theme/theme';
 
 const Container = styled.div`
 	width: 100%;
@@ -10,6 +11,10 @@ const Container = styled.div`
 	h1 {
 		font-weight: 400;
 		font-size: ${FONT_SIZE.TWO_XL};
+	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		padding: 50px 30px;
 	}
 `;
 
