@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import theme from "../../theme/theme";
 
 const Container = styled.div`
   display: flex;
@@ -9,10 +10,16 @@ const Container = styled.div`
 
   margin: 50px 70px;
   gap: 30px;
+
+  @media ${theme.WINDOW_SIZE.MOBILE} {
+    margin: 45px;
+    height: 70vh;
+  }
 `;
 
 const Content = styled.div`
-  display: flex;`
+  display: flex;
+`;
 
 const Form = styled.form`
   display: flex;
@@ -25,9 +32,6 @@ const Form = styled.form`
 
   width: 80%;
   gap: 20px;
-
-  label {
-  }
 
   input {
     border: none;
@@ -43,6 +47,18 @@ const Form = styled.form`
     outline: none;
     resize: none;
   }
+
+  @media ${theme.WINDOW_SIZE.MOBILE} {
+    padding: 40px;
+
+    input {
+      width: 250px;
+    }
+
+    textarea {
+      width: 250px;
+    }
+  }
 `;
 
 const Type = styled.div`
@@ -53,8 +69,17 @@ const Type = styled.div`
 `;
 
 const Button = styled.div`
+  position: absolute;
+  bottom: 70px;
+  right: 50px;
   margin-top: auto;
-  margin-left: 30px;
+
+  @media ${theme.WINDOW_SIZE.MOBILE} {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin: 10px;
+  }
 `;
 
 export {Container, Content, Button, Form, Type}

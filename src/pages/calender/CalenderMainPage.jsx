@@ -99,14 +99,14 @@ const CalenderMainPage = () => {
 		<C.Schedule>
 			<C.Calender>
 				<CustomCalendar size="LG" />
-				<span>
+				<C.Button>
 					<FloatingButton
 						onClick={handleClick}
 						backgroundColor= '#FFC933'
 						borderColor='#FFC933'
 						icon={<span style={{ color: 'white', fontSize: '50px'}}>+</span>}
 					/>
-				</span>
+				</C.Button>
 			</C.Calender>
 			<C.ScheduleList>
 				<ul>

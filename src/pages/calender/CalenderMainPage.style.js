@@ -1,9 +1,9 @@
 import styled from "styled-components";
+import theme from "../../theme/theme";
 
 const Container = styled.div`
   display: flex;
   height: 100vh;
-
   margin: 20px;
 `;
 
@@ -12,15 +12,23 @@ const Schedule = styled.div`
 
   padding-top: 10px;
   border-right: 1px solid #e0e0e0;
+
+  @media ${theme.WINDOW_SIZE.MOBILE} {
+    border-right: none;
+  }
 `;
 
 const Calender = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${theme.ALIGN.ROW_CENTER};
+`;
 
+const Button = styled.div`
   span {
     margin-top: auto;
+  }
+
+  @media ${theme.WINDOW_SIZE.MOBILE} {
+    margin-bottom: auto;
   }
 `;
 
@@ -34,7 +42,7 @@ const ScheduleList = styled.div`
     }
 
     li {
-      background-color: white;
+      background-color: ${theme.COLOR.COMMON.WHITE};
       border-radius: 10px;
       padding: 20px;
       transition: background-color 0.3s;
@@ -54,9 +62,12 @@ const ScheduleList = styled.div`
 
       strong {
         font-size: 1.2em;
-        color: #333;
       }
 
+    }
+
+    @media ${theme.WINDOW_SIZE.MOBILE} {
+      
     }
 `;
 
@@ -96,6 +107,10 @@ const RightSidebar = styled.div`
         padding-right: 10px;
       }
     }
+  
+    @media ${theme.WINDOW_SIZE.MOBILE} {
+      display: none;
+    }
 `;
 
-export {Container, Schedule, Calender, ScheduleList, PopOver, RightSidebar}
+export {Container, Schedule, Calender, Button, ScheduleList, PopOver, RightSidebar}
