@@ -5,7 +5,8 @@ import Avatar from "../../components/common/avatar/Avatar.jsx";
 import CommentInput from "../../components/Comment/Comment.jsx";
 import PopOver from "../../components/common/popover/PopOver.jsx";
 
-import { FaEllipsisH, FaEdit, FaTrashAlt, FaRegBellSlash } from "react-icons/fa";
+import { FaEdit, FaTrashAlt, FaRegBellSlash } from "react-icons/fa";
+import { HiMiniEllipsisHorizontal } from "react-icons/hi2";
 
 const MainPage = () => {
   const [showMenu, setShowMenu] = useState(null);
@@ -116,10 +117,12 @@ const MainPage = () => {
                     <S.Author>{post.author}</S.Author>
                     <S.DateTime>{post.date} {post.time}</S.DateTime>
                   </S.AuthorWrapper>
-                  <S.MenuButton onClick={() => handleMenuToggle(post.id)}><FaEllipsisH /></S.MenuButton>
+                  
+                  <S.MenuButton onClick={() => handleMenuToggle(post.id)}><HiMiniEllipsisHorizontal /></S.MenuButton>
                   {showMenu === post.id && (
                     <PopOver items={menuItems} onMouseLeave={handleMouseLeave}/>
                   )}
+                  
                 </S.PostHeader>
                 <S.Content>{post.content}</S.Content>
                 {post.photo && <S.Photo src={post.photo} alt="post photo" />}

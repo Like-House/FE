@@ -20,6 +20,7 @@ PopOver.propTypes = {
     PropTypes.shape({
       icon: PropTypes.element.isRequired,
       message: PropTypes.string.isRequired,
+      onClick: PropTypes.func.isRequired
     })
   ).isRequired,
   onMouseLeave: PropTypes.func.isRequired,

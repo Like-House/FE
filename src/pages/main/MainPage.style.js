@@ -93,6 +93,8 @@ const MenuButton = styled.button`
   font-size: ${FONT_SIZE.XL};
   cursor: pointer;
   margin-left: auto;
+
+  position: relative;
 `;
 
 const Menu = styled.div`
