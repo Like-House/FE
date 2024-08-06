@@ -20,21 +20,27 @@ const Schedule = styled.div`
 
 const Calender = styled.div`
   ${theme.ALIGN.ROW_CENTER};
+  height: 50%;
+  position: relative;
 `;
 
 const Button = styled.div`
-  span {
-    margin-top: auto;
-  }
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  margin: 10px;
 
   @media ${theme.WINDOW_SIZE.MOBILE} {
-    margin-bottom: auto;
+    botton: auto;
+    top: 0px;
+    right: 0px;
+    margin: 0px;
   }
 `;
 
 const ScheduleList = styled.div`
   margin: 40px;
-  height: 450px;
+  height: 400px;
 
   ul {
         list-style-type: none;
