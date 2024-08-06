@@ -2,18 +2,19 @@ import styled from 'styled-components';
 import theme from '../../../theme/theme';
 
 const Container = styled.div`
+	position: relative;
 	flex: 1;
 	${theme.ALIGN.COLUMN_SPACE_BETWEEN};
+	height: 100dvh;
 `;
 
 const InputContainer = styled.div`
 	${theme.ALIGN.ROW_SPACE_BETWEEN};
 	padding: 0 20px;
-	width: 90%;
+	width: 93%;
 	height: 60px;
 	background-color: ${theme.COLOR.GRAY.GRAY_0};
 	border-radius: 20px;
-	margin-bottom: 30px;
 	input {
 		border: none;
 		background-color: inherit;
@@ -94,6 +95,15 @@ const NoChatContainer = styled.div`
 	}
 `;
 
+const MessageContainer = styled.div`
+	flex: 1;
+	${theme.ALIGN.COLUMN_CENTER};
+	width: 100%;
+	height: 50%;
+	padding-bottom: 10px;
+	padding: 0 20px;
+`;
+
 export {
 	InputContainer,
 	IconWrapper,
@@ -103,4 +113,5 @@ export {
 	Menu,
 	PopoverWrapper,
 	NoChatContainer,
+	MessageContainer,
 };

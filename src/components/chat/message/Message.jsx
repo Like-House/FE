@@ -80,7 +80,7 @@ const Message = ({ room }) => {
 					</S.PopoverWrapper>
 				</S.Menu>
 			</S.NavContainer>
-
+			<S.MessageContainer></S.MessageContainer>
 			<S.InputContainer>
 				<S.IconWrapper>
 					<HiOutlinePhotograph size={25} />
