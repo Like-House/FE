@@ -17,8 +17,12 @@ const Sidebar = () => {
 	const { pathname } = useLocation();
 	const nav = useNavigate();
 
+	const noDisplay = pathname.startsWith(
+		`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}/${PAGE_PATH.ROOM}`,
+	);
+
 	return (
-		<S.Container>
+		<S.Container $noDisplay={noDisplay}>
 			<S.Logo src={LOGO} />
 			<S.NavContainer>
 				<Link
