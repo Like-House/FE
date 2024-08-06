@@ -10,14 +10,16 @@ import { useChatRoom } from '../../../store';
 import { useEffect } from 'react';
 import useGetFamilyList from '../../../hooks/queries/family/useGetFamilyList';
 import useCreateChatRoom from '../../../hooks/queries/chat/useCreateChatRoom';
+import useGetFamilySpaceId from '../../../hooks/queries/family/useGetFamilySpaceId';
 
-const Chatbar = ({ isopen }) => {
+const Chatbar = () => {
 	const { chatDropdown, chatDropdownOpen } = useDropdownStore(state => state);
 	const { open } = useModalStore(state => state);
 	const { setChatRoom, clear } = useChatRoom();
 
 	const { data: familyData } = useGetFamilyList();
 	const { mutate } = useCreateChatRoom();
+	const { data: spaceIdData } = useGetFamilySpaceId();
 
 	const onClick = () => {
 		open();
@@ -31,7 +33,7 @@ const Chatbar = ({ isopen }) => {
 				.map(e => e.userId)
 				.filter(id => id !== 1); // 1은 지금 내 아이디라 변경할 필요 있음
 			mutate({
-				familySpaceId: 1, // 여기도 내꺼로 변경
+				familySpaceId: spaceIdData?.familySpaceId,
 				title: members.join(',') + ' (' + familyData.size + ')',
 				imageKeyName: '프로필',
 				chatRoomType: 'GROUP',
@@ -72,7 +74,7 @@ const Chatbar = ({ isopen }) => {
 	}
 
 	return (
-		<S.Container $isopen={isopen}>
+		<S.Container>
 			<S.ButtonContainer>
 				<S.Button onClick={chatDropdownOpen}>
 					<p>새로 만들기</p>

@@ -6,7 +6,7 @@ const useGetChatRoomUsers = chatRoomId => {
 	return useQuery({
 		queryKey: [QUERY_KEYS.CHATROOMS, chatRoomId, 'users'],
 		queryFn: () => getChatRoomUsers(chatRoomId),
-		staleTime: Infinity,
+		staleTime: 1000 * 30 * 60,
 		select: data => data.result.chatRoomUserResponses,
 	});
 };

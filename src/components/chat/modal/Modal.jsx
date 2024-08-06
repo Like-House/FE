@@ -5,6 +5,7 @@ import useModalStore from '../../../store/useModalStore';
 import theme from '../../../theme/theme';
 import { CustomButton, Dropdown, ModalPortal } from '../../';
 import useCreateChatRoom from '../../../hooks/queries/chat/useCreateChatRoom';
+import useGetFamilySpaceId from '../../../hooks/queries/family/useGetFamilySpaceId';
 
 const Modal = ({ members }) => {
 	const { open, chatModal } = useModalStore(state => state);
@@ -17,14 +18,15 @@ const Modal = ({ members }) => {
 		console.log(selectMember);
 	};
 
+	const { data: spaceIdData } = useGetFamilySpaceId();
 	const { mutate } = useCreateChatRoom();
 
 	const CreateChatRoom = () => {
 		if (selectMember) {
 			mutate({
-				familySpaceId: 1,
+				familySpaceId: spaceIdData?.familySpaceId,
 				title: selectMember.name,
-				imageUrl: selectMember.profileImage,
+				imageKeyName: selectMember.profileImage,
 				chatRoomType: 'GENERAL',
 				roomParticipantIds: [selectMember.userId],
 			});
