@@ -6,11 +6,11 @@ import { useState } from 'react';
 import PhotoPostModal from './components/PhotoPostModal';
 import CustomCalendar from '../../components/common/calendar/CustomCalendar';
 import useCalendarStore from '../../store/useCalendarStore';
+import useGetFamilyList from '../../hooks/queries/family/useGetFamilyList';
 
 const PhotoMainPage = () => {
-	const options = Array.from(
-		new Set(pictureData.pictures.map(picture => picture.op)),
-	);
+	const { data } = useGetFamilyList();
+	const options = data?.familyDataList?.map(family => family.name) || [];
 
 	const [selectedOp, setSelectedOp] = useState('');
 	const { date } = useCalendarStore();
