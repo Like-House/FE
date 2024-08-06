@@ -3,23 +3,14 @@ import CoverImg from '../../../assets/images/chatRoomImg.webp';
 import { Avatar, CustomButton } from '../../';
 import { MdOutlineFileUpload } from 'react-icons/md';
 import { useChatRoom } from '../../../store';
-import { useState } from 'react';
-import { createPresignedURL, uploadImageToS3 } from '../../../apis/image';
+import { createPresignedURL, uploadImageToS3 } from '../../../apis';
 import usePatchChatRoom from '../../../hooks/queries/chat/usePatchChatRoom';
+import useFile from '../../../hooks/useFile';
 
 const ChangeRoom = () => {
 	const { chatRoomId, chatTitle, setChangeRoomInfo } = useChatRoom();
 	const { mutate: modifyChatInfo } = usePatchChatRoom();
-	const [file, setFile] = useState(null);
-	const [filePreview, setFilePreview] = useState(null);
-
-	const handleChangeFile = e => {
-		if (e.target.files) {
-			const selectedFile = e.target.files[0];
-			setFile(selectedFile);
-			setFilePreview(URL.createObjectURL(selectedFile));
-		}
-	};
+	const { file, filePreview, handleChangeFile } = useFile();
 
 	const handleClick = async () => {
 		const data = await createPresignedURL(file.name);
@@ -29,7 +20,7 @@ const ChangeRoom = () => {
 			modifyChatInfo({
 				chatRoomId,
 				title: chatTitle,
-				imageUrl: data.result.keyName,
+				imageKeyName: data.result.keyName,
 			});
 			setChangeRoomInfo();
 		} catch (error) {
