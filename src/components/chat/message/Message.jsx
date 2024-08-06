@@ -12,6 +12,7 @@ import { Alert, PopOver } from '../../';
 import useGetRealImageUrl from '../../../hooks/queries/image/useGetRealImage.js';
 import { useNavigate } from 'react-router-dom';
 import { PAGE_PATH } from '../../../constants';
+import { IoIosArrowBack } from 'react-icons/io';
 
 const Message = ({ room }) => {
 	const [open, setOpen] = useState();
@@ -69,10 +70,13 @@ const Message = ({ room }) => {
 				onCancel={closeModal}
 			/>
 			<S.NavContainer>
-				<S.UserContainer onClick={handleInfo}>
-					<img src={data?.result.url} alt="profile" />
-					<p>{title}</p>
-				</S.UserContainer>
+				<S.NavWrapper>
+					<IoIosArrowBack size={25} onClick={() => nav(-1)} />
+					<S.UserContainer onClick={handleInfo}>
+						<img src={data?.result.url} alt="profile" />
+						<p>{title}</p>
+					</S.UserContainer>
+				</S.NavWrapper>
 				<S.Menu>
 					<p onClick={() => setOpen(!open)}>메뉴</p>
 					<S.PopoverWrapper $open={open}>

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import theme from '../../../theme/theme';
+import { FONT_SIZE } from '../../../constants';
 
 const Container = styled.div`
 	position: relative;
@@ -48,7 +49,35 @@ const NavContainer = styled.div`
 	width: 100%;
 	height: 75px;
 	border-bottom: 1px solid #cccccc;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		padding: 0 25px;
+	}
 `;
+
+const NavWrapper = styled.div`
+	display: flex;
+	align-items: center;
+
+	svg {
+		display: none;
+	}
+
+	@media ${theme.WINDOW_SIZE.PC} {
+		svg {
+			margin-right: 20px;
+			display: block;
+			cursor: pointer;
+		}
+	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		svg {
+			margin-right: 10px;
+		}
+	}
+`;
+
 const UserContainer = styled.div`
 	${theme.ALIGN.ROW_CENTER};
 
@@ -61,11 +90,30 @@ const UserContainer = styled.div`
 	}
 
 	p {
+		width: 500px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		word-break: break-all;
+
 		font-size: 20px;
 		font-weight: 700;
 	}
 
 	cursor: pointer;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		img {
+			width: 38px;
+			height: 38px;
+			margin-right: 10px;
+		}
+
+		p {
+			width: 150px;
+			font-size: ${FONT_SIZE.SM};
+		}
+	}
 `;
 
 const Menu = styled.div`
@@ -75,6 +123,12 @@ const Menu = styled.div`
 		cursor: pointer;
 		&:hover {
 			color: ${theme.COLOR.YELLOW.YELLOW_400};
+		}
+	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		p {
+			font-size: ${FONT_SIZE.SM};
 		}
 	}
 `;
@@ -114,4 +168,5 @@ export {
 	PopoverWrapper,
 	NoChatContainer,
 	MessageContainer,
+	NavWrapper,
 };
