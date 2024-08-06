@@ -26,6 +26,7 @@ const Message = ({ room }) => {
 			onError: e => console.log(e),
 		});
 		closeModal();
+		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}`);
 	};
 
 	const handleExitChatRoom = () => {

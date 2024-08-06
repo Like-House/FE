@@ -6,67 +6,65 @@ import Modal from '../modal/Modal';
 import useModalStore from '../../../store/useModalStore';
 import ChatRoom from '../chatroom/ChatRoom';
 import useGetChatRoom from '../../../hooks/queries/chat/useGetChatRoom';
-import { useChatRoom } from '../../../store';
-import { useEffect } from 'react';
 import useGetFamilyList from '../../../hooks/queries/family/useGetFamilyList';
 import useCreateChatRoom from '../../../hooks/queries/chat/useCreateChatRoom';
 import useGetFamilySpaceId from '../../../hooks/queries/family/useGetFamilySpaceId';
+import { useEffect } from 'react';
+import useUserIdStore from '../../../store/useUserIdStore';
 
 const Chatbar = () => {
 	const { chatDropdown, chatDropdownOpen } = useDropdownStore(state => state);
 	const { open } = useModalStore(state => state);
-	const { setChatRoom, clear } = useChatRoom();
-
 	const { data: familyData } = useGetFamilyList();
 	const { mutate } = useCreateChatRoom();
 	const { data: spaceIdData } = useGetFamilySpaceId();
+	const { data } = useGetChatRoom({
+		familySpaceId: spaceIdData?.familySpaceId,
+		cursor: -1,
+		take: 10,
+	});
+	const { setUserId } = useUserIdStore(state => state);
+
+	useEffect(() => {
+		setUserId(data?.ownerId);
+	}, [data]);
 
 	const onClick = () => {
-		open();
-		chatDropdownOpen();
-	};
-
-	const creatGroupChatRoom = () => {
-		if (familyData) {
-			const members = familyData.familyDataList.map(e => e.name);
-			const membersId = familyData.familyDataList
-				.map(e => e.userId)
-				.filter(id => id !== 1); // 1은 지금 내 아이디라 변경할 필요 있음
-			mutate({
-				familySpaceId: spaceIdData?.familySpaceId,
-				title: members.join(',') + ' (' + familyData.size + ')',
-				imageKeyName: '프로필',
-				chatRoomType: 'GROUP',
-				roomParticipantIds: membersId,
-			});
+		if (familyData && familyData.size > 1) {
+			open();
+			chatDropdownOpen();
+		} else {
+			alert('가족 구성원이 아직 없습니다.');
 			chatDropdownOpen();
 		}
 	};
 
-	const { data, isSuccess } = useGetChatRoom({
-		familySpaceId: 1,
-		cursor: -1,
-		take: 10,
-	});
-
-	useEffect(() => {
-		if (isSuccess && data.result.chatRoomResponses) {
-			if (data.result.chatRoomResponses.length === 0) {
-				clear();
-			} else {
-				const { chatRoomId, title, imageKeyName } =
-					data.result.chatRoomResponses[0];
-				setChatRoom({ chatRoomId, chatTitle: title, chatImg: imageKeyName });
-			}
+	const creatGroupChatRoom = () => {
+		if (familyData && familyData.size > 2) {
+			const members = familyData.familyDataList.map(e => e.name);
+			const membersId = familyData.familyDataList
+				.map(e => e.userId)
+				.filter(id => id !== data?.ownerId);
+			mutate({
+				familySpaceId: spaceIdData?.familySpaceId,
+				title: members.join(',') + ' (' + familyData.size + ')',
+				imageKeyName: 'f683a5f9-9dd0-4eac-9e21-30a9bc4a134f_IMG_2989.jpeg', // 프로필 4분할?로 수정해야함 지금은 키티에용
+				chatRoomType: 'GROUP',
+				roomParticipantIds: membersId,
+			});
+			chatDropdownOpen();
+		} else {
+			alert('전체 가족 구성원이 2명 이하입니다.');
+			chatDropdownOpen();
 		}
-	}, [isSuccess, data]);
+	};
 
 	let content;
 
 	if (data) {
 		content = (
 			<>
-				{data.result.chatRoomResponses.map(e => (
+				{data.chatRoomResponses.map(e => (
 					<ChatRoom room={e} key={e.chatRoomId} />
 				))}
 			</>
