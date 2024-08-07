@@ -55,6 +55,7 @@ const ChangeRoom = ({ room }) => {
 					btnType="primary"
 					label="변경 완료"
 					onClick={handleClick}
+					disabled={!file}
 				/>
 			</S.ButtonBox>
 		</S.Container>
