@@ -21,10 +21,11 @@ const Chatbar = () => {
 	const { data: spaceIdData } = useGetFamilySpaceId();
 	const { data } = useGetChatRoom({
 		familySpaceId: spaceIdData?.familySpaceId,
-		cursor: -1,
+		cursor: 1,
 		take: 10,
 	});
 	const { setUserId } = useUserIdStore(state => state);
+	console.log(data);
 
 	useEffect(() => {
 		setUserId(data?.ownerId);
