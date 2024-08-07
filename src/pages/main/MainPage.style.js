@@ -87,14 +87,24 @@ const DateTime = styled.div`
   font-size: ${FONT_SIZE.XS};
   `;
 
-const MenuButton = styled.button`
-  background: none;
-  border: none;
-  font-size: ${FONT_SIZE.XL};
-  cursor: pointer;
-  margin-left: auto;
-
+const MenuButton = styled.div`
   position: relative;
+
+  button {
+    background: none;
+    border: none;
+    font-size: ${FONT_SIZE.XL};
+    cursor: pointer;
+    margin-left: auto;
+    position: relative;
+  }
+`;
+
+const Popover = styled.div`
+  position: absolute;
+  top: 100%;
+  right: 0%;
+  z-index: 1;
 `;
 
 const Menu = styled.div`
@@ -186,6 +196,7 @@ export {
   Divider,
   Menu,
   MenuButton,
+  Popover,
   MenuItem,
   Comment,
   RightSidebar,

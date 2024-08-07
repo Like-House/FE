@@ -118,10 +118,14 @@ const MainPage = () => {
                     <S.DateTime>{post.date} {post.time}</S.DateTime>
                   </S.AuthorWrapper>
                   
-                  <S.MenuButton onClick={() => handleMenuToggle(post.id)}><HiMiniEllipsisHorizontal /></S.MenuButton>
-                  {showMenu === post.id && (
-                    <PopOver items={menuItems} onMouseLeave={handleMouseLeave}/>
-                  )}
+                  <S.MenuButton>
+                    <button onClick={() => handleMenuToggle(post.id)}><HiMiniEllipsisHorizontal /></button>
+                    <S.Popover>
+                      {showMenu === post.id && (
+                        <PopOver items={menuItems} onMouseLeave={handleMouseLeave}/>
+                      )}
+                    </S.Popover>
+                  </S.MenuButton>
                   
                 </S.PostHeader>
                 <S.Content>{post.content}</S.Content>
