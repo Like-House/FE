@@ -1,5 +1,13 @@
+import { Chatbar, Message } from '../../components';
+import * as S from './ChatMainPage.style';
+
 const ChatMainPage = () => {
-	return <div>ChatMainPage</div>;
+	return (
+		<S.Container>
+			<Chatbar />
+			<Message />
+		</S.Container>
+	);
 };
 
 export default ChatMainPage;

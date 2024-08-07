@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import * as S from './PopOver.style';
 
 const PopOver = ({ items }) => {
@@ -12,15 +11,6 @@ const PopOver = ({ items }) => {
 			))}
 		</S.PopOverContainer>
 	);
-};
-
-PopOver.propTypes = {
-	items: PropTypes.arrayOf(
-		PropTypes.shape({
-			icon: PropTypes.element.isRequired,
-			message: PropTypes.string.isRequired,
-		}),
-	).isRequired,
 };
 
 export default PopOver;

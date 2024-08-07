@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import theme from '../../../theme/theme';
-import { FONT_SIZE } from '../../../constants/size';
+import { FONT_SIZE, RESPONSIVE_SIZE } from '../../../constants/size';
 
 const sizeStyles = {
 	sm: css`
@@ -15,7 +15,7 @@ const sizeStyles = {
 };
 
 const DropdownContainer = styled.div`
-	${({ size }) => sizeStyles[size] || sizeStyles.md};
+	${({ $size }) => sizeStyles[$size] || sizeStyles.md};
 `;
 const DropdownButtonArea = styled.div`
 	width: 100%;
@@ -24,7 +24,8 @@ const DropdownButtonArea = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	border-radius: 10px;
-	background-color: ${theme.COLOR.COMMON.WHITE};
+	background-color: ${({ $bgColor }) =>
+		$bgColor ? $bgColor : theme.COLOR.COMMON.WHITE};
 	padding: 12px 18px;
 `;
 
@@ -32,6 +33,10 @@ const DropdownLabel = styled.div`
 	font-size: ${FONT_SIZE.BASE};
 	color: ${({ $isSelected }) =>
 		$isSelected ? theme.COLOR.GRAY.GRAY_950 : theme.COLOR.GRAY.GRAY_350};
+
+	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
+		font-size: ${FONT_SIZE.SM};
+	}
 `;
 
 const DropdownMenuArea = styled.div`
@@ -39,9 +44,10 @@ const DropdownMenuArea = styled.div`
 	margin-top: 10px;
 	padding: 12px 18px;
 	border-radius: 10px;
-	background-color: ${theme.COLOR.COMMON.WHITE};
-	max-height: ${({ $isOpen }) => ($isOpen ? '500px' : '0')};
-	overflow: hidden;
+	max-height: ${({ $isOpen }) => ($isOpen ? '140px' : '0')};
+	overflow-y: auto;
+	background-color: ${({ $bgColor }) =>
+		$bgColor ? $bgColor : theme.COLOR.COMMON.WHITE};
 	transition:
 		max-height 0.5s ease-out,
 		opacity 0.5s ease-out;

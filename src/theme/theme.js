@@ -29,9 +29,15 @@ const ALIGN = {
   `,
 	ROW_SPACE_BETWEEN: `
   	display: flex;
-	justify-content: space-between;
-	align-items: center;
-`,
+	  justify-content: space-between;
+	  align-items: center;
+  `,
+	COLUMN_SPACE_BETWEEN: `
+	 display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   align-items: center;
+	`,
 };
 
 const COLOR = {
@@ -42,12 +48,14 @@ const COLOR = {
 		RED: '#FF000F',
 	},
 	GRAY: {
+		GRAY_0: '#F5F5F5',
 		GRAY_50: '#F1F2F3',
 		GRAY_100: '#E6E6E6',
 		GRAY_200: '#CCCCCC',
 		GRAY_300: '#B3B3B3',
 		GRAY_350: '#B4B4B4',
 		GRAY_400: '#999999',
+		GRAY_450: '#838383',
 		GRAY_500: '#808080',
 		GRAY_550: '#72787F',
 		GRAY_600: '#666666',

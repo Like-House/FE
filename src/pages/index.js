@@ -11,19 +11,24 @@ import LandingPage from './landing/LadingPage';
 import QnaPage from './qna/QnaPage';
 import FamilySpaceSettings from './setting/FamilySpaceSettings/FamilySpaceSettings';
 import NotificationSettings from './setting/NotificationSettings/NotificationSettings';
+import EditProfile from './setting/EditProfile/EditProfile';
+import LandingPage from './landing/LadingPage';
+import FamilySettings from './setting/FamilySettings/FamilySettings';
 
 export {
-	MainPage,
-	LoginPage,
-	SignupPage,
-	FamilySpaceSettings,
-	ChatMainPage,
-	FamilyMainPage,
-	ServiceMainPage,
-	PhotoMainPage,
-	AlertMainPage,
-	CalenderMainPage,
-	LandingPage,
-	QnaPage,
-	NotificationSettings,
+  MainPage,
+  LoginPage,
+  SignupPage,
+  ChatMainPage,
+  FamilyMainPage,
+  ServiceMainPage,
+  PhotoMainPage,
+  AlertMainPage,
+  CalenderMainPage,
+  LandingPage,
+  QnaPage,
+  FamilySpaceSettings,
+  NotificationSettings,
+  EditProfile,
+  FamilySettings,
 };

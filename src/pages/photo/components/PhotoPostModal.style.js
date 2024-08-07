@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FONT_SIZE } from '../../../constants';
+import { FONT_SIZE, RESPONSIVE_SIZE } from '../../../constants';
 import theme from '../../../theme/theme';
 
 const Backdrop = styled.div`
@@ -16,13 +16,24 @@ const ModalContainer = styled.div`
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	width: 1028px;
-	height: 550px;
+	width: 60%;
+	aspect-ratio: 9/5;
 	transform: translate(-50%, -50%);
 	background-color: white;
 	border-radius: 34px;
 	display: flex;
 	flex-direction: column;
+
+	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
+		width: 600px;
+		height: 300px;
+	}
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		width: 90%;
+		height: auto;
+		aspect-ratio: auto;
+	}
 `;
 
 const ModalHeader = styled.div`
@@ -30,7 +41,7 @@ const ModalHeader = styled.div`
 	height: 10%;
 	display: flex;
 	justify-content: flex-end;
-	padding: 46px 82px 0 0;
+	padding: 3% 6% 0 0;
 `;
 
 const ModalFooter = styled.div`
@@ -38,7 +49,11 @@ const ModalFooter = styled.div`
 	height: 10%;
 	display: flex;
 	justify-content: flex-end;
-	padding: 0 84px 100px 0;
+	padding: 0 6% 10% 0;
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		padding: 0 16px 24px 0;
+	}
 `;
 
 const ContentContainer = styled.div`
@@ -48,12 +63,20 @@ const ContentContainer = styled.div`
 	overflow-y: auto;
 	margin-top: 4px;
 	padding: 0 64px;
+
+	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
+		padding: 0 16px;
+	}
 `;
 
 const ProfileArea = styled.div`
 	display: flex;
 	justify-content: center;
 	margin-right: 26px;
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		margin-right: 18px;
+	}
 `;
 
 const Profile = styled.img`
@@ -64,13 +87,17 @@ const Profile = styled.img`
 `;
 
 const Content = styled.div`
-	width: 90%;
-	height: 100%;
+	width: 100%;
+	height: auto;
 `;
 
 const OP = styled.div`
 	font-size: ${FONT_SIZE.TWO_XL};
 	font-weight: 600;
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		font-size: ${FONT_SIZE.XL};
+	}
 `;
 
 const Date = styled.div`
@@ -81,12 +108,21 @@ const Date = styled.div`
 const Comment = styled.div`
 	margin-bottom: 20px;
 	font-size: ${FONT_SIZE.TWO_XL};
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		font-size: ${FONT_SIZE.XL};
+	}
 `;
 
 const PostImg = styled.img`
 	width: 40%;
 	border-radius: 12px;
 	object-fit: cover;
+	margin-bottom: 20px;
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		width: 100%;
+	}
 `;
 
 const CloseButton = styled.div`
