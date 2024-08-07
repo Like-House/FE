@@ -4,14 +4,14 @@ import { PAGE_PATH } from '../../../constants';
 import { Avatar } from '../../';
 import useAuthStore from '../../../store/useAuthStore';
 import LOGO from '../../../assets/images/likeHouseLogo.svg';
+import useGetProfile from '../../../hooks/queries/user/useGetProfile';
+import useGetUserImg from '../../../hooks/queries/user/useGetUserImg';
+import NOIMG from '../../../assets/images/profile.webp';
 
 function Navbar() {
 	const { isAuthenticated } = useAuthStore();
-
-	const data = {
-		img: '/src/assets/images/profile.png',
-		username: '정혜원',
-	};
+	const { data: profile, isPending } = useGetProfile();
+	const { data: userImg } = useGetUserImg(profile?.imageKeyName);
 
 	let content;
 
@@ -23,10 +23,17 @@ function Navbar() {
 				<NavLink
 					to={`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`}
 				>
-					<p>
-						<Avatar src={data.img} size="sm" />
-						{data.username}
-					</p>
+					{isPending ? (
+						<p>loading...</p>
+					) : (
+						<p>
+							<Avatar
+								src={profile?.imageKeyName ? userImg?.url : NOIMG}
+								size="sm"
+							/>
+							{profile?.name}
+						</p>
+					)}
 				</NavLink>
 			</S.NavContainer>
 		);
