@@ -44,7 +44,7 @@ function FamilySettings() {
       <S.Section>
         <S.SectionTitle>가족 목록</S.SectionTitle>
         <S.FamilyList>
-          {familyData.familyDataList.map((member, index) => (
+          {familyData?.familyDataList.map((member, index) => (
             <S.FamilyMember key={index}>
               <S.MemberInfo>
                 <Avatar
@@ -73,10 +73,10 @@ function FamilySettings() {
       <S.Section>
         <S.SectionTitle>차단 목록</S.SectionTitle>
         <S.FamilyList>
-          {familyData.blockFamilyDataList.length === 0 ? (
+          {familyData?.blockFamilyDataList.length === 0 ? (
             <S.EmptyMessage>차단된 가족이 없습니다.</S.EmptyMessage>
           ) : (
-            familyData.blockFamilyDataList.map((member, index) => (
+            familyData?.blockFamilyDataList.map((member, index) => (
               <S.FamilyMember key={index}>
                 <S.MemberInfo>
                   <Avatar
