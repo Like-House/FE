@@ -21,6 +21,14 @@ const EditContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  input {
+    //적용이 안됨 ㅠㅠ
+    width: 100%;
+    @media ${theme.WINDOW_SIZE.MOBILE} {
+      width: 55%;
+    }
+  }
 `;
 
 const EditProfile = styled.div`
