@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './App.css';
 import { PAGE_PATH } from './constants/path';
 import {
   AlertMainPage,
@@ -13,9 +12,12 @@ import {
   ServiceMainPage,
   SignupPage,
   FamilySpaceSettings,
+  FamilySettings,
+  EditProfile,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
+import { ErrorBoundaryProvider } from './container/ErrorBoundaryProvider.jsx';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: `${PAGE_PATH.SIGN_UP}`,
         element: <SignupPage />,
+      },
+      {
+        path: `${PAGE_PATH.SERVICE}`,
+        element: <ServiceMainPage />,
       },
     ],
   },
@@ -65,13 +71,17 @@ const router = createBrowserRouter([
         element: <PhotoMainPage />,
       },
       {
-        path: `${PAGE_PATH.SERVICE}`,
-        element: <ServiceMainPage />,
-      },
-      {
         path: `${PAGE_PATH.SETTING}/*`,
         children: [
-          { path: 'family-space-settings', element: <FamilySpaceSettings /> },
+          {
+            path: `${PAGE_PATH.FAMILY_SPACE_SETTINGS}`,
+            element: <FamilySpaceSettings />,
+          },
+          { path: `${PAGE_PATH.EDIT_PROFILE}`, element: <EditProfile /> },
+          {
+            path: `${PAGE_PATH.FAMILY_SETTINGS}`,
+            element: <FamilySettings />,
+          },
         ],
       },
     ],
