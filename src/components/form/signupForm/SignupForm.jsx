@@ -109,7 +109,7 @@ const SignupForm = () => {
 					email: signupForm.values.email,
 					password: signupForm.values.password,
 					birthDate: signupForm.values.birthDate,
-					profileImage: data.result.keyName,
+					imageKeyName: data.result.keyName,
 				},
 				{
 					onError: error => {
@@ -127,7 +127,7 @@ const SignupForm = () => {
 					email: signupForm.values.email,
 					password: signupForm.values.password,
 					birthDate: signupForm.values.birthDate,
-					profileImage: null,
+					imageKeyName: null,
 				},
 				{
 					onError: error => {
