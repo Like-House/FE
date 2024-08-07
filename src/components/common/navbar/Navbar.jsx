@@ -11,7 +11,7 @@ import NOIMG from '../../../assets/images/profile.webp';
 function Navbar() {
 	const { isAuthenticated } = useAuthStore();
 	const { data: profile, isPending } = useGetProfile();
-	const { data: userImg } = useGetUserImg(profile?.profileImage);
+	const { data: userImg } = useGetUserImg(profile?.imageKeyName);
 
 	let content;
 
@@ -28,7 +28,7 @@ function Navbar() {
 					) : (
 						<p>
 							<Avatar
-								src={profile?.profileImage ? userImg?.url : NOIMG}
+								src={profile?.imageKeyName ? userImg?.url : NOIMG}
 								size="sm"
 							/>
 							{profile?.name}

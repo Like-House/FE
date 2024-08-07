@@ -20,7 +20,7 @@ const Sidebar = () => {
 	const nav = useNavigate();
 
 	const { data: profile, isPending } = useGetProfile();
-	const { data: userImg } = useGetUserImg(profile?.profileImage);
+	const { data: userImg } = useGetUserImg(profile?.imageKeyName);
 
 	const handleProfile = () => {
 		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`);
@@ -97,7 +97,7 @@ const Sidebar = () => {
 
 				<S.Profile>
 					<Avatar
-						src={isPending || !profile?.profileImage ? NOIMG : userImg?.url}
+						src={isPending || !profile?.imageKeyName ? NOIMG : userImg?.url}
 						onClick={handleProfile}
 					/>
 				</S.Profile>
