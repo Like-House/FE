@@ -110,6 +110,14 @@ const LogoutSection = styled.div`
   }
 `;
 
+const Logout = styled(StyledLink)`
+  @media ${theme.WINDOW_SIZE.MOBILE} {
+    ${theme.ALIGN.ROW_CENTER};
+    padding: 0;
+    margin: 0;
+  }
+`;
+
 export {
   Container,
   NavBar,
@@ -120,4 +128,5 @@ export {
   SectionTitle,
   StyledLink,
   LogoutSection,
+  Logout,
 };

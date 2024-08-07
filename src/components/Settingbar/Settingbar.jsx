@@ -42,7 +42,7 @@ function Settingbar({ isopen }) {
         </S.StyledLink>
       </S.Section>
       <S.LogoutSection>
-        <S.StyledLink to={`${settingBasePath}/logout`}>로그아웃</S.StyledLink>
+        <S.Logout to={`${settingBasePath}/logout`}>로그아웃</S.Logout>
       </S.LogoutSection>
     </S.Container>
   ) : (
