@@ -28,7 +28,6 @@ export {
   CalenderMainPage,
   LandingPage,
   QnaPage,
-  FamilySpaceSettings,
   EditProfile,
   FamilySettings,
 };
