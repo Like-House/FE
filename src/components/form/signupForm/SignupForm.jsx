@@ -10,10 +10,12 @@ import { PAGE_PATH } from '../../../constants';
 import CheckBox from '../../common/checkbox/CheckBox.jsx';
 import useFile from '../../../hooks/useFile.js';
 import { createPresignedURL, uploadImageToS3 } from '../../../apis';
+import useGetEmailCode from '../../../hooks/queries/signup/useGetEmailCode';
 
 const SignupForm = () => {
 	const nav = useNavigate();
 	const { file, filePreview, handleChangeFile } = useFile();
+	const { mutate: codeMutate, isSuccess } = useGetEmailCode();
 
 	const signupForm = useForm({
 		initialValue: {
@@ -57,23 +59,24 @@ const SignupForm = () => {
 	};
 
 	const handleMessage = () => {
-		// 인증번호 전송 로직
-		// 전송 성공
-		setMsg(prev => ({
-			...prev,
-			send: {
-				errors: '',
-				success: '인증번호 발송 완료!',
-			},
-		}));
-		// 전송 실패
-		// setMsg(prev => ({
-		// 	...prev,
-		// 	send: {
-		// 		errors: '인증번호 발송에 실패하였습니다.',
-		// 		success: '',
-		// 	},
-		// }));
+		codeMutate(signupForm.values.email);
+		if (isSuccess) {
+			setMsg(prev => ({
+				...prev,
+				send: {
+					errors: '',
+					success: '인증번호 발송 완료!',
+				},
+			}));
+		} else {
+			setMsg(prev => ({
+				...prev,
+				send: {
+					errors: '인증번호 발송에 실패하였습니다.',
+					success: '',
+				},
+			}));
+		}
 	};
 
 	const handleCheckMessage = () => {

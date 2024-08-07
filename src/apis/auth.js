@@ -25,4 +25,15 @@ const signup = async ({ name, email, password, birthDate, imageKeyName }) => {
 	return data;
 };
 
-export { login, signup };
+const getEmailCode = async email => {
+	try {
+		const { data } = await axios.post(
+			`${import.meta.env.VITE_API_URL}${API_PATH.EMAIL}/send-verification?email=${email}`,
+		);
+		return data;
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+export { login, signup, getEmailCode };
