@@ -1,37 +1,56 @@
 import { useState } from "react";
 import * as S from "./MainPage.style.js";
-import boardList from "../../constants/boardList";
 import Avatar from "../../components/common/avatar/Avatar.jsx";
 import CommentInput from "../../components/Comment/Comment.jsx";
 import PopOver from "../../components/common/popover/PopOver.jsx";
+import usePost from "../../hooks/usePost.js";
+import useFamilySpaceId from "../../hooks/useFamilySpaceId.js";
 
 import { FaEdit, FaTrashAlt, FaRegBellSlash } from "react-icons/fa";
 import { HiMiniEllipsisHorizontal } from "react-icons/hi2";
 
 const MainPage = () => {
-  const [showMenu, setShowMenu] = useState(null);
-  const [likes, setLikes] = useState(
-    boardList.reduce((acc, post) => ({ ...acc, [post.id]: { count: post.likes, liked: false } }), {})
-  );
+  const { familySpaceId, isLoading: isFamilySpaceLoading, error: familySpaceError } = useFamilySpaceId();
+  const {
+    boardList,
+    isLoading: isPostLoading,
+    error: postError,
+    updateLikeMutation,
+    addCommentMutation,
+    deletePostMutation,
+    togglePostAlarmMutation,
+  } = usePost(familySpaceId);
 
-  const [comments, setComments] = useState(
-    boardList.reduce((acc, post) => ({ ...acc, [post.id]: [] }), {})
-  );
-  const [commentCounts, setCommentCounts] = useState(
-    boardList.reduce((acc, post) => ({ ...acc, [post.id]: post.comments }), {})
-  );
+  console.log("familyId", familySpaceId);
+
+  console.log("BoardList",boardList);
+
+  if (isFamilySpaceLoading) return <div>Loading family space...</div>;
+  if (familySpaceError) return <div>Error fetching family space: {familySpaceError.message}</div>;
+  if (isPostLoading) return <div>Loading posts...</div>;
+  if (postError) return <div>Error fetching posts: {postError.message}</div>;
+
+  const [showMenu, setShowMenu] = useState(null);
+  const [likes, setLikes] = useState({});
+  const [comments, setComments] = useState({});
+  const [commentCounts, setCommentCounts] = useState({});
   const [commentInputs, setCommentInputs] = useState({});
   const [showCommentInput, setShowCommentInput] = useState({});
 
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
   const handleLike = (postid) => {
-    setLikes(prev => {
+    const liked = likes[postid]?.liked || false;
+    setLikes((prev) => {
       const currentLike = prev[postid];
-      const newCount = currentLike.liked ? currentLike.count - 1 : currentLike.count + 1;
+      const newCount = liked ? currentLike.count - 1 : currentLike.count + 1;
       return {
         ...prev,
-        [postid]: { count: newCount, liked: !currentLike.liked }
+        [postid]: { count: newCount, liked: !liked },
       };
     });
+    updateLikeMutation.mutate({ postid, liked });
   };
 
   const handleCommentClick = (postid) => {
@@ -59,6 +78,7 @@ const MainPage = () => {
         [postid]: prev[postid] + 1
       }));
 
+      addCommentMutation.mutate({ postid, content: commentInputs[postid] });
       setCommentInputs(prev => ({ ...prev, [postid]: "" }));
     }
   };
@@ -78,7 +98,7 @@ const MainPage = () => {
       onClick: () => {
         console.log("수정하기 클릭됨");
         setShowMenu(null);
-        // 수정 로직 추가
+        // 수정로직 추가
       },
     },
     {
@@ -87,7 +107,7 @@ const MainPage = () => {
       onClick: () => {
         console.log("삭제하기 클릭됨");
         setShowMenu(null);
-        // 삭제 로직 추가
+        deletePostMutation.mutate(showMenu);
       },
     },
     {
@@ -96,7 +116,7 @@ const MainPage = () => {
       onClick: () => {
         console.log("알림끄기 클릭됨");
         setShowMenu(null);
-        // 알림끄기 로직 추가
+        togglePostAlarmMutation.mutate(showMenu);
       },
     },
   ];
