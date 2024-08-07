@@ -2,7 +2,8 @@ import MainPage from './main/MainPage';
 import LoginPage from './login/LoginPage';
 import SignupPage from './signup/SignupPage';
 import ChatMainPage from './chat/ChatMainPage';
-import FamilyMainPage from './family/FamilyMainPage';
+import FamilyList from './family/FamilyList/FamilyList';
+import FamilyEdit from './family/FamilyEdit/FamilyEdit';
 import ServiceMainPage from './service/ServiceMainPage';
 import PhotoMainPage from './photo/PhotoMainPage';
 import AlertMainPage from './alert/AlertMainPage';
@@ -17,8 +18,10 @@ export {
   MainPage,
   LoginPage,
   SignupPage,
+  FamilySpaceSettings,
   ChatMainPage,
-  FamilyMainPage,
+  FamilyList,
+  FamilyEdit,
   ServiceMainPage,
   PhotoMainPage,
   AlertMainPage,

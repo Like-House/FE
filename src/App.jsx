@@ -4,16 +4,19 @@ import {
   AlertMainPage,
   CalenderMainPage,
   ChatMainPage,
-  FamilyMainPage,
   LandingPage,
   LoginPage,
   MainPage,
   PhotoMainPage,
+  QnaPage,
+  SignupPage,
   ServiceMainPage,
   SignupPage,
   FamilySpaceSettings,
   FamilySettings,
   EditProfile,
+  FamilyList,
+  FamilyEdit,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -35,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: `${PAGE_PATH.SIGN_UP}`,
         element: <SignupPage />,
+      },
+      {
+        path: `${PAGE_PATH.QNA}`,
+        element: <QnaPage />,
       },
       {
         path: `${PAGE_PATH.SERVICE}`,
@@ -63,8 +70,11 @@ const router = createBrowserRouter([
         element: <ChatMainPage />,
       },
       {
-        path: `${PAGE_PATH.FAMILY}`,
-        element: <FamilyMainPage />,
+        path: `${PAGE_PATH.FAMILY}/*`,
+        children: [
+          { index: true, element: <FamilyList /> },
+          { path: `${PAGE_PATH.FAMILY_EDIT}`, element: <FamilyEdit /> },
+        ],
       },
       {
         path: `${PAGE_PATH.PHOTO}`,
