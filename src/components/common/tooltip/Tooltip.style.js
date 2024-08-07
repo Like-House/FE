@@ -1,31 +1,35 @@
 import styled, { css } from 'styled-components';
 import theme from '../../../theme/theme';
+import { FONT_SIZE } from '../../../constants';
 
 const colorOptions = {
-	default: css`
-		background-color: ${theme.COLOR.YELLOW.YELLOW_1000};
-		color: ${theme.COLOR.COMMON.WHITE};
-	`,
-	//red
-	primary: css`
-		background-color: #ff0000;
-		color: ${theme.COLOR.COMMON.WHITE};
-	`,
-	//blue
-	secondary: css`
-		background-color: #0000ff;
-		color: ${theme.COLOR.COMMON.WHITE};
-	`,
-	outlined: css`
-		background-color: ${theme.COLOR.COMMON.WHITE};
-		color: ${theme.COLOR.COMMON.BLACK};
-		border: 1px solid ${theme.COLOR.COMMON.BLACK};
-	`,
+  default: css`
+    background-color: ${theme.COLOR.YELLOW.YELLOW_1000};
+    color: ${theme.COLOR.COMMON.WHITE};
+  `,
+  //red
+  primary: css`
+    background-color: ${theme.COLOR.COMMON.RED};
+    color: ${theme.COLOR.COMMON.WHITE};
+  `,
+  //blue
+  secondary: css`
+    background-color: ${theme.COLOR.COMMON.BLUE};
+    color: ${theme.COLOR.COMMON.WHITE};
+  `,
+  outlined: css`
+    background-color: ${theme.COLOR.COMMON.WHITE};
+    color: ${theme.COLOR.COMMON.BLACK};
+    border: 1px solid ${theme.COLOR.COMMON.BLACK};
+  `,
 };
 
 const sizeStyles = {
-	sm: css`
+	xs: css`
 		width: 60px;
+	`,
+	sm: css`
+		width: 90px;
 	`,
 	md: css`
 		width: 120px;
@@ -36,20 +40,20 @@ const sizeStyles = {
 };
 
 const TooltipWrapper = styled.div`
-	position: relative;
-	display: inline-block;
+  position: relative;
+  display: inline-block;
 `;
 
 const TooltipText = styled.span`
 	visibility: hidden;
-	${({ size }) => sizeStyles[size] || sizeStyles.md};
+	${({ $size }) => sizeStyles[$size] || sizeStyles.md};
 	text-align: center;
 	border-radius: 6px;
 	padding: 7px;
 	position: absolute;
 	z-index: 1;
-	${({ position }) =>
-		position === 'top'
+	${({ $position }) =>
+		$position === 'top'
 			? css`
 					bottom: 125%;
 				`
@@ -60,8 +64,9 @@ const TooltipText = styled.span`
 	margin-left: -60px;
 	opacity: 0;
 	transition: opacity 0.3s;
-	${({ backgroundColor }) =>
-		colorOptions[backgroundColor] || colorOptions.default};
+	${({ $backgroundColor }) =>
+		colorOptions[$backgroundColor] || colorOptions.default};
+	font-size: ${FONT_SIZE.XS};
 `;
 
 const TooltipIcon = styled.div`
@@ -71,6 +76,11 @@ const TooltipIcon = styled.div`
 		visibility: visible;
 		opacity: 1;
 	}
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 `;
 
 export { TooltipWrapper, TooltipText, TooltipIcon };

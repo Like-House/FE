@@ -101,9 +101,9 @@ const Input = styled.input`
 `;
 
 const MsgWrapper = styled.p`
-  font-size: ${FONT_SIZE.XS};
-  color: ${(props) =>
-    props.$errors ? theme.COLOR.COMMON.RED : theme.COLOR.COMMON.BLUE};
+	font-size: ${FONT_SIZE.XS};
+	color: ${props =>
+		props.$errors ? theme.COLOR.COMMON.RED : theme.COLOR.COMMON.BLUE};
 `;
 
 export { Container, InputContainer, Input, MsgWrapper };
