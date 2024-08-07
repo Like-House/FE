@@ -6,7 +6,7 @@ import { createPresignedURL, uploadImageToS3 } from '../../../apis';
 import usePatchChatRoom from '../../../hooks/queries/chat/usePatchChatRoom';
 import useFile from '../../../hooks/useFile';
 import { useNavigate } from 'react-router-dom';
-import { PAGE_PATH } from '../../../constants';
+import { IMAGE, PAGE_PATH } from '../../../constants';
 
 const ChangeRoom = ({ room }) => {
 	const nav = useNavigate();
@@ -32,6 +32,18 @@ const ChangeRoom = ({ room }) => {
 		});
 	};
 
+	const changeSimpleImg = () => {
+		modifyChatInfo({
+			chatRoomId,
+			title,
+			imageKeyName: IMAGE.BASIC,
+		});
+
+		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}/${PAGE_PATH.ROOM}/${chatRoomId}`, {
+			state: { ...room },
+		});
+	};
+
 	return (
 		<S.Container>
 			<h1>채팅방 커버 이미지 변경</h1>
@@ -48,7 +60,7 @@ const ChangeRoom = ({ room }) => {
 					</label>
 					<S.FileInput type="file" id="file" onChange={handleChangeFile} />
 				</S.CoverImgWrapper>
-				<span>기본으로 변경하기</span>
+				<span onClick={changeSimpleImg}>기본으로 변경하기</span>
 			</S.ContentWrapper>
 			<S.ButtonBox>
 				<CustomButton
