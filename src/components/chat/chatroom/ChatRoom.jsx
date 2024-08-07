@@ -25,7 +25,7 @@ const ChatRoom = ({ room }) => {
 	return (
 		<S.Container onClick={handleClick}>
 			{isPending ? (
-				<Avatar src={''} size="sm" /> // 다른 브랜치에 있는 사진 머지되면 기본 이미지로 변경
+				<Avatar src={''} size="sm" /> // TODO:다른 브랜치에 있는 사진 머지되면 기본 이미지로 변경
 			) : (
 				<Avatar src={data?.result.url} size="sm" />
 			)}

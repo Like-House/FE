@@ -11,6 +11,7 @@ import useCreateChatRoom from '../../../hooks/queries/chat/useCreateChatRoom';
 import useGetFamilySpaceId from '../../../hooks/queries/family/useGetFamilySpaceId';
 import { useEffect } from 'react';
 import useUserIdStore from '../../../store/useUserIdStore';
+import { IMAGE } from '../../../constants';
 
 const Chatbar = () => {
 	const { chatDropdown, chatDropdownOpen } = useDropdownStore(state => state);
@@ -48,7 +49,7 @@ const Chatbar = () => {
 			mutate({
 				familySpaceId: spaceIdData?.familySpaceId,
 				title: members.join(',') + ' (' + familyData.size + ')',
-				imageKeyName: 'f683a5f9-9dd0-4eac-9e21-30a9bc4a134f_IMG_2989.jpeg', // 프로필 4분할?로 수정해야함 지금은 키티에용
+				imageKeyName: IMAGE.BASIC, // TODO:프로필 4분할?로 수정해야함 지금은 기본이미지로
 				chatRoomType: 'GROUP',
 				roomParticipantIds: membersId,
 			});
