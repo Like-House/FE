@@ -44,6 +44,8 @@ const API_PATH = {
 
   // image
   IMAGE: 'api/v0/s3/presigned',
+  //user
+  USER: '/api/v0/user-management/block',
 };
 
 export { PAGE_PATH, API_PATH };
