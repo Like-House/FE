@@ -93,8 +93,8 @@ const EditProfile = () => {
           value={birthday}
           onChange={handleDateChange}
           name='birthday'
-          type='text'
-          placeholder='여기를 클릭해 날짜를 선택하세요.'
+          type='date'
+          placeholder='생년월일을 선택해 주세요.'
           size='XS'
         />
       </S.Field>
