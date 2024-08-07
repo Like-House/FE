@@ -6,4 +6,9 @@ const getFamilyList = async () => {
 	return data;
 };
 
-export { getFamilyList };
+const getFamilySpaceId = async () => {
+	const { data } = await axiosInstance.get(`${API_PATH.FAMILY_SPACE_ID}`);
+	return data;
+};
+
+export { getFamilyList, getFamilySpaceId };

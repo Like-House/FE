@@ -41,9 +41,13 @@ const API_PATH = {
 
 	// family
 	FAMILY: 'api/v0/user-management',
+	FAMILY_SPACE_ID: 'api/v0/family-space',
 
 	// image
 	IMAGE: 'api/v0/s3/presigned',
+
+	// album
+	ALBUM: '/api/v0/family-album/{familySpaceId}',
 };
 
 export { PAGE_PATH, API_PATH };

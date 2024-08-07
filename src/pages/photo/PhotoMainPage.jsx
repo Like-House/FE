@@ -7,15 +7,21 @@ import PhotoPostModal from './components/PhotoPostModal';
 import CustomCalendar from '../../components/common/calendar/CustomCalendar';
 import useCalendarStore from '../../store/useCalendarStore';
 import useGetFamilyList from '../../hooks/queries/family/useGetFamilyList';
+import useGetAlbum from '../../hooks/queries/album/useGetAlbum';
+import useGetFamilySpaceID from '../../hooks/queries/family/useGetFamilySpaceID';
 
 const PhotoMainPage = () => {
-	const { data } = useGetFamilyList();
-	const options = data?.familyDataList?.map(family => family.name) || [];
+	const { data: familyListData } = useGetFamilyList();
+	const options =
+		familyListData?.familyDataList?.map(family => family.name) || [];
+	const { data: familySpaceIdData } = useGetFamilySpaceID();
+	const familySpaceId = familySpaceIdData?.familySpaceId;
+	
+	const { data: albumData } = useGetAlbum(2);
+	console.log(albumData);
 
 	const [selectedOp, setSelectedOp] = useState('');
 	const { date } = useCalendarStore();
-
-	console.log(date);
 
 	const handleSelect = op => {
 		setSelectedOp(op);
