@@ -6,7 +6,7 @@ const Alert = ({ message, detailMessage, onConfirm, onCancel, isOpen }) => {
 	if (!isOpen) return null;
 
 	const size = detailMessage ? 'large' : 'small';
-  
+
   return (
     <S.ModalBackground>
       <S.ModalContainer size={size}>

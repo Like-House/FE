@@ -17,6 +17,12 @@ const LoginContainer = styled.div`
 	max-height: 700px;
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 	border-radius: 10px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		box-shadow: none;
+		background-color: ${theme.COLOR.BACKGROUND.WHITE};
+		width: 100%;
+	}
 `;
 
 const TextWrapper = styled.div`
@@ -33,7 +39,7 @@ const TextWrapper = styled.div`
 	}
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		padding: 50px;
+		padding: 5px 50px 50px;
 	}
 `;
 
