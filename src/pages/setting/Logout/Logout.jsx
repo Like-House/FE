@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import * as S from './Logout.style';
 import Alert from '../../../components/common/alert/alert';
 
 export default function Logout() {
@@ -19,7 +20,7 @@ export default function Logout() {
   };
 
   return (
-    <>
+    <S.Alert>
       <Alert
         isOpen={isOpen}
         message='로그아웃 하시겠습니까?'
@@ -31,6 +32,6 @@ export default function Logout() {
         message='로그아웃 되었습니다.'
         onConfirm={handleLoggedOutConfirm}
       />
-    </>
+    </S.Alert>
   );
 }
