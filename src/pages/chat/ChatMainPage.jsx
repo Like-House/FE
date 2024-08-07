@@ -3,6 +3,7 @@ import * as S from './ChatMainPage.style';
 import { Chatbar } from '../../components';
 import { useEffect, useRef, useState } from 'react';
 import { PAGE_PATH } from '../../constants';
+import { IoChatbubbles } from 'react-icons/io5';
 
 const ChatMainPage = () => {
 	const { pathname } = useLocation();
@@ -49,7 +50,14 @@ const ChatMainPage = () => {
 				<Chatbar />
 			</S.SideBarBox>
 			<S.OutletWrapper $showSidebar={showSidebar}>
-				<Outlet />
+				{showSidebar ? (
+					<S.BasicContainer>
+						<IoChatbubbles size={30} />
+						<p>채팅방에 입장해주세요.</p>
+					</S.BasicContainer>
+				) : (
+					<Outlet />
+				)}
 			</S.OutletWrapper>
 		</S.Container>
 	);

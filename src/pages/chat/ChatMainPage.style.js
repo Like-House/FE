@@ -23,4 +23,19 @@ const OutletWrapper = styled.div`
 	}
 `;
 
-export { Container, OutletWrapper, SideBarBox };
+const BasicContainer = styled.div`
+	width: 100%;
+	height: 100%;
+	${theme.ALIGN.COLUMN_CENTER};
+
+	svg {
+		color: ${theme.COLOR.YELLOW.YELLOW_500};
+		margin-bottom: 10px;
+	}
+
+	p {
+		letter-spacing: 1px;
+	}
+`;
+
+export { Container, OutletWrapper, SideBarBox, BasicContainer };
