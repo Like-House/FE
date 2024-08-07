@@ -6,12 +6,15 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import queryClient from './apis/queryClient.js';
 import theme from './theme/theme';
 import { ThemeProvider } from 'styled-components';
+import { ErrorBoundaryProvider } from './container/ErrorBoundaryProvider.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<QueryClientProvider client={queryClient}>
 		<ThemeProvider theme={theme}>
 			<ReactQueryDevtools initialIsOpen={false} />
-			<App />
+			<ErrorBoundaryProvider>
+				<App />
+			</ErrorBoundaryProvider>
 		</ThemeProvider>
 	</QueryClientProvider>,
 );
