@@ -5,7 +5,6 @@ import { FONT_SIZE } from '../../../constants/size';
 export const PopOverContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-
 	background-color: ${theme.COLOR.COMMON.WHITE};
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 	border-radius: 10px;
