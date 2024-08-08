@@ -54,10 +54,19 @@ const getChatRoomUsers = async chatRoomId => {
 	return data;
 };
 
+const getChatMessage = async ({ chatRoomId, cursor, take }) => {
+	const { data } = await axiosInstance.get(
+		`${API_PATH.CHAT}/${chatRoomId}/chats?cursor=${cursor}&take=${take}`,
+	);
+
+	return data;
+};
+
 export {
 	getChatRooms,
 	createChatRoom,
 	exitChatRoom,
 	patchChatRoom,
 	getChatRoomUsers,
+	getChatMessage,
 };

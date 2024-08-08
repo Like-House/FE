@@ -5,7 +5,7 @@ import * as S from './Message.style';
 import { GoBellSlash } from 'react-icons/go';
 import { RxExit } from 'react-icons/rx';
 import { TbPhoto } from 'react-icons/tb';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useExitChatRoom from '../../../hooks/queries/chat/useExitChatRoom';
 import useModal from '../../../hooks/useModal';
 import { Alert, PopOver } from '../../';
@@ -13,6 +13,9 @@ import useGetRealImageUrl from '../../../hooks/queries/image/useGetRealImage.js'
 import { useNavigate } from 'react-router-dom';
 import { PAGE_PATH } from '../../../constants';
 import { IoIosArrowBack } from 'react-icons/io';
+import useWebSocketStore from '../../../store/useWebSocketStore.js';
+import useGetMessage from '../../../hooks/queries/chat/useGetMessage.js';
+import useUserIdStore from '../../../store/useUserIdStore.js';
 
 const Message = ({ room }) => {
 	const [open, setOpen] = useState();
@@ -21,7 +24,39 @@ const Message = ({ room }) => {
 	const { isOpen, openModal, closeModal } = useModal();
 	const { data } = useGetRealImageUrl({ chatRoomId, imageUrl: imageKeyName });
 	const nav = useNavigate();
+	const { userId } = useUserIdStore();
+	const [input, setInput] = useState('');
+	const { messages, sendMessage, enterChatRoom, exitChatRoom, enter } =
+		useWebSocketStore();
+	const { data: messageData } = useGetMessage({
+		chatRoomId,
+		cursor: 1,
+		take: 50,
+	});
 
+	useEffect(() => {
+		if (chatRoomId && !enter) {
+			enterChatRoom(chatRoomId);
+		}
+	}, [chatRoomId, enterChatRoom, enter]);
+
+	const handleSend = () => {
+		if (input.trim()) {
+			const message = JSON.stringify({
+				chatType: 'TALK',
+				content: input,
+				chatRoomId,
+			});
+			console.log('Sending message:', message);
+			sendMessage(message);
+			setInput('');
+		}
+	};
+
+	const handleExit = () => {
+		exitChatRoom(chatRoomId);
+		nav(-1);
+	};
 	const handleConfirm = () => {
 		mutate(chatRoomId, {
 			onError: e => console.log(e),
@@ -53,7 +88,6 @@ const Message = ({ room }) => {
 			message: '채팅방 나가기',
 			onClick: handleExitChatRoom,
 		},
-
 		{
 			icon: <TbPhoto />,
 			message: '커버 이미지 변경',
@@ -71,7 +105,7 @@ const Message = ({ room }) => {
 			/>
 			<S.NavContainer>
 				<S.NavWrapper>
-					<IoIosArrowBack size={25} onClick={() => nav(-1)} />
+					<IoIosArrowBack size={25} onClick={handleExit} />
 					<S.UserContainer onClick={handleInfo}>
 						<img src={data?.result.url} alt="profile" />
 						<p>{title}</p>
@@ -84,14 +118,35 @@ const Message = ({ room }) => {
 					</S.PopoverWrapper>
 				</S.Menu>
 			</S.NavContainer>
-			<S.MessageContainer></S.MessageContainer>
+			<S.MessageContainer>
+				{messageData?.chatResponseList.map(e => (
+					<div key={e.chatId}>
+						<strong>
+							{e.senderDTO.senderId === userId ? 'Me~' : e.senderDTO.senderName}
+							:
+						</strong>
+						{e.content}
+					</div>
+				))}
+				{messages.map((message, index) => (
+					<div key={index}>
+						<strong>{message.senderDTO?.senderName ?? 'Me'}:</strong>{' '}
+						{message.content}
+					</div>
+				))}
+			</S.MessageContainer>
 			<S.InputContainer>
 				<S.IconWrapper>
 					<HiOutlinePhotograph size={25} />
 					<FaRegSmile size={23} />
 				</S.IconWrapper>
-				<input placeholder="메시지를 입력해주세요. (Enter: 전송 / Shift + Enter: 줄바꿈)" />
-				<FiSend size={25} />
+				<input
+					placeholder="메시지를 입력해주세요. (Enter: 전송 / Shift + Enter: 줄바꿈)"
+					type="text"
+					value={input}
+					onChange={e => setInput(e.target.value)}
+				/>
+				<FiSend size={25} onClick={handleSend} />
 			</S.InputContainer>
 		</S.Container>
 	);

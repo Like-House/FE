@@ -53,7 +53,6 @@ const API_PATH = {
 
 	// users
 	PROFILE: '/api/v0/users/profile',
-
 };
 
 export { PAGE_PATH, API_PATH };

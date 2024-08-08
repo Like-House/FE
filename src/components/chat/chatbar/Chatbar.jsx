@@ -25,7 +25,6 @@ const Chatbar = () => {
 		take: 10,
 	});
 	const { setUserId } = useUserIdStore(state => state);
-	console.log(data);
 
 	useEffect(() => {
 		setUserId(data?.ownerId);
