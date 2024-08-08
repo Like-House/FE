@@ -26,14 +26,20 @@ const signup = async ({ name, email, password, birthDate, imageKeyName }) => {
 };
 
 const getEmailCode = async email => {
-	try {
-		const { data } = await axios.post(
-			`${import.meta.env.VITE_API_URL}${API_PATH.EMAIL}/send-verification?email=${email}`,
-		);
-		return data;
-	} catch (err) {
-		console.log(err);
-	}
+	const { data } = await axios.post(
+		`${import.meta.env.VITE_API_URL}${API_PATH.EMAIL}/send-verification?email=${email}`,
+	);
+
+	return data;
 };
 
-export { login, signup, getEmailCode };
+const checkEmailCode = async ({ email, code }) => {
+	const { data } = await axios.post(
+		`${import.meta.env.VITE_API_URL}${API_PATH.EMAIL}/verification`,
+		{ email, code },
+	);
+
+	return data;
+};
+
+export { login, signup, getEmailCode, checkEmailCode };
