@@ -5,6 +5,8 @@ const useWebSocketStore = create((set, get) => ({
 	messages: [],
 	webSocket: null,
 
+	clearMessages: () => set({ messages: [] }),
+
 	setMessages: message =>
 		set(state => ({ messages: [...state.messages, message] })),
 	setWebSocket: webSocket => set({ webSocket }),

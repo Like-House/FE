@@ -28,8 +28,14 @@ const Message = ({ room }) => {
 	const nav = useNavigate();
 	const { userId } = useUserIdStore();
 	const [input, setInput] = useState('');
-	const { messages, sendMessage, enterChatRoom, exitChatRoom, enter } =
-		useWebSocketStore();
+	const {
+		messages,
+		sendMessage,
+		enterChatRoom,
+		exitChatRoom,
+		enter,
+		clearMessages,
+	} = useWebSocketStore();
 	const {
 		data: messageData,
 		fetchNextPage,
@@ -75,6 +81,7 @@ const Message = ({ room }) => {
 
 	const handleExit = () => {
 		exitChatRoom(chatRoomId);
+		clearMessages();
 		nav(-1);
 	};
 	const handleConfirm = () => {
