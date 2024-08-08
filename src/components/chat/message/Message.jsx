@@ -5,7 +5,7 @@ import * as S from './Message.style';
 import { GoBellSlash } from 'react-icons/go';
 import { RxExit } from 'react-icons/rx';
 import { TbPhoto } from 'react-icons/tb';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useExitChatRoom from '../../../hooks/queries/chat/useExitChatRoom';
 import useModal from '../../../hooks/useModal';
 import { Alert, PopOver } from '../../';
@@ -20,8 +20,6 @@ import ReceiveMessage from '../receivemessage/ReceiveMessage.jsx';
 import { useInView } from 'react-intersection-observer';
 
 const Message = ({ room }) => {
-	const chatRef = useRef(null);
-	const [prevHeight, setPrevHeight] = useState(0);
 	const [open, setOpen] = useState();
 	const { chatRoomId, imageKeyName, title } = room;
 	const { mutate } = useExitChatRoom();
