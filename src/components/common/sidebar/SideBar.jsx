@@ -28,7 +28,6 @@ const Sidebar = () => {
 		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`);
 	};
 
-
 	return (
 		<S.Container $noDisplay={noDisplay}>
 			<S.Logo src={LOGO} />
