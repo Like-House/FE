@@ -8,9 +8,16 @@ const getProfile = async () => {
 };
 
 const blockUser = async userId => {
-	const { data } = await axiosInstance.post(`${API_PATH.USER}/${userId}`);
+	const { data } = await axiosInstance.post(`${API_PATH.BLOCK}/${userId}`);
 
 	return data;
 };
 
-export { getProfile, blockUser };
+const unBlockUser = async userId => {
+	const { data } = await axiosInstance.post(
+		`${API_PATH.BLOCK}/release/${userId}`,
+	);
+	return data;
+};
+
+export { getProfile, blockUser, unBlockUser };

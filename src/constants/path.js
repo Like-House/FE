@@ -47,7 +47,7 @@ const API_PATH = {
 
 	//user
 	PROFILE: '/api/v0/users/profile',
-	USER: '/api/v0/user-management/block',
+	BLOCK: '/api/v0/user-management/block',
 };
 
 export { PAGE_PATH, API_PATH };
