@@ -13,6 +13,7 @@ const PAGE_PATH = {
 	ROOM: 'room',
 	MODIFY: 'modify',
 	INFO: 'info',
+
 	// Setting
 	SETTING: 'setting',
 	// Photo
@@ -44,10 +45,15 @@ const API_PATH = {
 
 	// family
 	FAMILY: 'api/v0/user-management',
+
 	FAMILY_SPACE: 'api/v0/family-space',
 
 	// image
 	IMAGE: 'api/v0/s3/presigned',
+
+	// users
+	PROFILE: '/api/v0/users/profile',
+
 };
 
 export { PAGE_PATH, API_PATH };
