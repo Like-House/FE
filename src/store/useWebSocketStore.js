@@ -4,6 +4,7 @@ const useWebSocketStore = create((set, get) => ({
 	enter: false,
 	messages: [],
 	webSocket: null,
+
 	setMessages: message =>
 		set(state => ({ messages: [...state.messages, message] })),
 	setWebSocket: webSocket => set({ webSocket }),
@@ -23,7 +24,7 @@ const useWebSocketStore = create((set, get) => ({
 	enterChatRoom: chatRoomId => {
 		const message = JSON.stringify({
 			chatType: 'ENTER',
-			content: 'Initial connection',
+			content: 'ENTER',
 			chatRoomId,
 		});
 		get().sendMessage(message);
@@ -33,7 +34,7 @@ const useWebSocketStore = create((set, get) => ({
 	exitChatRoom: chatRoomId => {
 		const message = JSON.stringify({
 			chatType: 'EXIT',
-			content: 'Exiting chat room',
+			content: 'EXIT',
 			chatRoomId,
 		});
 		get().sendMessage(message);

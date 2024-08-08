@@ -5,7 +5,7 @@ import * as S from './Message.style';
 import { GoBellSlash } from 'react-icons/go';
 import { RxExit } from 'react-icons/rx';
 import { TbPhoto } from 'react-icons/tb';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useExitChatRoom from '../../../hooks/queries/chat/useExitChatRoom';
 import useModal from '../../../hooks/useModal';
 import { Alert, PopOver } from '../../';
@@ -17,8 +17,11 @@ import useWebSocketStore from '../../../store/useWebSocketStore.js';
 import useGetMessage from '../../../hooks/queries/chat/useGetMessage.js';
 import useUserIdStore from '../../../store/useUserIdStore.js';
 import ReceiveMessage from '../receivemessage/ReceiveMessage.jsx';
+import { useInView } from 'react-intersection-observer';
 
 const Message = ({ room }) => {
+	const chatRef = useRef(null);
+	const [prevHeight, setPrevHeight] = useState(0);
 	const [open, setOpen] = useState();
 	const { chatRoomId, imageKeyName, title } = room;
 	const { mutate } = useExitChatRoom();
@@ -29,11 +32,29 @@ const Message = ({ room }) => {
 	const [input, setInput] = useState('');
 	const { messages, sendMessage, enterChatRoom, exitChatRoom, enter } =
 		useWebSocketStore();
-	const { data: messageData } = useGetMessage({
+	const {
+		data: messageData,
+		fetchNextPage,
+		hasNextPage,
+		isFetchingNextPage,
+		isFetching,
+	} = useGetMessage({
 		chatRoomId,
-		cursor: 1,
-		take: 50,
+		take: 10,
 	});
+
+	console.log(messageData, hasNextPage);
+
+	const { ref, inView } = useInView({
+		threshold: 0,
+		delay: 0,
+	});
+
+	useEffect(() => {
+		if (inView) {
+			!isFetching && hasNextPage && fetchNextPage();
+		}
+	}, [inView, isFetching, hasNextPage]);
 
 	useEffect(() => {
 		if (chatRoomId && !enter) {
@@ -120,13 +141,15 @@ const Message = ({ room }) => {
 				</S.Menu>
 			</S.NavContainer>
 			<S.MessageContainer>
-				{messageData?.chatResponseList.map(e =>
-					e.senderDTO.senderId === userId ? (
-						<S.MyContainer key={e.chatId}>
-							<S.MyMessage>{e.content}</S.MyMessage>
-						</S.MyContainer>
-					) : (
-						<ReceiveMessage member={e} key={e.chatId} />
+				{messageData?.map(page =>
+					page.result.chatResponseList.map(e =>
+						e.senderDTO.senderId === userId ? (
+							<S.MyContainer key={e.chatId}>
+								<S.MyMessage>{e.content}</S.MyMessage>
+							</S.MyContainer>
+						) : (
+							<ReceiveMessage member={e} key={e.chatId} />
+						),
 					),
 				)}
 
@@ -141,6 +164,9 @@ const Message = ({ room }) => {
 						)
 					),
 				)}
+				<div ref={ref}>
+					{isFetchingNextPage && <div>Loading more messages...</div>}
+				</div>
 			</S.MessageContainer>
 			<S.InputContainer onSubmit={handleSend}>
 				<S.IconWrapper>

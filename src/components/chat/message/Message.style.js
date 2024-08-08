@@ -31,6 +31,17 @@ const InputContainer = styled.form`
 		cursor: pointer;
 		margin-right: 15px;
 	}
+
+	button {
+		border: none;
+		background-color: inherit;
+	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		input {
+			margin-left: 10px;
+		}
+	}
 `;
 
 const IconWrapper = styled.div`
@@ -40,6 +51,12 @@ const IconWrapper = styled.div`
 		margin-right: 0;
 		color: ${theme.COLOR.GRAY.GRAY_700};
 		cursor: pointer;
+	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		svg {
+			margin-left: 5px;
+		}
 	}
 `;
 
