@@ -16,6 +16,7 @@ import { IoIosArrowBack } from 'react-icons/io';
 import useWebSocketStore from '../../../store/useWebSocketStore.js';
 import useGetMessage from '../../../hooks/queries/chat/useGetMessage.js';
 import useUserIdStore from '../../../store/useUserIdStore.js';
+import ReceiveMessage from '../receivemessage/ReceiveMessage.jsx';
 
 const Message = ({ room }) => {
 	const [open, setOpen] = useState();
@@ -119,21 +120,25 @@ const Message = ({ room }) => {
 				</S.Menu>
 			</S.NavContainer>
 			<S.MessageContainer>
-				{messageData?.chatResponseList.map(e => (
-					<div key={e.chatId}>
-						<strong>
-							{e.senderDTO.senderId === userId ? 'Me~' : e.senderDTO.senderName}
-							:
-						</strong>
-						{e.content}
-					</div>
-				))}
-				{messages.map((message, index) => (
-					<div key={index}>
-						<strong>{message.senderDTO?.senderName ?? 'Me'}:</strong>{' '}
-						{message.content}
-					</div>
-				))}
+				{messageData?.chatResponseList.map(e =>
+					e.senderDTO.senderId === userId ? (
+						<S.MyContainer key={e.chatId}>
+							<S.MyMessage>{e.content}</S.MyMessage>
+						</S.MyContainer>
+					) : (
+						<ReceiveMessage member={e} key={e.chatId} />
+					),
+				)}
+
+				{messages.map((e, idx) =>
+					e.senderDTO?.senderName ? (
+						<ReceiveMessage member={e} key={idx} />
+					) : (
+						<S.MyContainer key={idx}>
+							<S.MyMessage>{e.content}</S.MyMessage>
+						</S.MyContainer>
+					),
+				)}
 			</S.MessageContainer>
 			<S.InputContainer>
 				<S.IconWrapper>

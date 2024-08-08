@@ -10,6 +10,7 @@ const Container = styled.div`
 `;
 
 const InputContainer = styled.div`
+	margin-bottom: 5px;
 	${theme.ALIGN.ROW_SPACE_BETWEEN};
 	padding: 0 20px;
 	width: 93%;
@@ -151,11 +152,25 @@ const NoChatContainer = styled.div`
 
 const MessageContainer = styled.div`
 	flex: 1;
-	${theme.ALIGN.COLUMN_CENTER};
 	width: 100%;
 	height: 50%;
-	padding-bottom: 10px;
+	overflow-y: auto;
+	padding-bottom: 15px;
 	padding: 0 20px;
+`;
+
+const MyContainer = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	margin: 7px 0;
+`;
+
+const MyMessage = styled.div`
+	background-color: ${theme.COLOR.MAIN.YELLOW};
+	max-width: 200px;
+	width: fit-content;
+	border-radius: 18px;
+	padding: 10px 15px;
 `;
 
 export {
@@ -169,4 +184,6 @@ export {
 	NoChatContainer,
 	MessageContainer,
 	NavWrapper,
+	MyMessage,
+	MyContainer,
 };
