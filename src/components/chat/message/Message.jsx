@@ -41,14 +41,14 @@ const Message = ({ room }) => {
 		}
 	}, [chatRoomId, enterChatRoom, enter]);
 
-	const handleSend = () => {
+	const handleSend = e => {
+		e.preventDefault();
 		if (input.trim()) {
 			const message = JSON.stringify({
 				chatType: 'TALK',
 				content: input,
 				chatRoomId,
 			});
-			console.log('Sending message:', message);
 			sendMessage(message);
 			setInput('');
 		}
@@ -134,13 +134,15 @@ const Message = ({ room }) => {
 					e.senderDTO?.senderName ? (
 						<ReceiveMessage member={e} key={idx} />
 					) : (
-						<S.MyContainer key={idx}>
-							<S.MyMessage>{e.content}</S.MyMessage>
-						</S.MyContainer>
+						e.chatType === 'TALK' && (
+							<S.MyContainer key={idx}>
+								<S.MyMessage>{e.content}</S.MyMessage>
+							</S.MyContainer>
+						)
 					),
 				)}
 			</S.MessageContainer>
-			<S.InputContainer>
+			<S.InputContainer onSubmit={handleSend}>
 				<S.IconWrapper>
 					<HiOutlinePhotograph size={25} />
 					<FaRegSmile size={23} />
@@ -151,7 +153,9 @@ const Message = ({ room }) => {
 					value={input}
 					onChange={e => setInput(e.target.value)}
 				/>
-				<FiSend size={25} onClick={handleSend} />
+				<button type="submit">
+					<FiSend size={25} />
+				</button>
 			</S.InputContainer>
 		</S.Container>
 	);

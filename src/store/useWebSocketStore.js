@@ -7,6 +7,7 @@ const useWebSocketStore = create((set, get) => ({
 	setMessages: message =>
 		set(state => ({ messages: [...state.messages, message] })),
 	setWebSocket: webSocket => set({ webSocket }),
+
 	sendMessage: message => {
 		const webSocket = get().webSocket;
 		if (webSocket && webSocket.readyState === WebSocket.OPEN) {
@@ -18,6 +19,7 @@ const useWebSocketStore = create((set, get) => ({
 			console.log('WebSocket is not open.');
 		}
 	},
+
 	enterChatRoom: chatRoomId => {
 		const message = JSON.stringify({
 			chatType: 'ENTER',
@@ -27,6 +29,7 @@ const useWebSocketStore = create((set, get) => ({
 		get().sendMessage(message);
 		set({ enter: true });
 	},
+
 	exitChatRoom: chatRoomId => {
 		const message = JSON.stringify({
 			chatType: 'EXIT',

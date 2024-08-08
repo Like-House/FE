@@ -24,20 +24,11 @@ const WebSocketComponent = ({ children }) => {
 		};
 		webSocket.current.onmessage = event => {
 			if (event.data) {
-				console.log('Received message:', event.data);
-				try {
-					const parsedMessage = JSON.parse(event.data);
-					setMessages(parsedMessage);
-					console.log('Parsed message:', parsedMessage);
-				} catch (error) {
-					console.error(
-						'Failed to parse WebSocket message:',
-						error,
-						event.data,
-					);
-				}
+				// 받은 메세지
+				const msg = JSON.parse(event.data);
+				setMessages(msg);
 			} else if (event) {
-				console.log('Received event:', event);
+				// 보낸 메세지
 				setMessages(event);
 			} else {
 				console.error('WebSocket message is undefined');

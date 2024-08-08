@@ -9,7 +9,7 @@ const Container = styled.div`
 	height: 100dvh;
 `;
 
-const InputContainer = styled.div`
+const InputContainer = styled.form`
 	margin-bottom: 5px;
 	${theme.ALIGN.ROW_SPACE_BETWEEN};
 	padding: 0 20px;
@@ -167,7 +167,7 @@ const MyContainer = styled.div`
 
 const MyMessage = styled.div`
 	background-color: ${theme.COLOR.MAIN.YELLOW};
-	max-width: 200px;
+	max-width: 300px;
 	width: fit-content;
 	border-radius: 18px;
 	padding: 10px 15px;
