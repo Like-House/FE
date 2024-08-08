@@ -42,11 +42,12 @@ const API_PATH = {
 	// family
 	FAMILY: 'api/v0/user-management',
 
-  // image
-  IMAGE: 'api/v0/s3/presigned',
-  
-  //user
-  USER: '/api/v0/user-management/block',
+	// image
+	IMAGE: 'api/v0/s3/presigned',
+
+	//user
+	PROFILE: '/api/v0/users/profile',
+	USER: '/api/v0/user-management/block',
 };
 
 export { PAGE_PATH, API_PATH };
