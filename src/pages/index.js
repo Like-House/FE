@@ -47,7 +47,7 @@ export {
 	ChangePassword,
 	InvitationLink,
 	CreateSpace,
-  ChatDetailPage,
+	ChatDetailPage,
 	ChatImgPage,
 	ChatUserInfo,
 };
