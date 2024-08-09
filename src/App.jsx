@@ -18,6 +18,7 @@ import {
 	EditProfile,
 	FamilyList,
 	FamilyEdit,
+	DeleteAccount,
 	Logout,
 } from './pages';
 
@@ -94,6 +95,7 @@ const router = createBrowserRouter([
 						path: `${PAGE_PATH.FAMILY_SETTINGS}`,
 						element: <FamilySettings />,
 					},
+					{ path: `${PAGE_PATH.DELETE_ACCOUNT}`, element: <DeleteAccount /> },
 					{
 						path: `${PAGE_PATH.NOTIFICATION_SETTINGS}`,
 						element: <NotificationSettings />,

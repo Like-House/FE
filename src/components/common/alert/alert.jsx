@@ -7,6 +7,15 @@ const Alert = ({ message, detailMessage, onConfirm, onCancel, isOpen }) => {
 
 	const size = detailMessage ? 'large' : 'small';
 
+  const formatDetailMessage = (message) => {
+    return message.split('\n').map((line, index) => (
+      <span key={index}>
+        {line}
+        <br />
+      </span>
+    ));
+  };
+
   return (
     <S.ModalBackground>
       <S.ModalContainer size={size}>
@@ -15,7 +24,9 @@ const Alert = ({ message, detailMessage, onConfirm, onCancel, isOpen }) => {
         </S.Icon>
         <S.ModalMessage>{message}</S.ModalMessage>
         {detailMessage && (
-          <S.ModalDetailMessage>{detailMessage}</S.ModalDetailMessage>
+          <S.ModalDetailMessage>
+            {formatDetailMessage(detailMessage)}
+          </S.ModalDetailMessage>
         )}
         <S.ButtonContainer
           $singleButton={!onCancel}

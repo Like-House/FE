@@ -28,6 +28,8 @@ const PAGE_PATH = {
 	EDIT_PROFILE: 'edit-profile',
 	//setting/family-settings
 	FAMILY_SETTINGS: 'family-settings',
+  // setting/delete-account
+  DELETE_ACCOUNT: 'delete-account',
 	// Q/A
 	QNA: 'qna',
 	// setting/logout

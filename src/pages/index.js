@@ -15,6 +15,7 @@ import NotificationSettings from './setting/NotificationSettings/NotificationSet
 import MyPosts from './setting/MyPosts/MyPosts';
 import EditProfile from './setting/EditProfile/EditProfile';
 import FamilySettings from './setting/FamilySettings/FamilySettings';
+import DeleteAccount from './setting/DeleteAccount/DeleteAccount';
 import Logout from './setting/Logout/Logout';
 
 export {
@@ -35,5 +36,6 @@ export {
 	QnaPage,
 	EditProfile,
 	FamilySettings,
+	DeleteAccount,
 	Logout,
 };
