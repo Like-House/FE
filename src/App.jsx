@@ -12,11 +12,12 @@ import {
 	SignupPage,
 	ServiceMainPage,
 	FamilySpaceSettings,
+	MyPosts,
 	FamilySettings,
 	EditProfile,
 	FamilyList,
 	FamilyEdit,
-  Logout,
+	Logout,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -82,6 +83,7 @@ const router = createBrowserRouter([
 			{
 				path: `${PAGE_PATH.SETTING}/*`,
 				children: [
+					{ path: `${PAGE_PATH.MY_POSTS}`, element: <MyPosts /> },
 					{
 						path: `${PAGE_PATH.FAMILY_SPACE_SETTINGS}`,
 						element: <FamilySpaceSettings />,
@@ -91,7 +93,7 @@ const router = createBrowserRouter([
 						path: `${PAGE_PATH.FAMILY_SETTINGS}`,
 						element: <FamilySettings />,
 					},
-          { path: `${PAGE_PATH.LOGOUT}`, element: <Logout /> },
+					{ path: `${PAGE_PATH.LOGOUT}`, element: <Logout /> },
 				],
 			},
 		],

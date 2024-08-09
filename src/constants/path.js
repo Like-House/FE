@@ -20,6 +20,8 @@ const PAGE_PATH = {
 	ALERT: 'alert',
 	// Family
 	FAMILY: 'family',
+	// setting/my-posts
+	MY_POSTS: 'my-posts',
 	// setting/family-space-settings
 	FAMILY_SPACE_SETTINGS: 'family-space-settings',
 	// setting/edit-profile
@@ -28,8 +30,8 @@ const PAGE_PATH = {
 	FAMILY_SETTINGS: 'family-settings',
 	// Q/A
 	QNA: 'qna',
-  // setting/logout
-  LOGOUT: 'logout',
+	// setting/logout
+	LOGOUT: 'logout',
 };
 
 const API_PATH = {
