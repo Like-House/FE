@@ -17,6 +17,7 @@ import EditProfile from './setting/EditProfile/EditProfile';
 import FamilySettings from './setting/FamilySettings/FamilySettings';
 import DeleteAccount from './setting/DeleteAccount/DeleteAccount';
 import Logout from './setting/Logout/Logout';
+import ChangePassword from './setting/ChangePassword/ChangePassword';
 
 export {
 	MainPage,
@@ -38,4 +39,5 @@ export {
 	FamilySettings,
 	DeleteAccount,
 	Logout,
+	ChangePassword,
 };

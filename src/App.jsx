@@ -20,6 +20,7 @@ import {
 	FamilyEdit,
 	DeleteAccount,
 	Logout,
+	ChangePassword,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -101,6 +102,7 @@ const router = createBrowserRouter([
 						element: <NotificationSettings />,
 					},
 					{ path: `${PAGE_PATH.LOGOUT}`, element: <Logout /> },
+					{ path: `${PAGE_PATH.CHANGE_PASSWORD}`, element: <ChangePassword /> },
 				],
 			},
 		],
