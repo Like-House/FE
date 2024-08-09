@@ -16,6 +16,7 @@ import {
 	EditProfile,
 	FamilyList,
 	FamilyEdit,
+  Logout,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -90,6 +91,7 @@ const router = createBrowserRouter([
 						path: `${PAGE_PATH.FAMILY_SETTINGS}`,
 						element: <FamilySettings />,
 					},
+          { path: `${PAGE_PATH.LOGOUT}`, element: <Logout /> },
 				],
 			},
 		],

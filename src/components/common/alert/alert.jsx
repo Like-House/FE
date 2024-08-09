@@ -18,8 +18,8 @@ const Alert = ({ message, detailMessage, onConfirm, onCancel, isOpen }) => {
           <S.ModalDetailMessage>{detailMessage}</S.ModalDetailMessage>
         )}
         <S.ButtonContainer
-          singleButton={!onCancel}
-          hasDetailMessage={!!detailMessage}
+          $singleButton={!onCancel}
+          $hasDetailMessage={!!detailMessage}
         >
           <S.Button onClick={onConfirm}>확인</S.Button>
           {onCancel && <S.Button onClick={onCancel}>취소</S.Button>}

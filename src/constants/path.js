@@ -28,6 +28,8 @@ const PAGE_PATH = {
 	FAMILY_SETTINGS: 'family-settings',
 	// Q/A
 	QNA: 'qna',
+  // setting/logout
+  LOGOUT: 'logout',
 };
 
 const API_PATH = {
