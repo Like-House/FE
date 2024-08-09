@@ -25,11 +25,27 @@ const Container = styled.div`
 			text-decoration: underline;
 		}
 	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		width: 80%;
+		height: 100%;
+		padding: 50px 25px 0 25px;
+
+		h1 {
+			margin-bottom: 20px;
+		}
+	}
 `;
 
 const ContentWrapper = styled.div`
 	p {
 		margin-bottom: 40px;
+	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		p {
+			font-size: ${FONT_SIZE.SM};
+		}
 	}
 `;
 
@@ -51,7 +67,7 @@ const CoverImgWrapper = styled.div`
 		padding: 15px 20px;
 		font-size: ${FONT_SIZE.SM};
 		cursor: pointer;
-
+		word-break: keep-all;
 		&:hover {
 			transform: scale(0.98);
 		}
@@ -60,12 +76,28 @@ const CoverImgWrapper = styled.div`
 			margin-left: 25px;
 		}
 	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		img {
+			width: 150px;
+			height: 150px;
+		}
+
+		label {
+			padding: 15px;
+		}
+	}
 `;
 
 const ButtonBox = styled.div`
 	position: absolute;
 	right: 50px;
 	bottom: 50px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		bottom: 110px;
+		right: 40px;
+	}
 `;
 
 const FileInput = styled.input`

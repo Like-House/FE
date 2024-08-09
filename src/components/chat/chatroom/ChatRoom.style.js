@@ -15,6 +15,10 @@ const Container = styled.div`
 		background-color: ${theme.COLOR.COMMON.WHITE};
 		border-radius: 15px;
 	}
+
+	@media ${theme.WINDOW_SIZE.PC} {
+		width: 90%;
+	}
 `;
 
 const UserContainer = styled.div`

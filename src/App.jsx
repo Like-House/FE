@@ -22,7 +22,10 @@ import {
 	Logout,
 	ChangePassword,
   InvitationLink,
-  CreateSpace,
+  CreateSpace,	
+	ChatDetailPage,
+  ChatImgPage,
+  ChatUserInfo,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -87,6 +90,20 @@ const router = createBrowserRouter([
 			{
 				path: `${PAGE_PATH.CHAT}`,
 				element: <ChatMainPage />,
+				children: [
+					{
+						path: `${PAGE_PATH.ROOM}/:chatRoomId`,
+						element: <ChatDetailPage />,
+					},
+					{
+						path: `${PAGE_PATH.MODIFY}/:chatRoomId`,
+						element: <ChatImgPage />,
+					},
+					{
+						path: `${PAGE_PATH.INFO}/:chatRoomId`,
+						element: <ChatUserInfo />,
+					},
+				],
 			},
 			{
 				path: `${PAGE_PATH.FAMILY}/*`,

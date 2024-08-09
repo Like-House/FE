@@ -5,26 +5,31 @@ import useModalStore from '../../../store/useModalStore';
 import theme from '../../../theme/theme';
 import { CustomButton, Dropdown, ModalPortal } from '../../';
 import useCreateChatRoom from '../../../hooks/queries/chat/useCreateChatRoom';
+import useGetFamilySpaceId from '../../../hooks/queries/family/useGetFamilySpaceId';
+import useUserIdStore from '../../../store/useUserIdStore';
 
 const Modal = ({ members }) => {
 	const { open, chatModal } = useModalStore(state => state);
+	const { userId } = useUserIdStore(state => state);
+
 	let selectMember;
 
-	const options = members.map(e => e.userId !== 1 && e.name); // 내 아이디를 로그인시에 저장해야할듯(아직 구현전이라 1로 해놓음)
+	const options = members.map(e => e.userId !== userId && e.name);
 
 	const onSelect = menu => {
 		selectMember = members.filter(e => e.name === menu)[0];
 		console.log(selectMember);
 	};
 
+	const { data: spaceIdData } = useGetFamilySpaceId();
 	const { mutate } = useCreateChatRoom();
 
 	const CreateChatRoom = () => {
 		if (selectMember) {
 			mutate({
-				familySpaceId: 1,
+				familySpaceId: spaceIdData?.familySpaceId,
 				title: selectMember.name,
-				imageUrl: selectMember.profileImage,
+				imageKeyName: selectMember.profileImage,
 				chatRoomType: 'GENERAL',
 				roomParticipantIds: [selectMember.userId],
 			});

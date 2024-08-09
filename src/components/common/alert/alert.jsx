@@ -1,4 +1,3 @@
-import React from 'react';
 import * as S from './alert.style';
 import Exclamationmark from '../../../assets/images/Exclamationmark.png';
 
@@ -18,7 +17,7 @@ const Alert = ({ message, detailMessage, onConfirm, onCancel, isOpen }) => {
 
   return (
     <S.ModalBackground>
-      <S.ModalContainer size={size}>
+      <S.ModalContainer $size={size}>
         <S.Icon>
           <img src={Exclamationmark} alt='exclamation mark' />
         </S.Icon>
@@ -38,6 +37,7 @@ const Alert = ({ message, detailMessage, onConfirm, onCancel, isOpen }) => {
       </S.ModalContainer>
     </S.ModalBackground>
   );
+
 };
 
 export default Alert;
