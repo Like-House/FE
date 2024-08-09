@@ -20,16 +20,22 @@ const PAGE_PATH = {
   ALERT: 'alert',
   // Family
   FAMILY: 'family',
-  // family/edit-profile
-  FAMILY_EDIT: 'edit-profile',
+  // setting/change-password
+  CHANGE_PASSWORD: 'change-password',
+  // setting/my-posts
+  MY_POSTS: 'my-posts',
   // setting/family-space-settings
   FAMILY_SPACE_SETTINGS: 'family-space-settings',
   // setting/edit-profile
   EDIT_PROFILE: 'edit-profile',
   //setting/family-settings
   FAMILY_SETTINGS: 'family-settings',
+  // setting/delete-account
+  DELETE_ACCOUNT: 'delete-account',
   // Q/A
   QNA: 'qna',
+  // setting/logout
+  LOGOUT: 'logout',
 };
 
 const API_PATH = {
