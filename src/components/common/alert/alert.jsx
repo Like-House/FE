@@ -3,9 +3,9 @@ import * as S from './alert.style';
 import Exclamationmark from '../../../assets/images/Exclamationmark.png';
 
 const Alert = ({ message, detailMessage, onConfirm, onCancel, isOpen }) => {
-  if (!isOpen) return null;
+	if (!isOpen) return null;
 
-  const size = detailMessage ? 'large' : 'small';
+	const size = detailMessage ? 'large' : 'small';
 
   const formatDetailMessage = (message) => {
     return message.split('\n').map((line, index) => (

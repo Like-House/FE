@@ -23,18 +23,19 @@ const Container = styled.div`
 `;
 
 const InputContainer = styled.div`
-	width: ${props => getSize(props.$size)};
-	height: 40px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: transparent;
-	border-bottom: 1px solid ${theme.COLOR.GRAY.GRAY_300};
+  width: ${(props) => getSize(props.$size)};
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  border-bottom: ${(props) =>
+    props.$noBorder ? 'none' : `1px solid ${theme.COLOR.GRAY.GRAY_300}`};
 
-	${props =>
-		props.$filled &&
-		`
-         border : none;
+  ${(props) =>
+    props.$filled &&
+    `
+         border: none;
          background-color: ${theme.COLOR.BACKGROUND.WHITE};
          border-radius: 7px;
          padding: 0 10px;
@@ -51,13 +52,13 @@ const InputContainer = styled.div`
 		props.$filled &&
 		`
          border : 1px solid ${theme.COLOR.COMMON.BLUE};
-		`}
+    `}
 
 	${props =>
 		props.$errors &&
 		`
          border-bottom  : 1px solid ${theme.COLOR.COMMON.RED};
-		`}
+    `}
 
 	${props =>
 		props.$errors &&
@@ -101,7 +102,6 @@ const Input = styled.input`
 `;
 
 const MsgWrapper = styled.p`
-	margin: 0 11px;
 	font-size: ${FONT_SIZE.XS};
 	color: ${props =>
 		props.$errors ? theme.COLOR.COMMON.RED : theme.COLOR.COMMON.BLUE};

@@ -10,6 +10,7 @@ const useCheckBox = (initialState = false) => {
 	return {
 		checked,
 		toggle,
+		setChecked,
 	};
 };
 
