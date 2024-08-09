@@ -45,7 +45,7 @@ const PostText = styled.p`
   white-space: normal;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  word-break: break-word; // 단어가 넘칠 때 줄바꿈을 강제로 함
+  word-break: break-word;
 `;
 
 const Tag = styled.span`
