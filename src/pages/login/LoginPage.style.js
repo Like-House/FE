@@ -11,12 +11,14 @@ const Container = styled.div`
 const LoginContainer = styled.div`
 	background-color: ${theme.COLOR.COMMON.WHITE};
 	width: 80%;
+	min-height: 630px;
 	height: 88%;
 
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 	border-radius: 10px;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
+		min-height: 0;
 		box-shadow: none;
 		width: 100%;
 	}

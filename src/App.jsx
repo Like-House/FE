@@ -9,16 +9,23 @@ import {
 	MainPage,
 	PhotoMainPage,
 	QnaPage,
+	NotificationSettings,
 	SignupPage,
 	ServiceMainPage,
 	FamilySpaceSettings,
+	MyPosts,
 	FamilySettings,
 	EditProfile,
 	FamilyList,
 	FamilyEdit,
+	DeleteAccount,
+	Logout,
+	ChangePassword,
+  InvitationLink,
+  CreateSpace,	
 	ChatDetailPage,
-	ChatImgPage,
-	ChatUserInfo,
+  ChatImgPage,
+  ChatUserInfo,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -44,10 +51,24 @@ const router = createBrowserRouter([
 				path: `${PAGE_PATH.QNA}`,
 				element: <QnaPage />,
 			},
-			{
-				path: `${PAGE_PATH.SERVICE}`,
-				element: <ServiceMainPage />,
-			},
+      {
+        path: `${PAGE_PATH.SERVICE}/*`,
+
+        children: [
+          {
+            index: true,
+            element: <ServiceMainPage />,
+          },
+          {
+            path: `${PAGE_PATH.SERVICE_INVITATION_LINK}`,
+            element: <InvitationLink />,
+          },
+          {
+            path: `${PAGE_PATH.CREATE_SPACE}`,
+            element: <CreateSpace />,
+          },
+        ],
+      },
 		],
 	},
 	{
@@ -98,6 +119,7 @@ const router = createBrowserRouter([
 			{
 				path: `${PAGE_PATH.SETTING}/*`,
 				children: [
+					{ path: `${PAGE_PATH.MY_POSTS}`, element: <MyPosts /> },
 					{
 						path: `${PAGE_PATH.FAMILY_SPACE_SETTINGS}`,
 						element: <FamilySpaceSettings />,
@@ -107,6 +129,13 @@ const router = createBrowserRouter([
 						path: `${PAGE_PATH.FAMILY_SETTINGS}`,
 						element: <FamilySettings />,
 					},
+					{ path: `${PAGE_PATH.DELETE_ACCOUNT}`, element: <DeleteAccount /> },
+					{
+						path: `${PAGE_PATH.NOTIFICATION_SETTINGS}`,
+						element: <NotificationSettings />,
+					},
+					{ path: `${PAGE_PATH.LOGOUT}`, element: <Logout /> },
+					{ path: `${PAGE_PATH.CHANGE_PASSWORD}`, element: <ChangePassword /> },
 				],
 			},
 		],
@@ -114,7 +143,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-	return <RouterProvider router={router} />;
+  return <RouterProvider router={router} />;
 }
 
 export default App;

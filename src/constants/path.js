@@ -8,6 +8,10 @@ const PAGE_PATH = {
 	SIGN_UP: 'signup',
 	// Service
 	SERVICE: 'service',
+	// Service/InvitationLink
+	SERVICE_INVITATION_LINK: 'invitationlink',
+	//Service/CreateSpace
+	CREATE_SPACE: 'createspace',
 	// Chat
 	CHAT: 'chat',
 	ROOM: 'room',
@@ -24,14 +28,23 @@ const PAGE_PATH = {
 	ALERT: 'alert',
 	// Family
 	FAMILY: 'family',
+	// setting/change-password
+	CHANGE_PASSWORD: 'change-password',
+	// setting/my-posts
+	MY_POSTS: 'my-posts',
 	// setting/family-space-settings
 	FAMILY_SPACE_SETTINGS: 'family-space-settings',
 	// setting/edit-profile
 	EDIT_PROFILE: 'edit-profile',
 	//setting/family-settings
 	FAMILY_SETTINGS: 'family-settings',
+	// setting/delete-account
+	DELETE_ACCOUNT: 'delete-account',
 	// Q/A
 	QNA: 'qna',
+	// setting/logout
+	LOGOUT: 'logout',
+
 };
 
 const API_PATH = {
@@ -39,7 +52,7 @@ const API_PATH = {
 	SIGNUP: '/api/v0/auth/signup',
 	LOGIN: '/api/v0/auth/signin',
 	LOGOUT: '/api/v0/auth/signout',
-
+	EMAIL: '/api/v0/auth/email',
 	// chat
 	CHAT: '/api/v0/chat-rooms',
 
