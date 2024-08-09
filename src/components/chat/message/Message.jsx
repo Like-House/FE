@@ -18,6 +18,7 @@ import useGetMessage from '../../../hooks/queries/chat/useGetMessage.js';
 import useUserIdStore from '../../../store/useUserIdStore.js';
 import ReceiveMessage from '../receivemessage/ReceiveMessage.jsx';
 import { useInView } from 'react-intersection-observer';
+import useThrottling from '../../../hooks/useThrottling';
 
 const Message = ({ room }) => {
 	const scrollRef = useRef();
@@ -45,7 +46,7 @@ const Message = ({ room }) => {
 		isFetching,
 	} = useGetMessage({
 		chatRoomId,
-		take: 10,
+		take: 20,
 	});
 
 	console.log(messageData, hasNextPage);
@@ -56,20 +57,16 @@ const Message = ({ room }) => {
 		}
 	};
 
-	useEffect(() => {
-		if (messageData) {
-			scrollToBottom();
-		}
-	}, [messageData]);
-
 	const { ref, inView } = useInView({
-		threshold: 0,
+		threshold: 0.5,
 		delay: 0,
 	});
 
+	const throttlingNewPage = useThrottling(fetchNextPage, 1 * 1000);
+
 	useEffect(() => {
 		if (inView) {
-			!isFetching && hasNextPage && fetchNextPage();
+			!isFetching && hasNextPage && throttlingNewPage();
 		}
 	}, [inView, isFetching, hasNextPage]);
 
@@ -78,6 +75,12 @@ const Message = ({ room }) => {
 			enterChatRoom(chatRoomId);
 		}
 	}, [chatRoomId, enterChatRoom, enter]);
+
+	useEffect(() => {
+		if (isFetching || messages) {
+			scrollToBottom();
+		}
+	}, [messages, isFetching]);
 
 	const handleSend = e => {
 		e.preventDefault();
@@ -162,7 +165,7 @@ const Message = ({ room }) => {
 				<div ref={ref}>
 					{isFetchingNextPage && <div>Loading more messages...</div>}
 				</div>
-				{messageData?.map(page =>
+				{messageData?.reverse().map(page =>
 					page.result.chatResponseList.map(e =>
 						e.senderDTO.senderId === userId ? (
 							<S.MyContainer key={e.chatId}>

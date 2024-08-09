@@ -14,6 +14,7 @@ const useGetMessage = ({ chatRoomId, take }) => {
 		enabled: !!enter,
 		select: data => data.pages,
 		getNextPageParam: lastPage => {
+			console.log(lastPage.result);
 			return lastPage.result.hasNext ? lastPage.result.nextCursor : undefined;
 		},
 		staleTime: 10 * 1000,
