@@ -5,7 +5,7 @@ import * as S from './Message.style';
 import { GoBellSlash } from 'react-icons/go';
 import { RxExit } from 'react-icons/rx';
 import { TbPhoto } from 'react-icons/tb';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useExitChatRoom from '../../../hooks/queries/chat/useExitChatRoom';
 import useModal from '../../../hooks/useModal';
 import { Alert, PopOver } from '../../';
@@ -20,6 +20,7 @@ import ReceiveMessage from '../receivemessage/ReceiveMessage.jsx';
 import { useInView } from 'react-intersection-observer';
 
 const Message = ({ room }) => {
+	const scrollRef = useRef();
 	const [open, setOpen] = useState();
 	const { chatRoomId, imageKeyName, title } = room;
 	const { mutate } = useExitChatRoom();
@@ -48,6 +49,18 @@ const Message = ({ room }) => {
 	});
 
 	console.log(messageData, hasNextPage);
+
+	const scrollToBottom = () => {
+		if (scrollRef.current) {
+			scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+		}
+	};
+
+	useEffect(() => {
+		if (messageData) {
+			scrollToBottom();
+		}
+	}, [messageData]);
 
 	const { ref, inView } = useInView({
 		threshold: 0,
@@ -145,7 +158,10 @@ const Message = ({ room }) => {
 					</S.PopoverWrapper>
 				</S.Menu>
 			</S.NavContainer>
-			<S.MessageContainer>
+			<S.MessageContainer ref={scrollRef}>
+				<div ref={ref}>
+					{isFetchingNextPage && <div>Loading more messages...</div>}
+				</div>
 				{messageData?.map(page =>
 					page.result.chatResponseList.map(e =>
 						e.senderDTO.senderId === userId ? (
@@ -169,9 +185,6 @@ const Message = ({ room }) => {
 						)
 					),
 				)}
-				<div ref={ref}>
-					{isFetchingNextPage && <div>Loading more messages...</div>}
-				</div>
 			</S.MessageContainer>
 			<S.InputContainer onSubmit={handleSend}>
 				<S.IconWrapper>
