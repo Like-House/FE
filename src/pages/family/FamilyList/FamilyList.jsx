@@ -3,12 +3,21 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import * as S from './FamilyList.style';
 import { Avatar, CustomButton } from '../../../components/index';
 import { PAGE_PATH } from '../../../constants/path';
-import MOCK_FAMILY_MEMBERS from '../../../assets/data/data';
+import useGetFamilyList from '../../../hooks/queries/family/useGetFamilyList';
+import useGetFamilyImg from '../../../hooks/queries/family/useGetFamilyImg';
 
 function FamilyList() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [familyMembers, setFamilyMembers] = useState(MOCK_FAMILY_MEMBERS);
+  const { data: familyData, isLoading } = useGetFamilyList();
+  const [familyMembers, setFamilyMembers] = useState([]);
+  const { data } = useGetFamilyImg(member?.profileImage, member?.userId);
+
+  useEffect(() => {
+    if (familyData) {
+      setFamilyMembers(familyData.familyDataList);
+    }
+  }, [familyData]);
 
   useEffect(() => {
     if (
@@ -39,18 +48,18 @@ function FamilyList() {
             <S.MemberInfoWrapper>
               <S.MemberInfo>
                 <Avatar
-                  src={member.imgSrc}
+                  src={data?.url}
                   size='md'
                   shape='circle'
-                  alt={`${member.name} avatar`}
+                  alt={`${member?.name} avatar`}
                 />
                 <S.MemberDetails>
                   <S.MemberNameRole>
                     <S.MemberName>
-                      {member.name}
-                      {member.isHost && <S.HostTag>주최자</S.HostTag>}
+                      {member?.name}
+                      {member?.isManager && <S.HostTag>주최자</S.HostTag>}
                     </S.MemberName>
-                    <S.MemberRole>{member.role}</S.MemberRole>
+                    <S.MemberRole>{member?.nickname}</S.MemberRole>
                   </S.MemberNameRole>
                 </S.MemberDetails>
               </S.MemberInfo>
@@ -60,7 +69,7 @@ function FamilyList() {
                 onClick={() => handleEditClick(index)}
               />
             </S.MemberInfoWrapper>
-            <S.MemberDescription>{member.description}</S.MemberDescription>
+            <S.MemberDescription>{member?.memo}</S.MemberDescription>
           </S.FamilyMember>
         ))}
       </S.FamilyList>
