@@ -1,22 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useForm from '../../../hooks/useForm';
-import { validateSignUp } from '../../../utils/auth';
+import { validateSignUp } from '../../../utils';
 import * as S from './SignupForm.style';
-import { CustomButton, CheckBox, CustomInput } from '../../';
+import { CustomButton, CustomInput } from '../../';
 import useCheckBox from '../../../hooks/useCheckBox';
+import { useSignup } from '../../../hooks/queries/signup/useSignup';
+import { useNavigate } from 'react-router-dom';
+import { PAGE_PATH } from '../../../constants';
+import CheckBox from '../../common/checkbox/CheckBox.jsx';
+import useFile from '../../../hooks/useFile.js';
+import { createPresignedURL, uploadImageToS3 } from '../../../apis';
+import useGetEmailCode from '../../../hooks/queries/signup/useGetEmailCode';
+import useCheckEmailCode from '../../../hooks/queries/signup/useCheckEmailCode';
 
 const SignupForm = () => {
+	const nav = useNavigate();
+	const { file, filePreview, handleChangeFile } = useFile();
+	const { mutate: codeMutate, isPending } = useGetEmailCode();
+	const { mutate: checkCodeMutate } = useCheckEmailCode();
+
 	const signupForm = useForm({
 		initialValue: {
 			username: '',
 			email: '',
+			code: '',
 			password: '',
 			passwordCheck: '',
+			birthDate: '',
 		},
 		validate: validateSignUp,
 	});
-
-	const [file, setFile] = useState(null);
 
 	const [msg, setMsg] = useState({
 		send: {
@@ -50,54 +63,110 @@ const SignupForm = () => {
 
 	const handleMessage = () => {
 		// 인증번호 전송 로직
-		// 전송 성공
-		setMsg(prev => ({
-			...prev,
-			send: {
-				errors: '',
-				success: '인증번호 발송 완료!',
+		codeMutate(signupForm.values.email, {
+			onSuccess: () => {
+				setMsg(prev => ({
+					...prev,
+					send: {
+						errors: '',
+						success: '인증번호 발송 완료!',
+					},
+				}));
 			},
-		}));
-		// 전송 실패
-		// setMsg(prev => ({
-		// 	...prev,
-		// 	send: {
-		// 		errors: '인증번호 발송에 실패하였습니다.',
-		// 		success: '',
-		// 	},
-		// }));
+			onError: () => {
+				setMsg(prev => ({
+					...prev,
+					send: {
+						errors: '인증번호 발송에 실패하였습니다.',
+						success: '',
+					},
+				}));
+			},
+		});
 	};
 
 	const handleCheckMessage = () => {
 		// 인증번호 확인 로직
-		// 보냈는데 성공하면
-		setMsg(prev => ({
-			...prev,
-			check: {
-				errors: '',
-				success: '인증번호 확인 완료!',
+		checkCodeMutate(
+			{
+				email: signupForm.values.email,
+				code: signupForm.values.code,
 			},
-		}));
-		// 인증 번호가 일치하지 않는 경우
-		// setMsg(prev => ({
-		// 	...prev,
-		// 	check: {
-		// 		success: '',
-		// 		errors: '인증번호가 일치하지 않습니다.',
-		// 	},
-		// }));
+			{
+				onSuccess: () => {
+					setMsg(prev => ({
+						...prev,
+						check: {
+							errors: '',
+							success: '인증번호 확인 완료!',
+						},
+					}));
+				},
+				onError: () => {
+					setMsg(prev => ({
+						...prev,
+						check: {
+							success: '',
+							errors: '인증번호가 일치하지 않습니다.',
+						},
+					}));
+				},
+			},
+		);
 	};
 
-	const handleChangeFile = e => {
-		if (e.target.files) {
-			const file = e.target.files[0];
-			setFile(URL.createObjectURL(file));
+	const { mutate } = useSignup();
+
+	const handleSubmit = async () => {
+		if (file) {
+			const data = await createPresignedURL(file.name);
+			await uploadImageToS3({ url: data.result.url, file: file });
+
+			mutate(
+				{
+					name: signupForm.values.username,
+					email: signupForm.values.email,
+					password: signupForm.values.password,
+					birthDate: signupForm.values.birthDate,
+					imageKeyName: data.result.keyName,
+				},
+				{
+					onError: error => {
+						if (error.response?.status === 400) {
+							alert(error.response.data?.message);
+							nav(`/${PAGE_PATH.LOGIN}`);
+						}
+					},
+				},
+			);
+		} else {
+			mutate(
+				{
+					name: signupForm.values.username,
+					email: signupForm.values.email,
+					password: signupForm.values.password,
+					birthDate: signupForm.values.birthDate,
+					imageKeyName: null,
+				},
+				{
+					onError: error => {
+						if (error.response?.status === 400) {
+							alert(error.response.data?.message);
+							nav(`/${PAGE_PATH.LOGIN}`);
+						}
+					},
+				},
+			);
 		}
 	};
 
-	const handleSubmit = () => {
-		// 여기에 회원가입 전송 로직
-	};
+	useEffect(() => {
+		if (checkFirst && checkSecond) {
+			setCheckAll(true);
+		} else {
+			setCheckAll(false);
+		}
+	}, [checkFirst, checkSecond]);
 
 	return (
 		<S.FormContainer>
@@ -138,6 +207,7 @@ const SignupForm = () => {
 						}
 						success={msg.send.success}
 					/>
+					{isPending && <S.CodeMsg>인증 번호를 발송 중 입니다...</S.CodeMsg>}
 				</S.InputWrapper>
 				<CustomButton
 					btnType="primary"
@@ -150,6 +220,7 @@ const SignupForm = () => {
 				<S.InputWrapper>
 					<label>인증번호 확인</label>
 					<CustomInput
+						{...signupForm.getTextInputProps('code')}
 						placeholder="인증번호를 입력해 주세요."
 						size="LG"
 						type="text"
@@ -210,15 +281,27 @@ const SignupForm = () => {
 			<S.InputWrapper>
 				<label>생년월일</label>
 				<CustomInput
-					placeholder="생년월일을 확인해주세요."
+					{...signupForm.getBirthDateInputProps('birthDate')}
+					placeholder="YYYY-MM-DD"
 					size="XL"
 					type="text"
+					maxLength="10"
+					errors={
+						signupForm.touched.birthDate && signupForm.message.errors?.birthDate
+					}
+					message={
+						signupForm.touched.birthDate && signupForm.message.errors?.birthDate
+					}
+					success={
+						signupForm.touched.birthDate &&
+						signupForm.message.success?.birthDate
+					}
 				/>
 			</S.InputWrapper>
 			<S.FileWrapper>
 				<p>프로필 사진</p>
 				<S.File>
-					{file ? <img src={file} /> : <div />}
+					{filePreview ? <img src={filePreview} /> : <div />}
 					<label htmlFor="file">사진 올리기</label>
 				</S.File>
 				<S.FileInput type="file" id="file" onChange={handleChangeFile} />
@@ -268,7 +351,7 @@ const SignupForm = () => {
 						signupForm.message.success?.passwordCheck &&
 						msg.send.success &&
 						msg.check.success &&
-						(checkAll || (checkFirst && checkSecond))
+						checkAll
 					)
 				}
 			/>

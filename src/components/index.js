@@ -16,26 +16,38 @@ import LoginIcon from './loginIcon/LoginIcon';
 import SignupForm from './form/signupForm/SignupForm';
 import LoginForm from './form/loginForm/LoginForm';
 import Settingbar from './Settingbar/Settingbar';
-import CheckBox from './common/checkbox/checkbox';
+import Checkbox from './common/checkbox/CheckBox.jsx';
+
+// chat
+import Chatbar from './chat/chatbar/Chatbar';
+import ChatRoom from './chat/chatroom/ChatRoom';
+import Message from './chat/message/Message';
+import ChangeRoom from './chat/changeroom/ChangeRoom';
+
+
 
 export {
-  Navbar,
-  Sidebar,
-  Footer,
-  ModalPortal,
-  MobileNavbar,
-  Dropdown,
-  Avatar,
-  Tooltip,
-  CustomButton,
-  CustomInput,
-  Alert,
-  FloatingButton,
-  LoginIcon,
-  SignupForm,
-  LoginForm,
-  CheckBox,
-  PopOver,
-  PostModal,
-  Settingbar,
+	Navbar,
+	Sidebar,
+	Footer,
+	ModalPortal,
+	MobileNavbar,
+	Dropdown,
+	Avatar,
+	Tooltip,
+	CustomButton,
+	CustomInput,
+	Alert,
+	FloatingButton,
+	LoginIcon,
+	SignupForm,
+	LoginForm,
+	PopOver,
+	PostModal,
+	Settingbar,
+	Chatbar,
+	ChatRoom,
+	Message,
+	ChangeRoom,
+	Checkbox,
 };

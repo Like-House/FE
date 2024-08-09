@@ -1,32 +1,39 @@
 import { NavLink } from 'react-router-dom';
 import * as S from './Navbar.style';
 import { PAGE_PATH } from '../../../constants';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import { MobileNavbar, Avatar } from '../../';
-import useModalStore from '../../../store/useModalStore';
+import { Avatar } from '../../';
+import useAuthStore from '../../../store/useAuthStore';
+import LOGO from '../../../assets/images/likeHouseLogo.svg';
+import useGetProfile from '../../../hooks/queries/user/useGetProfile';
+import useGetUserImg from '../../../hooks/queries/user/useGetUserImg';
+import NOIMG from '../../../assets/images/profile.webp';
 
 function Navbar() {
-	// 경로 수정 필요  & 로그인 유지 로직 변경 예정
-	const { open } = useModalStore(state => state);
+	const { isAuthenticated } = useAuthStore();
+	const { data: profile, isPending } = useGetProfile();
+	const { data: userImg } = useGetUserImg(profile?.imageKeyName);
 
-	const data = {
-		img: '/src/assets/images/profile.png',
-		username: '정혜원',
-	};
-
-	let login = false;
 	let content;
 
-	if (login) {
+	if (isAuthenticated) {
 		content = (
 			<S.NavContainer>
 				<NavLink to={`${PAGE_PATH.SERVICE}`}>서비스 이용</NavLink>
 				<NavLink to={`${PAGE_PATH.HOME}`}>가족 공간</NavLink>
-				<NavLink to={`${PAGE_PATH.EDIT_PROFILE}`}>
-					<p>
-						<Avatar src={data.img} size="sm" />
-						{data.username}
-					</p>
+				<NavLink
+					to={`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`}
+				>
+					{isPending ? (
+						<p>loading...</p>
+					) : (
+						<p>
+							<Avatar
+								src={profile?.imageKeyName ? userImg?.url : NOIMG}
+								size="sm"
+							/>
+							{profile?.name}
+						</p>
+					)}
 				</NavLink>
 			</S.NavContainer>
 		);
@@ -43,12 +50,8 @@ function Navbar() {
 
 	return (
 		<S.Container>
-			<S.Logo>가족같은</S.Logo>
+			<S.Logo src={LOGO} />
 			{content}
-			<S.MobileContainer>
-				<GiHamburgerMenu onClick={() => open()} />
-				<MobileNavbar />
-			</S.MobileContainer>
 		</S.Container>
 	);
 }

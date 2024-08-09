@@ -10,17 +10,22 @@ const Container = styled.div`
 	width: 100%;
 	height: 75px;
 	background-color: ${theme.COLOR.BACKGROUND.WHITE};
-`;
-
-const Logo = styled.h1`
-	font-weight: bold;
-	color: ${theme.COLOR.MAIN.YELLOW};
-	font-size: ${FONT_SIZE.TWO_XL};
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		font-size: ${FONT_SIZE.XL};
+		border: 1px solid ${theme.COLOR.GRAY.GRAY_350};
+		padding: 0 15px;
+		background-color: ${theme.COLOR.COMMON.WHITE};
 	}
 `;
+
+const Logo = styled.img`
+	width: 150px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		display: none;
+	}
+`;
+
 const NavContainer = styled.nav`
 	${theme.ALIGN.ROW_CENTER};
 	a {
@@ -42,23 +47,12 @@ const NavContainer = styled.nav`
 	}
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		display: none;
-	}
-`;
-
-const MobileContainer = styled.div`
-	display: none;
-	@media ${theme.WINDOW_SIZE.MOBILE} {
-		${theme.ALIGN.ROW_CENTER};
-	}
-
-	svg {
-		cursor: pointer;
-
-		&:hover {
-			color: ${theme.COLOR.MAIN.YELLOW};
+		width: 100%;
+		a {
+			font-size: ${FONT_SIZE.BASE};
+			margin: 0 17px;
 		}
 	}
 `;
 
-export { Container, Logo, NavContainer, MobileContainer };
+export { Container, Logo, NavContainer };

@@ -12,7 +12,7 @@ const PostModal = ({
 	rightButton,
 	rightButtonAction,
 	totalSteps,
-	// currentStep,
+	currentStep,
 }) => {
 	const [step, setStep] = useState(1);
 
