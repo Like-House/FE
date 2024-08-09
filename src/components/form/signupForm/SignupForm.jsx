@@ -10,15 +10,20 @@ import { PAGE_PATH } from '../../../constants';
 import CheckBox from '../../common/checkbox/CheckBox.jsx';
 import useFile from '../../../hooks/useFile.js';
 import { createPresignedURL, uploadImageToS3 } from '../../../apis';
+import useGetEmailCode from '../../../hooks/queries/signup/useGetEmailCode';
+import useCheckEmailCode from '../../../hooks/queries/signup/useCheckEmailCode';
 
 const SignupForm = () => {
 	const nav = useNavigate();
 	const { file, filePreview, handleChangeFile } = useFile();
+	const { mutate: codeMutate, isPending } = useGetEmailCode();
+	const { mutate: checkCodeMutate } = useCheckEmailCode();
 
 	const signupForm = useForm({
 		initialValue: {
 			username: '',
 			email: '',
+			code: '',
 			password: '',
 			passwordCheck: '',
 			birthDate: '',
@@ -58,42 +63,56 @@ const SignupForm = () => {
 
 	const handleMessage = () => {
 		// 인증번호 전송 로직
-		// 전송 성공
-		setMsg(prev => ({
-			...prev,
-			send: {
-				errors: '',
-				success: '인증번호 발송 완료!',
+		codeMutate(signupForm.values.email, {
+			onSuccess: () => {
+				setMsg(prev => ({
+					...prev,
+					send: {
+						errors: '',
+						success: '인증번호 발송 완료!',
+					},
+				}));
 			},
-		}));
-		// 전송 실패
-		// setMsg(prev => ({
-		// 	...prev,
-		// 	send: {
-		// 		errors: '인증번호 발송에 실패하였습니다.',
-		// 		success: '',
-		// 	},
-		// }));
+			onError: () => {
+				setMsg(prev => ({
+					...prev,
+					send: {
+						errors: '인증번호 발송에 실패하였습니다.',
+						success: '',
+					},
+				}));
+			},
+		});
 	};
 
 	const handleCheckMessage = () => {
 		// 인증번호 확인 로직
-		// 보냈는데 성공하면
-		setMsg(prev => ({
-			...prev,
-			check: {
-				errors: '',
-				success: '인증번호 확인 완료!',
+		checkCodeMutate(
+			{
+				email: signupForm.values.email,
+				code: signupForm.values.code,
 			},
-		}));
-		// 인증 번호가 일치하지 않는 경우
-		// setMsg(prev => ({
-		// 	...prev,
-		// 	check: {
-		// 		success: '',
-		// 		errors: '인증번호가 일치하지 않습니다.',
-		// 	},
-		// }));
+			{
+				onSuccess: () => {
+					setMsg(prev => ({
+						...prev,
+						check: {
+							errors: '',
+							success: '인증번호 확인 완료!',
+						},
+					}));
+				},
+				onError: () => {
+					setMsg(prev => ({
+						...prev,
+						check: {
+							success: '',
+							errors: '인증번호가 일치하지 않습니다.',
+						},
+					}));
+				},
+			},
+		);
 	};
 
 	const { mutate } = useSignup();
@@ -188,6 +207,7 @@ const SignupForm = () => {
 						}
 						success={msg.send.success}
 					/>
+					{isPending && <S.CodeMsg>인증 번호를 발송 중 입니다...</S.CodeMsg>}
 				</S.InputWrapper>
 				<CustomButton
 					btnType="primary"
@@ -200,6 +220,7 @@ const SignupForm = () => {
 				<S.InputWrapper>
 					<label>인증번호 확인</label>
 					<CustomInput
+						{...signupForm.getTextInputProps('code')}
 						placeholder="인증번호를 입력해 주세요."
 						size="LG"
 						type="text"

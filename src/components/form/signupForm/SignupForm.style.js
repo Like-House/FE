@@ -148,6 +148,11 @@ const CheckBoxWrapper = styled.div`
 	}
 `;
 
+const CodeMsg = styled.p`
+	font-size: ${FONT_SIZE.XS};
+	color: ${theme.COLOR.GRAY.GRAY_600};
+`;
+
 export {
 	UserNameWrapper,
 	FormContainer,
@@ -159,4 +164,5 @@ export {
 	TextWrapper,
 	TermsContainer,
 	CheckBoxWrapper,
+	CodeMsg,
 };

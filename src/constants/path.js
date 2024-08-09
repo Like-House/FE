@@ -43,7 +43,7 @@ const API_PATH = {
 	SIGNUP: '/api/v0/auth/signup',
 	LOGIN: '/api/v0/auth/signin',
 	LOGOUT: '/api/v0/auth/signout',
-
+	EMAIL: '/api/v0/auth/email',
 	// chat
 	CHAT: '/api/v0/chat-rooms',
 
