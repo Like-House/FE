@@ -4,6 +4,8 @@ import { FONT_SIZE } from '../../../constants';
 
 const getWidth = size => {
 	switch (size) {
+		case 'XS':
+			return '200px';
 		case 'SM':
 			return '300px';
 		case 'LG':
@@ -15,6 +17,8 @@ const getWidth = size => {
 
 const getHight = size => {
 	switch (size) {
+		case 'XS':
+			return '240px';
 		case 'SM':
 			return '260px';
 		case 'LG':
@@ -42,7 +46,8 @@ const DateHeader = styled.div`
 	width: 100%;
 	margin-top: 20px;
 	${theme.ALIGN.ROW_CENTER};
-	padding: ${props => (props.$size === 'SM' ? '10px' : '20px')};
+	padding: ${props =>
+		props.$size === 'SM' || props.$size === 'XS' ? '10px' : '20px'};
 
 	svg {
 		cursor: pointer;
@@ -78,7 +83,7 @@ const DayWrapper = styled.div`
 	height: ${props => getHight(props.$size)};
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
-	gap: 4px;
+	gap: ${props => (props.$size === 'XS' ? '2px' : '4px')};
 `;
 
 const Day = styled.div`

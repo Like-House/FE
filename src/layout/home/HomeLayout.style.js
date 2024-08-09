@@ -15,6 +15,9 @@ const OutletContainer = styled.div`
 	flex: 1;
 	height: 100%;
 	overflow-y: scroll;
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		margin-bottom: 80px;
+	}
 `;
 
 export { HomeContainer, OutletContainer };

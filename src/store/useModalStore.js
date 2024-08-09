@@ -1,10 +1,10 @@
 import { create } from 'zustand';
 
 const useModalStore = create(set => ({
-	navModal: false,
+	chatModal: false,
 	open: () =>
 		set(state => ({
-			navModal: !state.navModal,
+			chatModal: !state.chatModal,
 		})),
 }));
 

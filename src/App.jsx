@@ -1,18 +1,21 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { PAGE_PATH } from './constants/path';
 import {
-  AlertMainPage,
-  CalenderMainPage,
-  ChatMainPage,
-  FamilyMainPage,
-  LandingPage,
-  LoginPage,
-  MainPage,
-  QnaPage,
-  PhotoMainPage,
-  ServiceMainPage,
-  SignupPage,
-  FamilySpaceSettings,
+	AlertMainPage,
+	CalenderMainPage,
+	ChatMainPage,
+	LandingPage,
+	LoginPage,
+	MainPage,
+	PhotoMainPage,
+	QnaPage,
+	SignupPage,
+	ServiceMainPage,
+	FamilySpaceSettings,
+	FamilySettings,
+	EditProfile,
+	FamilyList,
+	FamilyEdit,
   Logout,
 } from './pages';
 
@@ -66,19 +69,30 @@ const router = createBrowserRouter([
 				element: <ChatMainPage />,
 			},
 			{
-				path: `${PAGE_PATH.FAMILY}`,
-				element: <FamilyMainPage />,
+				path: `${PAGE_PATH.FAMILY}/*`,
+				children: [
+					{ index: true, element: <FamilyList /> },
+					{ path: `${PAGE_PATH.FAMILY_EDIT}`, element: <FamilyEdit /> },
+				],
 			},
 			{
 				path: `${PAGE_PATH.PHOTO}`,
 				element: <PhotoMainPage />,
 			},
 			{
-        path: `${PAGE_PATH.SETTING}/*`,
-        children: [
-          { path: 'family-space-settings', element: <FamilySpaceSettings /> },
+				path: `${PAGE_PATH.SETTING}/*`,
+				children: [
+					{
+						path: `${PAGE_PATH.FAMILY_SPACE_SETTINGS}`,
+						element: <FamilySpaceSettings />,
+					},
+					{ path: `${PAGE_PATH.EDIT_PROFILE}`, element: <EditProfile /> },
+					{
+						path: `${PAGE_PATH.FAMILY_SETTINGS}`,
+						element: <FamilySettings />,
+					},
           { path: `${PAGE_PATH.LOGOUT}`, element: <Logout /> },
-        ],
+				],
 			},
 		],
 	},

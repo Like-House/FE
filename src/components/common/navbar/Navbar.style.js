@@ -14,6 +14,7 @@ const Container = styled.div`
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		border: 1px solid ${theme.COLOR.GRAY.GRAY_350};
 		padding: 0 15px;
+		background-color: ${theme.COLOR.COMMON.WHITE};
 	}
 `;
 
@@ -54,19 +55,4 @@ const NavContainer = styled.nav`
 	}
 `;
 
-const MobileContainer = styled.div`
-	display: none;
-	@media ${theme.WINDOW_SIZE.MOBILE} {
-		${theme.ALIGN.ROW_CENTER};
-	}
-
-	svg {
-		cursor: pointer;
-
-		&:hover {
-			color: ${theme.COLOR.MAIN.YELLOW};
-		}
-	}
-`;
-
-export { Container, Logo, NavContainer, MobileContainer };
+export { Container, Logo, NavContainer };

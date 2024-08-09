@@ -2,14 +2,19 @@ import { useEffect, useState } from 'react';
 import useForm from '../../../hooks/useForm';
 import { validateSignUp } from '../../../utils';
 import * as S from './SignupForm.style';
-import { CustomButton, CheckBox, CustomInput } from '../../';
+import { CustomButton, CustomInput } from '../../';
 import useCheckBox from '../../../hooks/useCheckBox';
 import { useSignup } from '../../../hooks/queries/signup/useSignup';
 import { useNavigate } from 'react-router-dom';
 import { PAGE_PATH } from '../../../constants';
+import CheckBox from '../../common/checkbox/CheckBox.jsx';
+import useFile from '../../../hooks/useFile.js';
+import { createPresignedURL, uploadImageToS3 } from '../../../apis';
 
 const SignupForm = () => {
 	const nav = useNavigate();
+	const { file, filePreview, handleChangeFile } = useFile();
+
 	const signupForm = useForm({
 		initialValue: {
 			username: '',
@@ -20,8 +25,6 @@ const SignupForm = () => {
 		},
 		validate: validateSignUp,
 	});
-
-	const [file, setFile] = useState(null);
 
 	const [msg, setMsg] = useState({
 		send: {
@@ -93,34 +96,49 @@ const SignupForm = () => {
 		// }));
 	};
 
-	const handleChangeFile = e => {
-		if (e.target.files) {
-			const file = e.target.files[0];
-			setFile(URL.createObjectURL(file));
-		}
-	};
-
 	const { mutate } = useSignup();
 
-	const handleSubmit = () => {
-		// TODO: 이미지 로직 수정
-		mutate(
-			{
-				name: signupForm.values.username,
-				email: signupForm.values.email,
-				password: signupForm.values.password,
-				birthDate: signupForm.values.birthDate,
-				profileImage: '프로필',
-			},
-			{
-				onError: error => {
-					if (error.response?.status === 400) {
-						alert(error.response.data?.message);
-						nav(`/${PAGE_PATH.LOGIN}`);
-					}
+	const handleSubmit = async () => {
+		if (file) {
+			const data = await createPresignedURL(file.name);
+			await uploadImageToS3({ url: data.result.url, file: file });
+
+			mutate(
+				{
+					name: signupForm.values.username,
+					email: signupForm.values.email,
+					password: signupForm.values.password,
+					birthDate: signupForm.values.birthDate,
+					imageKeyName: data.result.keyName,
 				},
-			},
-		);
+				{
+					onError: error => {
+						if (error.response?.status === 400) {
+							alert(error.response.data?.message);
+							nav(`/${PAGE_PATH.LOGIN}`);
+						}
+					},
+				},
+			);
+		} else {
+			mutate(
+				{
+					name: signupForm.values.username,
+					email: signupForm.values.email,
+					password: signupForm.values.password,
+					birthDate: signupForm.values.birthDate,
+					imageKeyName: null,
+				},
+				{
+					onError: error => {
+						if (error.response?.status === 400) {
+							alert(error.response.data?.message);
+							nav(`/${PAGE_PATH.LOGIN}`);
+						}
+					},
+				},
+			);
+		}
 	};
 
 	useEffect(() => {
@@ -262,7 +280,7 @@ const SignupForm = () => {
 			<S.FileWrapper>
 				<p>프로필 사진</p>
 				<S.File>
-					{file ? <img src={file} /> : <div />}
+					{filePreview ? <img src={filePreview} /> : <div />}
 					<label htmlFor="file">사진 올리기</label>
 				</S.File>
 				<S.FileInput type="file" id="file" onChange={handleChangeFile} />

@@ -11,7 +11,7 @@ const useCalendarStore = create(set => {
 			month: nowDate.getMonth(),
 		},
 		selectedTimestamp: nowDate.setHours(0, 0, 0, 0),
-		date: new Date(nowDate).toISOString(),
+		date: '',
 		events: eventsData, // 추후 백엔드에서 받아오는 데이터로 변경할 예정
 	};
 
