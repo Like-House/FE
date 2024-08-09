@@ -16,18 +16,19 @@ import useGetProfile from '../../../hooks/queries/user/useGetProfile.js';
 import useGetUserImg from '../../../hooks/queries/user/useGetUserImg.js';
 
 const Sidebar = () => {
-	const { pathname } = useLocation();
-	const nav = useNavigate();
+  const { pathname } = useLocation();
+  const nav = useNavigate();
+  const isSettingPage = pathname.includes(PAGE_PATH.SETTING);
 
-	const { data: profile, isPending } = useGetProfile();
-	const { data: userImg } = useGetUserImg(profile?.imageKeyName);
+  const { data: profile, isPending } = useGetProfile();
+  const { data: userImg } = useGetUserImg(profile?.imageKeyName);
 
-	const handleProfile = () => {
+  const handleProfile = () => {
 		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`);
-	};
-
-	return (
-		<S.Container>
+  };
+	
+   return (
+		<S.Container  $isSettingPage={isSettingPage}>
 			<S.Logo src={LOGO} />
 			<S.NavContainer>
 				<Link
@@ -80,21 +81,19 @@ const Sidebar = () => {
 					</NavLink>
 				</S.Mobile>
 			</S.NavContainer>
-
-			<S.ButtonBox>
-				<S.PostIcon>
-					<Tooltip text="게시글 작성" size="sm">
-						{pathname === PAGE_PATH.HOME && (
-							<FloatingButton
-								onClick={() => console.log('post 모달 뜨우기')}
-								backgroundColor={theme.COLOR.YELLOW.YELLOW_500}
-								borderColor={theme.COLOR.YELLOW.YELLOW_500}
-								size="sm"
-							/>
-						)}
-					</Tooltip>
-				</S.PostIcon>
-
+      <S.ButtonBox>
+        <S.PostIcon>
+          <Tooltip text='게시글 작성' size='sm'>
+            {pathname === PAGE_PATH.HOME && (
+              <FloatingButton
+                onClick={() => console.log('post 모달 뜨우기')}
+                backgroundColor={theme.COLOR.YELLOW.YELLOW_500}
+                borderColor={theme.COLOR.YELLOW.YELLOW_500}
+                size='sm'
+              />
+            )}
+          </Tooltip>
+        </S.PostIcon>
 				<S.Profile>
 					<Avatar
 						src={isPending || !profile?.imageKeyName ? NOIMG : userImg?.url}
