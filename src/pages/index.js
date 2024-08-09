@@ -12,16 +12,17 @@ import LandingPage from './landing/LadingPage';
 import QnaPage from './qna/QnaPage';
 import FamilySpaceSettings from './setting/FamilySpaceSettings/FamilySpaceSettings';
 import NotificationSettings from './setting/NotificationSettings/NotificationSettings';
+import MyPosts from './setting/MyPosts/MyPosts';
 import EditProfile from './setting/EditProfile/EditProfile';
-import LandingPage from './landing/LadingPage';
 import FamilySettings from './setting/FamilySettings/FamilySettings';
+import Logout from './setting/Logout/Logout';
 
 export {
 	MainPage,
 	LoginPage,
 	SignupPage,
 	FamilySpaceSettings,
-  NotificationSettings,
+	NotificationSettings,
 	ChatMainPage,
 	FamilyList,
 	FamilyEdit,
@@ -30,7 +31,9 @@ export {
 	AlertMainPage,
 	CalenderMainPage,
 	LandingPage,
+	MyPosts,
 	QnaPage,
 	EditProfile,
 	FamilySettings,
+	Logout,
 };
