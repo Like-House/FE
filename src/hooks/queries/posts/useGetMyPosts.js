@@ -6,10 +6,8 @@ const useGetMyPosts = () => {
   return useInfiniteQuery({
     queryKey: [QUERY_KEYS.MY_POSTS],
     queryFn: getMyPosts,
-    getNextPageParam: (lastPage, allPages) => {
-      const morePagesExist = lastPage?.length === 20;
-      if (!morePagesExist) return undefined;
-      return allPages.length + 1;
+    getNextPageParam: (lastPage) => {
+      return lastPage?.nextCursor !== -1 ? lastPage?.nextCursor : undefined;
     },
   });
 };
