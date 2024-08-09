@@ -9,6 +9,7 @@ import {
 	MainPage,
 	PhotoMainPage,
 	QnaPage,
+	NotificationSettings,
 	SignupPage,
 	ServiceMainPage,
 	FamilySpaceSettings,
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
 					{
 						path: `${PAGE_PATH.FAMILY_SETTINGS}`,
 						element: <FamilySettings />,
+					},
+					{
+						path: `${PAGE_PATH.NOTIFICATION_SETTINGS}`,
+						element: <NotificationSettings />,
 					},
 					{ path: `${PAGE_PATH.LOGOUT}`, element: <Logout /> },
 				],

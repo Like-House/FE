@@ -11,6 +11,7 @@ import CalenderMainPage from './calender/CalenderMainPage';
 import LandingPage from './landing/LadingPage';
 import QnaPage from './qna/QnaPage';
 import FamilySpaceSettings from './setting/FamilySpaceSettings/FamilySpaceSettings';
+import NotificationSettings from './setting/NotificationSettings/NotificationSettings';
 import MyPosts from './setting/MyPosts/MyPosts';
 import EditProfile from './setting/EditProfile/EditProfile';
 import FamilySettings from './setting/FamilySettings/FamilySettings';
@@ -21,6 +22,7 @@ export {
 	LoginPage,
 	SignupPage,
 	FamilySpaceSettings,
+	NotificationSettings,
 	ChatMainPage,
 	FamilyList,
 	FamilyEdit,
