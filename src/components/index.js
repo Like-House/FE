@@ -26,6 +26,7 @@ import ChangeRoom from './chat/changeroom/ChangeRoom';
 
 // settings
 import UserBox from './setting/userBox/UserBox';
+import FamilyMember from './setting/familyMember/FamilyMember';
 
 export {
 	Navbar,
@@ -52,4 +53,5 @@ export {
 	ChangeRoom,
 	Checkbox,
 	UserBox,
+	FamilyMember,
 };
