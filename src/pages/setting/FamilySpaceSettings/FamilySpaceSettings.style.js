@@ -5,7 +5,7 @@ import { FONT_SIZE } from '../../../constants/size';
 const { COLOR } = theme;
 
 const FamilySpaceSettingsContainer = styled.div`
-  padding: 30px;
+  padding: 50px;
   background-color: ${COLOR.BACKGROUND.WHITE};
   height: 100vh;
 `;
@@ -39,13 +39,14 @@ const InviteLinkInput = styled.input`
   padding: 8px;
   font-size: ${FONT_SIZE.SM};
   border: none;
-  text-decoration: underline;
+  text-decoration: none;
   color: ${COLOR.GRAY.GRAY_900};
 `;
 
 const Content = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 20px;
   background-color: ${COLOR.COMMON.WHITE};
   padding: 8px;
@@ -53,23 +54,53 @@ const Content = styled.div`
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.02);
 `;
 
-const DeleteButton = styled.button`
-  background-color: ${COLOR.MAIN.YELLOW};
-  color: ${COLOR.COMMON.BLACK};
-  border: none;
-  padding: 10px 15px;
-  font-size: ${FONT_SIZE.BASE};
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${COLOR.YELLOW.YELLOW_600};
-  }
+const ExpirationNotice = styled.p`
+  color: ${COLOR.GRAY.GRAY_200};
+  font-size: ${FONT_SIZE.XS};
+  margin-top: -15px;
+  margin-left: 10px;
 `;
 
 const Icon = styled.img`
-  width: 30px;
+  width: 35px;
+  height: 35px;
+`;
+
+const IconButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+`;
+
+const CustomButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
   height: 30px;
+  background-color: ${COLOR.YELLOW.YELLOW_1000};
+  color: ${COLOR.COMMON.WHITE};
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: ${FONT_SIZE.XS};
+  white-space: nowrap;
+  margin-bottom: 10px;
+
+  &:hover {
+    transform: scale(0.99);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    transform: scale(1);
+  }
+`;
+
+const CodeContent = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 export {
@@ -80,6 +111,9 @@ export {
   DeleteComment,
   InviteLinkInput,
   Content,
-  DeleteButton,
+  ExpirationNotice,
   Icon,
+  IconButton,
+  CustomButton,
+  CodeContent,
 };
