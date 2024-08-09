@@ -29,34 +29,35 @@ const InputContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: transparent;
-  border-bottom: 1px solid ${theme.COLOR.GRAY.GRAY_300};
+  border-bottom: ${(props) =>
+    props.$noBorder ? 'none' : `1px solid ${theme.COLOR.GRAY.GRAY_300}`};
 
   ${(props) =>
     props.$filled &&
     `
-      border: none;
-      background-color: ${theme.COLOR.BACKGROUND.WHITE};
-      border-radius: 7px;
-      padding: 0 10px;
+         border: none;
+         background-color: ${theme.COLOR.BACKGROUND.WHITE};
+         border-radius: 7px;
+         padding: 0 10px;
+   `}
+
+	${props =>
+		props.$success &&
+		`
+         border-bottom : 1px solid ${theme.COLOR.COMMON.BLUE};
+		`}
+	
+	${props =>
+		props.$success &&
+		props.$filled &&
+		`
+         border : 1px solid ${theme.COLOR.COMMON.BLUE};
     `}
 
-  ${(props) =>
-    props.$success &&
-    `
-      border-bottom: 1px solid ${theme.COLOR.COMMON.BLUE};
-    `}
-  
-  ${(props) =>
-    props.$success &&
-    props.$filled &&
-    `
-      border: 1px solid ${theme.COLOR.COMMON.BLUE};
-    `}
-
-  ${(props) =>
-    props.$errors &&
-    `
-      border-bottom: 1px solid ${theme.COLOR.COMMON.RED};
+	${props =>
+		props.$errors &&
+		`
+         border-bottom  : 1px solid ${theme.COLOR.COMMON.RED};
     `}
 
   ${(props) =>
