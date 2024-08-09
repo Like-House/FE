@@ -4,6 +4,7 @@ import * as S from './FamilyEdit.style';
 import { Avatar, CustomButton, CustomInput } from '../../../components/index';
 import { PAGE_PATH } from '../../../constants/path';
 import useUpdateFamilyMember from '../../../hooks/queries/family/useUpdateFamilyMember';
+import useGetFamilyImg from '../../../hooks/queries/family/useGetFamilyImg';
 
 function FamilyEdit() {
 	const location = useLocation();
@@ -12,6 +13,7 @@ function FamilyEdit() {
 	const memberIndex = location.state?.index || 0;
 	const [tempMember, setTempMember] = useState(member);
 	const { mutate: updateFamilyMember } = useUpdateFamilyMember();
+	const { data } = useGetFamilyImg(tempMember.profileImage, tempMember.userId);
 
 	const handleSaveClick = () => {
 		updateFamilyMember(
@@ -35,7 +37,7 @@ function FamilyEdit() {
 			<S.EditContainer>
 				<S.EditProfile>
 					<Avatar
-						src={tempMember.profileImage}
+						src={data?.url}
 						size="lg"
 						shape="circle"
 						alt={`${tempMember.name} avatar`}
