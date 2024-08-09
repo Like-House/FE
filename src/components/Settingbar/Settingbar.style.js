@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import theme from '../../theme/theme';
 import { FONT_SIZE } from '../../constants/size';
 
