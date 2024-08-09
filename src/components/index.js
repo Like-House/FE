@@ -24,6 +24,9 @@ import ChatRoom from './chat/chatroom/ChatRoom';
 import Message from './chat/message/Message';
 import ChangeRoom from './chat/changeroom/ChangeRoom';
 
+// settings
+import UserBox from './setting/userBox/UserBox';
+
 export {
 	Navbar,
 	Sidebar,
@@ -48,4 +51,5 @@ export {
 	Message,
 	ChangeRoom,
 	Checkbox,
+	UserBox,
 };
