@@ -47,7 +47,8 @@ const API_PATH = {
 	IMAGE: 'api/v0/s3/presigned',
 
 	// album
-	ALBUM: '/api/v0/family-album/{familySpaceId}',
+	ALBUM: '/api/v0/family-album',
+	ALBUM_POST: '/api/v0/family-album/posts/{postId}',
 };
 
 export { PAGE_PATH, API_PATH };

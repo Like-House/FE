@@ -3,6 +3,7 @@ const QUERY_KEYS = {
 	FAMILY: 'family',
 	ALBUM: 'album',
 	FAMILY_SPACE_ID: 'family-space-id',
+	POST_ID: 'post-id',
 };
 
 export { QUERY_KEYS };

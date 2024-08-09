@@ -9,23 +9,57 @@ import useCalendarStore from '../../store/useCalendarStore';
 import useGetFamilyList from '../../hooks/queries/family/useGetFamilyList';
 import useGetAlbum from '../../hooks/queries/album/useGetAlbum';
 import useGetFamilySpaceID from '../../hooks/queries/family/useGetFamilySpaceID';
+import useGetAlbumPost from '../../hooks/queries/album/useGetAlbumPost';
+import useGetRealAlbum from '../../hooks/queries/album/useGetRealAlbum';
 
 const PhotoMainPage = () => {
 	const { data: familyListData } = useGetFamilyList();
 	const options =
 		familyListData?.familyDataList?.map(family => family.name) || [];
-	const { data: familySpaceIdData } = useGetFamilySpaceID();
-	const familySpaceId = familySpaceIdData?.familySpaceId;
-	
-	const { data: albumData } = useGetAlbum(2);
-	console.log(albumData);
 
+	//드롭다운 선택
 	const [selectedOp, setSelectedOp] = useState('');
-	const { date } = useCalendarStore();
-
+	const [taggedId, setTaggedId] = useState([]);
 	const handleSelect = op => {
+		const selectedFamily = familyListData?.familyDataList?.find(
+			family => family.name === op,
+		);
+		const selectedId = selectedFamily?.userId;
 		setSelectedOp(op);
+		if (selectedId && !taggedId.includes(selectedId)) {
+			setTaggedId([selectedId]);
+		}
 	};
+
+	//날짜 선택
+	const { date } = useCalendarStore();
+	let selectedDate = '';
+	if (date) {
+		const tempDate = new Date(date);
+
+		if (!isNaN(tempDate.getTime())) {
+			const kstDate = new Date(tempDate.getTime() + 9 * 60 * 60 * 1000);
+			selectedDate = kstDate.toISOString().split('T')[0];
+		}
+	}
+	console.log(selectedDate);
+
+	// const { data: familySpaceIdData } = useGetFamilySpaceID();
+	// const familySpaceId = familySpaceIdData?.familySpaceId;
+
+	const { data: albumData } = useGetAlbum(2, selectedDate, taggedId) || [];
+	console.log('albumdata는 : ', albumData[0].imageUrl);
+
+	const { data: imgData } = useGetRealAlbum(
+		albumData[0].imageUrl,
+		albumData[0].postId,
+	);
+	console.log(imgData);
+
+	console.log('presigned url : ', imgData.result.url);
+
+	const { data: postData } = useGetAlbumPost(3);
+	console.log(postData);
 
 	const filteredPicture = pictureData.pictures.filter(picture => {
 		const selectedDate = date ? new Date(date).toDateString() : null;
@@ -77,11 +111,18 @@ const PhotoMainPage = () => {
 							closeIcon={<RiArrowDropUpLine />}
 							onSelect={handleSelect}
 						/>
+						{/* {<img src={imgData.result.url}/>} */}
 					</S.DropdownWrapper>
 				</S.SideContainerWrapper>
 			</S.SideContainer>
 
 			<S.AlbumContainer>
+				{/* {Array.isArray(albumData) &&
+					albumData.map(picture => (
+						<S.PictureArea key={picture.postId}>
+							<S.Picture src={picture.imageUrl} />
+						</S.PictureArea>
+					))} */}
 				{filteredPicture.map(picture => (
 					<S.PictureArea key={picture.id}>
 						<S.Picture
