@@ -5,7 +5,7 @@ import { RESPONSIVE_SIZE } from '../../../constants/size';
 import useNotificationSettings from '../../../hooks/queries/notifications/useNotificationSettings';
 
 export default function NotificationSettings() {
-  const { data, isLoading, error, updateSettings } = useNotificationSettings();
+  const { data, isLoading, error, updateSetting } = useNotificationSettings();
   const [notifications, setNotifications] = useState({
     chat: false,
     comment: false,
@@ -15,11 +15,19 @@ export default function NotificationSettings() {
 
   useEffect(() => {
     if (data) {
-      setNotifications({
-        chat: data.chatAlarmStatus,
-        comment: data.commentAlarmStatus,
-        reply: data.commentReplyAlarmStatus,
-        event: data.eventAlarmStatus,
+      setNotifications((prev) => {
+        const newNotifications = {
+          chat: data.chatAlarmStatus,
+          comment: data.commentAlarmStatus,
+          reply: data.commentReplyAlarmStatus,
+          event: data.eventAlarmStatus,
+        };
+
+        if (JSON.stringify(newNotifications) !== JSON.stringify(prev)) {
+          return newNotifications;
+        }
+
+        return prev;
       });
     }
   }, [data]);
@@ -47,7 +55,7 @@ export default function NotificationSettings() {
         ...prev,
         [name]: !prev[name],
       };
-      updateSettings(newState);
+      updateSetting(name)(newState[name]);
       return newState;
     });
   };

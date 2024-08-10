@@ -1,17 +1,17 @@
-import axios from 'axios';
+import axiosInstance from './axios';
 import { API_PATH } from '../constants/path';
 
-// 알림 설정을 가져오는 함수
 export const getNotificationSettings = async () => {
-  const response = await axios.get(`${API_PATH.NOTIFICATION_SETTINGS}`);
-  return response.data.result || {}; // 항상 객체를 반환하도록 수정
+  const response = await axiosInstance.get(`${API_PATH.NOTIFICATION_SETTINGS}`);
+  return response.data.result;
 };
 
-// 알림 설정을 업데이트하는 함수
-export const updateNotificationSettings = async (settings) => {
-  const response = await axios.patch(
-    `${API_PATH.NOTIFICATION_SETTINGS}`,
-    settings
+export const updateNotificationSetting = async (type, status) => {
+  const response = await axiosInstance.patch(
+    `${API_PATH[`NOTIFICATION_${type.toUpperCase()}`]}`,
+    {
+      status,
+    }
   );
   return response.data.result;
 };

@@ -64,6 +64,10 @@ const API_PATH = {
 
   //alrams
   NOTIFICATION_SETTINGS: '/api/v0/users/alarms',
+  NOTIFICATION_CHAT: '/api/v0/users/alarms/chats',
+  NOTIFICATION_COMMENT: '/api/v0/users/alarms/comments',
+  NOTIFICATION_COMMENT_REPLY: '/api/v0/users/alarms/comment-reply',
+  NOTIFICATION_EVENT: '/api/v0/users/alarms/events',
 };
 
 export { PAGE_PATH, API_PATH };
