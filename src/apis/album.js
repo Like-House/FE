@@ -16,9 +16,7 @@ const getAlbum = async (familySpaceId, date, taggedUserIds) => {
 };
 
 const getAlbumPost = async postId => {
-	const { data } = await axiosInstance.get(
-		API_PATH.ALBUM_POST.replace('{postId}', postId),
-	);
+	const { data } = await axiosInstance.get(`${API_PATH.ALBUM_POST}/${postId}`);
 	return data;
 };
 

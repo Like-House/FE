@@ -1,7 +1,6 @@
 import { Dropdown } from '../../components';
 import * as S from './PhotoMainPage.style';
 import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
-import pictureData from '../../mockdata/db.json';
 import { useState } from 'react';
 import PhotoPostModal from './components/PhotoPostModal';
 import CustomCalendar from '../../components/common/calendar/CustomCalendar';
@@ -11,6 +10,7 @@ import useGetAlbum from '../../hooks/queries/album/useGetAlbum';
 import useGetFamilySpaceID from '../../hooks/queries/family/useGetFamilySpaceID';
 import useGetAlbumPost from '../../hooks/queries/album/useGetAlbumPost';
 import useGetRealAlbum from '../../hooks/queries/album/useGetRealAlbum';
+import useGetModalImage from '../../hooks/queries/album/useGetModalImage';
 
 const PhotoMainPage = () => {
 	const { data: familyListData } = useGetFamilyList();
@@ -18,14 +18,12 @@ const PhotoMainPage = () => {
 		familyListData?.familyDataList?.map(family => family.name) || [];
 
 	//드롭다운 선택
-	const [selectedOp, setSelectedOp] = useState('');
 	const [taggedId, setTaggedId] = useState([]);
 	const handleSelect = op => {
 		const selectedFamily = familyListData?.familyDataList?.find(
 			family => family.name === op,
 		);
 		const selectedId = selectedFamily?.userId;
-		setSelectedOp(op);
 		if (selectedId && !taggedId.includes(selectedId)) {
 			setTaggedId([selectedId]);
 		}
@@ -35,43 +33,58 @@ const PhotoMainPage = () => {
 	const { date } = useCalendarStore();
 	let selectedDate = '';
 	if (date) {
-		const tempDate = new Date(date);
-
-		if (!isNaN(tempDate.getTime())) {
-			const kstDate = new Date(tempDate.getTime() + 9 * 60 * 60 * 1000);
-			selectedDate = kstDate.toISOString().split('T')[0];
-		}
+		selectedDate = date.split('T')[0];
 	}
-	console.log(selectedDate);
 
 	const { data: familySpaceIdData } = useGetFamilySpaceID();
 	const familySpaceId = familySpaceIdData?.familySpaceId;
 
 	//앨범 가져오기
-	const { data: albumData = [] } = useGetAlbum(2, selectedDate, taggedId);
-	console.log(albumData);
+	const { data: albumData = [] } = useGetAlbum(
+		familySpaceId,
+		selectedDate,
+		taggedId,
+	);
 
 	//presigned url로 변환
 	const imageQueries = useGetRealAlbum(albumData || []);
 	const imageUrls = imageQueries.map(query => query.data?.result.url || '');
 
+	//모달창 관리
 	const [openPost, setOpenPost] = useState(false);
-	const [selectedPicture, setSelectPicture] = useState(null);
+	const [selectedPostId, setSelectedPostid] = useState();
 
 	const handleOpenPost = picture => {
-		setSelectPicture(picture);
-		console.log(picture);
+		setSelectedPostid(picture.postId);
 		setOpenPost(true);
 	};
 
-	const handleClosePost = () => {
-		setOpenPost(false);
-		setSelectPicture(null);
+	//앨범 클릭 api 통신
+	const { data: postData } = useGetAlbumPost(selectedPostId);
+
+	const [postImageUrl, avatarUrl] = [
+		postData?.imageUrls[0],
+		postData?.profileImage,
+	];
+
+	const { data: realImageUrl } = useGetModalImage(
+		{ imageUrl: postImageUrl } || '',
+	);
+
+	const { data: realProfileUrl } = useGetModalImage(
+		{ imageUrl: avatarUrl } || '',
+	);
+
+	const convertToKST = utcDate => {
+		const kstDate = new Date(new Date(utcDate).getTime() + 9 * 60 * 60 * 1000);
+		return `${kstDate.getFullYear()}년 ${kstDate.getMonth() + 1}월 ${kstDate.getDate()}일`;
 	};
 
-	const getProfileImageUrl = op => {
-		const profile = pictureData.profiles.find(profile => profile.op === op);
-		return profile ? profile.profile_img : '';
+	const postDate = convertToKST(postData?.createdAt);
+
+	const handleClosePost = () => {
+		setOpenPost(false);
+		setSelectedPostid(null);
 	};
 
 	const goPostDetail = () => {
@@ -110,25 +123,15 @@ const PhotoMainPage = () => {
 							/>
 						</S.PictureArea>
 					))}
-				{/* {filteredPicture.map(picture => (
-					<S.PictureArea key={picture.id}>
-						<S.Picture
-							src={picture.img}
-							onClick={() => {
-								handleOpenPost(picture);
-							}}
-						/>
-					</S.PictureArea>
-				))} */}
 			</S.AlbumContainer>
-			{openPost && selectedPicture && (
+			{openPost && postData && (
 				<PhotoPostModal
-					op={selectedPicture.op}
-					date={selectedPicture.date}
-					comment={selectedPicture.comment}
-					img={selectedPicture.img}
+					op={postData.authorNickname}
+					date={postDate}
+					comment={postData.content}
+					img={realImageUrl?.result.url}
 					onClose={handleClosePost}
-					avatar={getProfileImageUrl(selectedPicture.op)}
+					avatar={realProfileUrl?.result.url}
 					goPostDetail={goPostDetail}
 				/>
 			)}

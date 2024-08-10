@@ -8,6 +8,7 @@ const useGetAlbum = (familySpaceId, date, taggedUserIds) => {
 		queryFn: () => getAlbum(familySpaceId, date, taggedUserIds),
 		select: data => data.result,
 		staleTime: 1000 * 30 * 60,
+		enabled: !!familySpaceId,
 	});
 };
 

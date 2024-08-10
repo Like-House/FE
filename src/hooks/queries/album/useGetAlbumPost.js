@@ -8,6 +8,7 @@ const useGetAlbumPost = postId => {
 		queryFn: () => getAlbumPost(postId),
 		select: data => data.result,
 		staleTime: 1000 * 30 * 60,
+		enabled: !!postId,
 	});
 };
 

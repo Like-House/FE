@@ -48,7 +48,7 @@ const API_PATH = {
 
 	// album
 	ALBUM: '/api/v0/family-album',
-	ALBUM_POST: '/api/v0/family-album/posts/{postId}',
+	ALBUM_POST: '/api/v0/family-album/posts',
 };
 
 export { PAGE_PATH, API_PATH };

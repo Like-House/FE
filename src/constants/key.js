@@ -5,6 +5,7 @@ const QUERY_KEYS = {
 	ALBUMIMG: 'album-img',
 	FAMILY_SPACE_ID: 'family-space-id',
 	POST_ID: 'post-id',
+	MODAL_IMG: 'modal-image',
 };
 
 export { QUERY_KEYS };
