@@ -1,14 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import { getFamilySpaceId } from '../../../apis';
-import { QUERY_KEYS } from '../../../constants';
+import { getMyFamilySpaceId } from '../../../apis';
 
-const useGetFamilySpaceID = () => {
+const useGetFamilySpaceId = () => {
 	return useQuery({
-		queryKey: [QUERY_KEYS.FAMILY_SPACE_ID],
-		queryFn: getFamilySpaceId,
-		select: data => data.result,
+		queryKey: ['familySpaceId'],
+		queryFn: getMyFamilySpaceId,
 		staleTime: 1000 * 30 * 60,
+		select: data => data.result,
 	});
 };
 
-export default useGetFamilySpaceID;
+export default useGetFamilySpaceId;

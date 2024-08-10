@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import * as S from './MainPage.style.js';
 import Avatar from '../../components/common/avatar/Avatar.jsx';
-import CommentInput from '../../components/Comment/Comment.jsx';
 import PopOver from '../../components/common/popover/PopOver.jsx';
 import useFamilySpaceId from '../../hooks/useFamilySpaceId.js';
 
@@ -18,7 +17,6 @@ const MainPage = () => {
 	});
 
 	console.log('familyId', data?.familySpaceId);
-	console.log(boardList);
 
 	const [showMenu, setShowMenu] = useState(null);
 	const [likes, setLikes] = useState({});
@@ -111,7 +109,7 @@ const MainPage = () => {
 	return (
 		<S.PostContainer>
 			<S.PostList>
-				{boardList?.map(post => (
+				{boardList?.posts.map(post => (
 					<S.PostItem key={post.postId}>
 						<S.PostWrapper>
 							<S.Profile>
