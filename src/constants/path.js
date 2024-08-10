@@ -32,7 +32,7 @@ const PAGE_PATH = {
   FAMILY_SPACE_SETTINGS: 'family-space-settings',
   // setting/edit-profile
   EDIT_PROFILE: 'edit-profile',
-  //setting/family-settings
+  // setting/family-settings
   FAMILY_SETTINGS: 'family-settings',
   // setting/delete-account
   DELETE_ACCOUNT: 'delete-account',
@@ -40,6 +40,8 @@ const PAGE_PATH = {
   QNA: 'qna',
   // setting/logout
   LOGOUT: 'logout',
+  // setting/NotificationSettings
+  NOTIFICATION_SETTINGS: 'notification-settings',
 };
 
 const API_PATH = {

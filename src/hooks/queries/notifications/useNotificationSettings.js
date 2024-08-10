@@ -8,14 +8,21 @@ import {
 const useNotificationSettings = () => {
   const queryClient = useQueryClient();
 
-  const { data, isLoading, error } = useQuery({
+  const {
+    data = {},
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: [QUERY_KEYS.NOTIFICATION_SETTINGS],
     queryFn: getNotificationSettings,
   });
 
-  const mutation = useMutation(updateNotificationSettings, {
+  const mutation = useMutation({
+    mutationFn: updateNotificationSettings,
     onSuccess: () => {
-      queryClient.invalidateQueries([QUERY_KEYS.NOTIFICATION_SETTINGS]);
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.NOTIFICATION_SETTINGS],
+      });
     },
   });
 
