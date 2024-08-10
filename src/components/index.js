@@ -23,8 +23,7 @@ import Chatbar from './chat/chatbar/Chatbar';
 import ChatRoom from './chat/chatroom/ChatRoom';
 import Message from './chat/message/Message';
 import ChangeRoom from './chat/changeroom/ChangeRoom';
-
-
+import MemberInfo from './chat/memberInfo/MemberInfo';
 
 export {
 	Navbar,
@@ -50,4 +49,5 @@ export {
 	Message,
 	ChangeRoom,
 	Checkbox,
+	MemberInfo,
 };

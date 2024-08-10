@@ -18,7 +18,9 @@ import useGetUserImg from '../../../hooks/queries/user/useGetUserImg.js';
 const Sidebar = () => {
 	const { pathname } = useLocation();
 	const nav = useNavigate();
-
+	const noDisplay = pathname.startsWith(
+		`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}/${PAGE_PATH.ROOM}`,
+	);
 	const { data: profile, isPending } = useGetProfile();
 	const { data: userImg } = useGetUserImg(profile?.imageKeyName);
 
@@ -27,7 +29,7 @@ const Sidebar = () => {
 	};
 
 	return (
-		<S.Container>
+		<S.Container $noDisplay={noDisplay}>
 			<S.Logo src={LOGO} />
 			<S.NavContainer>
 				<Link

@@ -20,7 +20,9 @@ import DeleteAccount from './setting/DeleteAccount/DeleteAccount';
 import Logout from './setting/Logout/Logout';
 import ChangePassword from './setting/ChangePassword/ChangePassword';
 import ServiceMainPage from './service/ServiceMainPage/ServiceMainPage';
-
+import ChatDetailPage from './chat/chat-detail/ChatDetailPage';
+import ChatImgPage from './chat/chat-modifiy/ChatImgPage';
+import ChatUserInfo from './chat/chat-user-info/ChatUserInfo';
 
 export {
 	MainPage,
@@ -45,4 +47,7 @@ export {
 	ChangePassword,
 	InvitationLink,
 	CreateSpace,
+	ChatDetailPage,
+	ChatImgPage,
+	ChatUserInfo,
 };
