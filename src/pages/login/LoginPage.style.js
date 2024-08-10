@@ -5,22 +5,21 @@ import { FONT_SIZE } from '../../constants/size';
 const Container = styled.div`
 	width: 100%;
 	height: 100%;
-	min-height: 700px;
 	${theme.ALIGN.COLUMN_CENTER};
 `;
 
 const LoginContainer = styled.div`
 	background-color: ${theme.COLOR.COMMON.WHITE};
 	width: 80%;
+	min-height: 630px;
 	height: 88%;
-	min-height: 650px;
-	max-height: 700px;
+
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 	border-radius: 10px;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
+		min-height: 0;
 		box-shadow: none;
-		background-color: ${theme.COLOR.BACKGROUND.WHITE};
 		width: 100%;
 	}
 `;

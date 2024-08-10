@@ -6,7 +6,6 @@ const createPresignedURL = async filename => {
 	const { data } = await axiosInstance.get(
 		`${API_PATH.IMAGE}/upload?filename=${filename}`,
 	);
-	console.log(data);
 	return data;
 };
 

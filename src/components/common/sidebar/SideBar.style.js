@@ -20,6 +20,10 @@ const Container = styled.div`
 		width: 100%;
 		height: 80px;
 	}
+
+	@media ${theme.WINDOW_SIZE.PC} {
+		display: ${({ $noDisplay }) => ($noDisplay ? 'none' : 'flex')};
+	}
 `;
 
 const Logo = styled.img`
