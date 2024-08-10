@@ -58,6 +58,7 @@ const API_PATH = {
 
 	// family
 	FAMILY: 'api/v0/user-management',
+	FAMILY_SPACE: 'api/v0/family-space',
 
 	FAMILY_SPACE: 'api/v0/family-space',
 
