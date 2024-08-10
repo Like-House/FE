@@ -2,33 +2,110 @@ import { FiSend } from 'react-icons/fi';
 import { FaRegSmile } from 'react-icons/fa';
 import { HiOutlinePhotograph } from 'react-icons/hi';
 import * as S from './Message.style';
-import { useChatRoom } from '../../../store';
 import { GoBellSlash } from 'react-icons/go';
 import { RxExit } from 'react-icons/rx';
 import { TbPhoto } from 'react-icons/tb';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useExitChatRoom from '../../../hooks/queries/chat/useExitChatRoom';
-import { IoChatbubbles } from 'react-icons/io5';
-import theme from '../../../theme/theme';
 import useModal from '../../../hooks/useModal';
-import { ChangeRoom, Alert, PopOver } from '../../';
+import { Alert, PopOver } from '../../';
 import useGetRealImageUrl from '../../../hooks/queries/image/useGetRealImage.js';
+import { useNavigate } from 'react-router-dom';
+import { PAGE_PATH } from '../../../constants';
+import { IoIosArrowBack } from 'react-icons/io';
+import useWebSocketStore from '../../../store/useWebSocketStore.js';
+import useGetMessage from '../../../hooks/queries/chat/useGetMessage.js';
+import useUserIdStore from '../../../store/useUserIdStore.js';
+import ReceiveMessage from '../receivemessage/ReceiveMessage.jsx';
+import { useInView } from 'react-intersection-observer';
+import useThrottling from '../../../hooks/useThrottling';
 
-const Message = () => {
-	const { chatTitle, chatImg, chatRoomId, changeRoomInfo, setChangeRoomInfo } =
-		useChatRoom();
+const Message = ({ room }) => {
+	const scrollRef = useRef();
 	const [open, setOpen] = useState();
+	const { chatRoomId, imageKeyName, title } = room;
 	const { mutate } = useExitChatRoom();
-
 	const { isOpen, openModal, closeModal } = useModal();
+	const { data } = useGetRealImageUrl({ chatRoomId, imageUrl: imageKeyName });
+	const nav = useNavigate();
+	const { userId } = useUserIdStore();
+	const [input, setInput] = useState('');
+	const {
+		messages,
+		sendMessage,
+		enterChatRoom,
+		exitChatRoom,
+		enter,
+		clearMessages,
+	} = useWebSocketStore();
+	const {
+		data: messageData,
+		fetchNextPage,
+		hasNextPage,
+		isFetchingNextPage,
+		isFetching,
+	} = useGetMessage({
+		chatRoomId,
+		take: 20,
+	});
 
-	const { data } = useGetRealImageUrl({ chatRoomId, imageUrl: chatImg });
+	console.log(messageData, hasNextPage);
 
+	const scrollToBottom = () => {
+		if (scrollRef.current) {
+			scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+		}
+	};
+
+	const { ref, inView } = useInView({
+		threshold: 0.5,
+		delay: 0,
+	});
+
+	const throttlingNewPage = useThrottling(fetchNextPage, 1 * 1000);
+
+	useEffect(() => {
+		if (inView) {
+			!isFetching && hasNextPage && throttlingNewPage();
+		}
+	}, [inView, isFetching, hasNextPage]);
+
+	useEffect(() => {
+		if (chatRoomId && !enter) {
+			enterChatRoom(chatRoomId);
+		}
+	}, [chatRoomId, enterChatRoom, enter]);
+
+	useEffect(() => {
+		if (isFetching || messages) {
+			scrollToBottom();
+		}
+	}, [messages, isFetching]);
+
+	const handleSend = e => {
+		e.preventDefault();
+		if (input.trim()) {
+			const message = JSON.stringify({
+				chatType: 'TALK',
+				content: input,
+				chatRoomId,
+			});
+			sendMessage(message);
+			setInput('');
+		}
+	};
+
+	const handleExit = () => {
+		exitChatRoom(chatRoomId);
+		clearMessages();
+		nav(-1);
+	};
 	const handleConfirm = () => {
 		mutate(chatRoomId, {
 			onError: e => console.log(e),
 		});
 		closeModal();
+		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}`);
 	};
 
 	const handleExitChatRoom = () => {
@@ -37,8 +114,14 @@ const Message = () => {
 	};
 
 	const handleCoverImg = () => {
-		setChangeRoomInfo();
-		setOpen(false);
+		nav(
+			`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}/${PAGE_PATH.MODIFY}/${chatRoomId}`,
+			{ state: { ...room } },
+		);
+	};
+
+	const handleInfo = () => {
+		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}/${PAGE_PATH.INFO}/${chatRoomId}`);
 	};
 
 	const items = [
@@ -48,7 +131,6 @@ const Message = () => {
 			message: '채팅방 나가기',
 			onClick: handleExitChatRoom,
 		},
-
 		{
 			icon: <TbPhoto />,
 			message: '커버 이미지 변경',
@@ -56,50 +138,74 @@ const Message = () => {
 		},
 	];
 
-	if (!changeRoomInfo) {
-		if (!chatRoomId) {
-			return (
-				<S.NoChatContainer>
-					<IoChatbubbles size={30} color={theme.COLOR.YELLOW.YELLOW_500} />
-					<p>현재 참여중인 채팅방이 없습니다.</p>
-				</S.NoChatContainer>
-			);
-		} else {
-			return (
-				<S.Container>
-					<Alert
-						isOpen={isOpen}
-						message="채팅방을 나가시겠습니까?"
-						onConfirm={handleConfirm}
-						onCancel={closeModal}
-					/>
-					<S.NavContainer>
-						<S.UserContainer>
-							<img src={data?.result.url} alt="profile" />
-							<p>{chatTitle}</p>
-						</S.UserContainer>
-						<S.Menu>
-							<p onClick={() => setOpen(!open)}>메뉴</p>
-							<S.PopoverWrapper $open={open}>
-								<PopOver items={items} />
-							</S.PopoverWrapper>
-						</S.Menu>
-					</S.NavContainer>
+	return (
+		<S.Container>
+			<Alert
+				isOpen={isOpen}
+				message="채팅방을 나가시겠습니까?"
+				onConfirm={handleConfirm}
+				onCancel={closeModal}
+			/>
+			<S.NavContainer>
+				<S.NavWrapper>
+					<IoIosArrowBack size={25} onClick={handleExit} />
+					<S.UserContainer onClick={handleInfo}>
+						<img src={data?.result.url} alt="profile" />
+						<p>{title}</p>
+					</S.UserContainer>
+				</S.NavWrapper>
+				<S.Menu>
+					<p onClick={() => setOpen(!open)}>메뉴</p>
+					<S.PopoverWrapper $open={open}>
+						<PopOver items={items} />
+					</S.PopoverWrapper>
+				</S.Menu>
+			</S.NavContainer>
+			<S.MessageContainer ref={scrollRef}>
+				<div ref={ref}>
+					{isFetchingNextPage && <div>Loading more messages...</div>}
+				</div>
+				{messageData?.reverse().map(page =>
+					page.result.chatResponseList.map(e =>
+						e.senderDTO.senderId === userId ? (
+							<S.MyContainer key={e.chatId}>
+								<S.MyMessage>{e.content}</S.MyMessage>
+							</S.MyContainer>
+						) : (
+							<ReceiveMessage member={e} key={e.chatId} />
+						),
+					),
+				)}
 
-					<S.InputContainer>
-						<S.IconWrapper>
-							<HiOutlinePhotograph size={25} />
-							<FaRegSmile size={23} />
-						</S.IconWrapper>
-						<input placeholder="메시지를 입력해주세요. (Enter: 전송 / Shift + Enter: 줄바꿈)" />
-						<FiSend size={25} />
-					</S.InputContainer>
-				</S.Container>
-			);
-		}
-	} else {
-		return <ChangeRoom />;
-	}
+				{messages.map((e, idx) =>
+					e.senderDTO?.senderName ? (
+						<ReceiveMessage member={e} key={idx} />
+					) : (
+						e.chatType === 'TALK' && (
+							<S.MyContainer key={idx}>
+								<S.MyMessage>{e.content}</S.MyMessage>
+							</S.MyContainer>
+						)
+					),
+				)}
+			</S.MessageContainer>
+			<S.InputContainer onSubmit={handleSend}>
+				<S.IconWrapper>
+					<HiOutlinePhotograph size={25} />
+					<FaRegSmile size={23} />
+				</S.IconWrapper>
+				<input
+					placeholder="메시지를 입력해주세요. (Enter: 전송 / Shift + Enter: 줄바꿈)"
+					type="text"
+					value={input}
+					onChange={e => setInput(e.target.value)}
+				/>
+				<button type="submit">
+					<FiSend size={25} />
+				</button>
+			</S.InputContainer>
+		</S.Container>
+	);
 };
 
 export default Message;

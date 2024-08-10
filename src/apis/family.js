@@ -6,6 +6,11 @@ const getFamilyList = async () => {
 	return data;
 };
 
+const getMyFamilySpaceId = async () => {
+	const { data } = await axiosInstance.get(`${API_PATH.FAMILY_SPACE}`);
+	return data;
+};
+
 const createFamilyspace = async () => {
 	const { data } = await axiosInstance.post(`${API_PATH.FAMILY_SPACE}`);
 
@@ -27,4 +32,4 @@ const checkSpaceCode = async familySpaceCode => {
 	return data;
 };
 
-export { getFamilyList, createFamilyspace, enterFamilySpace, checkSpaceCode };
+export { getFamilyList, getMyFamilySpaceId,  createFamilyspace, enterFamilySpace, checkSpaceCode };

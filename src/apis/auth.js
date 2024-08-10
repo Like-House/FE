@@ -42,4 +42,22 @@ const checkEmailCode = async ({ email, code }) => {
 	return data;
 };
 
-export { login, signup, getEmailCode, checkEmailCode };
+const logout = async accessToken => {
+	const { data } = await axiosInstance.post(`${API_PATH.LOGOUT}`, {
+		accessToken: accessToken,
+	});
+
+	return data;
+};
+
+const deleteAccount = async accessToken => {
+	const { data } = await axiosInstance.delete(`${API_PATH.AUTH}`, {
+		data: {
+			accessToken: accessToken,
+		},
+	});
+
+	return data;
+};
+
+export { login, signup, getEmailCode, checkEmailCode, logout, deleteAccount };

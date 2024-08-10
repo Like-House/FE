@@ -21,8 +21,11 @@ import {
 	DeleteAccount,
 	Logout,
 	ChangePassword,
-  InvitationLink,
-  CreateSpace,
+	InvitationLink,
+	CreateSpace,
+	ChatDetailPage,
+	ChatImgPage,
+	ChatUserInfo,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -48,24 +51,24 @@ const router = createBrowserRouter([
 				path: `${PAGE_PATH.QNA}`,
 				element: <QnaPage />,
 			},
-      {
-        path: `${PAGE_PATH.SERVICE}/*`,
+			{
+				path: `${PAGE_PATH.SERVICE}/*`,
 
-        children: [
-          {
-            index: true,
-            element: <ServiceMainPage />,
-          },
-          {
-            path: `${PAGE_PATH.SERVICE_INVITATION_LINK}`,
-            element: <InvitationLink />,
-          },
-          {
-            path: `${PAGE_PATH.CREATE_SPACE}`,
-            element: <CreateSpace />,
-          },
-        ],
-      },
+				children: [
+					{
+						index: true,
+						element: <ServiceMainPage />,
+					},
+					{
+						path: `${PAGE_PATH.SERVICE_INVITATION_LINK}`,
+						element: <InvitationLink />,
+					},
+					{
+						path: `${PAGE_PATH.CREATE_SPACE}`,
+						element: <CreateSpace />,
+					},
+				],
+			},
 		],
 	},
 	{
@@ -87,6 +90,20 @@ const router = createBrowserRouter([
 			{
 				path: `${PAGE_PATH.CHAT}`,
 				element: <ChatMainPage />,
+				children: [
+					{
+						path: `${PAGE_PATH.ROOM}/:chatRoomId`,
+						element: <ChatDetailPage />,
+					},
+					{
+						path: `${PAGE_PATH.MODIFY}/:chatRoomId`,
+						element: <ChatImgPage />,
+					},
+					{
+						path: `${PAGE_PATH.INFO}/:chatRoomId`,
+						element: <ChatUserInfo />,
+					},
+				],
 			},
 			{
 				path: `${PAGE_PATH.FAMILY}/*`,
@@ -126,7 +143,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+	return <RouterProvider router={router} />;
 }
 
 export default App;
