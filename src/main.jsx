@@ -7,6 +7,7 @@ import queryClient from './apis/queryClient.js';
 import theme from './theme/theme';
 import { ThemeProvider } from 'styled-components';
 import { ErrorBoundaryProvider } from './container/ErrorBoundaryProvider.jsx';
+import { Toaster } from 'sonner';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<QueryClientProvider client={queryClient}>
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 			<ReactQueryDevtools initialIsOpen={false} />
 			<ErrorBoundaryProvider>
 				<App />
+				<Toaster />
 			</ErrorBoundaryProvider>
 		</ThemeProvider>
 	</QueryClientProvider>,

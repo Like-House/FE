@@ -18,7 +18,7 @@ function useForm({ initialValue, validate }) {
 
 	const getTextInputProps = name => {
 		const value = values[name];
-		const onChange = event => handleChangeText(name, event.target.value);
+		const onChange = event => handleChangeText(name, event.target.value.trim());
 		const onBlur = () => handleBlur(name);
 		return { value, onChange, onBlur };
 	};

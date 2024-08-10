@@ -6,6 +6,10 @@ const Container = styled.div`
 	width: 100%;
 	${theme.ALIGN.COLUMN_CENTER};
 	margin-bottom: 100px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		margin-bottom: 20px;
+	}
 `;
 
 const SignupContainer = styled.div`
@@ -16,6 +20,13 @@ const SignupContainer = styled.div`
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 	border-radius: 10px;
 	padding-bottom: 80px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		margin-top: 0;
+		box-shadow: none;
+		width: 100%;
+		padding-bottom: 0;
+	}
 `;
 
 const TextWrapper = styled.div`
@@ -33,7 +44,10 @@ const TextWrapper = styled.div`
 	}
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		padding: 50px;
+		padding: 30px 50px 0;
+		p {
+			width: 150px;
+		}
 	}
 `;
 

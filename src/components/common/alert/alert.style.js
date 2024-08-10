@@ -27,8 +27,8 @@ const getSize = size => {
 
 const ModalContainer = styled.div`
 	background-color: ${COLOR.MAIN.YELLOW};
-	width: ${({ size }) => getSize(size).split(',')[0]};
-	height: ${({ size }) => getSize(size).split(',')[1]};
+	width: ${({ $size }) => getSize($size).split(',')[0]};
+	height: ${({ $size }) => getSize($size).split(',')[1]};
 	border-radius: 20px;
 	text-align: center;
 	padding: 40px;
@@ -57,8 +57,8 @@ const ModalDetailMessage = styled.div`
 
 const ButtonContainer = styled.div`
 	${ALIGN.ROW_CENTER};
-	gap: ${({ singleButton, hasDetailMessage }) =>
-		singleButton ? '0' : hasDetailMessage ? '100px' : '10px'};
+	gap: ${({ $singleButton, $hasDetailMessage }) =>
+		$singleButton ? '0' : $hasDetailMessage ? '100px' : '10px'};
 `;
 
 const Button = styled.button`
@@ -69,6 +69,7 @@ const Button = styled.button`
 	height: 36px;
 	cursor: pointer;
 	font-size: ${FONT_SIZE.BASE};
+	color: ${theme.COLOR.COMMON.BLACK};
 	&:hover {
 		background-color: ${COLOR.GRAY.GRAY_200};
 	}
