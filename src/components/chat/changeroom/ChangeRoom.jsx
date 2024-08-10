@@ -2,24 +2,17 @@ import * as S from './ChangeRoom.style';
 import CoverImg from '../../../assets/images/chatRoomImg.webp';
 import { Avatar, CustomButton } from '../../';
 import { MdOutlineFileUpload } from 'react-icons/md';
-import { useChatRoom } from '../../../store';
-import { useState } from 'react';
-import { createPresignedURL, uploadImageToS3 } from '../../../apis/image';
+import { createPresignedURL, uploadImageToS3 } from '../../../apis';
 import usePatchChatRoom from '../../../hooks/queries/chat/usePatchChatRoom';
+import useFile from '../../../hooks/useFile';
+import { useNavigate } from 'react-router-dom';
+import { IMAGE, PAGE_PATH } from '../../../constants';
 
-const ChangeRoom = () => {
-	const { chatRoomId, chatTitle, setChangeRoomInfo } = useChatRoom();
+const ChangeRoom = ({ room }) => {
+	const nav = useNavigate();
+	const { chatRoomId, title } = room;
 	const { mutate: modifyChatInfo } = usePatchChatRoom();
-	const [file, setFile] = useState(null);
-	const [filePreview, setFilePreview] = useState(null);
-
-	const handleChangeFile = e => {
-		if (e.target.files) {
-			const selectedFile = e.target.files[0];
-			setFile(selectedFile);
-			setFilePreview(URL.createObjectURL(selectedFile));
-		}
-	};
+	const { file, filePreview, handleChangeFile } = useFile();
 
 	const handleClick = async () => {
 		const data = await createPresignedURL(file.name);
@@ -28,13 +21,27 @@ const ChangeRoom = () => {
 		try {
 			modifyChatInfo({
 				chatRoomId,
-				title: chatTitle,
-				imageUrl: data.result.keyName,
+				title,
+				imageKeyName: data.result.keyName,
 			});
-			setChangeRoomInfo();
 		} catch (error) {
 			console.log(error);
 		}
+		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}/${PAGE_PATH.ROOM}/${chatRoomId}`, {
+			state: { ...room },
+		});
+	};
+
+	const changeSimpleImg = () => {
+		modifyChatInfo({
+			chatRoomId,
+			title,
+			imageKeyName: IMAGE.BASIC,
+		});
+
+		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}/${PAGE_PATH.ROOM}/${chatRoomId}`, {
+			state: { ...room },
+		});
 	};
 
 	return (
@@ -53,13 +60,14 @@ const ChangeRoom = () => {
 					</label>
 					<S.FileInput type="file" id="file" onChange={handleChangeFile} />
 				</S.CoverImgWrapper>
-				<span>기본으로 변경하기</span>
+				<span onClick={changeSimpleImg}>기본으로 변경하기</span>
 			</S.ContentWrapper>
 			<S.ButtonBox>
 				<CustomButton
 					btnType="primary"
 					label="변경 완료"
 					onClick={handleClick}
+					disabled={!file}
 				/>
 			</S.ButtonBox>
 		</S.Container>

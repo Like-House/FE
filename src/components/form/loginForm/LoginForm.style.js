@@ -63,6 +63,10 @@ const Line = styled.div`
 		border: 0;
 		background: ${theme.COLOR.GRAY.GRAY_100};
 	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		margin: 50px 0 10px;
+	}
 `;
 
 const IconWrapper = styled.div`

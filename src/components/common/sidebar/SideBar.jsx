@@ -5,20 +5,31 @@ import { TbMessageCircle2Filled } from 'react-icons/tb';
 import { IoPersonOutline } from 'react-icons/io5';
 import { GoBell } from 'react-icons/go';
 import { LuCalendar } from 'react-icons/lu';
-import Profile from '../../../assets/images/profile.png';
 import settingIcon from '../../../assets/images/settingIcon.svg';
 import { PAGE_PATH } from '../../../constants/path';
 import theme from '../../../theme/theme.js';
 import { Avatar, Tooltip, FloatingButton } from '../../';
 import LOGO from '../../../assets/images/likeHouseLogo.svg';
 import MORE from '../../../assets/images/moreBox.svg';
+import NOIMG from '../../../assets/images/profile.webp';
+import useGetProfile from '../../../hooks/queries/user/useGetProfile.js';
+import useGetUserImg from '../../../hooks/queries/user/useGetUserImg.js';
 
 const Sidebar = () => {
 	const { pathname } = useLocation();
 	const nav = useNavigate();
+	const noDisplay = pathname.startsWith(
+		`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}/${PAGE_PATH.ROOM}`,
+	);
+	const { data: profile, isPending } = useGetProfile();
+	const { data: userImg } = useGetUserImg(profile?.imageKeyName);
+
+	const handleProfile = () => {
+		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`);
+	};
 
 	return (
-		<S.Container>
+		<S.Container $noDisplay={noDisplay}>
 			<S.Logo src={LOGO} />
 			<S.NavContainer>
 				<Link
@@ -88,12 +99,8 @@ const Sidebar = () => {
 
 				<S.Profile>
 					<Avatar
-						src={Profile}
-						onClick={() =>
-							nav(
-								`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`,
-							)
-						}
+						src={isPending || !profile?.imageKeyName ? NOIMG : userImg?.url}
+						onClick={handleProfile}
 					/>
 				</S.Profile>
 			</S.ButtonBox>

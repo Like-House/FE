@@ -29,55 +29,56 @@ const InputContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: transparent;
-  border-bottom: 1px solid ${theme.COLOR.GRAY.GRAY_300};
+  border-bottom: ${(props) =>
+    props.$noBorder ? 'none' : `1px solid ${theme.COLOR.GRAY.GRAY_300}`};
 
   ${(props) =>
     props.$filled &&
     `
-         border : none;
+         border: none;
          background-color: ${theme.COLOR.BACKGROUND.WHITE};
          border-radius: 7px;
          padding: 0 10px;
    `}
 
-  ${(props) =>
-    props.$success &&
-    `
+	${props =>
+		props.$success &&
+		`
          border-bottom : 1px solid ${theme.COLOR.COMMON.BLUE};
 		`}
 	
-	${(props) =>
-    props.$success &&
-    props.$filled &&
-    `
+	${props =>
+		props.$success &&
+		props.$filled &&
+		`
          border : 1px solid ${theme.COLOR.COMMON.BLUE};
-		`}
+    `}
 
-	${(props) =>
-    props.$errors &&
-    `
+	${props =>
+		props.$errors &&
+		`
          border-bottom  : 1px solid ${theme.COLOR.COMMON.RED};
-		`}
+    `}
 
-	${(props) =>
+  ${(props) =>
     props.$errors &&
     props.$filled &&
     `
-         border : 1px solid ${theme.COLOR.COMMON.RED};
-		`}
-	${(props) =>
+      border: 1px solid ${theme.COLOR.COMMON.RED};
+    `}
+  ${(props) =>
     props.$disabled &&
     `
-				border-bottom  : 1px solid ${theme.COLOR.GRAY.GRAY_300};
-      `}
+      border-bottom: 1px solid ${theme.COLOR.GRAY.GRAY_300};
+    `}
 
-	${(props) =>
+  ${(props) =>
     props.$disabled &&
     props.$filled &&
     `
-				border: none;
-				background-color : ${theme.COLOR.GRAY.GRAY_50};
-      `}
+      border: none;
+      background-color: ${theme.COLOR.GRAY.GRAY_50};
+    `}
 `;
 
 const Input = styled.input`
@@ -88,7 +89,7 @@ const Input = styled.input`
   &::placeholder {
     color: ${theme.COLOR.GRAY.GRAY_300};
     font-weight: 250;
-    ${(props) => props.disabled && `color : ${theme.COLOR.GRAY.GRAY_200};`}
+    ${(props) => props.disabled && `color: ${theme.COLOR.GRAY.GRAY_200};`}
   }
 
   &:focus {
@@ -101,10 +102,9 @@ const Input = styled.input`
 `;
 
 const MsgWrapper = styled.p`
-  margin: 0 11px;
-  font-size: ${FONT_SIZE.XS};
-  color: ${(props) =>
-    props.$errors ? theme.COLOR.COMMON.RED : theme.COLOR.COMMON.BLUE};
+	font-size: ${FONT_SIZE.XS};
+	color: ${props =>
+		props.$errors ? theme.COLOR.COMMON.RED : theme.COLOR.COMMON.BLUE};
 `;
 
 export { Container, InputContainer, Input, MsgWrapper };

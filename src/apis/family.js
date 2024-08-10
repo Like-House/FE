@@ -6,9 +6,36 @@ const getFamilyList = async () => {
 	return data;
 };
 
+const getMyFamilySpaceId = async () => {
+	const { data } = await axiosInstance.get(`${API_PATH.FAMILY_SPACE}`);
+	return data;
+};
+
+const createFamilyspace = async () => {
+	const { data } = await axiosInstance.post(`${API_PATH.FAMILY_SPACE}`);
+
+	return data;
+};
+
+const enterFamilySpace = async familySpaceId => {
+	const { data } = await axiosInstance.post(`${API_PATH.FAMILY_SPACE}/enter/
+	${familySpaceId}?familySpaceId=${familySpaceId}`);
+
+	return data;
+};
+
+const checkSpaceCode = async familySpaceCode => {
+	const { data } = await axiosInstance.post(
+		`${API_PATH.FAMILY_SPACE}/check?familySpaceCode=${familySpaceCode}`,
+	);
+
+	return data;
+};
+
 const getFamilySpaceId = async () => {
 	const { data } = await axiosInstance.get(`${API_PATH.FAMILY_SPACE_ID}`);
 	return data;
 };
 
-export { getFamilyList, getFamilySpaceId };
+
+export { getFamilyList, getMyFamilySpaceId,  createFamilyspace, enterFamilySpace, checkSpaceCode , getFamilySpaceId };

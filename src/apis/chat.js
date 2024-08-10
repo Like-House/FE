@@ -11,14 +11,14 @@ const getChatRooms = async ({ familySpaceId, cursor, take }) => {
 const createChatRoom = async ({
 	familySpaceId,
 	title,
-	imageUrl,
+	imageKeyName,
 	chatRoomType,
 	roomParticipantIds,
 }) => {
 	const { data } = await axiosInstance.post(`${API_PATH.CHAT}`, {
 		familySpaceId,
 		title,
-		imageUrl,
+		imageKeyName,
 		chatRoomType,
 		roomParticipantIds,
 	});
@@ -33,12 +33,12 @@ const exitChatRoom = async chatRoomId => {
 	return data;
 };
 
-const patchChatRoom = async ({ chatRoomId, title, imageUrl }) => {
+const patchChatRoom = async ({ chatRoomId, title, imageKeyName }) => {
 	try {
 		const { data } = await axiosInstance.patch(`${API_PATH.CHAT}`, {
 			chatRoomId,
 			title,
-			imageUrl,
+			imageKeyName,
 		});
 		return data;
 	} catch (err) {
@@ -46,4 +46,27 @@ const patchChatRoom = async ({ chatRoomId, title, imageUrl }) => {
 	}
 };
 
-export { getChatRooms, createChatRoom, exitChatRoom, patchChatRoom };
+const getChatRoomUsers = async chatRoomId => {
+	const { data } = await axiosInstance.get(
+		`${API_PATH.CHAT}/${chatRoomId}/users`,
+	);
+
+	return data;
+};
+
+const getChatMessage = async ({ chatRoomId, cursor, take }) => {
+	const { data } = await axiosInstance.get(
+		`${API_PATH.CHAT}/${chatRoomId}/chats?cursor=${cursor}&take=${take}`,
+	);
+
+	return data;
+};
+
+export {
+	getChatRooms,
+	createChatRoom,
+	exitChatRoom,
+	patchChatRoom,
+	getChatRoomUsers,
+	getChatMessage,
+};
