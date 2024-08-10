@@ -1,12 +1,14 @@
+import * as S from './Modal.style';
+
+import { CustomButton, Dropdown, ModalPortal } from '@/components/index.js';
 import { BsXCircle } from 'react-icons/bs';
 import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
-import * as S from './Modal.style';
-import useModalStore from '../../../store/useModalStore';
-import theme from '../../../theme/theme';
-import { CustomButton, Dropdown, ModalPortal } from '../../';
-import useCreateChatRoom from '../../../hooks/queries/chat/useCreateChatRoom';
-import useGetFamilySpaceId from '../../../hooks/queries/family/useGetFamilySpaceId';
-import useUserIdStore from '../../../store/useUserIdStore';
+import useModalStore from '@/store/useModalStore';
+import theme from '@/theme/theme';
+
+import useCreateChatRoom from '@/hooks/queries/chat/useCreateChatRoom';
+import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
+import useUserIdStore from '@/store/useUserIdStore';
 
 const Modal = ({ members }) => {
 	const { open, chatModal } = useModalStore(state => state);

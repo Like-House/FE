@@ -1,6 +1,7 @@
 import * as S from './CheckBox.style.js';
-import BlackCheck from '../../../assets/images/blackcheck.png';
-import WhiteCheck from '../../../assets/images/whitecheck.png';
+
+import BlackCheck from '@/assets/images/blackcheck.png';
+import WhiteCheck from '@/assets/images/whitecheck.png';
 
 const CheckBox = ({ checked, onChange, label, required, type, size }) => {
 	const renderCheckBox = () => {

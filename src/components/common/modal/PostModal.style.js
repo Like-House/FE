@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import theme from '../../../theme/theme';
-import { FONT_SIZE } from '../../../constants';
+
+import theme from '@/theme/theme';
+import { FONT_SIZE } from '@/constants';
 
 export const ModalBackground = styled.div`
 	position: fixed;
@@ -66,13 +67,12 @@ export const ModalFooter = styled.div`
 	margin: 8px 15px;
 	padding-top: 5px;
 
-
-  button {
-    width: 80px;
-    height: 30px;
-    border-radius: 7px;
-    border: none;
-    ${theme.ALIGN.ROW_CENTER};
+	button {
+		width: 80px;
+		height: 30px;
+		border-radius: 7px;
+		border: none;
+		${theme.ALIGN.ROW_CENTER};
 		background-color: ${theme.COLOR.YELLOW.YELLOW_300};
 		font-size: ${FONT_SIZE.SM};
 		cursor: pointer;

@@ -1,9 +1,11 @@
-import { useChatRoom } from '../../../store';
-import Avatar from '../../common/avatar/Avatar';
 import * as S from './ChatRoom.style';
-import useGetRealImageUrl from '../../../hooks/queries/image/useGetRealImage';
+
 import { useNavigate } from 'react-router-dom';
-import { PAGE_PATH } from '../../../constants';
+
+import { Avatar } from '@/components/index.js';
+import useGetRealImageUrl from '@/hooks/queries/image/useGetRealImage';
+import { useChatRoom } from '@/store';
+import { PAGE_PATH } from '@/constants';
 
 const ChatRoom = ({ room }) => {
 	const nav = useNavigate();
@@ -25,7 +27,8 @@ const ChatRoom = ({ room }) => {
 	return (
 		<S.Container onClick={handleClick}>
 			{isPending ? (
-				<Avatar src={''} size="sm" /> // TODO:다른 브랜치에 있는 사진 머지되면 기본 이미지로 변경
+				// TODO:다른 브랜치에 있는 사진 머지되면 기본 이미지로 변경
+				<Avatar src={''} size="sm" />
 			) : (
 				<Avatar src={data?.result.url} size="sm" />
 			)}

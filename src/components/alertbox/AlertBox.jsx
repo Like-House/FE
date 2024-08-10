@@ -1,5 +1,6 @@
-import { Avatar } from '../index.js';
 import * as S from './AlertBox.style.js';
+
+import { Avatar } from '@/components/index.js';
 
 const AlertBox = ({ id, user, message, date, icon }) => {
 	return (

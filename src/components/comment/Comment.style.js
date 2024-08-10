@@ -4,6 +4,7 @@ const CommentInput = styled.div`
 	margin: 20px 0;
 	display: flex;
 	justify-content: space-between;
+
 	input {
 		width: 400px;
 		border: none;

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import theme from '../../../theme/theme';
+
+import theme from '@/theme/theme';
 
 const Button = styled.button`
 	display: flex;

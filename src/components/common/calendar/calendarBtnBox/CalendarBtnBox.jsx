@@ -1,5 +1,6 @@
-import useCalendarStore from '../../../../store/useCalendarStore';
 import * as S from './CalendarBtnBox.style';
+
+import useCalendarStore from '@/store/useCalendarStore';
 
 const CalendarBtnBox = () => {
 	const { clear } = useCalendarStore();

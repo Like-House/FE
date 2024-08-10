@@ -1,24 +1,30 @@
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import * as S from './SideBar.style.js';
+
+import { useState } from 'react';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { TbHome } from 'react-icons/tb';
 import { TbMessageCircle2Filled } from 'react-icons/tb';
+import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 import { IoPersonOutline } from 'react-icons/io5';
 import { GoBell } from 'react-icons/go';
 import { LuCalendar } from 'react-icons/lu';
-import settingIcon from '../../../assets/images/settingIcon.svg';
-import { PAGE_PATH } from '../../../constants/path';
-import { useState } from 'react';
-import PostModal from '../modal/PostModal.jsx';
-import Dropdown from '../../common/dropdown/Dropdown.jsx';
-import useCustomModal from '../../../hooks/useCustomModal.js';
-import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
-import theme from '../../../theme/theme.js';
-import { Avatar, Tooltip, FloatingButton } from '../../';
-import LOGO from '../../../assets/images/likeHouseLogo.svg';
-import MORE from '../../../assets/images/moreBox.svg';
-import NOIMG from '../../../assets/images/profile.webp';
-import useGetProfile from '../../../hooks/queries/user/useGetProfile.js';
-import useGetUserImg from '../../../hooks/queries/user/useGetUserImg.js';
+import settingIcon from '@/assets/images/settingIcon.svg';
+import {
+	PostModal,
+	Dropdown,
+	Avatar,
+	Tooltip,
+	FloatingButton,
+} from '@/components/index.js';
+
+import theme from '@/theme/theme.js';
+import LOGO from '@/assets/images/likeHouseLogo.svg';
+import MORE from '@/assets/images/moreBox.svg';
+import NOIMG from '@/assets/images/profile.webp';
+import useGetProfile from '@/hooks/queries/user/useGetProfile.js';
+import useGetUserImg from '@/hooks/queries/user/useGetUserImg.js';
+import useCustomModal from '@/hooks/useCustomModal.js';
+import { PAGE_PATH } from '@/constants/path';
 
 const Sidebar = () => {
 	const { pathname } = useLocation();

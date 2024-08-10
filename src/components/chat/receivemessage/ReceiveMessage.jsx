@@ -1,7 +1,9 @@
-import { Avatar } from '../../';
-import useGetFamilyImg from '../../../hooks/queries/family/useGetFamilyImg';
 import * as S from './ReceiveMessage.style';
-import NOIMG from '../../../assets/images/profile.webp';
+
+import { Avatar } from '@/components/index.js';
+
+import useGetFamilyImg from '@/hooks/queries/family/useGetFamilyImg';
+import NOIMG from '@/assets/images/profile.webp';
 
 const ReceiveMessage = ({ member }) => {
 	const { data } = useGetFamilyImg(

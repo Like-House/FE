@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 import { BsXCircle } from 'react-icons/bs';
 import * as S from './PostModal.style';
 

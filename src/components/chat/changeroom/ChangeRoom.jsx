@@ -1,12 +1,14 @@
 import * as S from './ChangeRoom.style';
-import CoverImg from '../../../assets/images/chatRoomImg.webp';
-import { Avatar, CustomButton } from '../../';
-import { MdOutlineFileUpload } from 'react-icons/md';
-import { createPresignedURL, uploadImageToS3 } from '../../../apis';
-import usePatchChatRoom from '../../../hooks/queries/chat/usePatchChatRoom';
-import useFile from '../../../hooks/useFile';
+
 import { useNavigate } from 'react-router-dom';
-import { IMAGE, PAGE_PATH } from '../../../constants';
+import { MdOutlineFileUpload } from 'react-icons/md';
+
+import { Avatar, CustomButton } from '@/components/index.js';
+import CoverImg from '@/assets/images/chatRoomImg.webp';
+import { createPresignedURL, uploadImageToS3 } from '@/apis';
+import usePatchChatRoom from '@/hooks/queries/chat/usePatchChatRoom';
+import useFile from '@/hooks/useFile';
+import { IMAGE, PAGE_PATH } from '@/constants';
 
 const ChangeRoom = ({ room }) => {
 	const nav = useNavigate();

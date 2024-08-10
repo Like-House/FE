@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import theme from '../../theme/theme.js';
-import { FONT_SIZE, RESPONSIVE_SIZE } from '../../constants/index.js';
+
+import theme from '@/theme/theme.js';
+import { FONT_SIZE, RESPONSIVE_SIZE } from '@/constants/index.js';
 
 const AlertConatainer = styled.div`
 	${theme.ALIGN.ROW_CENTER};

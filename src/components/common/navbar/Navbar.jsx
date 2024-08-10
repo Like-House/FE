@@ -1,12 +1,14 @@
-import { NavLink } from 'react-router-dom';
 import * as S from './Navbar.style';
-import { PAGE_PATH } from '../../../constants';
-import { Avatar } from '../../';
-import useAuthStore from '../../../store/useAuthStore';
-import LOGO from '../../../assets/images/likeHouseLogo.svg';
-import useGetProfile from '../../../hooks/queries/user/useGetProfile';
-import useGetUserImg from '../../../hooks/queries/user/useGetUserImg';
-import NOIMG from '../../../assets/images/profile.webp';
+
+import { NavLink } from 'react-router-dom';
+
+import { Avatar } from '@/components/index.js';
+import { PAGE_PATH } from '@/constants';
+import useGetProfile from '@/hooks/queries/user/useGetProfile';
+import useGetUserImg from '@/hooks/queries/user/useGetUserImg';
+import useAuthStore from '@/store/useAuthStore';
+import LOGO from '@/assets/images/likeHouseLogo.svg';
+import NOIMG from '@/assets/images/profile.webp';
 
 function Navbar() {
 	const { isAuthenticated } = useAuthStore();

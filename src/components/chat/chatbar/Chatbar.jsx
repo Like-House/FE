@@ -1,17 +1,19 @@
 import * as S from './Chatbar.style';
+
+import { useEffect } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { CiSearch } from 'react-icons/ci';
-import useDropdownStore from '../../../store/useDropdownStore';
-import Modal from '../modal/Modal';
-import useModalStore from '../../../store/useModalStore';
-import ChatRoom from '../chatroom/ChatRoom';
-import useGetChatRoom from '../../../hooks/queries/chat/useGetChatRoom';
-import useGetFamilyList from '../../../hooks/queries/family/useGetFamilyList';
-import useCreateChatRoom from '../../../hooks/queries/chat/useCreateChatRoom';
-import useGetFamilySpaceId from '../../../hooks/queries/family/useGetFamilySpaceId';
-import { useEffect } from 'react';
-import useUserIdStore from '../../../store/useUserIdStore';
-import { IMAGE } from '../../../constants';
+
+import Modal from '@/components/chat/modal/Modal.jsx';
+import { ChatRoom } from '@/components/index.js';
+import useDropdownStore from '@/store/useDropdownStore';
+import useModalStore from '@/store/useModalStore';
+import useUserIdStore from '@/store/useUserIdStore';
+import useGetChatRoom from '@/hooks/queries/chat/useGetChatRoom';
+import useGetFamilyList from '@/hooks/queries/family/useGetFamilyList';
+import useCreateChatRoom from '@/hooks/queries/chat/useCreateChatRoom';
+import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
+import { IMAGE } from '@/constants';
 
 const Chatbar = () => {
 	const { chatDropdown, chatDropdownOpen } = useDropdownStore(state => state);

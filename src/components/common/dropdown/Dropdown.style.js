@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
-import theme from '../../../theme/theme';
-import { FONT_SIZE, RESPONSIVE_SIZE } from '../../../constants/size';
+
+import theme from '@/theme/theme';
+import { FONT_SIZE, RESPONSIVE_SIZE } from '@/constants/size';
 
 const sizeStyles = {
 	sm: css`

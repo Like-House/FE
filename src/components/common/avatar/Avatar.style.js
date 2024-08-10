@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
-import theme from '../../../theme/theme';
-import defaultAvatar from '../../../assets/images/avatar.png';
-import { RESPONSIVE_SIZE } from '../../../constants';
+
+import defaultAvatar from '@/assets/images/avatar.png';
+import theme from '@/theme/theme';
+import { RESPONSIVE_SIZE } from '@/constants';
 
 const sizeStyles = {
 	sm: css`

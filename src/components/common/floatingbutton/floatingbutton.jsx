@@ -1,5 +1,6 @@
 import * as S from './floatingbutton.style';
-import DefaultIcon from '../../../assets/images/floatingsetting.png';
+
+import DefaultIcon from '@/assets/images/floatingsetting.png';
 
 const FloatingButton = ({
 	icon,

@@ -1,5 +1,6 @@
-import CustomButton from '../../components/common/button/CustomButton.jsx';
 import * as S from './Comment.style.js';
+
+import CustomButton from '@/components/common/button/CustomButton.jsx';
 
 const Comment = ({ value, onChange, onSubmit, disabled }) => {
 	return (

@@ -1,24 +1,26 @@
+import * as S from './Message.style';
+
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useInView } from 'react-intersection-observer';
 import { FiSend } from 'react-icons/fi';
 import { FaRegSmile } from 'react-icons/fa';
 import { HiOutlinePhotograph } from 'react-icons/hi';
-import * as S from './Message.style';
+import { IoIosArrowBack } from 'react-icons/io';
 import { GoBellSlash } from 'react-icons/go';
 import { RxExit } from 'react-icons/rx';
 import { TbPhoto } from 'react-icons/tb';
-import { useEffect, useRef, useState } from 'react';
-import useExitChatRoom from '../../../hooks/queries/chat/useExitChatRoom';
-import useModal from '../../../hooks/useModal';
-import { Alert, PopOver } from '../../';
-import useGetRealImageUrl from '../../../hooks/queries/image/useGetRealImage.js';
-import { useNavigate } from 'react-router-dom';
-import { PAGE_PATH } from '../../../constants';
-import { IoIosArrowBack } from 'react-icons/io';
-import useWebSocketStore from '../../../store/useWebSocketStore.js';
-import useGetMessage from '../../../hooks/queries/chat/useGetMessage.js';
-import useUserIdStore from '../../../store/useUserIdStore.js';
-import ReceiveMessage from '../receivemessage/ReceiveMessage.jsx';
-import { useInView } from 'react-intersection-observer';
-import useThrottling from '../../../hooks/useThrottling';
+import { Alert, PopOver } from '@/components/index.js';
+import ReceiveMessage from '@/components/chat/receivemessage/ReceiveMessage.jsx';
+
+import useExitChatRoom from '@/hooks/queries/chat/useExitChatRoom';
+import useModal from '@/hooks/useModal';
+import useGetRealImageUrl from '@/hooks/queries/image/useGetRealImage';
+import useGetMessage from '@/hooks/queries/chat/useGetMessage';
+import useThrottling from '@/hooks/useThrottling';
+import useWebSocketStore from '@/store/useWebSocketStore';
+import useUserIdStore from '@/store/useUserIdStore';
+import { PAGE_PATH } from '@/constants';
 
 const Message = ({ room }) => {
 	const scrollRef = useRef();

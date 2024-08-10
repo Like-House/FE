@@ -1,5 +1,6 @@
 import * as S from './alert.style';
-import Exclamationmark from '../../../assets/images/Exclamationmark.png';
+
+import Exclamationmark from '@/assets/images/Exclamationmark.png';
 
 const Alert = ({ message, detailMessage, onConfirm, onCancel, isOpen }) => {
 	if (!isOpen) return null;

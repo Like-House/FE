@@ -4,10 +4,10 @@ const CustomInput = ({
 	value,
 	onChange,
 	onBlur,
-	type, // text, number ...
+	type,
 	placeholder,
-	filled, // boolean
-	size, // XS , SM, BASE, LG, XL
+	filled,
+	size,
 	disabled,
 	icon,
 	errors,

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import useWebSocketStore from '../../../store/useWebSocketStore';
+
+import useWebSocketStore from '@/store/useWebSocketStore';
 
 const WebSocketComponent = ({ children }) => {
 	const setMessages = useWebSocketStore(state => state.setMessages);

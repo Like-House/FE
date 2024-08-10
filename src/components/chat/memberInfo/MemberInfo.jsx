@@ -1,7 +1,8 @@
 import * as S from './MemberInfo.style';
-import { Avatar } from '../../';
-import useGetMemberProfile from '../../../hooks/queries/chat/useGetMemberProfile';
-import NOIMG from '../../../assets/images/chatRoomImg.webp';
+
+import { Avatar } from '@/components/index.js';
+import useGetMemberProfile from '@/hooks/queries/chat/useGetMemberProfile';
+import NOIMG from '@/assets/images/chatRoomImg.webp';
 
 const MemberInfo = ({ member }) => {
 	const { username, userProfile, userId } = member;

@@ -1,14 +1,16 @@
-import { toDate } from 'date-fns-tz';
 import * as S from './CustomCalendar.style';
-import { DAY_OF_WEEK } from '../../../constants';
-import { getDayList, isCurrentMonth } from '../../../utils';
-import theme from '../../../theme/theme';
+
+import CalendarBtnBox from './calendarBtnBox/CalendarBtnBox';
+import { toDate } from 'date-fns-tz';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { GoDotFill } from 'react-icons/go';
 import { FaStar } from 'react-icons/fa';
 import { SlPresent } from 'react-icons/sl';
-import CalendarBtnBox from './calendarBtnBox/CalendarBtnBox';
-import useCalendarStore from '../../../store/useCalendarStore';
+
+import { DAY_OF_WEEK } from '@/constants';
+import { getDayList, isCurrentMonth } from '@/utils';
+import theme from '@/theme/theme';
+import useCalendarStore from '@/store/useCalendarStore';
 
 const CustomCalendar = ({ size, hasBackgroundColor }) => {
 	const {

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import theme from '../../../theme/theme';
-import { FONT_SIZE } from '../../../constants/size';
+
+import theme from '@/theme/theme';
+import { FONT_SIZE } from '@/constants/size';
 
 export const PopOverContainer = styled.div`
 	display: flex;

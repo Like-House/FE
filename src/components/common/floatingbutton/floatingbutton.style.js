@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+
 import { darken } from 'polished';
-import theme from '../../../theme/theme';
+import theme from '@/theme/theme';
 
 const getBackgroundColor = (backgroundColor, disabled) =>
 	disabled ? theme.COLOR.GRAY.GRAY_100 : backgroundColor;

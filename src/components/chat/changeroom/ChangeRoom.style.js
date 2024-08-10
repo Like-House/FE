@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { FONT_SIZE } from '../../../constants';
-import theme from '../../../theme/theme';
+
+import { FONT_SIZE } from '@/constants';
+import theme from '@/theme/theme';
 
 const Container = styled.div`
 	flex: 1;
