@@ -12,7 +12,9 @@ const getMyFamilySpaceId = async () => {
 };
 
 const createFamilyspace = async () => {
-	const { data } = await axiosInstance.post(`${API_PATH.FAMILY_SPACE}`);
+	const { data } = await axiosInstance.post(`${API_PATH.FAMILY_SPACE}`, {
+		withCredentials: true,
+	});
 
 	return data;
 };

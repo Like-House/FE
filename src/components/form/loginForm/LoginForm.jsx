@@ -1,8 +1,5 @@
-import { CustomButton, CustomInput, LoginIcon } from '../../';
+import { CustomButton, CustomInput, Social } from '../../';
 import * as S from './LoginForm.style';
-import NAVER from '../../../assets/images/naver.svg';
-import KAKAO from '../../../assets/images/kakao.svg';
-import GOOGLE from '../../../assets/images/google.svg';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import useForm from '../../../hooks/useForm';
@@ -72,20 +69,7 @@ const LoginForm = () => {
 				or
 				<hr />
 			</S.Line>
-			<S.IconWrapper>
-				<LoginIcon
-					text="카카오로 로그인"
-					icon={<img src={KAKAO} alt="카카오" />}
-				/>
-				<LoginIcon
-					text="네이버로 로그인"
-					icon={<img src={NAVER} alt="네이버" />}
-				/>
-				<LoginIcon
-					text="구글로 로그인"
-					icon={<img src={GOOGLE} alt="구글" />}
-				/>
-			</S.IconWrapper>
+			<Social />
 			<CustomButton
 				btnType="primary"
 				label="로그인"

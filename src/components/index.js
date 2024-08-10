@@ -29,6 +29,8 @@ import MemberInfo from './chat/memberInfo/MemberInfo';
 import UserBox from './setting/userBox/UserBox';
 import FamilyMember from './setting/familyMember/FamilyMember';
 
+import Social from './form/social/Social';
+
 export {
 	Navbar,
 	Sidebar,
@@ -56,4 +58,5 @@ export {
 	UserBox,
 	FamilyMember,
 	MemberInfo,
+	Social,
 };
