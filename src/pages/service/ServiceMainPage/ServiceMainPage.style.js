@@ -178,9 +178,8 @@ const HelpSection = styled.div`
 
 const HelpContent = styled.div`
   display: flex;
-  align-items: flex-end;
-  flex-direction: column;
   @media ${theme.WINDOW_SIZE.MOBILE} {
+    flex-direction: column;
     align-items: flex-start;
   }
 `;
@@ -198,6 +197,7 @@ const HelpTitle = styled.h2`
 const HelpExplain = styled.div`
   font-size: ${FONT_SIZE.SM};
   margin-bottom: 3px;
+  padding-top: 10px;
   @media ${theme.WINDOW_SIZE.MOBILE} {
     font-size: ${FONT_SIZE.BASE};
   }
