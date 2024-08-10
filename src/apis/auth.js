@@ -52,7 +52,9 @@ const logout = async accessToken => {
 
 const deleteAccount = async accessToken => {
 	const { data } = await axiosInstance.delete(`${API_PATH.AUTH}`, {
-		accessToken: accessToken,
+		data: {
+			accessToken: accessToken,
+		},
 	});
 
 	return data;

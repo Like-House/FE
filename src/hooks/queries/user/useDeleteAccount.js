@@ -1,13 +1,14 @@
 import { useMutation } from '@tanstack/react-query';
-import { logout } from '../../../apis';
+import { deleteAccount } from '../../../apis';
 import queryClient from '../../../apis/queryClient';
-import { QUERY_KEYS } from '../../../constants';
 import useAuthStore from '../../../store/useAuthStore';
+import { QUERY_KEYS } from '../../../constants';
 
-const useLogout = () => {
+const useDeleteAccount = () => {
 	const { setIsAuthenticated } = useAuthStore();
+
 	return useMutation({
-		mutationFn: logout,
+		mutationFn: deleteAccount,
 		onSuccess: () => {
 			localStorage.clear();
 			queryClient.removeQueries({ queryKey: [QUERY_KEYS.USER] });
@@ -16,4 +17,4 @@ const useLogout = () => {
 	});
 };
 
-export default useLogout;
+export default useDeleteAccount;
