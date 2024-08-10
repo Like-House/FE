@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { API_PATH } from '../constants';
 import axiosInstance from './axios';
+
+import { API_PATH } from '@/constants';
 
 const createPresignedURL = async filename => {
 	const { data } = await axiosInstance.get(

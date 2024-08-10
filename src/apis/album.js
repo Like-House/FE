@@ -1,5 +1,5 @@
-import axiosInstance from './axios';
-import { API_PATH } from '../constants';
+import axiosInstance from './axios.js';
+import { API_PATH } from '@/constants';
 
 const getAlbum = async (familySpaceId, date, taggedUserIds) => {
 	let url = `${API_PATH.ALBUM}/${familySpaceId}`;

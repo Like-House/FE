@@ -5,7 +5,7 @@ import ChatMainPage from './chat/ChatMainPage';
 import FamilyList from './family/FamilyList/FamilyList';
 import FamilyEdit from './family/FamilyEdit/FamilyEdit';
 import PhotoMainPage from './photo/PhotoMainPage';
-import AlertMainPage from './alert/AlertMainPage';
+import AlertMainPage from '@/pages/alert/AlertMainPage.jsx';
 import CalenderMainPage from './calender/CalenderMainPage';
 import LandingPage from './landing/LadingPage';
 import QnaPage from './qna/QnaPage';

@@ -1,5 +1,5 @@
 import * as S from './AlertMainPage.style';
-import AlertBox from './components/alertbox/AlertBox';
+import AlertBox from '@/components/alertbox/AlertBox.jsx';
 import Messenger from '../../assets/images/messenger.png';
 import Calendar from '../../assets/images/calendar.png';
 import { useState } from 'react';
