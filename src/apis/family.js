@@ -6,4 +6,10 @@ const getFamilyList = async () => {
 	return data;
 };
 
-export { getFamilyList };
+const createFamilyspace = async () => {
+	const { data } = await axiosInstance.post(`${API_PATH.FAMILY_SPACE}`);
+
+	return data;
+};
+
+export { getFamilyList, createFamilyspace };

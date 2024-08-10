@@ -40,7 +40,6 @@ const PAGE_PATH = {
 	QNA: 'qna',
 	// setting/logout
 	LOGOUT: 'logout',
-
 };
 
 const API_PATH = {
@@ -54,6 +53,7 @@ const API_PATH = {
 
 	// family
 	FAMILY: 'api/v0/user-management',
+	FAMILY_SPACE: 'api/v0/family-space',
 
 	// image
 	IMAGE: 'api/v0/s3/presigned',
