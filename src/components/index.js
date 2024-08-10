@@ -23,6 +23,7 @@ import Chatbar from './chat/chatbar/Chatbar';
 import ChatRoom from './chat/chatroom/ChatRoom';
 import Message from './chat/message/Message';
 import ChangeRoom from './chat/changeroom/ChangeRoom';
+import MemberInfo from './chat/memberInfo/MemberInfo';
 
 // settings
 import UserBox from './setting/userBox/UserBox';
@@ -54,4 +55,5 @@ export {
 	Checkbox,
 	UserBox,
 	FamilyMember,
+	MemberInfo,
 };
