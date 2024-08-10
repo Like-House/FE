@@ -1,12 +1,14 @@
-import { CustomButton, CustomInput, LoginIcon } from '../../';
 import * as S from './LoginForm.style';
-import NAVER from '../../../assets/images/naver.svg';
-import KAKAO from '../../../assets/images/kakao.svg';
-import GOOGLE from '../../../assets/images/google.svg';
-import { Link } from 'react-router-dom';
+
 import { useState } from 'react';
-import useForm from '../../../hooks/useForm';
-import { useLogin } from '../../../hooks/queries/login/useLogin';
+import { Link } from 'react-router-dom';
+import { CustomButton, CustomInput, LoginIcon } from '@/components/index.js';
+
+import NAVER from '@/assets/images/naver.svg';
+import KAKAO from '@/assets/images/kakao.svg';
+import GOOGLE from '@/assets/images/google.svg';
+import useForm from '@/hooks/useForm';
+import { useLogin } from '@/hooks/queries/login/useLogin';
 
 const LoginForm = () => {
 	const [errorMessage, setErrorMessage] = useState('');

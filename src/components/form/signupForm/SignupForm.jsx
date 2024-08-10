@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
-import useForm from '../../../hooks/useForm';
-import { validateSignUp } from '../../../utils';
 import * as S from './SignupForm.style';
-import { CustomButton, CustomInput } from '../../';
-import useCheckBox from '../../../hooks/useCheckBox';
-import { useSignup } from '../../../hooks/queries/signup/useSignup';
+
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PAGE_PATH } from '../../../constants';
-import CheckBox from '../../common/checkbox/CheckBox.jsx';
-import useFile from '../../../hooks/useFile.js';
-import { createPresignedURL, uploadImageToS3 } from '../../../apis';
-import useGetEmailCode from '../../../hooks/queries/signup/useGetEmailCode';
-import useCheckEmailCode from '../../../hooks/queries/signup/useCheckEmailCode';
+import { CustomButton, CustomInput, CheckBox } from '@/components/index.js';
+
+import { createPresignedURL, uploadImageToS3 } from '@/apis';
+import useForm from '@/hooks/useForm';
+import useCheckBox from '@/hooks/useCheckBox';
+import { useSignup } from '@/hooks/queries/signup/useSignup';
+import useGetEmailCode from '@/hooks/queries/signup/useGetEmailCode';
+import useCheckEmailCode from '@/hooks/queries/signup/useCheckEmailCode';
+import useFile from '@/hooks/useFile.js';
+import { PAGE_PATH } from '@/constants';
+import { validateSignUp } from '@/utils';
 
 const SignupForm = () => {
 	const nav = useNavigate();
