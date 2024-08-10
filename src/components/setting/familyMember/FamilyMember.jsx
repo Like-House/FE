@@ -1,6 +1,7 @@
-import { CustomButton, Avatar } from '../../';
 import * as S from './FamilyMember.style';
-import useGetFamilyImg from '../../../hooks/queries/family/useGetFamilyImg';
+
+import { CustomButton, Avatar } from '@/components/index.js';
+import useGetFamilyImg from '@/hooks/queries/family/useGetFamilyImg';
 
 const FamilyMember = ({ member, index, handleEditClick }) => {
 	const { data } = useGetFamilyImg(member.profileImage, member.userId);

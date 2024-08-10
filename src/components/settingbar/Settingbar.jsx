@@ -1,7 +1,8 @@
 import * as S from './Settingbar.style';
-import { PAGE_PATH } from '../../constants/path';
+
 import { useNavigate } from 'react-router-dom';
-import moreIcon from '../../assets/images/moreBox.png';
+import { PAGE_PATH } from '@/constants/path';
+import moreIcon from '@/assets/images/moreBox.png';
 
 function Settingbar({ isopen }) {
 	const settingBasePath = `${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}`;

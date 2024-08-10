@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+
 import { Link } from 'react-router-dom';
-import theme from '../../theme/theme';
-import { FONT_SIZE } from '../../constants/size';
+import theme from '@/theme/theme';
+import { FONT_SIZE } from '@/constants/size';
 
 const { COLOR } = theme;
 

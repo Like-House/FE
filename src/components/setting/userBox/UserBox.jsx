@@ -1,9 +1,10 @@
 import * as S from './UserBox.style';
-import { CustomButton, Avatar } from '../../';
-import theme from '../../../theme/theme';
-import useGetFamilyImg from '../../../hooks/queries/family/useGetFamilyImg';
+
 import { useNavigate } from 'react-router-dom';
-import { PAGE_PATH } from '../../../constants/path';
+import { CustomButton, Avatar } from '@/components/index.js';
+import theme from '@/theme/theme';
+import useGetFamilyImg from '@/hooks/queries/family/useGetFamilyImg';
+import { PAGE_PATH } from '@/constants/path';
 
 const { COLOR } = theme;
 
