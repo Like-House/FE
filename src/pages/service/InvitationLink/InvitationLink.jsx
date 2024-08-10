@@ -4,6 +4,9 @@ import errorIcon from '../../../assets/images/error.png';
 import successIcon from '../../../assets/images/success.png';
 import useForm from '../../../hooks/useForm';
 import { validataCode } from '../../../utils';
+import useCheckSpaceCode from '../../../hooks/queries/family/useCheckSpaceCode';
+import useFamilySpaceStore from '../../../store/useFamilySpaceStore';
+import useEnterSpace from '../../../hooks/queries/family/useEnterSpace';
 
 const InvitationLink = () => {
 	const codeForm = useForm({
@@ -13,7 +16,17 @@ const InvitationLink = () => {
 		validate: validataCode,
 	});
 
-	const handleSubmit = () => {};
+	const { mutate } = useCheckSpaceCode();
+	const { mutate: enterMutate } = useEnterSpace();
+	const { familySpaceId } = useFamilySpaceStore();
+
+	const handleSubmit = () => {
+		mutate(codeForm.values.familySpaceCode);
+
+		if (familySpaceId) {
+			enterMutate(familySpaceId);
+		}
+	};
 
 	const getIcon = () => {
 		if (codeForm.message.errors) {
