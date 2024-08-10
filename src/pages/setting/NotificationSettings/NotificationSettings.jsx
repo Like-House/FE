@@ -2,14 +2,35 @@ import { useState, useEffect } from 'react';
 import * as S from './NotificationSettings.style';
 import CheckBox from '../../../components/common/checkbox/checkbox';
 import { RESPONSIVE_SIZE } from '../../../constants/size';
+import useNotificationSettings from '../../../hooks/queries/notifications/useNotificationSettings';
 
 export default function NotificationSettings() {
+	const { data, isLoading, error, updateSetting } = useNotificationSettings();
 	const [notifications, setNotifications] = useState({
 		chat: false,
 		comment: false,
 		reply: false,
 		event: false,
 	});
+
+	useEffect(() => {
+		if (data) {
+			setNotifications(prev => {
+				const newNotifications = {
+					chat: data.chatAlarmStatus,
+					comment: data.commentAlarmStatus,
+					reply: data.commentReplyAlarmStatus,
+					event: data.eventAlarmStatus,
+				};
+
+				if (JSON.stringify(newNotifications) !== JSON.stringify(prev)) {
+					return newNotifications;
+				}
+
+				return prev;
+			});
+		}
+	}, [data]);
 
 	const [checkboxSize, setCheckboxSize] = useState('md');
 
@@ -29,11 +50,23 @@ export default function NotificationSettings() {
 	}, []);
 
 	const handleCheckboxChange = name => {
-		setNotifications(prev => ({
-			...prev,
-			[name]: !prev[name],
-		}));
+		setNotifications(prev => {
+			const newState = {
+				...prev,
+				[name]: !prev[name],
+			};
+			updateSetting(name)(newState[name]);
+			return newState;
+		});
 	};
+
+	if (isLoading) {
+		return <div>Loading...</div>;
+	}
+
+	if (error) {
+		return <div>Error: {error.message}</div>;
+	}
 
 	return (
 		<S.Container>

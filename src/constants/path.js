@@ -8,6 +8,10 @@ const PAGE_PATH = {
 	SIGN_UP: 'signup',
 	// Service
 	SERVICE: 'service',
+	// Service/InvitationLink
+	SERVICE_INVITATION_LINK: 'invitationlink',
+	//Service/CreateSpace
+	CREATE_SPACE: 'createspace',
 	// Chat
 	CHAT: 'chat',
 	// Setting
@@ -28,7 +32,7 @@ const PAGE_PATH = {
 	FAMILY_SPACE_SETTINGS: 'family-space-settings',
 	// setting/edit-profile
 	EDIT_PROFILE: 'edit-profile',
-	//setting/family-settings
+	// setting/family-settings
 	FAMILY_SETTINGS: 'family-settings',
 	// setting/delete-account
 	DELETE_ACCOUNT: 'delete-account',
@@ -36,7 +40,7 @@ const PAGE_PATH = {
 	QNA: 'qna',
 	// setting/logout
 	LOGOUT: 'logout',
-	// setting/notification-settings
+	// setting/NotificationSettings
 	NOTIFICATION_SETTINGS: 'notification-settings',
 };
 
@@ -61,6 +65,13 @@ const API_PATH = {
 
 	// image
 	IMAGE: 'api/v0/s3/presigned',
+
+	//alrams
+	NOTIFICATION_SETTINGS: '/api/v0/users/alarms',
+	NOTIFICATION_CHAT: '/api/v0/users/alarms/chats',
+	NOTIFICATION_COMMENT: '/api/v0/users/alarms/comments',
+	NOTIFICATION_COMMENT_REPLY: '/api/v0/users/alarms/comment-reply',
+	NOTIFICATION_EVENT: '/api/v0/users/alarms/events',
 
 	//user
 	PROFILE: '/api/v0/users/profile',

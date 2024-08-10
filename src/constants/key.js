@@ -9,6 +9,13 @@ const QUERY_KEYS = {
 	POST_ID: 'post-id',
 	MODAL_IMG: 'modal-image',
 
+	// notification settings
+	NOTIFICATION_SETTINGS: 'notification-settings',
+	NOTIFICATION_CHAT: 'notification-chat',
+	NOTIFICATION_COMMENT: 'notification-comment',
+	NOTIFICATION_REPLY: 'notification-reply',
+	NOTIFICATION_EVENT: 'notification-event',
+
 	// user
 	USER: 'user',
 	PROFILE: 'profile',
