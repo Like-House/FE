@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { BsXCircle } from 'react-icons/bs';
 import * as S from './PostModal.style';
 
@@ -12,7 +11,6 @@ const PostModal = ({
 	rightButton,
 	rightButtonAction,
 	totalSteps,
-	currentStep,
 }) => {
 	const [step, setStep] = useState(1);
 
@@ -60,21 +58,8 @@ const PostModal = ({
 					</S.ModalContainer>
 				</S.ModalBackground>
 			)}
-			;
 		</>
 	);
-};
-
-PostModal.propTypes = {
-	isOpen: PropTypes.bool.isRequired,
-	closeModal: PropTypes.func.isRequired,
-	body: PropTypes.arrayOf(PropTypes.node).isRequired,
-	leftButton: PropTypes.arrayOf(PropTypes.string).isRequired,
-	leftButtonAction: PropTypes.func.isRequired,
-	rightButton: PropTypes.arrayOf(PropTypes.string).isRequired,
-	rightButtonAction: PropTypes.func.isRequired,
-	totalSteps: PropTypes.number.isRequired,
-	currentStep: PropTypes.number,
 };
 
 export default PostModal;

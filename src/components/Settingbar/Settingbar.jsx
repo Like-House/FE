@@ -1,11 +1,19 @@
 import * as S from './Settingbar.style';
 import { PAGE_PATH } from '../../constants/path';
+import { useNavigate } from 'react-router-dom';
+import moreIcon from '../../assets/images/moreBox.png';
 
 function Settingbar({ isopen }) {
 	const settingBasePath = `${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}`;
+	const navigate = useNavigate();
 
 	return isopen ? (
 		<S.Container>
+			<S.NavBar>
+				<S.MoreIcon src={moreIcon} alt="더보기" onClick={() => navigate(-1)} />
+				<S.Title>설정</S.Title>
+				<div></div>
+			</S.NavBar>
 			<S.Section>
 				<S.SectionTitle>가족 설정</S.SectionTitle>
 				<S.StyledLink to={`${settingBasePath}/family-space-settings`}>
@@ -29,11 +37,13 @@ function Settingbar({ isopen }) {
 				<S.StyledLink to={`${settingBasePath}/change-password`}>
 					비밀번호 변경
 				</S.StyledLink>
-				<S.StyledLink to={`${settingBasePath}/logout`}>로그아웃</S.StyledLink>
 				<S.StyledLink to={`${settingBasePath}/delete-account`}>
 					탈퇴하기
 				</S.StyledLink>
 			</S.Section>
+			<S.LogoutSection>
+				<S.Logout to={`${settingBasePath}/logout`}>로그아웃</S.Logout>
+			</S.LogoutSection>
 		</S.Container>
 	) : (
 		<div></div>

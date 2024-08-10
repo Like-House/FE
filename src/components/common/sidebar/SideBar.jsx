@@ -7,6 +7,11 @@ import { GoBell } from 'react-icons/go';
 import { LuCalendar } from 'react-icons/lu';
 import settingIcon from '../../../assets/images/settingIcon.svg';
 import { PAGE_PATH } from '../../../constants/path';
+import { useState } from 'react';
+import PostModal from '../modal/PostModal.jsx';
+import Dropdown from '../../common/dropdown/Dropdown.jsx';
+import useCustomModal from '../../../hooks/useCustomModal.js';
+import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 import theme from '../../../theme/theme.js';
 import { Avatar, Tooltip, FloatingButton } from '../../';
 import LOGO from '../../../assets/images/likeHouseLogo.svg';
@@ -18,16 +23,59 @@ import useGetUserImg from '../../../hooks/queries/user/useGetUserImg.js';
 const Sidebar = () => {
 	const { pathname } = useLocation();
 	const nav = useNavigate();
-
+	const isSettingPage = pathname.includes(PAGE_PATH.SETTING);
 	const { data: profile, isPending } = useGetProfile();
 	const { data: userImg } = useGetUserImg(profile?.imageKeyName);
+
+	const noDisplay = pathname.startsWith(
+		`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}/${PAGE_PATH.ROOM}`,
+	);
+	const { isOpen, openModal, closeModal } = useCustomModal();
+	const [step, setStep] = useState(1);
+	const [inputValue, setInputValue] = useState('');
+
+	const handleLeftButtonClick = () => {
+		if (step > 1) {
+			setStep(step - 1);
+		}
+	};
+
+	const handleRightButtonClick = () => {
+		if (step === 1 && inputValue.trim() === '') {
+			return;
+		} else {
+			setStep(step + 1);
+		}
+	};
+
+	const handleInputChange = e => {
+		setInputValue(e.target.value);
+	};
+
+	const body = [
+		<textarea
+			key="1"
+			value={inputValue}
+			onChange={handleInputChange}
+			placeholder="내용을 입력해주세요."
+		/>,
+		<Dropdown
+			key="2"
+			label={'누구와 관련이 있나요?'}
+			options={['엄마', '아빠', '동생']}
+			openIcon={<RiArrowDropDownLine size={'30px'} />}
+			closeIcon={<RiArrowDropUpLine size={'30px'} />}
+		/>,
+	];
+
+	const totalSteps = 2;
 
 	const handleProfile = () => {
 		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`);
 	};
 
 	return (
-		<S.Container>
+		<S.Container $noDisplay={noDisplay} $isSettingPage={isSettingPage}>
 			<S.Logo src={LOGO} />
 			<S.NavContainer>
 				<Link
@@ -57,6 +105,17 @@ const Sidebar = () => {
 					</S.Icon>
 					<p>메세지</p>
 				</NavLink>
+				<PostModal
+					isOpen={isOpen}
+					closeModal={closeModal}
+					body={body}
+					leftButton={['사진첨부', '이전']}
+					leftButtonAction={handleLeftButtonClick}
+					rightButton={['다음', '제출']}
+					rightButtonAction={handleRightButtonClick}
+					totalSteps={totalSteps}
+					currentStep={step}
+				/>
 				<S.PC>
 					<NavLink to={PAGE_PATH.FAMILY}>
 						<S.Icon>
@@ -80,13 +139,12 @@ const Sidebar = () => {
 					</NavLink>
 				</S.Mobile>
 			</S.NavContainer>
-
 			<S.ButtonBox>
 				<S.PostIcon>
 					<Tooltip text="게시글 작성" size="sm">
 						{pathname === PAGE_PATH.HOME && (
 							<FloatingButton
-								onClick={() => console.log('post 모달 뜨우기')}
+								onClick={openModal}
 								backgroundColor={theme.COLOR.YELLOW.YELLOW_500}
 								borderColor={theme.COLOR.YELLOW.YELLOW_500}
 								size="sm"
@@ -94,7 +152,6 @@ const Sidebar = () => {
 						)}
 					</Tooltip>
 				</S.PostIcon>
-
 				<S.Profile>
 					<Avatar
 						src={isPending || !profile?.imageKeyName ? NOIMG : userImg?.url}

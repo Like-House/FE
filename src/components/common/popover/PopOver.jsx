@@ -1,8 +1,8 @@
 import * as S from './PopOver.style';
 
-const PopOver = ({ items }) => {
+const PopOver = ({ items, onMouseLeave }) => {
 	return (
-		<S.PopOverContainer>
+		<S.PopOverContainer onMouseLeave={onMouseLeave}>
 			{items.map((item, index) => (
 				<S.PopOverContent key={index} onClick={item.onClick}>
 					<p>{item.icon}</p>
