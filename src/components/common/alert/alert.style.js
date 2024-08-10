@@ -34,6 +34,12 @@ const ModalContainer = styled.div`
 	padding: 40px;
 	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 	font-family: 'LINESeedKR-Rg';
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		width: 90%;
+		height: auto;
+		padding: 20px;
+	}
 `;
 
 const Icon = styled.div`

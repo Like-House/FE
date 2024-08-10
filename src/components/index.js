@@ -25,6 +25,10 @@ import Message from './chat/message/Message';
 import ChangeRoom from './chat/changeroom/ChangeRoom';
 import MemberInfo from './chat/memberInfo/MemberInfo';
 
+// settings
+import UserBox from './setting/userBox/UserBox';
+import FamilyMember from './setting/familyMember/FamilyMember';
+
 export {
 	Navbar,
 	Sidebar,
@@ -49,5 +53,7 @@ export {
 	Message,
 	ChangeRoom,
 	Checkbox,
+	UserBox,
+	FamilyMember,
 	MemberInfo,
 };

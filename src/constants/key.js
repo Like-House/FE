@@ -1,6 +1,7 @@
 const QUERY_KEYS = {
-	CHATROOMS: 'chatrooms',
-	FAMILY: 'family',
+  CHATROOMS: 'chatrooms',
+  FAMILY: 'family',
+  MY_POSTS: 'my-posts',
 
 	ALBUM: 'album',
 	ALBUMIMG: 'album-img',

@@ -37,5 +37,20 @@ const getFamilySpaceId = async () => {
 	return data;
 };
 
+const updateFamilyMember = async (userId, data) => {
+	const response = await axiosInstance.patch(
+		`${API_PATH.FAMILY}/${userId}`,
+		data,
+	);
+	return response.data;
+};
 
-export { getFamilyList, getMyFamilySpaceId,  createFamilyspace, enterFamilySpace, checkSpaceCode , getFamilySpaceId };
+export {
+	getFamilyList,
+	getMyFamilySpaceId,
+	createFamilyspace,
+	enterFamilySpace,
+	checkSpaceCode,
+	getFamilySpaceId,
+	updateFamilyMember,
+};

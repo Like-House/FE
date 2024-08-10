@@ -8,22 +8,14 @@ const PAGE_PATH = {
 	SIGN_UP: 'signup',
 	// Service
 	SERVICE: 'service',
-	// Service/InvitationLink
-	SERVICE_INVITATION_LINK: 'invitationlink',
-	//Service/CreateSpace
-	CREATE_SPACE: 'createspace',
 	// Chat
 	CHAT: 'chat',
-	ROOM: 'room',
-	MODIFY: 'modify',
-	INFO: 'info',
 	// Setting
 	SETTING: 'setting',
 	// Photo
 	PHOTO: 'photo',
 	// Calender
 	CALENDER: 'calender',
-	ADD_SCHEDULE: '/add-schedule',
 	// Alert
 	ALERT: 'alert',
 	// Family
@@ -44,6 +36,8 @@ const PAGE_PATH = {
 	QNA: 'qna',
 	// setting/logout
 	LOGOUT: 'logout',
+	// setting/notification-settings
+	NOTIFICATION_SETTINGS: 'notification-settings',
 };
 
 const API_PATH = {
@@ -53,6 +47,9 @@ const API_PATH = {
 	LOGOUT: '/api/v0/auth/signout',
 	EMAIL: '/api/v0/auth/email',
 	AUTH: '/api/v0/auth',
+
+	//posts
+	MY_POSTS: '/api/v0/posts/my-posts',
 
 	// chat
 	CHAT: '/api/v0/chat-rooms',
@@ -65,8 +62,9 @@ const API_PATH = {
 	// image
 	IMAGE: 'api/v0/s3/presigned',
 
-	// users
+	//user
 	PROFILE: '/api/v0/users/profile',
+	BLOCK: '/api/v0/user-management/block',
 
 	// album
 	ALBUM: '/api/v0/family-album',
