@@ -14,6 +14,9 @@ const PAGE_PATH = {
 	CREATE_SPACE: 'createspace',
 	// Chat
 	CHAT: 'chat',
+	ROOM: 'room',
+	MODIFY: 'modify',
+	INFO: 'info',
 	// Setting
 	SETTING: 'setting',
 	// Photo
@@ -36,23 +39,27 @@ const PAGE_PATH = {
 	FAMILY_SETTINGS: 'family-settings',
 	// setting/delete-account
 	DELETE_ACCOUNT: 'delete-account',
+	// setting/family-edit
+	FAMILY_EDIT: 'family-edit',
 	// Q/A
 	QNA: 'qna',
 	// setting/logout
 	LOGOUT: 'logout',
 	// setting/NotificationSettings
 	NOTIFICATION_SETTINGS: 'notification-settings',
+	// /home/setting/edit-profile
+	ADD_SCHEDULE: '/add-schedule',
 };
 
 const API_PATH = {
-	//auth
+	// auth
 	SIGNUP: '/api/v0/auth/signup',
 	LOGIN: '/api/v0/auth/signin',
 	LOGOUT: '/api/v0/auth/signout',
 	EMAIL: '/api/v0/auth/email',
 	AUTH: '/api/v0/auth',
 
-	//posts
+	// posts
 	MY_POSTS: '/api/v0/posts/my-posts',
 
 	// chat
@@ -66,14 +73,14 @@ const API_PATH = {
 	// image
 	IMAGE: 'api/v0/s3/presigned',
 
-	//alrams
+	// alarms
 	NOTIFICATION_SETTINGS: '/api/v0/users/alarms',
 	NOTIFICATION_CHAT: '/api/v0/users/alarms/chats',
 	NOTIFICATION_COMMENT: '/api/v0/users/alarms/comments',
 	NOTIFICATION_COMMENT_REPLY: '/api/v0/users/alarms/comment-reply',
 	NOTIFICATION_EVENT: '/api/v0/users/alarms/events',
 
-	//user
+	// user
 	PROFILE: '/api/v0/users/profile',
 	BLOCK: '/api/v0/user-management/block',
 

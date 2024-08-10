@@ -1,4 +1,4 @@
-import axiosInstance from '../apis/axios';
+import axiosInstance from '@/apis/axios';
 
 function setHeader(key, value) {
 	axiosInstance.defaults.headers.common[key] = 'Bearer ' + value;

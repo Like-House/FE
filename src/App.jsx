@@ -1,31 +1,42 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { PAGE_PATH } from './constants/path';
 import {
-	AlertMainPage,
-	CalenderMainPage,
-	ChatMainPage,
+	// MAIN
 	LandingPage,
+	// LOGIN (로그인 페이지)
 	LoginPage,
-	MainPage,
-	PhotoMainPage,
-	QnaPage,
-	NotificationSettings,
+	// SIGNUP (회원가입 페이지)
 	SignupPage,
-	ServiceMainPage,
+	// CHAT (채팅 페이지)
+	ChatMainPage,
+	ChatDetailPage,
+	ChatImgPage,
+	ChatUserInfo,
+	// SETTING (세팅 페이지)
+	ChangePassword,
+	DeleteAccount,
+	Logout,
+	NotificationSettings,
 	FamilySpaceSettings,
 	MyPosts,
 	FamilySettings,
 	EditProfile,
 	FamilyList,
 	FamilyEdit,
-	DeleteAccount,
-	Logout,
-	ChangePassword,
 	InvitationLink,
+	// ALERT (알림 페이지)
+	AlertMainPage,
+	// CALENDAR (일정 페이지)
+	CalenderMainPage,
+	// HOME (홈 페이지)
+	PhotoMainPage,
+	MainPage,
+	// QNA (QNA 페이지)
+	QnaPage,
+	// SERVICE (서비스 이용 페이지)
+	ServiceMainPage,
 	CreateSpace,
-	ChatDetailPage,
-	ChatImgPage,
-	ChatUserInfo,
+	// SCHEDULE (일정 페이지)
 	AddSchedulePage,
 } from './pages';
 
