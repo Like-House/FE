@@ -40,7 +40,6 @@ const PAGE_PATH = {
 	QNA: 'qna',
 	// setting/logout
 	LOGOUT: 'logout',
-
 };
 
 const API_PATH = {
@@ -49,6 +48,7 @@ const API_PATH = {
 	LOGIN: '/api/v0/auth/signin',
 	LOGOUT: '/api/v0/auth/signout',
 	EMAIL: '/api/v0/auth/email',
+	AUTH: '/api/v0/auth',
 	// chat
 	CHAT: '/api/v0/chat-rooms',
 
