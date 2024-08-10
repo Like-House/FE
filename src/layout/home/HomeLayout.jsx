@@ -1,8 +1,10 @@
-import { Outlet, useLocation } from 'react-router-dom';
 import * as S from './HomeLayout.style';
-import { Sidebar, Settingbar } from '../../components';
+
 import { useEffect, useState } from 'react';
-import { PAGE_PATH } from '../../constants';
+import { Outlet, useLocation } from 'react-router-dom';
+import { Sidebar, Settingbar } from '@/components';
+
+import { PAGE_PATH } from '@/constants';
 
 const HomeLayout = () => {
 	const { pathname } = useLocation();
