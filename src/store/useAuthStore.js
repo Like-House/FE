@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { getAuthToken } from '../utils/token.js';
+
+import { getAuthToken } from '@/utils/token.js';
 
 const isToken = getAuthToken();
 

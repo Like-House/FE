@@ -1,6 +1,7 @@
 import { create } from 'zustand';
+
 import { toDate } from 'date-fns-tz';
-import { eventsData } from '../mocks/event';
+import { eventsData } from '@/mocks/event';
 
 const useCalendarStore = create(set => {
 	const nowDate = toDate(Date.now(), { timeZone: 'Asia/Seoul' });

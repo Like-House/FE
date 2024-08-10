@@ -1,4 +1,4 @@
-import { RESPONSIVE_SIZE } from '../constants';
+import { RESPONSIVE_SIZE } from '@/constants';
 
 /**
  * 반응형 디자인 (MOBILE, TABLET, PC)
