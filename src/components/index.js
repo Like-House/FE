@@ -15,8 +15,8 @@ import Avatar from './common/avatar/Avatar';
 import LoginIcon from './loginIcon/LoginIcon';
 import SignupForm from './form/signupForm/SignupForm';
 import LoginForm from './form/loginForm/LoginForm';
-import Settingbar from './Settingbar/Settingbar';
-import Checkbox from './common/checkbox/CheckBox.jsx';
+import Settingbar from './settingbar/Settingbar';
+import CheckBox from './common/checkbox/CheckBox.jsx';
 
 // chat
 import Chatbar from './chat/chatbar/Chatbar';
@@ -52,7 +52,7 @@ export {
 	ChatRoom,
 	Message,
 	ChangeRoom,
-	Checkbox,
+	CheckBox,
 	UserBox,
 	FamilyMember,
 	MemberInfo,

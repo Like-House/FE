@@ -161,7 +161,7 @@ const MainPage = () => {
 								)}
 								{comments[post.id] &&
 									comments[post.id].map((comment, index) => (
-										<S.Comment key={index}>{comment}</S.Comment>
+										<S.comment key={index}>{comment}</S.comment>
 									))} */}
 							</S.Board>
 						</S.PostWrapper>
