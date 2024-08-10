@@ -16,6 +16,7 @@ import NotificationSettings from './setting/NotificationSettings/NotificationSet
 import MyPosts from './setting/MyPosts/MyPosts';
 import EditProfile from './setting/EditProfile/EditProfile';
 import FamilySettings from './setting/FamilySettings/FamilySettings';
+import AddSchedulePage from './calender/AddSchedule';
 import DeleteAccount from './setting/DeleteAccount/DeleteAccount';
 import Logout from './setting/Logout/Logout';
 import ChangePassword from './setting/ChangePassword/ChangePassword';
@@ -50,4 +51,5 @@ export {
 	ChatDetailPage,
 	ChatImgPage,
 	ChatUserInfo,
+	AddSchedulePage,
 };

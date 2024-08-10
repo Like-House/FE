@@ -26,6 +26,7 @@ import {
 	ChatDetailPage,
 	ChatImgPage,
 	ChatUserInfo,
+	AddSchedulePage,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -137,6 +138,10 @@ const router = createBrowserRouter([
 					{ path: `${PAGE_PATH.LOGOUT}`, element: <Logout /> },
 					{ path: `${PAGE_PATH.CHANGE_PASSWORD}`, element: <ChangePassword /> },
 				],
+			},
+			{
+				path: `${PAGE_PATH.CALENDER}${PAGE_PATH.ADD_SCHEDULE}`,
+				element: <AddSchedulePage />,
 			},
 		],
 	},
