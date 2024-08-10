@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import theme from '../../theme/theme';
-import { FONT_SIZE } from '../../constants';
+
+import theme from '@/theme/theme';
+import { FONT_SIZE } from '@/constants';
 
 const PostContainer = styled.div`
 	display: flex;

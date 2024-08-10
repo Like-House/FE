@@ -1,9 +1,10 @@
-import { CustomButton, CustomInput } from '../../../components';
 import * as S from './CreateSpace.style';
-import linkIcon from '../../../assets/images/link.png';
+
 import { useLocation, useNavigate } from 'react-router-dom';
-import { PAGE_PATH } from '../../../constants';
 import { toast } from 'sonner';
+import { CustomButton, CustomInput } from '@/components';
+import linkIcon from '@/assets/images/link.png';
+import { PAGE_PATH } from '@/constants';
 
 const CreateSpace = () => {
 	const { state } = useLocation();

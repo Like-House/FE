@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
 import * as S from './NotificationSettings.style';
-import CheckBox from '../../../components/common/checkbox/CheckBox.jsx';
-import { RESPONSIVE_SIZE } from '../../../constants/size';
-import useNotificationSettings from '../../../hooks/queries/notifications/useNotificationSettings';
+
+import { useState, useEffect } from 'react';
+import CheckBox from '@/components/common/checkbox/CheckBox.jsx';
+import useNotificationSettings from '@/hooks/queries/notifications/useNotificationSettings';
+import { RESPONSIVE_SIZE } from '@/constants/size';
 
 export default function NotificationSettings() {
 	const { data, isLoading, error, updateSetting } = useNotificationSettings();

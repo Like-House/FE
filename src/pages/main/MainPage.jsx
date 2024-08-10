@@ -1,12 +1,13 @@
-import { useState } from 'react';
 import * as S from './MainPage.style.js';
-import Avatar from '../../components/common/avatar/Avatar.jsx';
-import PopOver from '../../components/common/popover/PopOver.jsx';
-import useFamilySpaceId from '../../hooks/useFamilySpaceId.js';
 
+import { useState } from 'react';
 import { FaEdit, FaTrashAlt, FaRegBellSlash } from 'react-icons/fa';
 import { HiMiniEllipsisHorizontal } from 'react-icons/hi2';
-import useGetPosts from '../../hooks/queries/posts/useGetPosts.js';
+import Avatar from '@/components/common/avatar/Avatar.jsx';
+import PopOver from '@/components/common/popover/PopOver.jsx';
+
+import useFamilySpaceId from '@/hooks/useFamilySpaceId.js';
+import useGetPosts from '@/hooks/queries/posts/useGetPosts.js';
 
 const MainPage = () => {
 	const { data } = useFamilySpaceId();

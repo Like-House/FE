@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { FONT_SIZE, RESPONSIVE_SIZE } from '../../../constants';
-import theme from '../../../theme/theme';
+
+import { FONT_SIZE, RESPONSIVE_SIZE } from '@/constants';
+import theme from '@/theme/theme';
 
 const Backdrop = styled.div`
 	position: fixed;

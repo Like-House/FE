@@ -1,6 +1,7 @@
-import { Avatar } from '../../../components';
 import * as S from './PhotoPostModal.style';
-import CloseIcon from '../../../assets/images/whiteX.png';
+
+import { Avatar } from '@/components';
+import CloseIcon from '@/assets/images/whiteX.png';
 
 const PhotoPostModal = ({
 	avatar,

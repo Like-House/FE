@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import Alert from '../../../components/common/alert/alert';
 import { useNavigate } from 'react-router-dom';
-import { PAGE_PATH } from '../../../constants';
-import useDeleteAccount from '../../../hooks/queries/user/useDeleteAccount';
+
+import Alert from '@/components/common/alert/alert';
+import useDeleteAccount from '@/hooks/queries/user/useDeleteAccount';
+import { PAGE_PATH } from '@/constants';
 
 export default function DeleteAccount() {
 	const [isDeleteAlertOpen, setDeleteAlertOpen] = useState(true);

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import theme from '../../theme/theme';
-import { RESPONSIVE_SIZE, FONT_SIZE } from '../../constants/size';
+
+import theme from '@/theme/theme';
+import { RESPONSIVE_SIZE, FONT_SIZE } from '@/constants/size';
 
 const MainContainer = styled.div`
 	display: flex;

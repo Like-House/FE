@@ -1,10 +1,11 @@
-import { Outlet, useLocation } from 'react-router-dom';
 import * as S from './ChatMainPage.style';
-import { Chatbar } from '../../components';
+
 import { useEffect, useState } from 'react';
-import { PAGE_PATH } from '../../constants';
+import { Outlet, useLocation } from 'react-router-dom';
+import { Chatbar } from '@/components';
+import WebSocketComponent from '@/components/chat/webSocket/WebSocket';
 import { IoChatbubbles } from 'react-icons/io5';
-import WebSocketComponent from '../../components/chat/webSocket/WebSocket';
+import { PAGE_PATH } from '@/constants';
 
 const ChatMainPage = () => {
 	const { pathname } = useLocation();

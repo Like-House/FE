@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
 import * as S from './ChangePassword.style';
-import { CustomButton, Alert, CustomInput } from '../../../components/index';
+
+import { useState, useEffect } from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
+import { CustomButton, Alert, CustomInput } from '@/components/index';
 
 export default function ChangePassword() {
 	const [currentPassword, setCurrentPassword] = useState('');

@@ -1,5 +1,6 @@
-import { LoginForm } from '../../components';
 import * as S from './LoginPage.style';
+
+import { LoginForm } from '@/components';
 
 const LoginPage = () => {
 	return (

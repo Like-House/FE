@@ -1,5 +1,6 @@
-import { SignupForm } from '../../components';
 import * as S from './SignupPage.style';
+
+import { SignupForm } from '@/components';
 
 const SignupPage = () => {
 	return (

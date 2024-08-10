@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
-import { Message } from '../../../components';
+import { Message } from '@/components';
 
 const ChatDetailPage = () => {
 	const { state } = useLocation();

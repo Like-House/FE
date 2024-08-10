@@ -1,12 +1,13 @@
-import { useNavigate, useLocation } from 'react-router-dom';
-import CustomCalendar from '../../components/common/calendar/CustomCalendar';
-import * as C from './CalenderMainPage.style';
-import FloatingButton from '../../components/common/floatingbutton/floatingbutton';
+import * as S from './CalenderMainPage.style';
+
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import CustomCalendar from '@/components/common/calendar/CustomCalendar';
+import FloatingButton from '@/components/common/floatingbutton/floatingbutton';
+import PopOver from '@/components/common/popover/PopOver';
+import Alert from '@/components/common/alert/alert';
 import { HiMiniEllipsisVertical } from 'react-icons/hi2';
 import { FaPenToSquare, FaTrashCan } from 'react-icons/fa6';
-import PopOver from '../../components/common/popover/PopOver';
-import Alert from '../../components/common/alert/alert';
 
 const CalenderMainPage = () => {
 	const navigate = useNavigate();
@@ -105,20 +106,20 @@ const CalenderMainPage = () => {
 	};
 
 	return (
-		<C.Container>
-			<C.Schedule>
-				<C.Calender>
+		<S.Container>
+			<S.Schedule>
+				<S.Calender>
 					<CustomCalendar size="LG" />
-					<C.Button>
+					<S.Button>
 						<FloatingButton
 							onClick={handleClick}
 							backgroundColor="#FFC933"
 							borderColor="#FFC933"
 							icon={<span style={{ color: 'white', fontSize: '50px' }}>+</span>}
 						/>
-					</C.Button>
-				</C.Calender>
-				<C.ScheduleList>
+					</S.Button>
+				</S.Calender>
+				<S.ScheduleList>
 					<ul>
 						{schedules.map((schedule, index) => (
 							<li key={index}>
@@ -151,9 +152,9 @@ const CalenderMainPage = () => {
 							</li>
 						))}
 					</ul>
-				</C.ScheduleList>
-			</C.Schedule>
-			<C.RightSidebar>
+				</S.ScheduleList>
+			</S.Schedule>
+			<S.RightSidebar>
 				<h2>우리 가족 8월 일정</h2>
 				<div>
 					<ul>
@@ -167,15 +168,14 @@ const CalenderMainPage = () => {
 						))}
 					</ul>
 				</div>
-			</C.RightSidebar>
-
+			</S.RightSidebar>
 			<Alert
 				message="일정을 삭제할까요?"
 				onConfirm={handleAlertConfirm}
 				onCancel={handleAlertCancel}
 				isOpen={showAlert}
 			/>
-		</C.Container>
+		</S.Container>
 	);
 };
 

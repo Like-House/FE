@@ -1,11 +1,13 @@
+import * as A from './AddSchedule.style';
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as A from './AddSchedule.style';
-import Dropdown from '../../components/common/dropdown/Dropdown';
-import FloatingButton from '../../components/common/floatingbutton/floatingbutton';
 import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
-import DefaultIcon from '../../assets/images/floatingsetting.png';
-import Alert from '../../components/common/alert/alert';
+import Dropdown from '@/components/common/dropdown/Dropdown';
+import FloatingButton from '@/components/common/floatingbutton/floatingbutton';
+import Alert from '@/components/common/alert/alert';
+
+import DefaultIcon from '@/assets/images/floatingsetting.png';
 
 const AddSchedulePage = () => {
 	const [title, setTitle] = useState('');

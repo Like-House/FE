@@ -1,16 +1,19 @@
-import { Dropdown } from '../../components';
 import * as S from './PhotoMainPage.style';
+
 import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 import { useState } from 'react';
-import PhotoPostModal from './components/PhotoPostModal';
-import CustomCalendar from '../../components/common/calendar/CustomCalendar';
-import useCalendarStore from '../../store/useCalendarStore';
-import useGetFamilyList from '../../hooks/queries/family/useGetFamilyList';
-import useGetAlbum from '../../hooks/queries/album/useGetAlbum';
-import useGetFamilySpaceId from '../../hooks/queries/family/useGetFamilySpaceId';
-import useGetAlbumPost from '../../hooks/queries/album/useGetAlbumPost';
-import useGetRealAlbum from '../../hooks/queries/album/useGetRealAlbum';
-import useGetModalImage from '../../hooks/queries/album/useGetModalImage';
+
+import PhotoPostModal from '@/pages/photo/components/PhotoPostModal.jsx';
+import CustomCalendar from '@/components/common/calendar/CustomCalendar';
+import { Dropdown } from '@/components';
+
+import useGetFamilyList from '@/hooks/queries/family/useGetFamilyList';
+import useGetAlbum from '@/hooks/queries/album/useGetAlbum';
+import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
+import useGetAlbumPost from '@/hooks/queries/album/useGetAlbumPost';
+import useGetRealAlbum from '@/hooks/queries/album/useGetRealAlbum';
+import useGetModalImage from '@/hooks/queries/album/useGetModalImage';
+import useCalendarStore from '@/store/useCalendarStore';
 
 const PhotoMainPage = () => {
 	const { data: familyListData } = useGetFamilyList();

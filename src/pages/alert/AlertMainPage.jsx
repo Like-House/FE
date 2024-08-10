@@ -1,10 +1,13 @@
 import * as S from './AlertMainPage.style';
-import AlertBox from '@/components/alertbox/AlertBox.jsx';
-import Messenger from '../../assets/images/messenger.png';
-import Calendar from '../../assets/images/calendar.png';
+
 import { useState } from 'react';
-import alertData from '../../mockdata/db.json';
-import CustomCalendar from '../../components/common/calendar/CustomCalendar';
+
+import CustomCalendar from '@/components/common/calendar/CustomCalendar';
+import AlertBox from '@/components/alertbox/AlertBox.jsx';
+
+import Messenger from '@/assets/images/messenger.png';
+import Calendar from '@/assets/images/calendar.png';
+import alertData from '@/mockdata/db.json';
 
 const AlertMainPage = () => {
 	const iconMap = {

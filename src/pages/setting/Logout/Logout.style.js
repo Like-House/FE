@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import theme from '../../../theme/theme';
+
+import theme from '@/theme/theme';
 
 const Alert = styled.div`
 	@media ${theme.WINDOW_SIZE.MOBILE} {

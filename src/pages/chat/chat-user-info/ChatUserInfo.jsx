@@ -1,7 +1,8 @@
-import { useParams } from 'react-router-dom';
 import * as S from './ChatUserInfo.style';
-import useGetChatRoomUsers from '../../../hooks/queries/chat/useGetChatRoomUsers';
-import { MemberInfo } from '../../../components';
+
+import { useParams } from 'react-router-dom';
+import { MemberInfo } from '@/components';
+import useGetChatRoomUsers from '@/hooks/queries/chat/useGetChatRoomUsers';
 
 const ChatUserInfo = () => {
 	const { chatRoomId } = useParams();

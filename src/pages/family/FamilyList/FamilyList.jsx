@@ -1,9 +1,10 @@
+import * as S from './FamilyList.style';
+
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import * as S from './FamilyList.style';
-import { PAGE_PATH } from '../../../constants/path';
-import useGetFamilyList from '../../../hooks/queries/family/useGetFamilyList';
-import { FamilyMember } from '../../../components';
+import { PAGE_PATH } from '@/constants/path';
+import useGetFamilyList from '@/hooks/queries/family/useGetFamilyList';
+import { FamilyMember } from '@/components';
 
 function FamilyList() {
 	const navigate = useNavigate();

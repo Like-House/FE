@@ -1,10 +1,11 @@
+import * as S from './FamilyEdit.style';
+
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import * as S from './FamilyEdit.style';
-import { Avatar, CustomButton, CustomInput } from '../../../components/index';
-import { PAGE_PATH } from '../../../constants/path';
-import useUpdateFamilyMember from '../../../hooks/queries/family/useUpdateFamilyMember';
-import useGetFamilyImg from '../../../hooks/queries/family/useGetFamilyImg';
+import { Avatar, CustomButton, CustomInput } from '@/components/index';
+import useUpdateFamilyMember from '@/hooks/queries/family/useUpdateFamilyMember';
+import useGetFamilyImg from '@/hooks/queries/family/useGetFamilyImg';
+import { PAGE_PATH } from '@/constants/path';
 
 function FamilyEdit() {
 	const location = useLocation();

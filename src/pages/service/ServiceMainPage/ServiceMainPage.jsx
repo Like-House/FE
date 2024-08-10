@@ -1,10 +1,11 @@
+import * as S from './ServiceMainPage.style';
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as S from './ServiceMainPage.style';
-import { CustomButton, Alert } from '../../../components';
 import { AiOutlineArrowRight } from 'react-icons/ai';
-import { PAGE_PATH } from '../../../constants/path';
-import useCreateFamilyspace from '../../../hooks/queries/family/useCreateFamilyspace';
+import { CustomButton, Alert } from '@/components';
+import { PAGE_PATH } from '@/constants/path';
+import useCreateFamilyspace from '@/hooks/queries/family/useCreateFamilyspace';
 
 const ServiceMainPage = () => {
 	const navigate = useNavigate();

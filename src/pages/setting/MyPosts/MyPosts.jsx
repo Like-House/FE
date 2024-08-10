@@ -1,6 +1,7 @@
-import React, { useRef, useCallback } from 'react';
 import * as S from './MyPosts.style';
-import useGetMyPosts from '../../../hooks/queries/posts/useGetMyPosts';
+
+import React, { useRef, useCallback } from 'react';
+import useGetMyPosts from '@/hooks/queries/posts/useGetMyPosts';
 
 const MyPosts = () => {
 	const { data, isLoading, fetchNextPage, hasNextPage } = useGetMyPosts();

@@ -1,12 +1,14 @@
-import { CustomButton, CustomInput } from '../../../components';
 import * as S from './InvitationLink.style';
-import errorIcon from '../../../assets/images/error.png';
-import successIcon from '../../../assets/images/success.png';
-import useForm from '../../../hooks/useForm';
-import { validataCode } from '../../../utils';
-import useCheckSpaceCode from '../../../hooks/queries/family/useCheckSpaceCode';
-import useFamilySpaceStore from '../../../store/useFamilySpaceStore';
-import useEnterSpace from '../../../hooks/queries/family/useEnterSpace';
+
+import { CustomButton, CustomInput } from '@/components';
+
+import useForm from '@/hooks/useForm';
+import useCheckSpaceCode from '@/hooks/queries/family/useCheckSpaceCode';
+import useEnterSpace from '@/hooks/queries/family/useEnterSpace';
+import { validataCode } from '@/utils';
+import useFamilySpaceStore from '@/store/useFamilySpaceStore';
+import errorIcon from '@/assets/images/error.png';
+import successIcon from '@/assets/images/success.png';
 
 const InvitationLink = () => {
 	const codeForm = useForm({

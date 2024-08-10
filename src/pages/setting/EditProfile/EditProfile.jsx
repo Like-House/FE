@@ -1,12 +1,8 @@
-import { useState } from 'react';
 import * as S from './EditProfile.style';
-import {
-	CustomButton,
-	CustomInput,
-	Alert,
-	Avatar,
-} from '../../../components/index';
-import useImageUpload from '../../../hooks/useImageUpload';
+
+import { useState } from 'react';
+import { CustomButton, CustomInput, Alert, Avatar } from '@/components/index';
+import useImageUpload from '@/hooks/useImageUpload';
 
 const EditProfile = () => {
 	const [name, setName] = useState('');

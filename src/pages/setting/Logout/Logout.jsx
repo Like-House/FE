@@ -1,9 +1,10 @@
-import { useState } from 'react';
 import * as S from './Logout.style';
-import Alert from '../../../components/common/alert/alert';
+
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PAGE_PATH } from '../../../constants';
-import useLogout from '../../../hooks/queries/user/useLogout';
+import Alert from '@/components/common/alert/alert';
+import useLogout from '@/hooks/queries/user/useLogout';
+import { PAGE_PATH } from '@/constants';
 
 export default function Logout() {
 	const [isOpen, setIsOpen] = useState(true);

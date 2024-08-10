@@ -1,10 +1,11 @@
-import { useState } from 'react';
 import * as S from './FamilySettings.style';
-import { Alert, UserBox } from '../../../components/index';
-import useModal from '../../../hooks/useModal';
-import useGetFamilyList from '../../../hooks/queries/family/useGetFamilyList';
-import useBlockFamilyMember from '../../../hooks/queries/family/useBlockFamilyMember';
-import useUnblockFamilyMember from '../../../hooks/queries/family/useUnblockFamilyMember';
+
+import { useState } from 'react';
+import { Alert, UserBox } from '@/components/index';
+import useModal from '@/hooks/useModal';
+import useGetFamilyList from '@/hooks/queries/family/useGetFamilyList';
+import useBlockFamilyMember from '@/hooks/queries/family/useBlockFamilyMember';
+import useUnblockFamilyMember from '@/hooks/queries/family/useUnblockFamilyMember';
 
 function FamilySettings() {
 	const { data: familyData } = useGetFamilyList();

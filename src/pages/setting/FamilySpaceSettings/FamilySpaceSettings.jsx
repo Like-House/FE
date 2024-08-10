@@ -1,8 +1,9 @@
-import { useState } from 'react';
 import * as S from './FamilySpaceSettings.style';
-import link from '../../../assets/images/link.png';
-import { Alert, CustomButton } from '../../../components/index';
-import useModal from '../../../hooks/useModal';
+
+import { useState } from 'react';
+import { Alert, CustomButton } from '@/components/index';
+import useModal from '@/hooks/useModal';
+import link from '@/assets/images/link.png';
 
 function FamilySpaceSettings() {
 	const { isOpen, openModal, closeModal } = useModal();
