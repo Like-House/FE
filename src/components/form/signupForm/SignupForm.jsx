@@ -7,7 +7,7 @@ import useCheckBox from '../../../hooks/useCheckBox';
 import { useSignup } from '../../../hooks/queries/signup/useSignup';
 import { useNavigate } from 'react-router-dom';
 import { PAGE_PATH } from '../../../constants';
-import CheckBox from '../../common/checkbox/CheckBox.jsx';
+import CheckBox from '../../common/checkbox/Checkbox.jsx';
 import useFile from '../../../hooks/useFile.js';
 import { createPresignedURL, uploadImageToS3 } from '../../../apis';
 import useGetEmailCode from '../../../hooks/queries/signup/useGetEmailCode';

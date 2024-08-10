@@ -1,10 +1,10 @@
-import * as S from './checkbox.style';
+import * as S from './CheckBox.style';
 import BlackCheck from '../../../assets/images/blackcheck.png';
 import WhiteCheck from '../../../assets/images/whitecheck.png';
 
 const CheckBox = ({ checked, onChange, label, required, type, size }) => {
-  const renderCheckBox = () => {
-    let checkBoxElement;
+	const renderCheckBox = () => {
+		let checkBoxElement;
 		if (type === 'background') {
 			checkBoxElement = (
 				<S.CheckBoxWithBackground $checked={checked} $size={size}>
@@ -38,7 +38,7 @@ const CheckBox = ({ checked, onChange, label, required, type, size }) => {
 		);
 	};
 
-  return renderCheckBox();
+	return renderCheckBox();
 };
 
 export default CheckBox;
