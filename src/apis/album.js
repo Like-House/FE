@@ -3,7 +3,6 @@ import { API_PATH } from '../constants';
 
 const getAlbum = async (familySpaceId, date, taggedUserIds) => {
 	let url = `${API_PATH.ALBUM}/${familySpaceId}`;
-	console.log(url, date);
 	if (date === undefined && taggedUserIds !== undefined) {
 		url += `?taggedUserIds=${taggedUserIds}`;
 	} else if (date !== undefined && taggedUserIds === undefined) {

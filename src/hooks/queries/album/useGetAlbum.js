@@ -3,7 +3,6 @@ import { getAlbum } from '../../../apis';
 import { QUERY_KEYS } from '../../../constants';
 
 const useGetAlbum = (familySpaceId, date, taggedUserIds) => {
-	console.log(familySpaceId, date);
 	return useQuery({
 		queryKey: [QUERY_KEYS.FAMILY, familySpaceId, date, taggedUserIds],
 		queryFn: () => getAlbum(familySpaceId, date, taggedUserIds),

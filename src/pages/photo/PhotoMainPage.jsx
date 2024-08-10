@@ -44,38 +44,23 @@ const PhotoMainPage = () => {
 	}
 	console.log(selectedDate);
 
-	// const { data: familySpaceIdData } = useGetFamilySpaceID();
-	// const familySpaceId = familySpaceIdData?.familySpaceId;
+	const { data: familySpaceIdData } = useGetFamilySpaceID();
+	const familySpaceId = familySpaceIdData?.familySpaceId;
 
-	const { data: albumData } = useGetAlbum(2, selectedDate, taggedId) || [];
-	console.log('albumdata는 : ', albumData[0].imageUrl);
+	//앨범 가져오기
+	const { data: albumData = [] } = useGetAlbum(2, selectedDate, taggedId);
+	console.log(albumData);
 
-	const { data: imgData } = useGetRealAlbum(
-		albumData[0].imageUrl,
-		albumData[0].postId,
-	);
-	console.log(imgData);
-
-	console.log('presigned url : ', imgData.result.url);
-
-	const { data: postData } = useGetAlbumPost(3);
-	console.log(postData);
-
-	const filteredPicture = pictureData.pictures.filter(picture => {
-		const selectedDate = date ? new Date(date).toDateString() : null;
-		const pictureDate = new Date(picture.date).toDateString();
-
-		return (
-			(!selectedOp || picture.op === selectedOp) &&
-			(!selectedDate || selectedDate === pictureDate)
-		);
-	});
+	//presigned url로 변환
+	const imageQueries = useGetRealAlbum(albumData || []);
+	const imageUrls = imageQueries.map(query => query.data?.result.url || '');
 
 	const [openPost, setOpenPost] = useState(false);
 	const [selectedPicture, setSelectPicture] = useState(null);
 
 	const handleOpenPost = picture => {
 		setSelectPicture(picture);
+		console.log(picture);
 		setOpenPost(true);
 	};
 
@@ -111,19 +96,21 @@ const PhotoMainPage = () => {
 							closeIcon={<RiArrowDropUpLine />}
 							onSelect={handleSelect}
 						/>
-						{/* {<img src={imgData.result.url}/>} */}
 					</S.DropdownWrapper>
 				</S.SideContainerWrapper>
 			</S.SideContainer>
 
 			<S.AlbumContainer>
-				{/* {Array.isArray(albumData) &&
-					albumData.map(picture => (
+				{Array.isArray(albumData) &&
+					albumData.map((picture, index) => (
 						<S.PictureArea key={picture.postId}>
-							<S.Picture src={picture.imageUrl} />
+							<S.Picture
+								src={imageUrls[index] || ''}
+								onClick={() => handleOpenPost(picture)}
+							/>
 						</S.PictureArea>
-					))} */}
-				{filteredPicture.map(picture => (
+					))}
+				{/* {filteredPicture.map(picture => (
 					<S.PictureArea key={picture.id}>
 						<S.Picture
 							src={picture.img}
@@ -132,7 +119,7 @@ const PhotoMainPage = () => {
 							}}
 						/>
 					</S.PictureArea>
-				))}
+				))} */}
 			</S.AlbumContainer>
 			{openPost && selectedPicture && (
 				<PhotoPostModal
