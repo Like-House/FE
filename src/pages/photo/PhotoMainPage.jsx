@@ -7,7 +7,7 @@ import CustomCalendar from '../../components/common/calendar/CustomCalendar';
 import useCalendarStore from '../../store/useCalendarStore';
 import useGetFamilyList from '../../hooks/queries/family/useGetFamilyList';
 import useGetAlbum from '../../hooks/queries/album/useGetAlbum';
-import useGetFamilySpaceID from '../../hooks/queries/family/useGetFamilySpaceID';
+import useGetFamilySpaceId from '../../hooks/queries/family/useGetFamilySpaceId';
 import useGetAlbumPost from '../../hooks/queries/album/useGetAlbumPost';
 import useGetRealAlbum from '../../hooks/queries/album/useGetRealAlbum';
 import useGetModalImage from '../../hooks/queries/album/useGetModalImage';
@@ -36,7 +36,7 @@ const PhotoMainPage = () => {
 		selectedDate = date.split('T')[0];
 	}
 
-	const { data: familySpaceIdData } = useGetFamilySpaceID();
+	const { data: familySpaceIdData } = useGetFamilySpaceId();
 	const familySpaceId = familySpaceIdData?.familySpaceId;
 
 	//앨범 가져오기

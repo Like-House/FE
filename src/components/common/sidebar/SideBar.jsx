@@ -54,11 +54,13 @@ const Sidebar = () => {
 
 	const body = [
 		<textarea
+			key="1"
 			value={inputValue}
 			onChange={handleInputChange}
 			placeholder="내용을 입력해주세요."
 		/>,
 		<Dropdown
+			key="2"
 			label={'누구와 관련이 있나요?'}
 			options={['엄마', '아빠', '동생']}
 			openIcon={<RiArrowDropDownLine size={'30px'} />}

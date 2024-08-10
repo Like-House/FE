@@ -3,25 +3,25 @@ import theme from '../../../theme/theme';
 import { FONT_SIZE } from '../../../constants';
 
 const colorOptions = {
-  default: css`
-    background-color: ${theme.COLOR.YELLOW.YELLOW_1000};
-    color: ${theme.COLOR.COMMON.WHITE};
-  `,
-  //red
-  primary: css`
-    background-color: ${theme.COLOR.COMMON.RED};
-    color: ${theme.COLOR.COMMON.WHITE};
-  `,
-  //blue
-  secondary: css`
-    background-color: ${theme.COLOR.COMMON.BLUE};
-    color: ${theme.COLOR.COMMON.WHITE};
-  `,
-  outlined: css`
-    background-color: ${theme.COLOR.COMMON.WHITE};
-    color: ${theme.COLOR.COMMON.BLACK};
-    border: 1px solid ${theme.COLOR.COMMON.BLACK};
-  `,
+	default: css`
+		background-color: ${theme.COLOR.YELLOW.YELLOW_1000};
+		color: ${theme.COLOR.COMMON.WHITE};
+	`,
+	//red
+	primary: css`
+		background-color: ${theme.COLOR.COMMON.RED};
+		color: ${theme.COLOR.COMMON.WHITE};
+	`,
+	//blue
+	secondary: css`
+		background-color: ${theme.COLOR.COMMON.BLUE};
+		color: ${theme.COLOR.COMMON.WHITE};
+	`,
+	outlined: css`
+		background-color: ${theme.COLOR.COMMON.WHITE};
+		color: ${theme.COLOR.COMMON.BLACK};
+		border: 1px solid ${theme.COLOR.COMMON.BLACK};
+	`,
 };
 
 const sizeStyles = {
@@ -40,8 +40,8 @@ const sizeStyles = {
 };
 
 const TooltipWrapper = styled.div`
-  position: relative;
-  display: inline-block;
+	position: relative;
+	display: inline-block;
 `;
 
 const TooltipText = styled.span`

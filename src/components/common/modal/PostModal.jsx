@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { BsXCircle } from 'react-icons/bs';
 import * as S from './PostModal.style';
 
@@ -12,7 +11,6 @@ const PostModal = ({
 	rightButton,
 	rightButtonAction,
 	totalSteps,
-	currentStep,
 }) => {
 	const [step, setStep] = useState(1);
 
@@ -38,33 +36,30 @@ const PostModal = ({
 		}
 	};
 
-  return (
-    <>
-      {isOpen && (
-      <S.ModalBackground>
-        <S.ModalContainer>
-          <S.ModalHeader>
-            <button onClick={closeModal}>
-              <BsXCircle />
-            </button>
-          </S.ModalHeader>
-          <S.ModalContent>
-            {body[step-1]}
-          </S.ModalContent>
-          <S.ModalFooter>
-            <button onClick={handleLeftButtonClick}>
-              {step > 0 ? leftButton[step - 1] : ''}
-            </button>
-            <button onClick={handleRightButtonClick}>
-              {step < totalSteps + 1 ? rightButton[step - 1] : ''}
-            </button>
-          </S.ModalFooter>
-        </S.ModalContainer>
-      </S.ModalBackground>
-      )}
-    </>
-  );
+	return (
+		<>
+			{isOpen && (
+				<S.ModalBackground>
+					<S.ModalContainer>
+						<S.ModalHeader>
+							<button onClick={closeModal}>
+								<BsXCircle />
+							</button>
+						</S.ModalHeader>
+						<S.ModalContent>{body[step - 1]}</S.ModalContent>
+						<S.ModalFooter>
+							<button onClick={handleLeftButtonClick}>
+								{step > 0 ? leftButton[step - 1] : ''}
+							</button>
+							<button onClick={handleRightButtonClick}>
+								{step < totalSteps + 1 ? rightButton[step - 1] : ''}
+							</button>
+						</S.ModalFooter>
+					</S.ModalContainer>
+				</S.ModalBackground>
+			)}
+		</>
+	);
 };
-
 
 export default PostModal;
