@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getMyFamilySpaceId } from '../../../apis';
+
+import { getMyFamilySpaceId } from '@/apis';
 
 const useGetFamilySpaceId = () => {
 	return useQuery({

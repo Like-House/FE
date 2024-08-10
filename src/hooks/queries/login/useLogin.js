@@ -1,8 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import { login } from '../../../apis';
+
 import { useNavigate } from 'react-router-dom';
-import { PAGE_PATH } from '../../../constants';
-import useAuthStore from '../../../store/useAuthStore';
+import { login } from '@/apis';
+import { PAGE_PATH } from '@/constants';
+import useAuthStore from '@/store/useAuthStore';
 
 const useLogin = () => {
 	const navigation = useNavigate();

@@ -1,7 +1,8 @@
+import * as S from '@/layout/auth/AuthLayout.style.js';
+
 import { ErrorBoundary } from 'react-error-boundary';
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
-import * as S from '../layout/auth/AuthLayout.style.js';
-import { Footer, Navbar } from '../components/index.js';
+import { Footer, Navbar } from '@/components/index.js';
 
 export const ErrorBoundaryProvider = ({ children }) => {
 	const { reset } = useQueryErrorResetBoundary();

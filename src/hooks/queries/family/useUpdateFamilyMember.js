@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateFamilyMember } from '../../../apis/family';
-import { QUERY_KEYS } from '../../../constants/key';
+
+import { updateFamilyMember } from '@/apis/family';
+import { QUERY_KEYS } from '@/constants/key';
 
 const useUpdateFamilyMember = () => {
 	const queryClient = useQueryClient();

@@ -1,6 +1,7 @@
 import { useQueries } from '@tanstack/react-query';
-import { getRealImageUrl } from '../../../apis/image';
-import { QUERY_KEYS } from '../../../constants';
+
+import { getRealImageUrl } from '@/apis/image';
+import { QUERY_KEYS } from '@/constants';
 
 const useGetRealAlbum = (albumData = []) => {
 	const queries = albumData.map(picture => ({

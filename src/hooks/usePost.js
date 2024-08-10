@@ -1,6 +1,7 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import queryClient from '../apis/queryClient';
+
+import queryClient from '@/apis/queryClient';
 
 const usePost = familySpaceId => {
 	const fetchPosts = async () => {

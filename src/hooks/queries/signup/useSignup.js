@@ -1,7 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import { signup } from '../../../apis';
 import { useNavigate } from 'react-router-dom';
-import { PAGE_PATH } from '../../../constants';
+
+import { signup } from '@/apis';
+import { PAGE_PATH } from '@/constants';
 
 const useSignup = () => {
 	const navigation = useNavigate();

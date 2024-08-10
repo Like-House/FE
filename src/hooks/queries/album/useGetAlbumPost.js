@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAlbumPost } from '../../../apis';
-import { QUERY_KEYS } from '../../../constants';
+
+import { getAlbumPost } from '@/apis';
+import { QUERY_KEYS } from '@/constants';
 
 const useGetAlbumPost = postId => {
 	return useQuery({

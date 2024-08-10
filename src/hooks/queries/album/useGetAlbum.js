@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAlbum } from '../../../apis';
-import { QUERY_KEYS } from '../../../constants';
+
+import { getAlbum } from '@/apis';
+import { QUERY_KEYS } from '@/constants';
 
 const useGetAlbum = (familySpaceId, date, taggedUserIds) => {
 	return useQuery({

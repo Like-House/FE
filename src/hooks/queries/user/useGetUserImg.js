@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { QUERY_KEYS } from '../../../constants';
-import { getRealImageUrl } from '../../../apis';
+
+import { getRealImageUrl } from '@/apis';
+import { QUERY_KEYS } from '@/constants';
 
 const useGetUserImg = imageUrl => {
 	return useQuery({

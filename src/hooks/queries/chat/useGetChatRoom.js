@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { QUERY_KEYS } from '../../../constants';
-import { getChatRooms } from '../../../apis';
+
+import { QUERY_KEYS } from '@/constants';
+import { getChatRooms } from '@/apis';
 
 const useGetChatRoom = ({ familySpaceId, cursor, take }) => {
 	return useQuery({

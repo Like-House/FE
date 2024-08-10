@@ -1,7 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import { blockUser } from '../../../apis/user';
-import queryClient from '../../../apis/queryClient';
-import { QUERY_KEYS } from '../../../constants';
+
+import queryClient from '@/apis/queryClient';
+import { blockUser } from '@/apis/user';
+import { QUERY_KEYS } from '@/constants';
 
 const useBlockFamilyMember = () => {
 	return useMutation({

@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { getProfile } from '../../../apis';
-import { QUERY_KEYS } from '../../../constants';
-import useAuthStore from '../../../store/useAuthStore';
+
+import { getProfile } from '@/apis';
+import useAuthStore from '@/store/useAuthStore';
+import { QUERY_KEYS } from '@/constants';
 
 const useGetProfile = () => {
 	const { isAuthenticated } = useAuthStore();

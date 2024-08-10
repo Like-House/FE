@@ -1,8 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import { checkSpaceCode } from '../../../apis';
+
+import theme from '@/theme/theme';
+import { checkSpaceCode } from '@/apis';
 import { toast } from 'sonner';
-import theme from '../../../theme/theme';
-import useFamilySpaceStore from '../../../store/useFamilySpaceStore';
+import useFamilySpaceStore from '@/store/useFamilySpaceStore';
 
 const useCheckSpaceCode = () => {
 	const { setFamilySpaceId } = useFamilySpaceStore();

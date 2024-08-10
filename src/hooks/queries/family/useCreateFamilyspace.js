@@ -1,9 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import { createFamilyspace } from '../../../apis';
+
 import { useNavigate } from 'react-router-dom';
-import { PAGE_PATH } from '../../../constants';
 import { toast } from 'sonner';
-import theme from '../../../theme/theme';
+import { createFamilyspace } from '@/apis';
+import { PAGE_PATH } from '@/constants';
+import theme from '@/theme/theme';
 
 const useCreateFamilyspace = () => {
 	const nav = useNavigate();

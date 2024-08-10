@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { getRealImageUrl } from '../../../apis';
-import { QUERY_KEYS } from '../../../constants';
+
+import { getRealImageUrl } from '@/apis';
+import { QUERY_KEYS } from '@/constants';
 
 const useGetFamilyImg = (imageUrl, userId) => {
 	return useQuery({

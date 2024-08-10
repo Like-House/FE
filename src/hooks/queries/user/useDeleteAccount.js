@@ -1,8 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import { deleteAccount } from '../../../apis';
-import queryClient from '../../../apis/queryClient';
-import useAuthStore from '../../../store/useAuthStore';
-import { QUERY_KEYS } from '../../../constants';
+import queryClient from '@/apis/queryClient';
+
+import { deleteAccount } from '@/apis';
+import { QUERY_KEYS } from '@/constants';
+import useAuthStore from '@/store/useAuthStore';
 
 const useDeleteAccount = () => {
 	const { setIsAuthenticated } = useAuthStore();

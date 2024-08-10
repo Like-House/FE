@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getPosts } from '../../../apis';
+
+import { getPosts } from '@/apis';
 
 const useGetPosts = ({ familySpaceId, page, size }) => {
 	return useQuery({
