@@ -11,10 +11,12 @@ import LOGO from '@/assets/images/likeHouseLogo.svg';
 import NOIMG from '@/assets/images/profile.webp';
 
 function Navbar() {
-	const { isAuthenticated } = useAuthStore();
-	const { data: profile, isPending } = useGetProfile();
+	// const { isAuthenticated } = useAuthStore();
+	const { data: profile, isPending, isSuccess } = useGetProfile();
 	const { data: userImg } = useGetUserImg(profile?.imageKeyName);
-
+	const isAuthenticated = isSuccess;
+	console.log(isAuthenticated);
+	console.log(profile);
 	let content;
 
 	if (isAuthenticated) {

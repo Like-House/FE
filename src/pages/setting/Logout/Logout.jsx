@@ -11,7 +11,6 @@ export default function Logout() {
 	const [isLoggedOut, setIsLoggedOut] = useState(false);
 	const nav = useNavigate();
 	const { mutate } = useLogout();
-	const token = localStorage.getItem('accessToken');
 
 	const handleClose = () => {
 		setIsOpen(false);
@@ -19,8 +18,8 @@ export default function Logout() {
 
 	const handleConfirm = () => {
 		setIsOpen(false);
+		mutate();
 		setIsLoggedOut(true);
-		mutate(token);
 	};
 
 	const handleLoggedOutConfirm = () => {

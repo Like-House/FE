@@ -13,7 +13,7 @@ const login = async ({ email, password }) => {
 };
 
 const signup = async ({ name, email, password, birthDate, imageKeyName }) => {
-	const { data } = await axios.post(
+	const { data } = await axiosInstance.post(
 		`${import.meta.env.VITE_API_URL}${API_PATH.SIGNUP}`,
 		{
 			name,
@@ -21,6 +21,9 @@ const signup = async ({ name, email, password, birthDate, imageKeyName }) => {
 			password,
 			birthDate,
 			imageKeyName,
+		},
+		{
+			withCredentials: false,
 		},
 	);
 	return data;
@@ -43,10 +46,8 @@ const checkEmailCode = async ({ email, code }) => {
 	return data;
 };
 
-const logout = async accessToken => {
-	const { data } = await axiosInstance.post(`${API_PATH.LOGOUT}`, {
-		accessToken: accessToken,
-	});
+const logout = async () => {
+	const { data } = await axiosInstance.post(`${API_PATH.LOGOUT}`);
 
 	return data;
 };
