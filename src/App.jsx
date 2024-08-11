@@ -1,4 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { messaging } from './firebase/firebaseConfig';
+import { getToken, onMessage } from 'firebase/messaging';
 import { PAGE_PATH } from './constants/path';
 import {
 	// MAIN
@@ -41,6 +43,8 @@ import {
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
+import { useEffect, useState } from 'react';
+import useFcmTokenStore from '@/store/useFcmTokenStore.js';
 
 const router = createBrowserRouter([
 	{
@@ -159,6 +163,40 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+	const { fcmToken, setFcmToken } = useFcmTokenStore();
+	console.log(fcmToken);
+	useEffect(() => {
+		getToken(messaging, {
+			vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
+		})
+			.then(currentToken => {
+				if (currentToken) {
+					setFcmToken(currentToken);
+				} else {
+					console.log(
+						'No Registeration Token, Request Permission To Generate One',
+					);
+				}
+			})
+			.catch(error => {
+				console.log('An error occured while retrieving token.', error);
+			});
+
+		// 	Handler incming Message
+		const unsubscribe = onMessage(messaging, payload => {
+			console.log('message received', payload);
+			console.log(messaging);
+			const { title, body } = payload.notification;
+			console.log('Notification Title: ', title);
+			console.log("Notification Body: '", body);
+
+			if (Notification.permission === 'granted') {
+				new Notification(title, { body });
+			}
+
+			return () => unsubscribe();
+		});
+	}, []);
 	return <RouterProvider router={router} />;
 }
 

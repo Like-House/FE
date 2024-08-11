@@ -15,8 +15,7 @@ function Navbar() {
 	const { data: profile, isPending, isSuccess } = useGetProfile();
 	const { data: userImg } = useGetUserImg(profile?.imageKeyName);
 	const isAuthenticated = isSuccess;
-	console.log(isAuthenticated);
-	console.log(profile);
+
 	let content;
 
 	if (isAuthenticated) {

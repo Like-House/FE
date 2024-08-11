@@ -58,6 +58,7 @@ const API_PATH = {
 	LOGOUT: '/api/v0/auth/signout',
 	EMAIL: '/api/v0/auth/email',
 	AUTH: '/api/v0/auth',
+	FCM: '/api/v0/auth/fcm',
 
 	// posts
 	MY_POSTS: '/api/v0/posts/my-posts',
