@@ -6,7 +6,6 @@ import { Avatar } from '@/components/index.js';
 import { PAGE_PATH } from '@/constants';
 import useGetProfile from '@/hooks/queries/user/useGetProfile';
 import useGetUserImg from '@/hooks/queries/user/useGetUserImg';
-import useAuthStore from '@/store/useAuthStore';
 import LOGO from '@/assets/images/likeHouseLogo.svg';
 import NOIMG from '@/assets/images/profile.webp';
 import useFcmTokenStore from '@/store/useFcmTokenStore.js';
@@ -14,7 +13,6 @@ import usePostFcmToken from '@/hooks/queries/fcm/usePostFcmToken.js';
 import { useEffect } from 'react';
 
 function Navbar() {
-	// const { isAuthenticated } = useAuthStore();
 	const { data: profile, isPending, isSuccess } = useGetProfile();
 	const { data: userImg } = useGetUserImg(profile?.imageKeyName);
 	const isAuthenticated = isSuccess;

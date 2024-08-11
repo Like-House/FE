@@ -21,6 +21,7 @@ const Container = styled.div`
 
 const Logo = styled.img`
 	width: 150px;
+	cursor: pointer;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		display: none;

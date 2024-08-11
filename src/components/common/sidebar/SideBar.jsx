@@ -82,7 +82,7 @@ const Sidebar = () => {
 
 	return (
 		<S.Container $noDisplay={noDisplay} $isSettingPage={isSettingPage}>
-			<S.Logo src={LOGO} />
+			<S.Logo src={LOGO} onClick={() => nav('/')} />
 			<S.NavContainer>
 				<Link
 					to={PAGE_PATH.HOME}

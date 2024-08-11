@@ -37,6 +37,7 @@ const Logo = styled.img`
 	${theme.ALIGN.ROW_CENTER};
 	width: 140px;
 	margin: 30px;
+	cursor: pointer;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		display: none;

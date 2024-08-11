@@ -1,5 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { useEffect } from 'react';
 import { messaging } from './firebase/firebaseConfig';
+import useFcmTokenStore from '@/store/useFcmTokenStore.js';
 import { getToken, onMessage } from 'firebase/messaging';
 import { toast } from 'sonner';
 import { PAGE_PATH } from './constants/path';
@@ -44,8 +46,6 @@ import {
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
-import { useEffect, useState } from 'react';
-import useFcmTokenStore from '@/store/useFcmTokenStore.js';
 
 const router = createBrowserRouter([
 	{
