@@ -11,9 +11,7 @@ const useLogin = () => {
 
 	return useMutation({
 		mutationFn: login,
-		onSuccess: data => {
-			const accessToken = data.result.accessToken;
-			localStorage.setItem('accessToken', accessToken);
+		onSuccess: () => {
 			navigation(`${PAGE_PATH.BASE}`);
 			setIsAuthenticated(true);
 		},
