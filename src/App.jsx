@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { messaging } from './firebase/firebaseConfig';
 import { getToken, onMessage } from 'firebase/messaging';
+import { toast } from 'sonner';
 import { PAGE_PATH } from './constants/path';
 import {
 	// MAIN
@@ -164,6 +165,7 @@ const router = createBrowserRouter([
 
 function App() {
 	const { fcmToken, setFcmToken } = useFcmTokenStore();
+	console.log(fcmToken);
 	useEffect(() => {
 		getToken(messaging, {
 			vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
@@ -181,10 +183,10 @@ function App() {
 				console.log('An error occured while retrieving token.', error);
 			});
 
-		// 	Handler incming Message
 		const unsubscribe = onMessage(messaging, payload => {
 			const { title, body } = payload.notification;
-			console.log(title, body);
+			const message = `${title} ${body}`;
+			toast(message);
 
 			if (Notification.permission === 'granted') {
 				new Notification(title, { body });
