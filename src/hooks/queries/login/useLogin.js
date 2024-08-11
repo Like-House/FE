@@ -11,7 +11,7 @@ import queryClient from '@/apis/queryClient';
 const useLogin = () => {
 	const navigation = useNavigate();
 	const { setIsAuthenticated } = useAuthStore();
-	const { fcmToken, setFcmToken } = useFcmTokenStore();
+	const { fcmToken } = useFcmTokenStore();
 	const { mutate } = usePostFcmToken();
 	return useMutation({
 		mutationFn: login,
@@ -19,11 +19,11 @@ const useLogin = () => {
 			navigation(`${PAGE_PATH.BASE}`);
 			queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER] });
 			setIsAuthenticated(true);
-			if (fcmToken) {
-				mutate(fcmToken);
-			} else {
-				console.warn('FCM token is not available');
-			}
+			// if (fcmToken) {
+			// 	mutate(fcmToken);
+			// } else {
+			// 	console.warn('FCM token is not available');
+			// }
 		},
 		throwOnError: error => Number(error.response?.status) >= 500,
 	});

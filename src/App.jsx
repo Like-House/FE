@@ -164,7 +164,6 @@ const router = createBrowserRouter([
 
 function App() {
 	const { fcmToken, setFcmToken } = useFcmTokenStore();
-	console.log(fcmToken);
 	useEffect(() => {
 		getToken(messaging, {
 			vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
@@ -184,11 +183,8 @@ function App() {
 
 		// 	Handler incming Message
 		const unsubscribe = onMessage(messaging, payload => {
-			console.log('message received', payload);
-			console.log(messaging);
 			const { title, body } = payload.notification;
-			console.log('Notification Title: ', title);
-			console.log("Notification Body: '", body);
+			console.log(title, body);
 
 			if (Notification.permission === 'granted') {
 				new Notification(title, { body });
