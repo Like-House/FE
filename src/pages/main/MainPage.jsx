@@ -8,6 +8,7 @@ import PopOver from '@/components/common/popover/PopOver.jsx';
 
 import useFamilySpaceId from '@/hooks/useFamilySpaceId.js';
 import useGetPosts from '@/hooks/queries/posts/useGetPosts.js';
+import CustomCalendar from '@/components/common/calendar/CustomCalendar.jsx';
 
 const MainPage = () => {
 	const { data } = useFamilySpaceId();
@@ -172,10 +173,11 @@ const MainPage = () => {
 			</S.PostList>
 			<S.RightSidebar>
 				<S.CalendarWrapper>
-					<p>달력자리</p>
+					<CustomCalendar size="SM" hasBackgroundColor={true} />
 				</S.CalendarWrapper>
 				<S.AlbumWrapper>
-					<p>가족 앨범 보기</p>
+					<h2>가족 앨범 보기</h2>
+					<p>가족과의 소중한 추억을 앨범으로 확인하세요</p>
 				</S.AlbumWrapper>
 			</S.RightSidebar>
 		</S.PostContainer>

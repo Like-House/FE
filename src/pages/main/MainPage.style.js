@@ -164,21 +164,25 @@ const RightSidebar = styled.div`
 	gap: 30px;
 	padding: 20px 0 0 50px;
 
-	p {
-		margin: 30px;
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		display: none;
 	}
 `;
 
 const CalendarWrapper = styled.div`
 	height: 50%;
-	background-color: ${theme.COLOR.GRAY.GRAY_100};
-	border-radius: 20px;
 `;
 
 const AlbumWrapper = styled.div`
 	height: 30%;
-	background-color: ${theme.COLOR.GRAY.GRAY_100};
+	background-color: ${theme.COLOR.COMMON.WHITE};
 	border-radius: 20px;
+	padding: 40px;
+
+	p {
+		width: 250px;
+		padding: 120px 0 0 130px;
+	}
 `;
 
 export {

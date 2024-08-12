@@ -24,7 +24,9 @@ import NOIMG from '@/assets/images/profile.webp';
 import useGetProfile from '@/hooks/queries/user/useGetProfile.js';
 import useGetUserImg from '@/hooks/queries/user/useGetUserImg.js';
 import useCustomModal from '@/hooks/useCustomModal.js';
+import useWritePosts from '@/hooks/queries/posts/useWritePosts.js';
 import { PAGE_PATH } from '@/constants/path';
+import useFamilySpaceId from '@/hooks/useFamilySpaceId.js';
 
 const Sidebar = () => {
 	const { pathname } = useLocation();
@@ -32,6 +34,8 @@ const Sidebar = () => {
 	const isSettingPage = pathname.includes(PAGE_PATH.SETTING);
 	const { data: profile, isPending } = useGetProfile();
 	const { data: userImg } = useGetUserImg(profile?.imageKeyName);
+	const { mutate: writePost } = useWritePosts();
+	const { data } = useFamilySpaceId();
 
 	const noDisplay = pathname.startsWith(
 		`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}/${PAGE_PATH.ROOM}`,
@@ -49,6 +53,24 @@ const Sidebar = () => {
 	const handleRightButtonClick = () => {
 		if (step === 1 && inputValue.trim() === '') {
 			return;
+		} else if (step === totalSteps) {
+			const postData =
+				{ 
+					"familySpaceId": data?.familySpaceId,
+					"content": inputValue,
+					"taggedUserIds": [
+						{
+							"userId": 0,
+							"nickname": "사용자 닉네임"
+						}
+					],
+					"imageUrls": [
+						"https://plus.unsplash.com/premium_photo-1723200799223-0095f042decb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzMnx8fGVufDB8fHx8fA%3D%3D"
+					]
+				};
+			console.log(postData);
+			writePost(postData);
+			closeModal();
 		} else {
 			setStep(step + 1);
 		}
@@ -57,6 +79,11 @@ const Sidebar = () => {
 	const handleInputChange = e => {
 		setInputValue(e.target.value);
 	};
+
+	const handleOpenModal = () => {
+		setInputValue('');
+		openModal();
+	}
 
 	const body = [
 		<textarea
@@ -150,7 +177,7 @@ const Sidebar = () => {
 					<Tooltip text="게시글 작성" size="sm">
 						{pathname === PAGE_PATH.HOME && (
 							<FloatingButton
-								onClick={openModal}
+								onClick={handleOpenModal}
 								backgroundColor={theme.COLOR.YELLOW.YELLOW_500}
 								borderColor={theme.COLOR.YELLOW.YELLOW_500}
 								size="sm"

@@ -16,4 +16,12 @@ const getMyPosts = async ({ pageParam = 9223372036854776000 }) => {
 	return response.data.result;
 };
 
-export { getPosts, getMyPosts };
+const getWritePost = async ({postData}) => {
+	const { data } = await axiosInstance.post(
+		`${API_PATH.WRITE_POST}`,
+		postData
+	);
+	return data;
+};
+
+export { getPosts, getMyPosts, getWritePost };
