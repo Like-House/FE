@@ -6,12 +6,9 @@ const WebSocketComponent = ({ children }) => {
 	const setMessages = useWebSocketStore(state => state.setMessages);
 	const setWebSocket = useWebSocketStore(state => state.setWebSocket);
 	const webSocket = useRef(null);
-	const token = localStorage.getItem('accessToken');
 
 	useEffect(() => {
-		webSocket.current = new WebSocket(
-			`${import.meta.env.VITE_SOCK_URL}/chat?token=${token}`,
-		);
+		webSocket.current = new WebSocket(`${import.meta.env.VITE_SOCK_URL}/chat`);
 
 		webSocket.current.onopen = () => {
 			console.log('WebSocket 연결!');

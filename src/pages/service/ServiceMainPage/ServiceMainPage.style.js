@@ -6,29 +6,27 @@ import { FONT_SIZE } from '@/constants/size';
 const { COLOR } = theme;
 
 const Container = styled.div`
-	padding: 50px;
-	@media ${theme.WINDOW_SIZE.MOBILE} {
-		padding: 20px;
-	}
+	${theme.ALIGN.COLUMN_CENTER};
+	width: 100%;
 `;
 
 const Title = styled.h1`
 	font-size: ${FONT_SIZE.TWO_XL};
-	margin-bottom: 70px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	margin-bottom: 90px;
+	${theme.ALIGN.ROW_CENTER};
+
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		font-size: ${FONT_SIZE.XL};
-		margin-bottom: 30px;
+		margin-bottom: 50px;
 	}
 `;
 
 const Content = styled.div`
-	display: flex;
-	justify-content: center;
+	width: 100%;
+	${theme.ALIGN.ROW_CENTER};
 	gap: 20px;
 	margin-bottom: 30px;
+
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		flex-direction: column;
 		gap: 10px;
@@ -36,12 +34,14 @@ const Content = styled.div`
 `;
 
 const InviteSection = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 45%;
+	${theme.ALIGN.COLUMN_CENTER};
+	min-width: 395px;
+	width: 48%;
+
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		width: 100%;
+		min-width: 330px;
+		max-width: 400px;
+		width: 90%;
 	}
 `;
 
@@ -49,20 +49,23 @@ const InviteTitle = styled.h2`
 	font-size: ${FONT_SIZE.SM};
 	margin-bottom: 20px;
 	text-align: left;
+	font-weight: 400;
 	width: 100%;
+
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		font-size: ${FONT_SIZE.BASE};
 		margin-bottom: 10px;
 	}
 `;
 
 const CreateSection = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 45%;
+	${theme.ALIGN.COLUMN_CENTER};
+	min-width: 395px;
+	width: 48%;
+
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		width: 100%;
+		min-width: 330px;
+		max-width: 400px;
+		width: 90%;
 	}
 `;
 
@@ -70,9 +73,10 @@ const CreateTitle = styled.h2`
 	font-size: ${FONT_SIZE.SM};
 	margin-bottom: 20px;
 	text-align: left;
+	font-weight: 400;
 	width: 100%;
+
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		font-size: ${FONT_SIZE.BASE};
 		margin-bottom: 10px;
 	}
 `;
@@ -81,14 +85,15 @@ const Card = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 60px;
-	background-color: ${props => props.bgColor || COLOR.COMMON.WHITE};
+	padding: 0 10px;
+	background-color: ${props => props.$bgColor || COLOR.COMMON.WHITE};
 	border-radius: 10px;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 	width: 100%;
-	height: 300px;
+	height: 240px;
+
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		background-color: #ffe793;
+		background-color: ${theme.COLOR.MAIN.YELLOW};
 		padding: 20px;
 		height: auto;
 		margin-bottom: 30px;
@@ -100,31 +105,44 @@ const CardContent = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 	text-align: left;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		width: 150px;
+	}
 `;
 
 const PictureContainer = styled.div`
-	border-radius: 10px;
-	padding: 20px;
-	margin-right: 30px;
+	margin-right: 50px;
+
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		background-color: #fff1be;
-		margin-right: 10px;
+		${theme.ALIGN.ROW_CENTER};
+		width: 120px;
+		height: 120px;
+		background: rgba(255, 255, 255, 0.4);
+		border-radius: 10px;
+		margin-right: 30px;
 	}
 `;
 
 const Picture = styled.img`
-	width: 150px;
-	height: 150px;
+	width: 130px;
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		width: 80px;
-		height: 80px;
+	}
+`;
+
+const PictureEnter = styled(Picture)`
+	width: 160px;
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		width: 100px;
 	}
 `;
 
 const Button = styled.div`
 	button {
+		padding: 15px 20px;
 		background-color: ${props =>
-			props.bgColor === COLOR.COMMON.WHITE
+			props.$bgColor === COLOR.COMMON.WHITE
 				? COLOR.MAIN.YELLOW
 				: COLOR.COMMON.WHITE};
 
@@ -134,16 +152,18 @@ const Button = styled.div`
 		}
 	}
 	svg {
-		margin-left: 10px;
+		margin-left: 8px;
 	}
 `;
 
 const CardTitle = styled.h3`
-	font-size: ${FONT_SIZE.XL};
+	font-size: ${FONT_SIZE.LG};
 	margin-bottom: 40px;
 	white-space: nowrap;
+
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		font-size: ${FONT_SIZE.BASE};
+		padding-left: 1px;
 		margin-bottom: 20px;
 	}
 `;
@@ -156,24 +176,32 @@ const SubContent = styled.div`
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		margin-bottom: 30px;
 	}
+
+	button {
+		padding: 16px 30px;
+		box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
+	}
 `;
 
 const SubTitle = styled.h2`
 	font-size: ${FONT_SIZE.SM};
 	margin-top: 40px;
 	margin-bottom: 25px;
+
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		font-size: ${FONT_SIZE.BASE};
-		margin-top: -20px;
+		margin-top: 10px;
 		margin-bottom: 10px;
 	}
 `;
 
 const HelpSection = styled.div`
+	width: 100%;
 	margin-top: 50px;
 	text-align: left;
+
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		margin-top: 20px;
+		width: 90%;
 	}
 `;
 
@@ -238,6 +266,13 @@ const BgColor = {
 	WHITE: COLOR.COMMON.WHITE,
 };
 
+const ContentContainer = styled.div`
+	${theme.ALIGN.COLUMN_CENTER};
+	max-width: 1000px;
+	width: 100%;
+	padding-top: 50px;
+`;
+
 export {
 	Container,
 	Title,
@@ -262,4 +297,6 @@ export {
 	HelpMain,
 	HelpItem,
 	BgColor,
+	ContentContainer,
+	PictureEnter,
 };
