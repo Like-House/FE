@@ -8,7 +8,9 @@ const WebSocketComponent = ({ children }) => {
 	const webSocket = useRef(null);
 
 	useEffect(() => {
-		webSocket.current = new WebSocket(`${import.meta.env.VITE_SOCK_URL}/chat`);
+		webSocket.current = new WebSocket(
+			`${import.meta.env.VITE_SOCKET_API_URL}/chat`,
+		);
 
 		webSocket.current.onopen = () => {
 			console.log('WebSocket 연결!');
