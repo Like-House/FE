@@ -43,9 +43,18 @@ const Sidebar = () => {
 	const { isOpen, openModal, closeModal } = useCustomModal();
 	const [step, setStep] = useState(1);
 	const [inputValue, setInputValue] = useState('');
+	const [selectedFile, setSelectedFile] = useState(null);
+
+	const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  }
 
 	const handleLeftButtonClick = () => {
-		if (step > 1) {
+		console.log("왼쪽버튼클릭");
+		if (step === 0) {
+			console.log(step);
+			document.getElementById('file-input').click();
+		} else if (step > 1) {
 			setStep(step - 1);
 		}
 	};
@@ -56,15 +65,15 @@ const Sidebar = () => {
 		} else if (step === totalSteps) {
 			const postData =
 				{ 
-					"familySpaceId": data?.familySpaceId,
-					"content": inputValue,
-					"taggedUserIds": [
+					familySpaceId: data?.familySpaceId,
+					content: inputValue,
+					taggedUserIds: [
 						{
-							"userId": 0,
-							"nickname": "사용자 닉네임"
+							userId: 0,
+							nickname: "사용자 닉네임"
 						}
 					],
-					"imageUrls": [
+					imageUrls: [
 						"https://plus.unsplash.com/premium_photo-1723200799223-0095f042decb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzMnx8fGVufDB8fHx8fA%3D%3D"
 					]
 				};
@@ -82,6 +91,7 @@ const Sidebar = () => {
 
 	const handleOpenModal = () => {
 		setInputValue('');
+		setSelectedFile(null);
 		openModal();
 	}
 
@@ -192,6 +202,13 @@ const Sidebar = () => {
 					/>
 				</S.Profile>
 			</S.ButtonBox>
+
+			<input
+				id="file-input"
+				type="file"
+				onChange={handleFileChange}
+				style={{ display: 'none' }}
+			/>
 		</S.Container>
 	);
 };
