@@ -51,6 +51,7 @@ const InviteTitle = styled.h2`
 	text-align: left;
 	font-weight: 400;
 	width: 100%;
+	padding-left: 3px;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		margin-bottom: 10px;
@@ -75,6 +76,7 @@ const CreateTitle = styled.h2`
 	text-align: left;
 	font-weight: 400;
 	width: 100%;
+	padding-left: 3px;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		margin-bottom: 10px;
