@@ -28,7 +28,7 @@ import useGetEmoticon from '@/hooks/queries/chat/useGetEmoticon';
 import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
 
 const Message = ({ room }) => {
-	const { fileOpen } = useModalStore(state => state);
+	const { fileOpen, setDelete } = useModalStore(state => state);
 	const [emoticon, setEmoticon] = useState(false);
 	const [emoOpen, setEmoOpen] = useState(false);
 	const scrollRef = useRef();
@@ -159,6 +159,7 @@ const Message = ({ room }) => {
 		{
 			icon: <CgTrash size={20} />,
 			message: '가족티콘 삭제',
+			onClick: setDelete,
 		},
 	];
 
@@ -237,7 +238,11 @@ const Message = ({ room }) => {
 				</S.EmotionBtn>
 				<S.EmoticonWrapper>
 					{emoticonData?.map(e => (
-						<Emoticon emoticon={e} key={e.familyEmoticonId} />
+						<Emoticon
+							emoticon={e}
+							key={e.familyEmoticonId}
+							familySpaceId={spaceData?.familySpaceId}
+						/>
 					))}
 				</S.EmoticonWrapper>
 			</S.Emoticon>

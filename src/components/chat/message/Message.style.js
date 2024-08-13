@@ -225,6 +225,7 @@ const EmoPopOver = styled.div`
 	top: 25px;
 	right: 10px;
 	display: ${({ $emoOpen }) => ($emoOpen ? 'flex' : 'none')};
+	z-index: 3;
 `;
 
 const EmoticonWrapper = styled.div`
