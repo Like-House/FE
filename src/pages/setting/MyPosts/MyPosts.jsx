@@ -7,7 +7,7 @@ const MyPosts = () => {
 	const { data, isLoading, fetchNextPage, hasNextPage } = useGetMyPosts();
 	const observer = useRef();
 
-	console.log('Fetched data:', data);
+	console.log(data);
 
 	const lastPostElementRef = useCallback(
 		node => {
@@ -30,11 +30,11 @@ const MyPosts = () => {
 	return (
 		<S.Container>
 			<S.Heading>내가 쓴 글</S.Heading>
-			{data?.pages?.map((page, pageIndex) => (
+			{data?.map((e, pageIndex) => (
 				<React.Fragment key={pageIndex}>
-					{page?.posts?.map((post, index) => (
+					{e?.result.posts.map(post => (
 						<S.Post
-							ref={index === page.posts.length - 1 ? lastPostElementRef : null}
+							// ref={index === e.posts.length - 1 ? lastPostElementRef : null}
 							key={post.postId}
 						>
 							<S.InnerContainer>
