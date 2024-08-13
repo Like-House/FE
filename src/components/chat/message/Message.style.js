@@ -191,6 +191,42 @@ const MyMessage = styled.div`
 	padding: 10px 15px;
 `;
 
+const Emoticon = styled.div`
+	display: ${({ $emoticon }) => ($emoticon ? 'flex' : 'none')};
+	flex-direction: column;
+	padding: 15px;
+	width: 92%;
+	height: 200px;
+	background-color: ${theme.COLOR.GRAY.GRAY_0};
+	border-radius: 20px;
+	margin-bottom: 10px;
+`;
+
+const EmotionBtn = styled.div`
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: end;
+
+	p {
+		padding-right: 10px;
+		width: fit-content;
+		font-size: ${FONT_SIZE.SM};
+		font-weight: bold;
+		&:hover {
+			cursor: pointer;
+			text-decoration: underline;
+		}
+	}
+`;
+
+const EmoPopOver = styled.div`
+	position: absolute;
+	top: 25px;
+	right: 10px;
+	display: ${({ $emoOpen }) => ($emoOpen ? 'flex' : 'none')};
+`;
+
 export {
 	InputContainer,
 	IconWrapper,
@@ -204,4 +240,7 @@ export {
 	NavWrapper,
 	MyMessage,
 	MyContainer,
+	Emoticon,
+	EmotionBtn,
+	EmoPopOver,
 };

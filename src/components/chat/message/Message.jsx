@@ -10,7 +10,9 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { GoBellSlash } from 'react-icons/go';
 import { RxExit } from 'react-icons/rx';
 import { TbPhoto } from 'react-icons/tb';
-import { Alert, PopOver } from '@/components/index.js';
+import { HiOutlinePlusCircle } from 'react-icons/hi2';
+import { CgTrash } from 'react-icons/cg';
+import { Alert, FileModal, PopOver } from '@/components/index.js';
 import ReceiveMessage from '@/components/chat/receivemessage/ReceiveMessage.jsx';
 
 import useExitChatRoom from '@/hooks/queries/chat/useExitChatRoom';
@@ -21,8 +23,12 @@ import useThrottling from '@/hooks/useThrottling';
 import useWebSocketStore from '@/store/useWebSocketStore';
 import useUserIdStore from '@/store/useUserIdStore';
 import { PAGE_PATH } from '@/constants';
+import useModalStore from '@/store/useModalStore';
 
 const Message = ({ room }) => {
+	const { fileOpen } = useModalStore(state => state);
+	const [emoticon, setEmoticon] = useState(false);
+	const [emoOpen, setEmoOpen] = useState(false);
 	const scrollRef = useRef();
 	const [open, setOpen] = useState();
 	const { chatRoomId, imageKeyName, title } = room;
@@ -50,8 +56,6 @@ const Message = ({ room }) => {
 		chatRoomId,
 		take: 20,
 	});
-
-	console.log(messageData, hasNextPage);
 
 	const scrollToBottom = () => {
 		if (scrollRef.current) {
@@ -140,6 +144,18 @@ const Message = ({ room }) => {
 		},
 	];
 
+	const emoItems = [
+		{
+			icon: <HiOutlinePlusCircle size={20} />,
+			message: '가족티콘 추가',
+			onClick: fileOpen,
+		},
+		{
+			icon: <CgTrash size={20} />,
+			message: '가족티콘 삭제',
+		},
+	];
+
 	return (
 		<S.Container>
 			<Alert
@@ -191,10 +207,10 @@ const Message = ({ room }) => {
 					),
 				)}
 			</S.MessageContainer>
-			<S.InputContainer onSubmit={handleSend}>
+			<S.InputContainer onSubmit={handleSend} $emoticon={emoticon}>
 				<S.IconWrapper>
 					<HiOutlinePhotograph size={25} />
-					<FaRegSmile size={23} />
+					<FaRegSmile size={23} onClick={() => setEmoticon(prev => !prev)} />
 				</S.IconWrapper>
 				<input
 					placeholder="메시지를 입력해주세요. (Enter: 전송 / Shift + Enter: 줄바꿈)"
@@ -206,6 +222,16 @@ const Message = ({ room }) => {
 					<FiSend size={25} />
 				</button>
 			</S.InputContainer>
+			<S.Emoticon $emoticon={emoticon}>
+				<S.EmotionBtn onClick={() => setEmoOpen(prev => !prev)}>
+					<p>수정</p>
+					<S.EmoPopOver $emoOpen={emoOpen}>
+						<PopOver items={emoItems} />
+					</S.EmoPopOver>
+				</S.EmotionBtn>
+				<div>여기가 이모틔콘</div>
+			</S.Emoticon>
+			<FileModal />
 		</S.Container>
 	);
 };

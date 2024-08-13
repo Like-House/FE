@@ -10,7 +10,7 @@ const WebSocketComponent = ({ children }) => {
 
 	useEffect(() => {
 		webSocket.current = new WebSocket(
-			`${import.meta.env.VITE_SOCK_URL}/chat?token=${token}`,
+			`${import.meta.env.VITE_SOCKET_API_URL}/chat?token=${token}`,
 		);
 
 		webSocket.current.onopen = () => {
