@@ -173,7 +173,7 @@ const MainPage = () => {
 			</S.PostList>
 			<S.RightSidebar>
 				<S.CalendarWrapper>
-					<CustomCalendar size="SM" hasBackgroundColor={true} />
+					<CustomCalendar size="BASE" hasBackgroundColor={true} />
 				</S.CalendarWrapper>
 				<S.AlbumWrapper>
 					<h2>가족 앨범 보기</h2>

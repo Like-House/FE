@@ -170,7 +170,9 @@ const RightSidebar = styled.div`
 `;
 
 const CalendarWrapper = styled.div`
-	height: 50%;
+	div {
+		max-width: 300px;
+	}
 `;
 
 const AlbumWrapper = styled.div`
