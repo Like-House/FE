@@ -14,6 +14,13 @@ const Container = styled.div`
 			border: 1px solid ${theme.COLOR.BACKGROUND.WHITE};
 		}
 	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		img {
+			width: 80px;
+			height: 80px;
+		}
+	}
 `;
 
 export { Container };
