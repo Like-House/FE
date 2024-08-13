@@ -227,6 +227,15 @@ const EmoPopOver = styled.div`
 	display: ${({ $emoOpen }) => ($emoOpen ? 'flex' : 'none')};
 `;
 
+const EmoticonWrapper = styled.div`
+	display: flex;
+
+	flex-wrap: wrap;
+	height: 100%;
+	overflow-y: auto;
+	padding: 10px;
+`;
+
 export {
 	InputContainer,
 	IconWrapper,
@@ -243,4 +252,5 @@ export {
 	Emoticon,
 	EmotionBtn,
 	EmoPopOver,
+	EmoticonWrapper,
 };

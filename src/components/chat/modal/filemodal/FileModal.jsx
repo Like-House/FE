@@ -21,8 +21,10 @@ const FileModal = () => {
 
 	const handleSubmit = async () => {
 		for (let i = 0; i < files.length; i++) {
-			const data = await createPresignedURL(files[0].name);
-			await uploadImageToS3({ url: data.result.url, file: files[0] });
+			const data = await createPresignedURL(files[i].name);
+			await uploadImageToS3({ url: data.result.url, file: files[i] });
+
+			console.log(data);
 
 			mutate({
 				familySpaceId: SpaceData?.familySpaceId,

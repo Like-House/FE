@@ -1,4 +1,6 @@
 import { postEmoticon } from '@/apis';
+import queryClient from '@/apis/queryClient';
+import { QUERY_KEYS } from '@/constants';
 import theme from '@/theme/theme';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
@@ -7,7 +9,9 @@ const usePostEmoticon = () => {
 	return useMutation({
 		mutationFn: postEmoticon,
 		onSuccess: () => {
-			// get 쿼리키 무효화
+			queryClient.invalidateQueries({
+				queryKey: [QUERY_KEYS.EMOTICONS],
+			});
 		},
 		onError: error => {
 			error.response &&

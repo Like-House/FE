@@ -12,7 +12,7 @@ import { RxExit } from 'react-icons/rx';
 import { TbPhoto } from 'react-icons/tb';
 import { HiOutlinePlusCircle } from 'react-icons/hi2';
 import { CgTrash } from 'react-icons/cg';
-import { Alert, FileModal, PopOver } from '@/components/index.js';
+import { Alert, Emoticon, FileModal, PopOver } from '@/components/index.js';
 import ReceiveMessage from '@/components/chat/receivemessage/ReceiveMessage.jsx';
 
 import useExitChatRoom from '@/hooks/queries/chat/useExitChatRoom';
@@ -24,6 +24,8 @@ import useWebSocketStore from '@/store/useWebSocketStore';
 import useUserIdStore from '@/store/useUserIdStore';
 import { PAGE_PATH } from '@/constants';
 import useModalStore from '@/store/useModalStore';
+import useGetEmoticon from '@/hooks/queries/chat/useGetEmoticon';
+import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
 
 const Message = ({ room }) => {
 	const { fileOpen } = useModalStore(state => state);
@@ -38,6 +40,10 @@ const Message = ({ room }) => {
 	const nav = useNavigate();
 	const { userId } = useUserIdStore();
 	const [input, setInput] = useState('');
+	const { data: spaceData } = useGetFamilySpaceId();
+	const { data: emoticonData } = useGetEmoticon({
+		familySpaceId: spaceData?.familySpaceId,
+	});
 	const {
 		messages,
 		sendMessage,
@@ -229,7 +235,11 @@ const Message = ({ room }) => {
 						<PopOver items={emoItems} />
 					</S.EmoPopOver>
 				</S.EmotionBtn>
-				<div>여기가 이모틔콘</div>
+				<S.EmoticonWrapper>
+					{emoticonData?.map(e => (
+						<Emoticon emoticon={e} key={e.familyEmoticonId} />
+					))}
+				</S.EmoticonWrapper>
 			</S.Emoticon>
 			<FileModal />
 		</S.Container>
