@@ -53,6 +53,16 @@ const deleteFamilySpace = async () => {
   return response.data;
 };
 
+const regenerateInviteCode = async () => {
+  const response = await axiosInstance.patch(`${API_PATH.FAMILY_SPACE}`);
+  return response.data;
+};
+
+const getInviteCode = async () => {
+  const response = await axiosInstance.get(`${API_PATH.FAMILY_SPACE}/code`);
+  return response.data;
+};
+
 export {
   getFamilyList,
   getMyFamilySpaceId,
@@ -62,4 +72,6 @@ export {
   getFamilySpaceId,
   updateFamilyMember,
   deleteFamilySpace,
+  regenerateInviteCode,
+  getInviteCode,
 };
