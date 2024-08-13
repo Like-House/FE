@@ -195,7 +195,7 @@ const Emoticon = styled.div`
 	display: ${({ $emoticon }) => ($emoticon ? 'flex' : 'none')};
 	flex-direction: column;
 	padding: 15px;
-	width: 92%;
+	width: 93%;
 	height: 200px;
 	background-color: ${theme.COLOR.GRAY.GRAY_0};
 	border-radius: 20px;
