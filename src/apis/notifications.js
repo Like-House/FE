@@ -1,5 +1,5 @@
 import axiosInstance from './axios';
-import { API_PATH } from '../constants/path';
+import { API_PATH } from '@/constants';
 
 export const updateNotificationSettings = async (type, status) => {
   const response = await axiosInstance.patch(
