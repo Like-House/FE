@@ -9,10 +9,11 @@ const getPosts = async ({ familySpaceId, page, size }) => {
   return data;
 };
 
-const getMyPosts = async ({ pageParam = 9223372036854776000 }) => {
+const getMyPosts = async ({ pageParam = 1 }) => {
   const response = await axios.get(
     `${API_PATH.MY_POSTS}?cursor=${pageParam}&size=10`
   );
+  console.log('API response:', response.data);
   return response.data.result;
 };
 
