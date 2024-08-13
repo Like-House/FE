@@ -36,7 +36,7 @@ export default function NotificationSettings() {
         ...prev,
         [name]: !prev[name],
       };
-      updateSetting(name).mutate(newState[name]);
+      updateSetting({ type: name, status: newState[name] }); // updateSetting 호출 시 type과 status를 객체로 전달합니다.
       return newState;
     });
   };
