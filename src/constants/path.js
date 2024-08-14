@@ -75,6 +75,7 @@ const API_PATH = {
   IMAGE: 'api/v0/s3/presigned',
 
   // alarms
+  NOTIFICATION: '/api/v0/users/alarms',
   NOTIFICATION_CHAT: '/api/v0/users/alarms/chats',
   NOTIFICATION_COMMENT: '/api/v0/users/alarms/comments',
   NOTIFICATION_COMMENT_REPLY: '/api/v0/users/alarms/comment-reply',

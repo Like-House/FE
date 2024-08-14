@@ -5,7 +5,8 @@ import useNotificationSettings from '@/hooks/queries/notifications/useNotificati
 import { RESPONSIVE_SIZE } from '@/constants/size';
 
 export default function NotificationSettings() {
-  const { updateSetting } = useNotificationSettings();
+  const { notificationSettings, isSuccess, updateSetting } =
+    useNotificationSettings();
   const [notifications, setNotifications] = useState({
     chat: false,
     comment: false,
@@ -14,6 +15,17 @@ export default function NotificationSettings() {
   });
 
   const [checkboxSize, setCheckboxSize] = useState('md');
+
+  useEffect(() => {
+    if (isSuccess && notificationSettings) {
+      setNotifications({
+        chat: notificationSettings.chatAlarmStatus,
+        comment: notificationSettings.commentAlarmStatus,
+        reply: notificationSettings.commentReplyAlarmStatus,
+        event: notificationSettings.eventAlarmStatus,
+      });
+    }
+  }, [isSuccess, notificationSettings]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -36,7 +48,7 @@ export default function NotificationSettings() {
         ...prev,
         [name]: !prev[name],
       };
-      updateSetting({ type: name, status: newState[name] }); // updateSetting 호출 시 type과 status를 객체로 전달합니다.
+      updateSetting({ type: name, status: newState[name] });
       return newState;
     });
   };
