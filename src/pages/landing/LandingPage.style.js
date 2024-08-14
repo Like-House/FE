@@ -10,6 +10,7 @@ const Container = styled.div`
 
 	h1 {
 		font-size: ${FONT_SIZE.FOUR_XL};
+		word-break: keep-all;
 
 		@media ${theme.WINDOW_SIZE.MOBILE} {
 			font-size: ${FONT_SIZE.LG};
@@ -68,6 +69,7 @@ const ImgBox = styled.div`
 	${theme.ALIGN.ROW_CENTER};
 	img {
 		width: 80%;
+		min-width: 400px;
 	}
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
