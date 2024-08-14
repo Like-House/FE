@@ -28,8 +28,10 @@ import useGetEmoticon from '@/hooks/queries/chat/useGetEmoticon';
 import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
 import Mymessage from './myMessage/Mymessage';
 import NOIMG from '@/assets/images/profile.webp';
+import useFile from '@/hooks/useFile';
 
 const Message = ({ room }) => {
+	const { handleFileSelectAndSend } = useFile();
 	const { fileOpen, setDelete } = useModalStore(state => state);
 	const [emoticon, setEmoticon] = useState(false);
 	const [emoOpen, setEmoOpen] = useState(false);
@@ -243,7 +245,15 @@ const Message = ({ room }) => {
 			</S.MessageContainer>
 			<S.InputContainer onSubmit={handleSend} $emoticon={emoticon}>
 				<S.IconWrapper>
-					<HiOutlinePhotograph size={25} />
+					<S.FileInput
+						multiple
+						type="file"
+						id="file"
+						onChange={e => handleFileSelectAndSend(e, chatRoomId)}
+					/>
+					<label htmlFor="file">
+						<HiOutlinePhotograph size={25} />
+					</label>
 					<FaRegSmile size={23} onClick={() => setEmoticon(prev => !prev)} />
 				</S.IconWrapper>
 				<input

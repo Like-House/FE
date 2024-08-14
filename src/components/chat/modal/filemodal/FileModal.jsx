@@ -24,8 +24,6 @@ const FileModal = () => {
 			const data = await createPresignedURL(files[i].name);
 			await uploadImageToS3({ url: data.result.url, file: files[i] });
 
-			console.log(data);
-
 			mutate({
 				familySpaceId: SpaceData?.familySpaceId,
 				imageKeyName: data.result.keyName,

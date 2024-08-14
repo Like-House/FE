@@ -223,6 +223,10 @@ const EmoticonWrapper = styled.div`
 	padding: 10px;
 `;
 
+const FileInput = styled.input`
+	display: none;
+`;
+
 export {
 	InputContainer,
 	IconWrapper,
@@ -238,4 +242,5 @@ export {
 	EmotionBtn,
 	EmoPopOver,
 	EmoticonWrapper,
+	FileInput,
 };
