@@ -8,7 +8,11 @@ const Mymessage = ({ message }) => {
 
 	return (
 		<S.MyContainer>
-			{content ? <S.MyMessage>{content}</S.MyMessage> : <img src={data?.url} />}
+			{!imageKeyName ? (
+				<S.MyMessage>{content}</S.MyMessage>
+			) : (
+				<img src={data?.url} />
+			)}
 		</S.MyContainer>
 	);
 };

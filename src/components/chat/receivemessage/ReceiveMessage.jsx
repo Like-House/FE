@@ -14,13 +14,15 @@ const ReceiveMessage = ({ member }) => {
 	);
 	const { data: emoticonData } = useGetSendEmoticon({ imageUrl: imageKeyName });
 
+	console.log(emoticonData, member);
+
 	return (
 		<S.YourMessageContainer>
 			<S.Profile>
 				<Avatar src={senderDTO.senderProfile ? data?.url : NOIMG} size="sm" />
 				<p>{senderDTO.senderName}</p>
 			</S.Profile>
-			{content ? (
+			{!imageKeyName ? (
 				<S.YourMessage>{content}</S.YourMessage>
 			) : (
 				<S.Emoticon src={emoticonData?.url} />
