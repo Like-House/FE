@@ -64,8 +64,10 @@ const PostModal = ({
 				setStep(step + 1);
 			}
 		} else if (step === 2) {
-			const selectedFamily = familyList?.familyDataList?.find(family => family.nickname === selectedOption);
+			const selectedFamily = familyList?.familyDataList?.find(family => family.name === selectedOption);
       const userId = selectedFamily?.userId || 0; 
+			const userName = selectedFamily?.name || 0;
+			console.log("이름", userName);
 
 			const postData =
 				{ 
@@ -74,7 +76,7 @@ const PostModal = ({
 					taggedUserIds: [
 						{
 							userId: userId,
-							nickname: selectedOption,
+							nickname: userName,
 						}
 					],
 					imageUrls: [
@@ -95,7 +97,7 @@ const PostModal = ({
 		setSelectedOption(option);
 	};
 
-	const dropdownOptions = familyList?.familyDataList?.map(family => family.nickname) || [];
+	const dropdownOptions = familyList?.familyDataList?.map(family => family.name) || [];
 
 	const renderContent = () => {
 		if (step === 1) {
