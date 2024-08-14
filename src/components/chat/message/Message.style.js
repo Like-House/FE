@@ -177,20 +177,6 @@ const MessageContainer = styled.div`
 	padding: 0 20px;
 `;
 
-const MyContainer = styled.div`
-	display: flex;
-	justify-content: flex-end;
-	margin: 7px 0;
-`;
-
-const MyMessage = styled.div`
-	background-color: ${theme.COLOR.MAIN.YELLOW};
-	max-width: 300px;
-	width: fit-content;
-	border-radius: 18px;
-	padding: 10px 15px;
-`;
-
 const Emoticon = styled.div`
 	display: ${({ $emoticon }) => ($emoticon ? 'flex' : 'none')};
 	flex-direction: column;
@@ -248,8 +234,6 @@ export {
 	NoChatContainer,
 	MessageContainer,
 	NavWrapper,
-	MyMessage,
-	MyContainer,
 	Emoticon,
 	EmotionBtn,
 	EmoPopOver,

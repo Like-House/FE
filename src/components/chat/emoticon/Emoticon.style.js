@@ -10,6 +10,10 @@ const Container = styled.div`
 		object-fit: cover;
 		border-radius: 10px;
 		cursor: pointer;
+
+		&:hover {
+			border: 1px solid ${theme.COLOR.BACKGROUND.WHITE};
+		}
 	}
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {

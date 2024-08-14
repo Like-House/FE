@@ -26,6 +26,7 @@ import { PAGE_PATH } from '@/constants';
 import useModalStore from '@/store/useModalStore';
 import useGetEmoticon from '@/hooks/queries/chat/useGetEmoticon';
 import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
+import Mymessage from './myMessage/Mymessage';
 
 const Message = ({ room }) => {
 	const { fileOpen, setDelete } = useModalStore(state => state);
@@ -63,6 +64,8 @@ const Message = ({ room }) => {
 		take: 20,
 	});
 
+	console.log(messageData);
+
 	const scrollToBottom = () => {
 		if (scrollRef.current) {
 			scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -99,12 +102,24 @@ const Message = ({ room }) => {
 		if (input.trim()) {
 			const message = JSON.stringify({
 				chatType: 'TALK',
+				imageKeyName: null,
 				content: input,
 				chatRoomId,
 			});
 			sendMessage(message);
 			setInput('');
 		}
+	};
+
+	const submitEmoticon = keyname => {
+		const message = JSON.stringify({
+			chatType: 'TALK',
+			imageKeyName: keyname,
+			content: null,
+			chatRoomId,
+		});
+		sendMessage(message);
+		setInput('');
 	};
 
 	const handleExit = () => {
@@ -190,27 +205,23 @@ const Message = ({ room }) => {
 				<div ref={ref}>
 					{isFetchingNextPage && <div>Loading more messages...</div>}
 				</div>
-				{messageData?.reverse().map(page =>
-					page.result.chatResponseList.map(e =>
-						e.senderDTO.senderId === userId ? (
-							<S.MyContainer key={e.chatId}>
-								<S.MyMessage>{e.content}</S.MyMessage>
-							</S.MyContainer>
-						) : (
-							<ReceiveMessage member={e} key={e.chatId} />
+				{messageData
+					?.reverse()
+					.map(page =>
+						page.result.chatResponseList.map(e =>
+							e.senderDTO.senderId === userId ? (
+								<Mymessage message={e} key={e.chatId} />
+							) : (
+								<ReceiveMessage member={e} key={e.chatId} />
+							),
 						),
-					),
-				)}
+					)}
 
 				{messages.map((e, idx) =>
 					e.senderDTO?.senderName ? (
 						<ReceiveMessage member={e} key={idx} />
 					) : (
-						e.chatType === 'TALK' && (
-							<S.MyContainer key={idx}>
-								<S.MyMessage>{e.content}</S.MyMessage>
-							</S.MyContainer>
-						)
+						e.chatType === 'TALK' && <Mymessage message={e} key={idx} />
 					),
 				)}
 			</S.MessageContainer>
@@ -242,6 +253,7 @@ const Message = ({ room }) => {
 							emoticon={e}
 							key={e.familyEmoticonId}
 							familySpaceId={spaceData?.familySpaceId}
+							onClick={submitEmoticon}
 						/>
 					))}
 				</S.EmoticonWrapper>
