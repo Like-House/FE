@@ -49,6 +49,7 @@ const PAGE_PATH = {
 	NOTIFICATION_SETTINGS: 'notification-settings',
 	// /home/setting/edit-profile
 	ADD_SCHEDULE: '/add-schedule',
+	PATCH_SCHEDULE: '/patch-schedule',
 };
 
 const API_PATH = {

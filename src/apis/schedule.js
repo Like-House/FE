@@ -13,7 +13,7 @@ const createSchedule = async ({ date, scheduleType, title, content }) => {
 	return data;
 };
 
-const getOneSchedule = async ({ scheduleId }) => {
+const getSingleSchedule = async ({ scheduleId }) => {
 	const { data } = await axiosInstance.get(
 		`${API_PATH.SCHEDULE}/${scheduleId}`,
 	);
@@ -58,7 +58,7 @@ const patchSchedule = async ({ scheduleId, date, dtype, title, content }) => {
 export {
 	createSchedule,
 	patchSchedule,
-	getOneSchedule,
+	getSingleSchedule,
 	getMonthlySchedule,
 	getDailySchedule,
 };

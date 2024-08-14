@@ -120,8 +120,8 @@ const CalenderMainPage = () => {
 	}, [schedules]);
 
 	// PopOver
-	const handleEdit = () => {
-		console.log('Edit button clicked');
+	const handleEdit = scheduleId => {
+		navigate('/home/calender/patch-schedule', { state: { scheduleId } });
 	};
 
 	const handleDelete = () => {
@@ -131,8 +131,12 @@ const CalenderMainPage = () => {
 		setShowAlert(false);
 	};
 
-	const popoverItems = index => [
-		{ icon: <FaPenToSquare />, message: '수정하기', onClick: handleEdit },
+	const popoverItems = (index, scheduleId) => [
+		{
+			icon: <FaPenToSquare />,
+			message: '수정하기',
+			onClick: () => handleEdit(scheduleId),
+		},
 		{
 			icon: <FaTrashCan />,
 			message: '삭제하기',
@@ -207,7 +211,9 @@ const CalenderMainPage = () => {
 											}}
 											onMouseLeave={() => handlePopoverClose(index)}
 										>
-											<PopOver items={popoverItems(index)} />
+											<PopOver
+												items={popoverItems(index, schedule.scheduleId)}
+											/>
 										</div>
 									)}
 								</li>
