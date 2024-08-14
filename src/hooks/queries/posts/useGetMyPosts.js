@@ -6,10 +6,14 @@ import { getMyPosts } from '@/apis/index.js';
 const useGetMyPosts = () => {
 	return useInfiniteQuery({
 		queryKey: [QUERY_KEYS.MY_POSTS],
-		queryFn: getMyPosts,
+		queryFn: ({ pageParam }) => getMyPosts({ pageParam }),
+		initialPageParam: 1,
 		getNextPageParam: lastPage => {
-			return lastPage?.nextCursor !== -1 ? lastPage?.nextCursor : undefined;
+			return lastPage?.result.nextCursor !== -1
+				? lastPage?.result.nextCursor
+				: undefined;
 		},
+		select: data => data.pages,
 	});
 };
 
