@@ -15,21 +15,24 @@ const Container = styled.div`
 
 const ContentContainer = styled.div`
 	z-index: 1;
-	max-width: 1400px;
+	max-width: 1300px;
 `;
 
 const Content = styled.div`
 	padding: 0px 150px;
+
 	h1 {
-		margin-top: 100px;
+		margin-top: 130px;
 	}
+
+	margin-bottom: 400px;
 `;
 
 const BackGround = styled.div`
 	position: absolute;
 	top: 100px;
 	width: 100%;
-	height: 1300px;
+	height: 1200px;
 	background: linear-gradient(
 		181deg,
 		#fafafa 0.71%,
@@ -51,8 +54,15 @@ const ImgBox = styled.div`
 	margin-top: 180px;
 	${theme.ALIGN.ROW_CENTER};
 	img {
-		width: 90%;
+		width: 80%;
 	}
+`;
+
+const BackGround2 = styled(BackGround)`
+	top: 1450px;
+`;
+const BackGround3 = styled(BackGround)`
+	top: 2800px;
 `;
 
 export {
@@ -62,4 +72,6 @@ export {
 	Content,
 	ContentWrapper,
 	ImgBox,
+	BackGround2,
+	BackGround3,
 };
