@@ -9,6 +9,8 @@ import Alert from '@/components/common/alert/alert';
 import { HiMiniEllipsisVertical } from 'react-icons/hi2';
 import { FaPenToSquare, FaTrashCan } from 'react-icons/fa6';
 import useGetMonthlySchedule from '@/hooks/queries/schedule/useGetMonthlySchedule';
+import useGetDailySchedule from '@/hooks/queries/schedule/useGetDailySchedule';
+import useCalendarStore from '@/store/useCalendarStore';
 
 const CalenderMainPage = () => {
 	const navigate = useNavigate();
@@ -31,6 +33,28 @@ const CalenderMainPage = () => {
 		return month;
 	};
 
+	const getCurrentDate = () => {
+		const today = new Date();
+		const year = today.getFullYear();
+		const month = String(today.getMonth() + 1).padStart(2, '0');
+		const day = String(today.getDate()).padStart(2, '0');
+		return `${year}-${month}-${day}`;
+	};
+
+	const currentDate = getCurrentDate();
+
+	//날짜 선택 후 한국 시간으로 변경
+	const { date } = useCalendarStore();
+	let selectedDate = null;
+	if (date) {
+		const utcDate = new Date(date);
+		if (!isNaN(utcDate.getTime())) {
+			const kstDate = new Date(utcDate.getTime() + 9 * 60 * 60 * 1000);
+			selectedDate = kstDate?.toISOString().split('T')[0];
+		}
+	}
+	console.log(selectedDate);
+
 	const currentMonth = getCurrentMonth();
 	const currentYearMonth = getCurrentYearMonth();
 
@@ -41,15 +65,17 @@ const CalenderMainPage = () => {
 		size: 10,
 	});
 	const monthlyScheduleDataList = monthlyScheduleData?.scheduleDataResponseList;
+	console.log(monthlyScheduleDataList);
 
-	//날짜 순으로 정렬
-	const sortSchedulesByDate = schedules => {
-		return schedules
-			.slice()
-			.sort((a, b) => new Date(a.date) - new Date(b.date));
-	};
+	//일 별 일정
+	const { data: dailyScheduleData } = useGetDailySchedule({
+		date: selectedDate || currentDate,
+		cursor: 1,
+		size: 10,
+	});
 
-	const sortedSchedules = sortSchedulesByDate(monthlyScheduleDataList);
+	const dailyScheduleDataList = dailyScheduleData?.scheduleDataResponseList;
+	console.log(dailyScheduleDataList);
 
 	const handleClick = () => {
 		navigate('/home/calender/add-schedule');
@@ -155,36 +181,37 @@ const CalenderMainPage = () => {
 				</S.Calender>
 				<S.ScheduleList>
 					<ul>
-						{schedules.map((schedule, index) => (
-							<li key={index}>
-								<div>
-									<p>{schedule.date}</p>
-									<br />
-									<strong>{schedule.title}</strong>
-									<br />
-									<p>{schedule.content}</p>
-								</div>
-								<span
-									onClick={() => handlePopoverToggle(index)}
-									style={{ marginLeft: 'auto', cursor: 'pointer' }}
-								>
-									<HiMiniEllipsisVertical />
-								</span>
-								{showPopover[index] && (
-									<div
-										style={{
-											position: 'absolute',
-											top: '30px',
-											right: '40px',
-											zIndex: '1',
-										}}
-										onMouseLeave={() => handlePopoverClose(index)}
-									>
-										<PopOver items={popoverItems(index)} />
+						{dailyScheduleDataList?.length > 0 &&
+							dailyScheduleDataList.map((schedule, index) => (
+								<li key={index}>
+									<div>
+										<p>{schedule.date}</p>
+										<br />
+										<strong>{schedule.title}</strong>
+										<br />
+										<p>{schedule.content}</p>
 									</div>
-								)}
-							</li>
-						))}
+									<span
+										onClick={() => handlePopoverToggle(index)}
+										style={{ marginLeft: 'auto', cursor: 'pointer' }}
+									>
+										<HiMiniEllipsisVertical />
+									</span>
+									{showPopover[index] && (
+										<div
+											style={{
+												position: 'absolute',
+												top: '30px',
+												right: '40px',
+												zIndex: '1',
+											}}
+											onMouseLeave={() => handlePopoverClose(index)}
+										>
+											<PopOver items={popoverItems(index)} />
+										</div>
+									)}
+								</li>
+							))}
 					</ul>
 				</S.ScheduleList>
 			</S.Schedule>
@@ -192,8 +219,8 @@ const CalenderMainPage = () => {
 				<h2>우리 가족 {currentMonth}월 일정</h2>
 				<div>
 					<ul>
-						{sortedSchedules.length > 0 ? (
-							sortedSchedules.map((schedule, index) => (
+						{monthlyScheduleDataList?.length > 0 ? (
+							monthlyScheduleDataList.map((schedule, index) => (
 								<li key={index}>
 									<strong>{schedule.title}</strong>
 									{schedule.date}

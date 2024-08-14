@@ -21,6 +21,14 @@ const getOneSchedule = async ({ scheduleId }) => {
 	return data;
 };
 
+const getDailySchedule = async ({ date, cursor, size }) => {
+	const { data } = await axiosInstance.get(
+		`${API_PATH.SCHEDULE}/date?date=${date}&cursor=${cursor}&size=${size}`,
+	);
+
+	return data;
+};
+
 const getMonthlySchedule = async ({ yearMonth, page, size }) => {
 	const { data } = await axiosInstance.get(
 		`${API_PATH.SCHEDULE}/month?yearMonth=${yearMonth}&page=${page}&size=${size}`,
@@ -47,4 +55,10 @@ const patchSchedule = async ({ scheduleId, date, dtype, title, content }) => {
 	}
 };
 
-export { createSchedule, patchSchedule, getOneSchedule, getMonthlySchedule };
+export {
+	createSchedule,
+	patchSchedule,
+	getOneSchedule,
+	getMonthlySchedule,
+	getDailySchedule,
+};
