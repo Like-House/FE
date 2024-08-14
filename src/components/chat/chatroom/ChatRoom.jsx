@@ -6,6 +6,7 @@ import { Avatar } from '@/components/index.js';
 import useGetRealImageUrl from '@/hooks/queries/image/useGetRealImage';
 import { useChatRoom } from '@/store';
 import { PAGE_PATH } from '@/constants';
+import NOIMG from '@/assets/images/profile.webp';
 
 const ChatRoom = ({ room }) => {
 	const nav = useNavigate();
@@ -27,8 +28,7 @@ const ChatRoom = ({ room }) => {
 	return (
 		<S.Container onClick={handleClick}>
 			{isPending ? (
-				// TODO:다른 브랜치에 있는 사진 머지되면 기본 이미지로 변경
-				<Avatar src={''} size="sm" />
+				<Avatar src={NOIMG} size="sm" />
 			) : (
 				<Avatar src={data?.result.url} size="sm" />
 			)}
