@@ -10,6 +10,7 @@ import useFamilySpaceId from '@/hooks/useFamilySpaceId.js';
 import useGetPosts from '@/hooks/queries/posts/useGetPosts.js';
 import CustomCalendar from '@/components/common/calendar/CustomCalendar.jsx';
 import useGetImageUrl from '@/hooks/queries/image/useGetImageUrl.js';
+import useDeletePost from '@/hooks/queries/posts/useDeletePost.js';
 
 const MainPage = () => {
 	const { data } = useFamilySpaceId();
@@ -19,7 +20,11 @@ const MainPage = () => {
 		size: 10,
 	});
 
-	console.log('familyId', data?.familySpaceId);
+	// console.log('familyId', data?.familySpaceId);
+
+	console.log(boardList);
+
+	const {mutate} = useDeletePost();
 
 	const [showMenu, setShowMenu] = useState(null);
 	const [likes, setLikes] = useState({});
@@ -94,8 +99,11 @@ const MainPage = () => {
 			message: '삭제하기',
 			onClick: () => {
 				console.log('삭제하기 클릭됨');
+				console.log(showMenu);
+				if (showMenu) {
+					mutate(showMenu);
+				}
 				setShowMenu(null);
-				deletePostMutation.mutate(showMenu);
 			},
 		},
 		{
@@ -127,11 +135,11 @@ const MainPage = () => {
 									</S.AuthorWrapper>
 
 									<S.MenuButton>
-										<button onClick={() => handleMenuToggle(post.id)}>
+										<button onClick={() => handleMenuToggle(post.postId)}>
 											<HiMiniEllipsisHorizontal />
 										</button>
 										<S.Popover>
-											{showMenu === post.id && (
+											{showMenu === post.postId && (
 												<PopOver
 													items={menuItems}
 													onMouseLeave={handleMouseLeave}
