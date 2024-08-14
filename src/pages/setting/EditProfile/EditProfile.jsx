@@ -1,15 +1,24 @@
 import * as S from './EditProfile.style';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CustomButton, CustomInput, Alert, Avatar } from '@/components/index';
 import useImageUpload from '@/hooks/useImageUpload';
+import useGetProfile from '@/hooks/queries/user/useGetProfile';
 
 const EditProfile = () => {
+  const { data: profileData, isSuccess } = useGetProfile();
   const [name, setName] = useState('');
   const [birthday, setBirthday] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormModified, setIsFormModified] = useState(false);
   const [profilePicture, handlePictureChange, resetPicture] =
     useImageUpload('');
+
+  useEffect(() => {
+    if (isSuccess && profileData) {
+      setName(profileData.name);
+      setBirthday(profileData.birthDate);
+    }
+  }, [isSuccess, profileData]);
 
   const handleDateChange = (e) => {
     setBirthday(e.target.value);
