@@ -11,6 +11,8 @@ import useGetPosts from '@/hooks/queries/posts/useGetPosts.js';
 import CustomCalendar from '@/components/common/calendar/CustomCalendar.jsx';
 import useGetImageUrl from '@/hooks/queries/image/useGetImageUrl.js';
 import useDeletePost from '@/hooks/queries/posts/useDeletePost.js';
+import useLikePost from '@/hooks/queries/posts/useLikePost.js';
+import useUnlikePost from '@/hooks/queries/posts/useUnLikePost.js';
 
 const MainPage = () => {
 	const { data } = useFamilySpaceId();
@@ -22,9 +24,9 @@ const MainPage = () => {
 
 	// console.log('familyId', data?.familySpaceId);
 
-	console.log(boardList);
-
 	const {mutate} = useDeletePost();
+	const likePostMutation = useLikePost();
+	const unlikePostMutation = useUnlikePost();
 
 	const [showMenu, setShowMenu] = useState(null);
 	const [likes, setLikes] = useState({});
@@ -33,17 +35,22 @@ const MainPage = () => {
 	const [commentInputs, setCommentInputs] = useState({});
 	const [showCommentInput, setShowCommentInput] = useState({});
 
-	const handleLike = postid => {
-		const liked = likes[postid]?.liked || false;
-		setLikes(prev => {
-			const currentLike = prev[postid];
-			const newCount = liked ? currentLike.count - 1 : currentLike.count + 1;
-			return {
-				...prev,
-				[postid]: { count: newCount, liked: !liked },
-			};
+	const handleLike = (postId) => {
+		setLikes((prev) => {
+				const currentLike = prev[postId] || { count: 0, liked: false };
+				const liked = currentLike.liked;
+            const newCount = liked ? currentLike.count - 1 : currentLike.count + 1;
+				return {
+						...prev,
+						[postId]: { count: newCount, liked: !liked },
+				};
 		});
-		updateLikeMutation.mutate({ postid, liked });
+
+		if (likes[postId]?.liked) {
+				unlikePostMutation.mutate(postId);
+		} else {
+				likePostMutation.mutate(postId);
+		}
 	};
 
 	const handleCommentClick = postid => {
@@ -153,8 +160,8 @@ const MainPage = () => {
 									<S.Photo src={post.imageUrls[0]} alt="post photo" />
 								)}
 								<S.Footer>
-									<p onClick={() => handleLike(post.id)}>
-										좋아요 {likes[post.id]?.count}
+									<p onClick={() => handleLike(post.postId)}>
+										좋아요 {likes[post.postId]?.count || 0}
 									</p>
 									<p onClick={() => handleCommentClick(post.id)}>
 										댓글 {commentCounts[post.id]}
@@ -181,7 +188,7 @@ const MainPage = () => {
 						<S.Divider />
 					</S.PostItem>
 				)
-				)};
+				)}
 		</S.PostList>
 		<S.RightSidebar>
 			<S.CalendarWrapper>
