@@ -89,6 +89,16 @@ const AlertMainPage = () => {
 		}
 	};
 
+	const { date } = useCalendarStore();
+	let selectedKstDate = null;
+	if (date) {
+		const utcDate = new Date(date);
+		if (!isNaN(utcDate.getTime())) {
+			const kstDate = new Date(utcDate.getTime() + 9 * 60 * 60 * 1000);
+			selectedKstDate = kstDate?.toISOString().split('T')[0];
+		}
+	}
+
 	const renderAlerts = type => {
 		let alerts = [];
 		switch (type) {
@@ -106,7 +116,11 @@ const AlertMainPage = () => {
 				break;
 		}
 
-		return alerts
+		const filteredAlerts = selectedKstDate
+			? alerts.filter(alert => alert.date === selectedKstDate)
+			: alerts;
+
+		return filteredAlerts
 			.sort((a, b) => new Date(b.date) - new Date(a.date))
 			.map((alert, index) => (
 				<AlertBox
