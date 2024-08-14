@@ -62,9 +62,10 @@ const API_PATH = {
 
   // posts
   MY_POSTS: '/api/v0/posts/my-posts',
-
-  // chat
-  CHAT: '/api/v0/chat-rooms',
+  
+	// chat
+	CHAT: '/api/v0/chat-rooms',
+	EMOTICON: 'api/v0/family-space/family-emoticon',
 
   // family
   FAMILY: 'api/v0/user-management',
