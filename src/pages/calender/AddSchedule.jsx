@@ -8,6 +8,7 @@ import FloatingButton from '@/components/common/floatingbutton/floatingbutton';
 import Alert from '@/components/common/alert/alert';
 
 import DefaultIcon from '@/assets/images/floatingsetting.png';
+import useCreateSchedule from '@/hooks/queries/schedule/useCreateSchedule';
 
 const AddSchedulePage = () => {
 	const [title, setTitle] = useState('');
@@ -18,6 +19,8 @@ const AddSchedulePage = () => {
 
 	const navigate = useNavigate();
 
+	const { mutate: createSchedule } = useCreateSchedule();
+
 	const handleSubmit = e => {
 		e.preventDefault();
 		if (!title || !date || !content || !scheduleType) {
@@ -25,9 +28,16 @@ const AddSchedulePage = () => {
 			return;
 		}
 		const newSchedule = { title, date, content, scheduleType };
-		console.log('일정 추가:', newSchedule);
 
-		navigate('/home/calender', { state: { schedule: newSchedule } });
+		createSchedule(newSchedule, {
+			onSuccess: () => {
+				navigate('/home/calender', { state: { schedule: newSchedule } });
+				console.log('일정 추가:', newSchedule);
+			},
+			onError: error => {
+				console.log('일정 추가 실패:', error);
+			},
+		});
 	};
 
 	const handleClick = () => {

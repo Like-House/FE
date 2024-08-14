@@ -89,6 +89,9 @@ const API_PATH = {
 	ALBUM: '/api/v0/family-album',
 	ALBUM_POST: '/api/v0/family-album/posts',
 
+	//schedule
+	SCHEDULE: '/api/v0/schedules',
+
 	// social login
 	KAKAO_REDIRECT: 'oauth2/authorization/kakao',
 	GOOGLE_REDITECT: 'oauth2/authorization/google',
