@@ -65,6 +65,7 @@ const API_PATH = {
 
 	// chat
 	CHAT: '/api/v0/chat-rooms',
+	EMOTICON: 'api/v0/family-space/family-emoticon',
 
 	// family
 	FAMILY: 'api/v0/user-management',

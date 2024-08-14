@@ -66,6 +66,31 @@ const getChatMessage = async ({ chatRoomId, cursor, take }) => {
 	return data;
 };
 
+// emoticon
+const postEmoticon = async ({ familySpaceId, imageKeyName }) => {
+	const { data } = await axiosInstance.post(`${API_PATH.EMOTICON}`, {
+		familySpaceId,
+		imageKeyName,
+	});
+	return data;
+};
+
+const getEmoticon = async ({ familySpaceId }) => {
+	const { data } = await axiosInstance.get(
+		`${API_PATH.FAMILY_SPACE}/${familySpaceId}/family-emoticon`,
+	);
+
+	return data;
+};
+
+const deleteEmoticon = async ({ familySpaceId, familyEmoticonId }) => {
+	const { data } = await axiosInstance.delete(
+		`${API_PATH.FAMILY_SPACE}/${familySpaceId}/family-emoticon/${familyEmoticonId}`,
+	);
+
+	return data;
+};
+
 export {
 	getChatRooms,
 	createChatRoom,
@@ -73,4 +98,7 @@ export {
 	patchChatRoom,
 	getChatRoomUsers,
 	getChatMessage,
+	postEmoticon,
+	getEmoticon,
+	deleteEmoticon,
 };
