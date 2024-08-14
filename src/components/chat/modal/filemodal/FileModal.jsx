@@ -49,11 +49,11 @@ const FileModal = () => {
 							</S.ImgContainer>
 						) : (
 							<S.ImgContainer>
-								<label htmlFor="file">사진 올리기</label>
+								<label htmlFor="emoticon">사진 올리기</label>
 								<S.FileInput
 									multiple
 									type="file"
-									id="file"
+									id="emoticon"
 									onChange={handleChangeFiles}
 								/>
 							</S.ImgContainer>
