@@ -4,9 +4,7 @@ import { CustomButton, CustomInput } from '@/components';
 
 import useForm from '@/hooks/useForm';
 import useCheckSpaceCode from '@/hooks/queries/family/useCheckSpaceCode';
-import useEnterSpace from '@/hooks/queries/family/useEnterSpace';
 import { validataCode } from '@/utils';
-import useFamilySpaceStore from '@/store/useFamilySpaceStore';
 import errorIcon from '@/assets/images/error.png';
 import successIcon from '@/assets/images/success.png';
 
@@ -19,15 +17,9 @@ const InvitationLink = () => {
 	});
 
 	const { mutate } = useCheckSpaceCode();
-	const { mutate: enterMutate } = useEnterSpace();
-	const { familySpaceId } = useFamilySpaceStore();
 
 	const handleSubmit = () => {
 		mutate(codeForm.values.familySpaceCode);
-
-		if (familySpaceId) {
-			enterMutate(familySpaceId);
-		}
 	};
 
 	const getIcon = () => {
