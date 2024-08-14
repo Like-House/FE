@@ -10,6 +10,10 @@ const Container = styled.div`
 
 	h1 {
 		font-size: ${FONT_SIZE.FOUR_XL};
+
+		@media ${theme.WINDOW_SIZE.MOBILE} {
+			font-size: ${FONT_SIZE.LG};
+		}
 	}
 `;
 
@@ -39,6 +43,15 @@ const BackGround = styled.div`
 		#ffc933 55.59%,
 		#fafafa 99.29%
 	);
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		background: linear-gradient(
+			181deg,
+			#fff 0.71%,
+			#ffc933 55.59%,
+			#fff 99.29%
+		);
+	}
 `;
 
 const ContentWrapper = styled.div`
@@ -56,6 +69,13 @@ const ImgBox = styled.div`
 	img {
 		width: 80%;
 	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		img {
+			width: 100%;
+			min-width: 300px;
+		}
+	}
 `;
 
 const BackGround2 = styled(BackGround)`
@@ -63,6 +83,10 @@ const BackGround2 = styled(BackGround)`
 `;
 const BackGround3 = styled(BackGround)`
 	top: 2800px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		display: none;
+	}
 `;
 
 export {
