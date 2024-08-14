@@ -8,7 +8,7 @@ const Mymessage = ({ message }) => {
 
 	return (
 		<S.MyContainer>
-			{!imageKeyName ? (
+			{content && content !== 'null' ? (
 				<S.MyMessage>{content}</S.MyMessage>
 			) : (
 				<img src={data?.url} />
