@@ -27,6 +27,7 @@ import useModalStore from '@/store/useModalStore';
 import useGetEmoticon from '@/hooks/queries/chat/useGetEmoticon';
 import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
 import Mymessage from './myMessage/Mymessage';
+import NOIMG from '@/assets/images/profile.webp';
 
 const Message = ({ room }) => {
 	const { fileOpen, setDelete } = useModalStore(state => state);
@@ -200,7 +201,12 @@ const Message = ({ room }) => {
 				<S.NavWrapper>
 					<IoIosArrowBack size={25} onClick={handleExit} />
 					<S.UserContainer onClick={handleInfo}>
-						<img src={data?.result.url} alt="profile" />
+						{imageKeyName ? (
+							<img src={data?.result.url} alt="profile" />
+						) : (
+							<img src={NOIMG} alt="profile" />
+						)}
+
 						<p>{title}</p>
 					</S.UserContainer>
 				</S.NavWrapper>

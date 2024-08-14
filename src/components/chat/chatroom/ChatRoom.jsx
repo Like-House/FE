@@ -27,7 +27,7 @@ const ChatRoom = ({ room }) => {
 
 	return (
 		<S.Container onClick={handleClick}>
-			{isPending ? (
+			{isPending || !imageKeyName ? (
 				<Avatar src={NOIMG} size="sm" />
 			) : (
 				<Avatar src={data?.result.url} size="sm" />

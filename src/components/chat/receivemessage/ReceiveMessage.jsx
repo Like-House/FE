@@ -14,8 +14,6 @@ const ReceiveMessage = ({ member }) => {
 	);
 	const { data: emoticonData } = useGetSendEmoticon({ imageUrl: imageKeyName });
 
-	console.log(content, imageKeyName);
-
 	return (
 		<S.YourMessageContainer>
 			<S.Profile>

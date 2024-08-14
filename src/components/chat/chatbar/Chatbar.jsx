@@ -13,7 +13,6 @@ import useGetChatRoom from '@/hooks/queries/chat/useGetChatRoom';
 import useGetFamilyList from '@/hooks/queries/family/useGetFamilyList';
 import useCreateChatRoom from '@/hooks/queries/chat/useCreateChatRoom';
 import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
-import { IMAGE } from '@/constants';
 import { useInView } from 'react-intersection-observer';
 import useThrottling from '@/hooks/useThrottling';
 
@@ -63,11 +62,11 @@ const Chatbar = () => {
 			const members = familyData.familyDataList.map(e => e.name);
 			const membersId = familyData.familyDataList
 				.map(e => e.userId)
-				.filter(id => id !== data?.ownerId);
+				.filter(id => id !== data[0].result.ownerId);
 			mutate({
 				familySpaceId: spaceIdData?.familySpaceId,
 				title: members.join(',') + ' (' + familyData.size + ')',
-				imageKeyName: IMAGE.BASIC, // TODO:프로필 4분할?로 수정해야함 지금은 기본이미지로
+				imageKeyName: null,
 				chatRoomType: 'GROUP',
 				roomParticipantIds: membersId,
 			});
