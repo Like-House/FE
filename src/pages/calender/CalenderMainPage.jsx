@@ -8,6 +8,7 @@ import PopOver from '@/components/common/popover/PopOver';
 import Alert from '@/components/common/alert/alert';
 import { HiMiniEllipsisVertical } from 'react-icons/hi2';
 import { FaPenToSquare, FaTrashCan } from 'react-icons/fa6';
+import useGetMonthlySchedule from '@/hooks/queries/schedule/useGetMonthlySchedule';
 
 const CalenderMainPage = () => {
 	const navigate = useNavigate();
@@ -16,6 +17,39 @@ const CalenderMainPage = () => {
 	const [showPopover, setShowPopover] = useState({});
 	const [showAlert, setShowAlert] = useState(false);
 	const [currentIndex, setCurrentIndex] = useState(null);
+
+	const getCurrentYearMonth = () => {
+		const now = new Date();
+		const year = now.getFullYear();
+		const month = String(now.getMonth() + 1).padStart(2, '0');
+		return `${year}-${month}`;
+	};
+
+	const getCurrentMonth = () => {
+		const now = new Date();
+		const month = now.getMonth() + 1;
+		return month;
+	};
+
+	const currentMonth = getCurrentMonth();
+	const currentYearMonth = getCurrentYearMonth();
+
+	//월 별 일정
+	const { data: monthlyScheduleData } = useGetMonthlySchedule({
+		yearMonth: currentYearMonth,
+		page: 1,
+		size: 10,
+	});
+	const monthlyScheduleDataList = monthlyScheduleData?.scheduleDataResponseList;
+
+	//날짜 순으로 정렬
+	const sortSchedulesByDate = schedules => {
+		return schedules
+			.slice()
+			.sort((a, b) => new Date(a.date) - new Date(b.date));
+	};
+
+	const sortedSchedules = sortSchedulesByDate(monthlyScheduleDataList);
 
 	const handleClick = () => {
 		navigate('/home/calender/add-schedule');
@@ -155,17 +189,21 @@ const CalenderMainPage = () => {
 				</S.ScheduleList>
 			</S.Schedule>
 			<S.RightSidebar>
-				<h2>우리 가족 8월 일정</h2>
+				<h2>우리 가족 {currentMonth}월 일정</h2>
 				<div>
 					<ul>
-						{schedules.map((schedule, index) => (
-							<li key={index}>
-								<strong>{schedule.title}</strong>
-								{schedule.date}
-								<br />
-								<p>{schedule.content}</p>
-							</li>
-						))}
+						{sortedSchedules.length > 0 ? (
+							sortedSchedules.map((schedule, index) => (
+								<li key={index}>
+									<strong>{schedule.title}</strong>
+									{schedule.date}
+									<br />
+									<p>{schedule.content}</p>
+								</li>
+							))
+						) : (
+							<li>일정이 없습니다.</li>
+						)}
 					</ul>
 				</div>
 			</S.RightSidebar>
