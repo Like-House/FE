@@ -34,8 +34,6 @@ const Chatbar = () => {
 		initialInView: false,
 	});
 
-	console.log(data);
-
 	const throttlingNewPage = useThrottling(fetchNextPage, 1 * 1000);
 
 	useEffect(() => {

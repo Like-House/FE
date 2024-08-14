@@ -64,8 +64,6 @@ const Message = ({ room }) => {
 		take: 20,
 	});
 
-	console.log(messageData);
-
 	const scrollToBottom = () => {
 		if (scrollRef.current) {
 			scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -86,9 +84,21 @@ const Message = ({ room }) => {
 	}, [inView, isFetching, hasNextPage]);
 
 	useEffect(() => {
-		if (chatRoomId && !enter) {
+		if (chatRoomId && enter) {
+			exitChatRoom(chatRoomId);
+		}
+
+		if (chatRoomId) {
 			enterChatRoom(chatRoomId);
 		}
+		clearMessages();
+		scrollToBottom();
+
+		return () => {
+			if (enter) {
+				exitChatRoom(chatRoomId);
+			}
+		};
 	}, [chatRoomId, enterChatRoom, enter]);
 
 	useEffect(() => {
