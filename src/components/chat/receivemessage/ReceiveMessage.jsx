@@ -23,7 +23,7 @@ const ReceiveMessage = ({ member }) => {
 			{content ? (
 				<S.YourMessage>{content}</S.YourMessage>
 			) : (
-				<img src={emoticonData?.url} />
+				<S.Emoticon src={emoticonData?.url} />
 			)}
 		</S.YourMessageContainer>
 	);

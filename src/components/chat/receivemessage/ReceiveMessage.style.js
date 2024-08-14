@@ -25,4 +25,11 @@ const YourMessage = styled.div`
 	padding: 10px 15px;
 `;
 
-export { Profile, YourMessage, YourMessageContainer };
+const Emoticon = styled.img`
+	width: 100px;
+	height: 100px;
+	border-radius: 10px;
+	object-fit: cover;
+`;
+
+export { Profile, YourMessage, YourMessageContainer, Emoticon };
