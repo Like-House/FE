@@ -10,6 +10,7 @@ import Calendar from '@/assets/images/calendar.png';
 
 import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
 import useGetAlert from '@/hooks/queries/alert/useGetAlert';
+import useCalendarStore from '@/store/useCalendarStore';
 
 const AlertMainPage = () => {
 	const iconMap = {
@@ -54,10 +55,11 @@ const AlertMainPage = () => {
 
 		return notificationData.notificationResponseDTOList.map((item, index) => ({
 			id: item.id,
-			user: item.sender,
+			user: item.senderName,
 			message: item.content,
 			date: item.createAt,
 			icon: iconMap[type],
+			profile: item.profileImage,
 			key: index,
 		}));
 	};
@@ -100,20 +102,21 @@ const AlertMainPage = () => {
 				alerts = postAlerts;
 				break;
 			default:
-				alerts = [...chatAlerts, ...scheduleAlerts, ...postAlerts];
+				alerts = allAlerts;
 				break;
 		}
 
 		return alerts
 			.sort((a, b) => new Date(b.date) - new Date(a.date))
-			.map(alert => (
+			.map((alert, index) => (
 				<AlertBox
 					key={alert.key}
-					id={alert.id}
+					id={index}
 					user={alert.user}
 					message={alert.message}
 					date={alert.date}
 					icon={alert.icon}
+					profile={alert.profile}
 				/>
 			));
 	};
