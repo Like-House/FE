@@ -1,6 +1,6 @@
 import * as S from './MainPage.style.js';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaEdit, FaTrashAlt, FaRegBellSlash } from 'react-icons/fa';
 import { HiMiniEllipsisHorizontal } from 'react-icons/hi2';
 import Avatar from '@/components/common/avatar/Avatar.jsx';
@@ -13,6 +13,8 @@ import useGetImageUrl from '@/hooks/queries/image/useGetImageUrl.js';
 import useDeletePost from '@/hooks/queries/posts/useDeletePost.js';
 import useLikePost from '@/hooks/queries/posts/useLikePost.js';
 import useUnlikePost from '@/hooks/queries/posts/useUnLikePost.js';
+
+const LOCAL_STORAGE_LIKES_KEY = 'likes';
 
 const MainPage = () => {
 	const { data } = useFamilySpaceId();
@@ -34,6 +36,17 @@ const MainPage = () => {
 	const [commentCounts, setCommentCounts] = useState({});
 	const [commentInputs, setCommentInputs] = useState({});
 	const [showCommentInput, setShowCommentInput] = useState({});
+
+	useEffect(() => {
+		const storedLikes = localStorage.getItem(LOCAL_STORAGE_LIKES_KEY);
+		if (storedLikes) {
+			setLikes(JSON.parse(storedLikes));
+		}
+	}, []);
+
+	useEffect(() => {
+		localStorage.setItem(LOCAL_STORAGE_LIKES_KEY, JSON.stringify(likes));
+	}, [likes]);
 
 	const handleLike = (postId) => {
 		setLikes((prev) => {
