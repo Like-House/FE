@@ -1,5 +1,4 @@
 import * as A from './AddSchedule.style';
-
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
@@ -14,8 +13,6 @@ import usePatchSchedule from '@/hooks/queries/schedule/usePatchSchedule';
 const PatchSchedule = () => {
 	const location = useLocation();
 	const { scheduleId } = location.state || {};
-	console.log(scheduleId);
-
 	const navigate = useNavigate();
 
 	const [title, setTitle] = useState('');
@@ -28,46 +25,36 @@ const PatchSchedule = () => {
 		scheduleId: scheduleId ? scheduleId : null,
 	});
 
-	// const { mutate: patchSchedule } = usePatchSchedule();
+	const { mutate: patchSchedule } = usePatchSchedule();
 
-	// useEffect(() => {
-	// 	if (isSuccess && scheduleData) {
-	// 		const { title, date, content, scheduleType } = scheduleData;
-	// 		setTitle(title);
-	// 		setDate(date);
-	// 		setContent(content);
-	// 		setScheduleType(scheduleType);
-	// 	}
-	// }, [isSuccess, scheduleData]);
-
-	console.log(scheduleData);
+	useEffect(() => {
+		if (scheduleData) {
+			setTitle(scheduleData.title);
+			setDate(scheduleData.date);
+			setContent(scheduleData.content);
+			setScheduleType(scheduleData.dtype);
+		}
+	}, [scheduleData]);
 
 	const handleSubmit = e => {
-		// e.preventDefault();
-		// if (!title || !date || !content || !scheduleType) {
-		// 	setShowAlert(true);
-		// 	return;
-		// }
-		// const updatedSchedule = { title, date, content, scheduleType };
-
-		// patchSchedule(
-		// 	{ scheduleId, ...updatedSchedule },
-		// 	{
-		// 		onSuccess: () => {
-		// 			navigate('/home/calender', { state: { schedule: updatedSchedule } });
-		// 			console.log('일정 수정:', updatedSchedule);
-		// 		},
-		// 		onError: error => {
-		// 			console.log('일정 수정 실패:', error);
-		// 		},
-		// 	},
-		// );
-	};
-
-	const handleClick = () => {
-		document
-			.querySelector('form')
-			.dispatchEvent(new Event('submit', { bubbles: true }));
+		e.preventDefault();
+		patchSchedule(
+			{
+				scheduleId,
+				date,
+				dtype: scheduleType,
+				title,
+				content,
+			},
+			{
+				onSuccess: () => {
+					navigate('/home/calender');
+				},
+				onError: () => {
+					setShowAlert(true);
+				},
+			},
+		);
 	};
 
 	const handleAlertConfirm = () => {
@@ -94,6 +81,7 @@ const PatchSchedule = () => {
 							onSelect={option => setScheduleType(option)}
 							openIcon={<RiArrowDropDownLine size={'30px'} />}
 							closeIcon={<RiArrowDropUpLine size={'30px'} />}
+							selectedOption={scheduleType}
 						/>
 					</A.Type>
 					<label>제목</label>
@@ -111,15 +99,15 @@ const PatchSchedule = () => {
 						placeholder="내용을 입력해주세요."
 						required
 					/>
+					<A.Button>
+						<FloatingButton
+							type="submit"
+							backgroundColor="#FFC933"
+							borderColor="#FFC933"
+							icon={<img src={DefaultIcon} alt="default icon" />}
+						/>
+					</A.Button>
 				</A.Form>
-				<A.Button>
-					<FloatingButton
-						onClick={handleClick}
-						backgroundColor="#FFC933"
-						borderColor="#FFC933"
-						icon={<img src={DefaultIcon} alt="default icon" />}
-					/>
-				</A.Button>
 			</A.Content>
 
 			<Alert

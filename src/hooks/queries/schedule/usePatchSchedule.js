@@ -4,12 +4,13 @@ import queryClient from '@/apis/queryClient';
 import { QUERY_KEYS } from '@/constants';
 import { patchSchedule } from '@/apis';
 
-const usePatchSchedule = ({ scheduleId }) => {
+const usePatchSchedule = () => {
 	return useMutation({
-		mutationFn: patchSchedule(scheduleId),
+		mutationFn: ({ scheduleId, date, dtype, title, content }) =>
+			patchSchedule({ scheduleId, date, dtype, title, content }),
 		onSuccess: () => {
 			queryClient.resetQueries({
-				queryKey: [QUERY_KEYS.SCHEDULE, scheduleId],
+				queryKey: [QUERY_KEYS.SCHEDULE],
 			});
 		},
 	});

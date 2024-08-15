@@ -55,10 +55,18 @@ const patchSchedule = async ({ scheduleId, date, dtype, title, content }) => {
 	}
 };
 
+const deleteSchedule = async ({ scheduleId }) => {
+	const { data } = await axiosInstance.delete(
+		`${API_PATH.SCHEDULE}/${scheduleId}`,
+	);
+	return data;
+};
+
 export {
 	createSchedule,
 	patchSchedule,
 	getSingleSchedule,
 	getMonthlySchedule,
 	getDailySchedule,
+	deleteSchedule,
 };

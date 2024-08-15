@@ -1,7 +1,7 @@
 import * as S from './CalenderMainPage.style';
 
-import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CustomCalendar from '@/components/common/calendar/CustomCalendar';
 import FloatingButton from '@/components/common/floatingbutton/floatingbutton';
 import PopOver from '@/components/common/popover/PopOver';
@@ -11,14 +11,13 @@ import { FaPenToSquare, FaTrashCan } from 'react-icons/fa6';
 import useGetMonthlySchedule from '@/hooks/queries/schedule/useGetMonthlySchedule';
 import useGetDailySchedule from '@/hooks/queries/schedule/useGetDailySchedule';
 import useCalendarStore from '@/store/useCalendarStore';
+import useDeleteSchedule from '@/hooks/queries/schedule/useDeleteSchedule';
 
 const CalenderMainPage = () => {
 	const navigate = useNavigate();
-	const location = useLocation();
-	const [schedules, setSchedules] = useState([]);
 	const [showPopover, setShowPopover] = useState({});
 	const [showAlert, setShowAlert] = useState(false);
-	const [currentIndex, setCurrentIndex] = useState(null);
+	const [deleteScheduleId, setDeleteScheduleId] = useState(null);
 
 	const getCurrentYearMonth = () => {
 		const now = new Date();
@@ -65,7 +64,7 @@ const CalenderMainPage = () => {
 		size: 10,
 	});
 	const monthlyScheduleDataList = monthlyScheduleData?.scheduleDataResponseList;
-	console.log(monthlyScheduleDataList);
+	console.log('월별 일정: ', monthlyScheduleDataList);
 
 	//일 별 일정
 	const { data: dailyScheduleData } = useGetDailySchedule({
@@ -75,63 +74,32 @@ const CalenderMainPage = () => {
 	});
 
 	const dailyScheduleDataList = dailyScheduleData?.scheduleDataResponseList;
-	console.log(dailyScheduleDataList);
+	console.log('일별 일정: ', dailyScheduleDataList);
 
+	//일정 추가 페이지 이동
 	const handleClick = () => {
 		navigate('/home/calender/add-schedule');
 	};
-
-	const saveSchedulesToLocalStorage = schedules => {
-		localStorage.setItem('schedules', JSON.stringify(schedules));
-	};
-
-	const loadSchedulesFromLocalStorage = () => {
-		const storedSchedules = localStorage.getItem('schedules');
-		return storedSchedules ? JSON.parse(storedSchedules) : [];
-	};
-
-	useEffect(() => {
-		const initialSchedules = loadSchedulesFromLocalStorage();
-		setSchedules(initialSchedules);
-	}, []);
-
-	useEffect(() => {
-		if (location.state && location.state.schedule) {
-			const newSchedule = location.state.schedule;
-			const existingSchedules = loadSchedulesFromLocalStorage();
-
-			// 중복 체크
-			if (
-				!existingSchedules.some(
-					schedule =>
-						schedule.title === newSchedule.title &&
-						schedule.date === newSchedule.date,
-				)
-			) {
-				const updatedSchedules = [newSchedule, ...existingSchedules];
-				setSchedules(updatedSchedules);
-				saveSchedulesToLocalStorage(updatedSchedules);
-			}
-		}
-	}, [location.state]);
-
-	useEffect(() => {
-		saveSchedulesToLocalStorage(schedules);
-	}, [schedules]);
 
 	// PopOver
 	const handleEdit = scheduleId => {
 		navigate('/home/calender/patch-schedule', { state: { scheduleId } });
 	};
 
+	const { mutate: deleteScheduleMutate } = useDeleteSchedule();
+
 	const handleDelete = () => {
-		const updatedSchedules = schedules.filter((_, i) => i !== currentIndex);
-		setSchedules(updatedSchedules);
-		saveSchedulesToLocalStorage(updatedSchedules);
-		setShowAlert(false);
+		deleteScheduleMutate(
+			{ scheduleId: deleteScheduleId },
+			{
+				onSuccess: () => {
+					setShowAlert(false);
+				},
+			},
+		);
 	};
 
-	const popoverItems = (index, scheduleId) => [
+	const popoverItems = scheduleId => [
 		{
 			icon: <FaPenToSquare />,
 			message: '수정하기',
@@ -141,8 +109,8 @@ const CalenderMainPage = () => {
 			icon: <FaTrashCan />,
 			message: '삭제하기',
 			onClick: () => {
-				setCurrentIndex(index);
 				setShowAlert(true);
+				setDeleteScheduleId(scheduleId);
 			},
 		},
 	];
@@ -211,9 +179,7 @@ const CalenderMainPage = () => {
 											}}
 											onMouseLeave={() => handlePopoverClose(index)}
 										>
-											<PopOver
-												items={popoverItems(index, schedule.scheduleId)}
-											/>
+											<PopOver items={popoverItems(schedule.scheduleId)} />
 										</div>
 									)}
 								</li>
