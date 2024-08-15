@@ -7,7 +7,10 @@ import AlertBox from '@/components/alertbox/AlertBox.jsx';
 
 import Messenger from '@/assets/images/messenger.png';
 import Calendar from '@/assets/images/calendar.png';
-import alertData from '@/mockdata/db.json';
+
+import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
+import useGetAlert from '@/hooks/queries/alert/useGetAlert';
+import useCalendarStore from '@/store/useCalendarStore';
 
 const AlertMainPage = () => {
 	const iconMap = {
@@ -16,6 +19,56 @@ const AlertMainPage = () => {
 		post: Messenger,
 	};
 
+	const { data: familySpaceIdData } = useGetFamilySpaceId();
+	const familySpaceId = familySpaceIdData?.familySpaceId;
+
+	const { data: AllNotification } = useGetAlert({
+		familySpaceId: familySpaceId,
+		notificationRequestType: 'ALL',
+		cursor: 1,
+		take: 20,
+	});
+
+	const { data: PostNotification } = useGetAlert({
+		familySpaceId: familySpaceId,
+		notificationRequestType: 'POST',
+		cursor: 1,
+		take: 20,
+	});
+
+	const { data: ScheduleNotification } = useGetAlert({
+		familySpaceId: familySpaceId,
+		notificationRequestType: 'SCHEDULE',
+		cursor: 1,
+		take: 20,
+	});
+
+	const { data: ChatNotification } = useGetAlert({
+		familySpaceId: familySpaceId,
+		notificationRequestType: 'CHAT',
+		cursor: 1,
+		take: 20,
+	});
+
+	const mapNotificationData = (notificationData, type) => {
+		if (!notificationData) return [];
+
+		return notificationData.notificationResponseDTOList.map((item, index) => ({
+			id: item.id,
+			user: item.senderName,
+			message: item.content,
+			date: item.createAt,
+			icon: iconMap[type],
+			profile: item.profileImage,
+			key: index,
+		}));
+	};
+
+	const allAlerts = mapNotificationData(AllNotification, 'all');
+	const postAlerts = mapNotificationData(PostNotification, 'post');
+	const scheduleAlerts = mapNotificationData(ScheduleNotification, 'event');
+	const chatAlerts = mapNotificationData(ChatNotification, 'chat');
+
 	const [activeTab, setActiveTab] = useState('전체');
 	const menuList = ['전체', '채팅', '일정', '게시글'];
 
@@ -23,35 +76,81 @@ const AlertMainPage = () => {
 		setActiveTab(menu);
 	};
 
-	const getNotificationItems = type => {
-		const notification = alertData.notifications.find(
-			notification => notification.type === type,
-		);
-		return notification ? notification.items : [];
+	const getNotificationCount = menu => {
+		switch (menu) {
+			case '채팅':
+				return chatAlerts.length;
+			case '일정':
+				return scheduleAlerts.length;
+			case '게시글':
+				return postAlerts.length;
+			default:
+				return allAlerts.length;
+		}
 	};
 
-	const getNotificationCount = type => {
-		const items = getNotificationItems(type);
-		return items.length;
-	};
+	const { date } = useCalendarStore();
+	let selectedKstDate = null;
+	if (date) {
+		const utcDate = new Date(date);
+		if (!isNaN(utcDate.getTime())) {
+			const kstDate = new Date(utcDate.getTime() + 9 * 60 * 60 * 1000);
+			selectedKstDate = kstDate?.toISOString().split('T')[0];
+		}
+	}
 
 	const renderAlerts = type => {
-		const items = getNotificationItems(type);
-		const icon = iconMap[type];
-		const sortedItems = items.sort(
-			(a, b) => new Date(b.date) - new Date(a.date),
-		);
+		let alerts = [];
+		switch (type) {
+			case 'chat':
+				alerts = chatAlerts;
+				break;
+			case 'event':
+				alerts = scheduleAlerts;
+				break;
+			case 'post':
+				alerts = postAlerts;
+				break;
+			default:
+				alerts = allAlerts;
+				break;
+		}
 
-		return sortedItems.map(({ id, user, message, date }) => (
-			<AlertBox
-				key={id}
-				id={id}
-				user={user}
-				message={message}
-				date={date}
-				icon={icon}
-			/>
-		));
+		const filteredAlerts = selectedKstDate
+			? alerts.filter(alert => alert.date === selectedKstDate)
+			: alerts;
+
+		return filteredAlerts
+			.sort((a, b) => new Date(b.date) - new Date(a.date))
+			.map((alert, index) => (
+				<AlertBox
+					key={alert.key}
+					id={index}
+					user={alert.user}
+					message={alert.message}
+					date={alert.date}
+					icon={alert.icon}
+					profile={alert.profile}
+				/>
+			));
+	};
+
+	const renderTabContent = () => {
+		if (activeTab === '전체') {
+			return (
+				<>
+					{renderAlerts('chat')}
+					{renderAlerts('event')}
+					{renderAlerts('post')}
+				</>
+			);
+		}
+		const typeMap = {
+			채팅: 'chat',
+			일정: 'event',
+			게시글: 'post',
+		};
+		return renderAlerts(typeMap[activeTab]);
 	};
 
 	return (
@@ -65,32 +164,15 @@ const AlertMainPage = () => {
 							$isActive={activeTab === menu}
 						>
 							{menu}
-							{menu !== '전체' && (
+							{
 								<S.NotificationCount>
-									{getNotificationCount(
-										menu === '채팅'
-											? 'chat'
-											: menu === '일정'
-												? 'event'
-												: 'post',
-									)}
+									{getNotificationCount(menu)}
 								</S.NotificationCount>
-							)}
+							}
 						</S.TabBarMenu>
 					))}
 				</S.TabBarContainer>
-				<S.ContentContainer>
-					{activeTab === '전체' && (
-						<>
-							{renderAlerts('chat')}
-							{renderAlerts('event')}
-							{renderAlerts('post')}
-						</>
-					)}
-					{activeTab === '채팅' && renderAlerts('chat')}
-					{activeTab === '일정' && renderAlerts('event')}
-					{activeTab === '게시글' && renderAlerts('post')}
-				</S.ContentContainer>
+				<S.ContentContainer>{renderTabContent()}</S.ContentContainer>
 			</S.AlertConatainer>
 			<S.SideContainer>
 				<CustomCalendar size="BASE" hasBackgroundColor={true} />

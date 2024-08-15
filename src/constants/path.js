@@ -98,6 +98,14 @@ const API_PATH = {
 	GOOGLE_REDITECT: 'oauth2/authorization/google',
 	NAVER_REDITECT: 'oauth2/authorization/naver',
 
+	// social login
+	KAKAO_REDIRECT: 'oauth2/authorization/kakao',
+	GOOGLE_REDITECT: 'oauth2/authorization/google',
+	NAVER_REDITECT: 'oauth2/authorization/naver',
+  
+  //alert
+	ALERT: '/api/v0/family-space',
+
 	//schedule
 	SCHEDULE: '/api/v0/schedules',
 };
