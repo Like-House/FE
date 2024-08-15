@@ -21,11 +21,15 @@ const getSingleSchedule = async ({ scheduleId }) => {
 	return data;
 };
 
-const getDailySchedule = async ({ date, cursor, size }) => {
-	const { data } = await axiosInstance.get(
-		`${API_PATH.SCHEDULE}/date?date=${date}&cursor=${cursor}&size=${size}`,
-	);
+const getDailySchedule = async ({ date, cursor = 1, size = 5 }) => {
+	const params = new URLSearchParams();
+	params.append('date', date);
+	params.append('cursor', cursor);
+	params.append('size', size);
 
+	const { data } = await axiosInstance.get(
+		`${API_PATH.SCHEDULE}/date?${params.toString()}`,
+	);
 	return data;
 };
 

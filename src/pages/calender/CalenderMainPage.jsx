@@ -1,6 +1,6 @@
 import * as S from './CalenderMainPage.style';
 
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomCalendar from '@/components/common/calendar/CustomCalendar';
 import FloatingButton from '@/components/common/floatingbutton/floatingbutton';
@@ -70,14 +70,35 @@ const CalenderMainPage = () => {
 			)
 		: [];
 
-	//일 별 일정
-	const { data: dailyScheduleData } = useGetDailySchedule({
-		date: selectedDate || currentDate,
-		cursor: 1,
-		size: 10,
-	});
+	//일 별 일정 무한 스크롤
+	const {
+		data: dailyScheduleData,
+		fetchNextPage,
+		hasNextPage,
+		isFetchingNextPage,
+	} = useGetDailySchedule({ date: selectedDate || currentDate });
 
-	const dailyScheduleDataList = dailyScheduleData?.scheduleDataResponseList;
+	const dailyScheduleDataList =
+		dailyScheduleData?.pages.flatMap(
+			page => page.result.scheduleDataResponseList,
+		) || [];
+
+	console.log(dailyScheduleDataList);
+
+	const observer = useRef();
+	const lastElementRef = useCallback(
+		node => {
+			if (isFetchingNextPage) return;
+			if (observer.current) observer.current.disconnect();
+			observer.current = new IntersectionObserver(entries => {
+				if (entries[0].isIntersecting && hasNextPage) {
+					fetchNextPage();
+				}
+			});
+			if (node) observer.current.observe(node);
+		},
+		[fetchNextPage, hasNextPage, isFetchingNextPage],
+	);
 
 	//일정 추가 페이지 이동
 	const handleClick = () => {
@@ -158,13 +179,20 @@ const CalenderMainPage = () => {
 					<ul>
 						{dailyScheduleDataList?.length > 0 &&
 							dailyScheduleDataList.map((schedule, index) => (
-								<li key={index}>
+								<li
+									key={index}
+									ref={
+										index === dailyScheduleDataList.length - 1
+											? lastElementRef
+											: null
+									}
+								>
 									<div>
-										<p>{schedule.date}</p>
+										<p>{schedule?.date}</p>
 										<br />
-										<strong>{schedule.title}</strong>
+										<strong>{schedule?.title}</strong>
 										<br />
-										<p>{schedule.content}</p>
+										<p>{schedule?.content}</p>
 									</div>
 									<span
 										onClick={() => handlePopoverToggle(index)}
@@ -187,6 +215,7 @@ const CalenderMainPage = () => {
 									)}
 								</li>
 							))}
+						{isFetchingNextPage}
 					</ul>
 				</S.ScheduleList>
 			</S.Schedule>
