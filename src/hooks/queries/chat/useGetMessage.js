@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 
 import { getChatMessage } from '@/apis';
 import { QUERY_KEYS } from '@/constants';
@@ -10,15 +10,16 @@ const useGetMessage = ({ chatRoomId, take }) => {
 	return useInfiniteQuery({
 		queryKey: [QUERY_KEYS.CHATROOMS, chatRoomId, 'message'],
 		initialPageParam: 1,
+		placeholderData: keepPreviousData,
 		queryFn: ({ pageParam }) =>
 			getChatMessage({ chatRoomId, cursor: pageParam, take }),
 		enabled: !!enter,
 		select: data => data.pages,
-		getNextPageParam: lastPage => {
-			return lastPage.result.hasNext ? lastPage.result.nextCursor : undefined;
+		getPreviousPageParam: firstPage => {
+			return firstPage.result.hasNext ? firstPage.result.nextCursor : undefined;
 		},
+		getNextPageParam: () => undefined,
 		staleTime: 10 * 1000,
-		cacheTime: 5 * 60 * 1000,
 	});
 };
 

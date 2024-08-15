@@ -58,14 +58,16 @@ const Message = ({ room }) => {
 	} = useWebSocketStore();
 	const {
 		data: messageData,
-		fetchNextPage,
-		hasNextPage,
-		isFetchingNextPage,
+		fetchPreviousPage,
+		isFetchingPreviousPage,
+		hasPreviousPage,
 		isFetching,
 	} = useGetMessage({
 		chatRoomId,
-		take: 20,
+		take: 10,
 	});
+
+	console.log(messageData);
 
 	const scrollToBottom = () => {
 		if (scrollRef.current) {
@@ -78,13 +80,13 @@ const Message = ({ room }) => {
 		delay: 0,
 	});
 
-	const throttlingNewPage = useThrottling(fetchNextPage, 1 * 1000);
+	const throttlingNewPage = useThrottling(fetchPreviousPage, 1 * 1000);
 
 	useEffect(() => {
 		if (inView) {
-			!isFetching && hasNextPage && throttlingNewPage();
+			!isFetching && hasPreviousPage && throttlingNewPage();
 		}
-	}, [inView, isFetching, hasNextPage]);
+	}, [inView, isFetching, hasPreviousPage]);
 
 	useEffect(() => {
 		if (chatRoomId && enter) {
@@ -221,19 +223,17 @@ const Message = ({ room }) => {
 			</S.NavContainer>
 			<S.MessageContainer ref={scrollRef}>
 				<div ref={ref}>
-					{isFetchingNextPage && <div>Loading more messages...</div>}
+					{isFetchingPreviousPage && <div>Loading more messages...</div>}
 				</div>
-				{messageData
-					?.reverse()
-					.map(page =>
-						page.result.chatResponseList.map(e =>
-							e.senderDTO.senderId === userId ? (
-								<Mymessage message={e} key={e.chatId} />
-							) : (
-								<ReceiveMessage member={e} key={e.chatId} />
-							),
+				{messageData?.map(page =>
+					page.result.chatResponseList.map(e =>
+						e.senderDTO.senderId === userId ? (
+							<Mymessage message={e} key={e.chatId} />
+						) : (
+							<ReceiveMessage member={e} key={e.chatId} />
 						),
-					)}
+					),
+				)}
 
 				{messages.map((e, idx) =>
 					e.senderDTO?.senderName ? (
