@@ -4,17 +4,13 @@ import useGetMyPosts from '@/hooks/queries/posts/useGetMyPosts';
 import useGetImageUrl from '@/hooks/queries/image/useGetImageUrl';
 
 const PostItem = ({ post, lastPostElementRef }) => {
-  const {
-    data: imageData,
-    isSuccess,
-    error,
-  } = useGetImageUrl(post.imageUrls[0]);
+  const imageUrl =
+    post.imageUrls && post.imageUrls.length > 0 ? post.imageUrls[0] : null;
+  const { data: imageData, isSuccess, error } = useGetImageUrl(imageUrl);
 
   if (error) {
     console.error('Image loading error:', error);
   }
-
-  console.log('Image Data:', imageData);
 
   return (
     <S.Post ref={lastPostElementRef}>
@@ -25,9 +21,9 @@ const PostItem = ({ post, lastPostElementRef }) => {
         </S.Tag>
         <S.Date>{new Date(post.createdAt).toLocaleString()}</S.Date>
       </S.InnerContainer>
-      {isSuccess && imageData?.url && (
+      {isSuccess && imageData?.url && imageUrl ? (
         <S.Icon src={imageData.url} alt='myposts Icon' />
-      )}
+      ) : null}
     </S.Post>
   );
 };
