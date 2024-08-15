@@ -1,9 +1,8 @@
 import * as S from './SideBar.style.js';
 
-import { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { TbHome } from 'react-icons/tb';
-import { TbMessageCircle2Filled } from 'react-icons/tb';
+import { BiSolidMessageRounded } from 'react-icons/bi';
 import { IoPersonOutline } from 'react-icons/io5';
 import { GoBell } from 'react-icons/go';
 import { LuCalendar } from 'react-icons/lu';
@@ -38,7 +37,7 @@ const Sidebar = () => {
 
 	const handleOpenModal = () => {
 		openModal();
-	}
+	};
 
 	const handleProfile = () => {
 		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`);
@@ -71,14 +70,11 @@ const Sidebar = () => {
 				</NavLink>
 				<NavLink to={PAGE_PATH.CHAT}>
 					<S.Icon>
-						<TbMessageCircle2Filled size={25} />
+						<BiSolidMessageRounded size={25} />
 					</S.Icon>
 					<p>메세지</p>
 				</NavLink>
-				<PostModal
-					isOpen={isOpen}
-					closeModal={closeModal}
-				/>
+				<PostModal isOpen={isOpen} closeModal={closeModal} />
 				<S.PC>
 					<NavLink to={PAGE_PATH.FAMILY}>
 						<S.Icon>
