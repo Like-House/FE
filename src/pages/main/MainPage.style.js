@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 
 import theme from '@/theme/theme';
-import { FONT_SIZE } from '@/constants';
 
 const PostContainer = styled.div`
 	display: flex;
 	padding: 50px;
 	background-color: #fafafa;
+
+	a {
+		color: black;
+	}
 `;
 
 const PostList = styled.div`

@@ -19,6 +19,22 @@ const PostItem = ({
   handleCommentChange,
   handleCommentSubmit
 }) => {
+
+  const handleLikeClick = (event) => {
+    event.stopPropagation();
+    onLike(post.postId);
+  };
+
+  const handleCommentClick = (event) => {
+    event.stopPropagation();
+    onCommentClick(post.postId);
+  };
+
+  const handleMenuClick = (event) => {
+    event.stopPropagation();
+    handleMenuToggle(post.postId);
+  };
+  
   return (
     <S.PostItem>
       <S.PostWrapper>
@@ -30,11 +46,11 @@ const PostItem = ({
           <S.PostHeader>
             <S.AuthorWrapper>
               <S.Author>{post.authorNickname}</S.Author>
-              <S.DateTime>{post.createdAt}</S.DateTime>
+              <S.DateTime>{new Date(post.createdAt).toLocaleDateString()}</S.DateTime>
             </S.AuthorWrapper>
 
             <S.MenuButton>
-              <button onClick={() => handleMenuToggle(post.postId)}>
+              <button onClick={handleMenuClick}>
                 <HiMiniEllipsisHorizontal />
               </button>
               <S.Popover>
@@ -49,11 +65,11 @@ const PostItem = ({
             <S.Photo src={post.imageUrls[0]} alt="post photo" />
           )}
           <S.Footer>
-            <p onClick={() => onLike(post.postId)}>
+            <p onClick={handleLikeClick}>
               좋아요 {likes[post.postId]?.count || 0}
             </p>
-            <p onClick={() => onCommentClick(post.postId)}>
-              댓글 {commentCounts[post.postId]}
+            <p onClick={handleCommentClick}>
+              댓글 {commentCounts[post.postId] || 0}
             </p>
           </S.Footer>
 

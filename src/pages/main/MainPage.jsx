@@ -1,6 +1,7 @@
 import * as S from './MainPage.style.js';
 
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrashAlt, FaRegBellSlash } from 'react-icons/fa';
 
 import useFamilySpaceId from '@/hooks/useFamilySpaceId.js';
@@ -16,6 +17,7 @@ import PostItem from '@/components/post/PostItem.jsx';
 const LOCAL_STORAGE_LIKES_KEY = 'likes';
 
 const MainPage = () => {
+	const navigate = useNavigate();
 	const { data } = useFamilySpaceId();
 	const { data: boardList } = useGetPosts({
 		familySpaceId: data?.familySpaceId,
@@ -51,7 +53,7 @@ const MainPage = () => {
 		setLikes((prev) => {
 				const currentLike = prev[postId] || { count: 0, liked: false };
 				const liked = currentLike.liked;
-            const newCount = liked ? currentLike.count - 1 : currentLike.count + 1;
+        const newCount = liked ? currentLike.count - 1 : currentLike.count + 1;
 				return {
 						...prev,
 						[postId]: { count: newCount, liked: !liked },
@@ -65,38 +67,38 @@ const MainPage = () => {
 		}
 	};
 
-	const handleCommentClick = postid => {
+	const handleCommentClick = (postId) => {
 		setShowCommentInput(prev => ({
 			...prev,
-			[postid]: !prev[postid],
+			[postId]: !prev[postId],
 		}));
-		if (!showCommentInput[postid]) {
-			setCommentInputs(prev => ({ ...prev, [postid]: '' }));
+		if (!showCommentInput[postId]) {
+			setCommentInputs((prev) => ({ ...prev, [postId]: '' }));
 		}
 	};
 
-	const handleCommentChange = (postid, value) => {
-		setCommentInputs(prev => ({ ...prev, [postid]: value }));
+	const handleCommentChange = (postId, value) => {
+		setCommentInputs((prev) => ({ ...prev, [postId]: value }));
 	};
 
-	const handleCommentSubmit = postid => {
-		if (commentInputs[postid]) {
+	const handleCommentSubmit = (postId) => {
+		if (commentInputs[postId]) {
 			setComments(prev => ({
 				...prev,
-				[postid]: [...prev[postid], commentInputs[postid]],
+				[postId]: [...prev[postId], commentInputs[postId]],
 			}));
 			setCommentCounts(prev => ({
 				...prev,
-				[postid]: prev[postid] + 1,
+				[postId]: prev[postId] + 1,
 			}));
 
-			addCommentMutation.mutate({ postid, content: commentInputs[postid] });
-			setCommentInputs(prev => ({ ...prev, [postid]: '' }));
+			addCommentMutation.mutate({ postId, content: commentInputs[postId] });
+			setCommentInputs((prev) => ({ ...prev, [postId]: '' }));
 		}
 	};
 
-	const handleMenuToggle = postid => {
-		setShowMenu(prev => (prev === postid ? null : postid));
+	const handleMenuToggle = (postId) => {
+		setShowMenu((prev) => (prev === postId ? null : postId));
 	};
 
 	const handleMouseLeave = () => {
@@ -136,27 +138,32 @@ const MainPage = () => {
 		},
 	];
 
+	const handlePostClick = (postId) => {
+		navigate(`/home/detailPost/${postId}`);
+	};
+
 	return (
 		<S.PostContainer>
 			<S.PostList>
 				{boardList?.posts.map(post => (
-						<PostItem
-							key={post.postId}
-							post={post}
-							likes={likes}
-							onLike={handleLike}
-							onCommentClick={handleCommentClick}
-							commentCounts={commentCounts}
-							comments={comments}
-							showCommentInput={showCommentInput}
-							handleMenuToggle={handleMenuToggle}
-							showMenu={showMenu}
-							handleMouseLeave={handleMouseLeave}
-							menuItems={menuItems}
-							commentInputs={commentInputs}
-							handleCommentChange={handleCommentChange}
-							handleCommentSubmit={handleCommentSubmit}
-						/>
+						<div key={post.postId} onClick={() => handlePostClick(post.postId)}>
+							<PostItem
+								post={post}
+								likes={likes}
+								onLike={handleLike}
+								onCommentClick={handleCommentClick}
+								commentCounts={commentCounts}
+								comments={comments}
+								showCommentInput={showCommentInput}
+								handleMenuToggle={handleMenuToggle}
+								showMenu={showMenu}
+								handleMouseLeave={handleMouseLeave}
+								menuItems={menuItems}
+								commentInputs={commentInputs}
+								handleCommentChange={handleCommentChange}
+								handleCommentSubmit={handleCommentSubmit}
+							/>
+						</div>
         	))}
 			</S.PostList>
 			<S.RightSidebar>

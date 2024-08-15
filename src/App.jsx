@@ -36,6 +36,7 @@ import {
 	// HOME (홈 페이지)
 	PhotoMainPage,
 	MainPage,
+	DetailPost,
 	// QNA (QNA 페이지)
 	QnaPage,
 	// SERVICE (서비스 이용 페이지)
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
 			{
 				index: true,
 				element: <MainPage />,
+			},
+			{
+				path: `${PAGE_PATH.DETAILPOST}/:postId`,
+				element: <DetailPost />,
 			},
 			{
 				path: `${PAGE_PATH.ALERT}`,
