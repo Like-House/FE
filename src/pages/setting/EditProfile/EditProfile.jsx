@@ -3,9 +3,17 @@ import { useState, useEffect } from 'react';
 import { CustomButton, CustomInput, Alert, Avatar } from '@/components/index';
 import useImageUpload from '@/hooks/useImageUpload';
 import useGetProfile from '@/hooks/queries/user/useGetProfile';
+import useUpdateProfile from '@/hooks/queries/user/useUpdateProfile';
 
 const EditProfile = () => {
   const { data: profileData, isSuccess } = useGetProfile();
+  const {
+    mutate: updateProfileMutate,
+    isLoading,
+    isError,
+    error,
+    isSuccess: isUpdateSuccess,
+  } = useUpdateProfile();
   const [name, setName] = useState('');
   const [birthday, setBirthday] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,10 +23,12 @@ const EditProfile = () => {
 
   useEffect(() => {
     if (isSuccess && profileData) {
+      console.log('Fetched Profile Data:', profileData);
       setName(profileData.name);
       setBirthday(profileData.birthDate);
+      resetPicture(profileData.imageKeyName);
     }
-  }, [isSuccess, profileData]);
+  }, [isSuccess, profileData, resetPicture]);
 
   const handleDateChange = (e) => {
     setBirthday(e.target.value);
@@ -39,8 +49,18 @@ const EditProfile = () => {
   };
 
   const handleSubmit = () => {
-    setIsModalOpen(true);
+    updateProfileMutate({
+      name,
+      birthDate: birthday,
+      imageKeyName: profilePicture,
+    });
   };
+
+  useEffect(() => {
+    if (isUpdateSuccess) {
+      setIsModalOpen(true);
+    }
+  }, [isUpdateSuccess]);
 
   const handleConfirm = () => {
     setIsModalOpen(false);
@@ -54,8 +74,9 @@ const EditProfile = () => {
         <S.ProfilePictureContainer>
           <Avatar
             src={
-              profilePicture ||
-              'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"%3E%3Crect width="100%25" height="100%25" fill="%23e0e0e0"/%3E%3C/svg%3E'
+              profilePicture
+                ? `${process.env.REACT_APP_IMAGE_BASE_URL}/${profilePicture}` // 프로필 사진 URL 설정
+                : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"%3E%3Crect width="100%25" height="100%25" fill="%23e0e0e0"/%3E%3C/svg%3E'
             }
             size='4xl'
             shape='rect'
@@ -94,7 +115,7 @@ const EditProfile = () => {
       <S.Field>
         <S.Label>생년월일</S.Label>
         <input
-          value={birthday}
+          value={birthday || ''}
           onChange={handleDateChange}
           name='birthday'
           type='date'
@@ -108,7 +129,7 @@ const EditProfile = () => {
           onClick={handleSubmit}
           label='수정 완료'
           width='150px'
-          disabled={!isFormModified}
+          disabled={!isFormModified || isLoading}
         />
       </S.ButtonContainer>
       <Alert
