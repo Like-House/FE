@@ -20,7 +20,6 @@ const Modal = ({ members }) => {
 
 	const onSelect = menu => {
 		selectMember = members.filter(e => e.name === menu)[0];
-		console.log(selectMember);
 	};
 
 	const { data: spaceIdData } = useGetFamilySpaceId();

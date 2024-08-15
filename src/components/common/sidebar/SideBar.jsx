@@ -4,14 +4,12 @@ import { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { TbHome } from 'react-icons/tb';
 import { TbMessageCircle2Filled } from 'react-icons/tb';
-import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 import { IoPersonOutline } from 'react-icons/io5';
 import { GoBell } from 'react-icons/go';
 import { LuCalendar } from 'react-icons/lu';
 import settingIcon from '@/assets/images/settingIcon.svg';
 import {
 	PostModal,
-	Dropdown,
 	Avatar,
 	Tooltip,
 	FloatingButton,
@@ -37,44 +35,10 @@ const Sidebar = () => {
 		`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}/${PAGE_PATH.ROOM}`,
 	);
 	const { isOpen, openModal, closeModal } = useCustomModal();
-	const [step, setStep] = useState(1);
-	const [inputValue, setInputValue] = useState('');
 
-	const handleLeftButtonClick = () => {
-		if (step > 1) {
-			setStep(step - 1);
-		}
-	};
-
-	const handleRightButtonClick = () => {
-		if (step === 1 && inputValue.trim() === '') {
-			return;
-		} else {
-			setStep(step + 1);
-		}
-	};
-
-	const handleInputChange = e => {
-		setInputValue(e.target.value);
-	};
-
-	const body = [
-		<textarea
-			key="1"
-			value={inputValue}
-			onChange={handleInputChange}
-			placeholder="내용을 입력해주세요."
-		/>,
-		<Dropdown
-			key="2"
-			label={'누구와 관련이 있나요?'}
-			options={['엄마', '아빠', '동생']}
-			openIcon={<RiArrowDropDownLine size={'30px'} />}
-			closeIcon={<RiArrowDropUpLine size={'30px'} />}
-		/>,
-	];
-
-	const totalSteps = 2;
+	const handleOpenModal = () => {
+		openModal();
+	}
 
 	const handleProfile = () => {
 		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`);
@@ -114,13 +78,6 @@ const Sidebar = () => {
 				<PostModal
 					isOpen={isOpen}
 					closeModal={closeModal}
-					body={body}
-					leftButton={['사진첨부', '이전']}
-					leftButtonAction={handleLeftButtonClick}
-					rightButton={['다음', '제출']}
-					rightButtonAction={handleRightButtonClick}
-					totalSteps={totalSteps}
-					currentStep={step}
 				/>
 				<S.PC>
 					<NavLink to={PAGE_PATH.FAMILY}>
@@ -150,7 +107,7 @@ const Sidebar = () => {
 					<Tooltip text="게시글 작성" size="sm">
 						{pathname === PAGE_PATH.HOME && (
 							<FloatingButton
-								onClick={openModal}
+								onClick={handleOpenModal}
 								backgroundColor={theme.COLOR.YELLOW.YELLOW_500}
 								borderColor={theme.COLOR.YELLOW.YELLOW_500}
 								size="sm"

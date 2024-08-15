@@ -4,9 +4,9 @@ import axiosInstance from './axios';
 import { API_PATH } from '@/constants';
 
 const createPresignedURL = async filename => {
-	const { data } = await axiosInstance.get(
-		`${API_PATH.IMAGE}/upload?filename=${filename}`,
-	);
+	const { data } = await axiosInstance.post(`${API_PATH.IMAGE}/upload`, {
+		keyName: filename,
+	});
 	return data;
 };
 
@@ -17,6 +17,7 @@ const uploadImageToS3 = async ({ url, file }) => {
 				'Content-Type': file.type,
 			},
 		});
+		console.log(res);
 		return res;
 	} catch (error) {
 		console.log(error);
@@ -25,9 +26,9 @@ const uploadImageToS3 = async ({ url, file }) => {
 
 const getRealImageUrl = async imageUrl => {
 	try {
-		const { data } = await axiosInstance.get(
-			`${API_PATH.IMAGE}/download?keyName=${imageUrl}`,
-		);
+		const { data } = await axiosInstance.post(`${API_PATH.IMAGE}/download`, {
+			keyName: imageUrl,
+		});
 
 		return data;
 	} catch (error) {

@@ -16,4 +16,26 @@ const getMyPosts = async ({ pageParam }) => {
 	return data;
 };
 
-export { getPosts, getMyPosts };
+const getWritePost = async ({postData}) => {
+	const { data } = await axiosInstance.post(
+		`${API_PATH.WRITE_POST}`,
+		postData
+	);
+	return data;
+};
+
+const getPostById = async (postId) => {
+	const { data } = await axiosInstance.get(
+		`${API_PATH.WRITE_POST}/${postId}`,
+	);
+	return data;
+};
+
+const updatePost = async (postId, updatedData) => {
+  const response = await axiosInstance.put(
+		`${API_PATH.WRITE_POST}/${postId}`, updatedData
+	);
+  return response.data;
+};
+
+export { getPosts, getMyPosts, getWritePost, getPostById, updatePost };

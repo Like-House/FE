@@ -13,6 +13,8 @@ const QUERY_KEYS = {
 	MODAL_IMG: 'modal-image',
 	ALERT: 'alert',
 
+	SCHEDULE: 'schedule',
+
 	// notification settings
 	NOTIFICATION_SETTINGS: 'notification-settings',
 	NOTIFICATION_CHAT: 'notification-chat',

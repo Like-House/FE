@@ -36,6 +36,7 @@ import {
 	// HOME (홈 페이지)
 	PhotoMainPage,
 	MainPage,
+	DetailPost,
 	// QNA (QNA 페이지)
 	QnaPage,
 	// SERVICE (서비스 이용 페이지)
@@ -43,6 +44,7 @@ import {
 	CreateSpace,
 	// SCHEDULE (일정 페이지)
 	AddSchedulePage,
+	PatchSchedulePage,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -95,6 +97,10 @@ const router = createBrowserRouter([
 			{
 				index: true,
 				element: <MainPage />,
+			},
+			{
+				path: `${PAGE_PATH.DETAILPOST}/:postId`,
+				element: <DetailPost />,
 			},
 			{
 				path: `${PAGE_PATH.ALERT}`,
@@ -158,6 +164,10 @@ const router = createBrowserRouter([
 			{
 				path: `${PAGE_PATH.CALENDER}${PAGE_PATH.ADD_SCHEDULE}`,
 				element: <AddSchedulePage />,
+			},
+			{
+				path: `${PAGE_PATH.CALENDER}${PAGE_PATH.PATCH_SCHEDULE}`,
+				element: <PatchSchedulePage />,
 			},
 		],
 	},
