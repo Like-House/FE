@@ -32,7 +32,6 @@ const AddSchedulePage = () => {
 		createSchedule(newSchedule, {
 			onSuccess: () => {
 				navigate('/home/calender', { state: { schedule: newSchedule } });
-				console.log('일정 추가:', newSchedule);
 			},
 			onError: error => {
 				console.log('일정 추가 실패:', error);

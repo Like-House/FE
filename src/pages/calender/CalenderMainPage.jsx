@@ -52,7 +52,6 @@ const CalenderMainPage = () => {
 			selectedDate = kstDate?.toISOString().split('T')[0];
 		}
 	}
-	console.log(selectedDate);
 
 	const currentMonth = getCurrentMonth();
 	const currentYearMonth = getCurrentYearMonth();
@@ -64,7 +63,12 @@ const CalenderMainPage = () => {
 		size: 10,
 	});
 	const monthlyScheduleDataList = monthlyScheduleData?.scheduleDataResponseList;
-	console.log('월별 일정: ', monthlyScheduleDataList);
+
+	const sortedMonthlyScheduleDataList = monthlyScheduleDataList
+		? [...monthlyScheduleDataList].sort(
+				(a, b) => new Date(a.date) - new Date(b.date),
+			)
+		: [];
 
 	//일 별 일정
 	const { data: dailyScheduleData } = useGetDailySchedule({
@@ -74,14 +78,13 @@ const CalenderMainPage = () => {
 	});
 
 	const dailyScheduleDataList = dailyScheduleData?.scheduleDataResponseList;
-	console.log('일별 일정: ', dailyScheduleDataList);
 
 	//일정 추가 페이지 이동
 	const handleClick = () => {
 		navigate('/home/calender/add-schedule');
 	};
 
-	// PopOver
+	//일정 수정 페이지 이동
 	const handleEdit = scheduleId => {
 		navigate('/home/calender/patch-schedule', { state: { scheduleId } });
 	};
@@ -191,8 +194,8 @@ const CalenderMainPage = () => {
 				<h2>우리 가족 {currentMonth}월 일정</h2>
 				<div>
 					<ul>
-						{monthlyScheduleDataList?.length > 0 ? (
-							monthlyScheduleDataList.map((schedule, index) => (
+						{sortedMonthlyScheduleDataList?.length > 0 ? (
+							sortedMonthlyScheduleDataList.map((schedule, index) => (
 								<li key={index}>
 									<strong>{schedule.title}</strong>
 									{schedule.date}
