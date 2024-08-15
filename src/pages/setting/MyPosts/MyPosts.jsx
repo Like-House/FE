@@ -1,12 +1,40 @@
 import * as S from './MyPosts.style';
 import React, { useRef, useCallback } from 'react';
 import useGetMyPosts from '@/hooks/queries/posts/useGetMyPosts';
+import useGetImageUrl from '@/hooks/queries/image/useGetImageUrl';
+
+const PostItem = ({ post, lastPostElementRef }) => {
+  const {
+    data: imageData,
+    isSuccess,
+    error,
+  } = useGetImageUrl(post.imageUrls[0]);
+
+  if (error) {
+    console.error('Image loading error:', error);
+  }
+
+  console.log('Image Data:', imageData);
+
+  return (
+    <S.Post ref={lastPostElementRef}>
+      <S.InnerContainer>
+        <S.PostText>{post.content}</S.PostText>
+        <S.Tag>
+          {post.taggedUsers?.map((user) => user.nickname).join(', ')}
+        </S.Tag>
+        <S.Date>{new Date(post.createdAt).toLocaleString()}</S.Date>
+      </S.InnerContainer>
+      {isSuccess && imageData?.url && (
+        <S.Icon src={imageData.url} alt='myposts Icon' />
+      )}
+    </S.Post>
+  );
+};
 
 const MyPosts = () => {
   const { data, isLoading, fetchNextPage, hasNextPage } = useGetMyPosts();
   const observer = useRef();
-
-  console.log(data);
 
   const lastPostElementRef = useCallback(
     (node) => {
@@ -32,25 +60,15 @@ const MyPosts = () => {
       {data?.map((page, pageIndex) => (
         <React.Fragment key={pageIndex}>
           {page?.result.posts.map((post, postIndex) => (
-            <S.Post
-              ref={
+            <PostItem
+              key={post.postId}
+              post={post}
+              lastPostElementRef={
                 page.result.posts.length === postIndex + 1
                   ? lastPostElementRef
                   : null
               }
-              key={post.postId}
-            >
-              <S.InnerContainer>
-                <S.PostText>{post.content}</S.PostText>
-                <S.Tag>
-                  {post.taggedUsers?.map((user) => user.nickname).join(', ')}
-                </S.Tag>
-                <S.Date>{new Date(post.createdAt).toLocaleString()}</S.Date>
-              </S.InnerContainer>
-              {post.imageUrls?.length > 0 && (
-                <S.Icon src={post.imageUrls[0]} alt='myposts Icon' />
-              )}
-            </S.Post>
+            />
           ))}
         </React.Fragment>
       ))}
