@@ -8,7 +8,7 @@ import CoverImg from '@/assets/images/chatRoomImg.webp';
 import { createPresignedURL, uploadImageToS3 } from '@/apis';
 import usePatchChatRoom from '@/hooks/queries/chat/usePatchChatRoom';
 import useFile from '@/hooks/useFile';
-import { IMAGE, PAGE_PATH } from '@/constants';
+import { PAGE_PATH } from '@/constants';
 
 const ChangeRoom = ({ room }) => {
 	const nav = useNavigate();
@@ -38,7 +38,7 @@ const ChangeRoom = ({ room }) => {
 		modifyChatInfo({
 			chatRoomId,
 			title,
-			imageKeyName: IMAGE.BASIC,
+			imageKeyName: null,
 		});
 
 		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}/${PAGE_PATH.ROOM}/${chatRoomId}`, {

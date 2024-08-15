@@ -129,6 +129,13 @@ const HeaderContaienr = styled.div`
 	}
 `;
 
+const ChatRoomContainer = styled.div`
+	width: 80%;
+	flex: 1;
+	overflow-y: auto;
+	overflow-x: hidden;
+`;
+
 export {
 	Container,
 	ButtonContainer,
@@ -136,4 +143,5 @@ export {
 	Button,
 	Search,
 	HeaderContaienr,
+	ChatRoomContainer,
 };

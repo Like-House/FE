@@ -17,7 +17,6 @@ const useWebSocketStore = create((set, get) => ({
 			webSocket.send(message);
 			const parsedMessage = JSON.parse(message);
 			set(state => ({ messages: [...state.messages, parsedMessage] }));
-			console.log('Message sent:', message);
 		} else {
 			console.log('WebSocket is not open.');
 		}

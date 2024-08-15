@@ -26,8 +26,12 @@ import { PAGE_PATH } from '@/constants';
 import useModalStore from '@/store/useModalStore';
 import useGetEmoticon from '@/hooks/queries/chat/useGetEmoticon';
 import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
+import Mymessage from './myMessage/Mymessage';
+import NOIMG from '@/assets/images/profile.webp';
+import useFile from '@/hooks/useFile';
 
 const Message = ({ room }) => {
+	const { handleFileSelectAndSend } = useFile();
 	const { fileOpen, setDelete } = useModalStore(state => state);
 	const [emoticon, setEmoticon] = useState(false);
 	const [emoOpen, setEmoOpen] = useState(false);
@@ -54,14 +58,16 @@ const Message = ({ room }) => {
 	} = useWebSocketStore();
 	const {
 		data: messageData,
-		fetchNextPage,
-		hasNextPage,
-		isFetchingNextPage,
+		fetchPreviousPage,
+		isFetchingPreviousPage,
+		hasPreviousPage,
 		isFetching,
 	} = useGetMessage({
 		chatRoomId,
-		take: 20,
+		take: 10,
 	});
+
+	console.log(messageData);
 
 	const scrollToBottom = () => {
 		if (scrollRef.current) {
@@ -74,18 +80,30 @@ const Message = ({ room }) => {
 		delay: 0,
 	});
 
-	const throttlingNewPage = useThrottling(fetchNextPage, 1 * 1000);
+	const throttlingNewPage = useThrottling(fetchPreviousPage, 1 * 1000);
 
 	useEffect(() => {
 		if (inView) {
-			!isFetching && hasNextPage && throttlingNewPage();
+			!isFetching && hasPreviousPage && throttlingNewPage();
 		}
-	}, [inView, isFetching, hasNextPage]);
+	}, [inView, isFetching, hasPreviousPage]);
 
 	useEffect(() => {
-		if (chatRoomId && !enter) {
+		if (chatRoomId && enter) {
+			exitChatRoom(chatRoomId);
+		}
+
+		if (chatRoomId) {
 			enterChatRoom(chatRoomId);
 		}
+		clearMessages();
+		scrollToBottom();
+
+		return () => {
+			if (enter) {
+				exitChatRoom(chatRoomId);
+			}
+		};
 	}, [chatRoomId, enterChatRoom, enter]);
 
 	useEffect(() => {
@@ -99,12 +117,24 @@ const Message = ({ room }) => {
 		if (input.trim()) {
 			const message = JSON.stringify({
 				chatType: 'TALK',
+				imageKeyName: null,
 				content: input,
 				chatRoomId,
 			});
 			sendMessage(message);
 			setInput('');
 		}
+	};
+
+	const submitEmoticon = keyname => {
+		const message = JSON.stringify({
+			chatType: 'TALK',
+			imageKeyName: keyname,
+			content: null,
+			chatRoomId,
+		});
+		sendMessage(message);
+		setInput('');
 	};
 
 	const handleExit = () => {
@@ -175,7 +205,12 @@ const Message = ({ room }) => {
 				<S.NavWrapper>
 					<IoIosArrowBack size={25} onClick={handleExit} />
 					<S.UserContainer onClick={handleInfo}>
-						<img src={data?.result.url} alt="profile" />
+						{imageKeyName ? (
+							<img src={data?.result.url} alt="profile" />
+						) : (
+							<img src={NOIMG} alt="profile" />
+						)}
+
 						<p>{title}</p>
 					</S.UserContainer>
 				</S.NavWrapper>
@@ -188,14 +223,12 @@ const Message = ({ room }) => {
 			</S.NavContainer>
 			<S.MessageContainer ref={scrollRef}>
 				<div ref={ref}>
-					{isFetchingNextPage && <div>Loading more messages...</div>}
+					{isFetchingPreviousPage && <div>Loading more messages...</div>}
 				</div>
-				{messageData?.reverse().map(page =>
+				{messageData?.map(page =>
 					page.result.chatResponseList.map(e =>
 						e.senderDTO.senderId === userId ? (
-							<S.MyContainer key={e.chatId}>
-								<S.MyMessage>{e.content}</S.MyMessage>
-							</S.MyContainer>
+							<Mymessage message={e} key={e.chatId} />
 						) : (
 							<ReceiveMessage member={e} key={e.chatId} />
 						),
@@ -206,17 +239,21 @@ const Message = ({ room }) => {
 					e.senderDTO?.senderName ? (
 						<ReceiveMessage member={e} key={idx} />
 					) : (
-						e.chatType === 'TALK' && (
-							<S.MyContainer key={idx}>
-								<S.MyMessage>{e.content}</S.MyMessage>
-							</S.MyContainer>
-						)
+						e.chatType === 'TALK' && <Mymessage message={e} key={idx} />
 					),
 				)}
 			</S.MessageContainer>
 			<S.InputContainer onSubmit={handleSend} $emoticon={emoticon}>
 				<S.IconWrapper>
-					<HiOutlinePhotograph size={25} />
+					<S.FileInput
+						multiple
+						type="file"
+						id="file"
+						onChange={e => handleFileSelectAndSend(e, chatRoomId)}
+					/>
+					<label htmlFor="file">
+						<HiOutlinePhotograph size={25} />
+					</label>
 					<FaRegSmile size={23} onClick={() => setEmoticon(prev => !prev)} />
 				</S.IconWrapper>
 				<input
@@ -242,6 +279,7 @@ const Message = ({ room }) => {
 							emoticon={e}
 							key={e.familyEmoticonId}
 							familySpaceId={spaceData?.familySpaceId}
+							onClick={submitEmoticon}
 						/>
 					))}
 				</S.EmoticonWrapper>
