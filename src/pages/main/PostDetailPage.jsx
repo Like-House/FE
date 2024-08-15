@@ -1,30 +1,22 @@
-import * as S from './MainPage.style.js';
-
+import * as S from './PostDetailPage.style';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrashAlt, FaRegBellSlash } from 'react-icons/fa';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import useFamilySpaceId from '@/hooks/useFamilySpaceId.js';
-import useGetPosts from '@/hooks/queries/posts/useGetPosts.js';
-import CustomCalendar from '@/components/common/calendar/CustomCalendar.jsx';
+import useGetPostById from '@/hooks/queries/posts/useGetPostById';
 import useDeletePost from '@/hooks/queries/posts/useDeletePost.js';
 import useLikePost from '@/hooks/queries/posts/useLikePost.js';
-import useUnlikePost from '@/hooks/queries/posts/useUnLikePost.js';
+import useUnlikePost from '@/hooks/queries/posts/useUnlikePost.js';
 
 import PostItem from '@/components/post/PostItem.jsx';
 
 const LOCAL_STORAGE_LIKES_KEY = 'likes';
 
-const MainPage = () => {
+const PostDetailPage = () => {
+	const { postId } = useParams();
 	const navigate = useNavigate();
-	const { data } = useFamilySpaceId();
-	const { data: boardList } = useGetPosts({
-		familySpaceId: data?.familySpaceId,
-		page: 1,
-		size: 10,
-	});
-
-	// console.log('familyId', data?.familySpaceId);
+	const { data } = useGetPostById(postId);
+	const post = data?.result;
 
 	const { mutate: deletePost } = useDeletePost();
 	const likePostMutation = useLikePost();
@@ -104,6 +96,14 @@ const MainPage = () => {
 		setShowMenu(false);
 	};
 
+	const handleDeletePost = postId => {
+		deletePost(postId, {
+			onSuccess: () => {
+				navigate('/home');
+			},
+		});
+	};
+
 	const menuItems = [
 		{
 			icon: <FaEdit />,
@@ -119,9 +119,8 @@ const MainPage = () => {
 			message: '삭제하기',
 			onClick: () => {
 				console.log('삭제하기 클릭됨');
-				console.log(showMenu);
-				if (showMenu) {
-					deletePost(showMenu);
+				if (postId) {
+					handleDeletePost(postId);
 				}
 				setShowMenu(null);
 			},
@@ -136,46 +135,30 @@ const MainPage = () => {
 			},
 		},
 	];
-
-	const handlePostClick = postId => {
-		navigate(`/home/detailPost/${postId}`);
-	};
+	console.log(post);
 
 	return (
 		<S.PostContainer>
-			<S.PostList>
-				{boardList?.posts.map(post => (
-					<div key={post.postId} onClick={() => handlePostClick(post.postId)}>
-						<PostItem
-							post={post}
-							likes={likes}
-							onLike={handleLike}
-							onCommentClick={handleCommentClick}
-							commentCounts={commentCounts}
-							comments={comments}
-							showCommentInput={showCommentInput}
-							handleMenuToggle={handleMenuToggle}
-							showMenu={showMenu}
-							handleMouseLeave={handleMouseLeave}
-							menuItems={menuItems}
-							commentInputs={commentInputs}
-							handleCommentChange={handleCommentChange}
-							handleCommentSubmit={handleCommentSubmit}
-						/>
-					</div>
-				))}
-			</S.PostList>
-			<S.RightSidebar>
-				<S.CalendarWrapper>
-					<CustomCalendar size="BASE" hasBackgroundColor={true} />
-				</S.CalendarWrapper>
-				<S.AlbumWrapper>
-					<h2>가족 앨범 보기</h2>
-					<p>가족과의 소중한 추억을 앨범으로 확인하세요</p>
-				</S.AlbumWrapper>
-			</S.RightSidebar>
+			{post && (
+				<PostItem
+					post={post}
+					likes={likes}
+					onLike={handleLike}
+					onCommentClick={handleCommentClick}
+					commentCounts={commentCounts}
+					comments={comments}
+					showCommentInput={showCommentInput}
+					handleMenuToggle={handleMenuToggle}
+					showMenu={showMenu}
+					handleMouseLeave={handleMouseLeave}
+					menuItems={menuItems}
+					commentInputs={commentInputs}
+					handleCommentChange={handleCommentChange}
+					handleCommentSubmit={handleCommentSubmit}
+				/>
+			)}
 		</S.PostContainer>
 	);
 };
 
-export default MainPage;
+export default PostDetailPage;
