@@ -5,7 +5,7 @@ import useGetEmoticonImg from '@/hooks/queries/image/useGetEmoticonImg';
 import useModalStore from '@/store/useModalStore';
 import useDeleteEmoticon from '@/hooks/queries/chat/useDeleteEmoticon';
 
-const Emoticon = ({ emoticon, familySpaceId }) => {
+const Emoticon = ({ emoticon, familySpaceId, onClick }) => {
 	const { deleteState, setDelete } = useModalStore();
 	const { imageKeyName, familyEmoticonId } = emoticon;
 	const { data } = useGetEmoticonImg({
@@ -21,7 +21,7 @@ const Emoticon = ({ emoticon, familySpaceId }) => {
 
 	return (
 		<S.Container>
-			<img src={data?.url} />
+			<img src={data?.url} onClick={() => onClick(imageKeyName)} />
 			<S.deleteIcon $deleteState={deleteState}>
 				<FaCircleMinus onClick={handleDelete} />
 			</S.deleteIcon>

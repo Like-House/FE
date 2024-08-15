@@ -12,9 +12,7 @@ const FamilySpaceSettingsContainer = styled.div`
 `;
 
 const SettingsSection = styled.div`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	${theme.ALIGN.ROW_SPACE_BETWEEN};
 	margin-top: 50px;
 `;
 
@@ -45,9 +43,7 @@ const InviteLinkInput = styled.input`
 `;
 
 const Content = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	${theme.ALIGN.ROW_SPACE_BETWEEN};
 	margin-bottom: 20px;
 	background-color: ${COLOR.COMMON.WHITE};
 	padding: 8px;
@@ -75,9 +71,7 @@ const IconButton = styled.button`
 `;
 
 const CustomButton = styled.button`
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	${theme.ALIGN.ROW_CENTER};
 	width: 80px;
 	height: 30px;
 	background-color: ${COLOR.YELLOW.YELLOW_1000};

@@ -11,6 +11,9 @@ const QUERY_KEYS = {
 	FAMILY_SPACE_ID: 'family-space-id',
 	POST_ID: 'post-id',
 	MODAL_IMG: 'modal-image',
+	ALERT: 'alert',
+
+	SCHEDULE: 'schedule',
 
 	// notification settings
 	NOTIFICATION_SETTINGS: 'notification-settings',

@@ -17,6 +17,7 @@ import MyPosts from './setting/MyPosts/MyPosts';
 import EditProfile from './setting/EditProfile/EditProfile';
 import FamilySettings from './setting/FamilySettings/FamilySettings';
 import AddSchedulePage from './calender/AddSchedule';
+import PatchSchedulePage from './calender/PatchSchedule';
 import DeleteAccount from './setting/DeleteAccount/DeleteAccount';
 import Logout from './setting/Logout/Logout';
 import ChangePassword from './setting/ChangePassword/ChangePassword';
@@ -24,6 +25,7 @@ import ServiceMainPage from './service/ServiceMainPage/ServiceMainPage';
 import ChatDetailPage from './chat/chat-detail/ChatDetailPage';
 import ChatImgPage from './chat/chat-modifiy/ChatImgPage';
 import ChatUserInfo from './chat/chat-user-info/ChatUserInfo';
+import DetailPost from './main/PostDetailPage';
 
 export {
 	MainPage,
@@ -52,4 +54,6 @@ export {
 	ChatImgPage,
 	ChatUserInfo,
 	AddSchedulePage,
+	DetailPost,
+	PatchSchedulePage,
 };

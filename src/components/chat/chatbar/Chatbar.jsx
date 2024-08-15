@@ -13,7 +13,8 @@ import useGetChatRoom from '@/hooks/queries/chat/useGetChatRoom';
 import useGetFamilyList from '@/hooks/queries/family/useGetFamilyList';
 import useCreateChatRoom from '@/hooks/queries/chat/useCreateChatRoom';
 import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
-import { IMAGE } from '@/constants';
+import { useInView } from 'react-intersection-observer';
+import useThrottling from '@/hooks/useThrottling';
 
 const Chatbar = () => {
 	const { chatDropdown, chatDropdownOpen } = useDropdownStore(state => state);
@@ -21,15 +22,29 @@ const Chatbar = () => {
 	const { data: familyData } = useGetFamilyList();
 	const { mutate } = useCreateChatRoom();
 	const { data: spaceIdData } = useGetFamilySpaceId();
-	const { data } = useGetChatRoom({
+	const { data, fetchNextPage, isFetching, hasNextPage } = useGetChatRoom({
 		familySpaceId: spaceIdData?.familySpaceId,
-		cursor: 1,
 		take: 10,
 	});
 	const { setUserId } = useUserIdStore(state => state);
+	const { ref, inView } = useInView({
+		threshold: 0,
+		delay: 0,
+		initialInView: false,
+	});
+
+	const throttlingNewPage = useThrottling(fetchNextPage, 1 * 1000);
 
 	useEffect(() => {
-		setUserId(data?.ownerId);
+		if (inView) {
+			!isFetching && hasNextPage && throttlingNewPage();
+		}
+	}, [inView, isFetching, hasNextPage]);
+
+	useEffect(() => {
+		if (data && data.length > 0 && data[0]?.result?.ownerId) {
+			setUserId(data[0].result.ownerId);
+		}
 	}, [data]);
 
 	const onClick = () => {
@@ -47,11 +62,11 @@ const Chatbar = () => {
 			const members = familyData.familyDataList.map(e => e.name);
 			const membersId = familyData.familyDataList
 				.map(e => e.userId)
-				.filter(id => id !== data?.ownerId);
+				.filter(id => id !== data[0].result.ownerId);
 			mutate({
 				familySpaceId: spaceIdData?.familySpaceId,
 				title: members.join(',') + ' (' + familyData.size + ')',
-				imageKeyName: IMAGE.BASIC, // TODO:프로필 4분할?로 수정해야함 지금은 기본이미지로
+				imageKeyName: null,
 				chatRoomType: 'GROUP',
 				roomParticipantIds: membersId,
 			});
@@ -67,9 +82,11 @@ const Chatbar = () => {
 	if (data) {
 		content = (
 			<>
-				{data.chatRoomResponses.map(e => (
-					<ChatRoom room={e} key={e.chatRoomId} />
-				))}
+				{data.map(e =>
+					e?.result.chatRoomResponses.map(e => (
+						<ChatRoom room={e} key={e.chatRoomId} />
+					)),
+				)}
 			</>
 		);
 	}
@@ -94,7 +111,10 @@ const Chatbar = () => {
 				<input type="text" placeholder="메시지방, 메시지 검색" />
 				<CiSearch size={20} />
 			</S.Search>
-			{content}
+			<S.ChatRoomContainer>
+				{content}
+				<div ref={ref} />
+			</S.ChatRoomContainer>
 		</S.Container>
 	);
 };
