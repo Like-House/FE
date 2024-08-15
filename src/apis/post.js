@@ -29,6 +29,13 @@ const getPostById = async (postId) => {
 		`${API_PATH.WRITE_POST}/${postId}`,
 	);
 	return data;
-}
+};
 
-export { getPosts, getMyPosts, getWritePost, getPostById };
+const updatePost = async (postId, updatedData) => {
+  const response = await axiosInstance.put(
+		`${API_PATH.WRITE_POST}/${postId}`, updatedData
+	);
+  return response.data;
+};
+
+export { getPosts, getMyPosts, getWritePost, getPostById, updatePost };
