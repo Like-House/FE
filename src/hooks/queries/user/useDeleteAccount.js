@@ -2,7 +2,6 @@ import { useMutation } from '@tanstack/react-query';
 import queryClient from '@/apis/queryClient';
 
 import { deleteAccount } from '@/apis';
-import { QUERY_KEYS } from '@/constants';
 import useAuthStore from '@/store/useAuthStore';
 
 const useDeleteAccount = () => {
@@ -12,7 +11,7 @@ const useDeleteAccount = () => {
 		mutationFn: deleteAccount,
 		onSuccess: () => {
 			localStorage.clear();
-			queryClient.removeQueries({ queryKey: [QUERY_KEYS.USER] });
+			queryClient.clear();
 			setIsAuthenticated(false);
 		},
 	});

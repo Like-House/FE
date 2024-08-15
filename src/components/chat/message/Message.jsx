@@ -10,7 +10,9 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { GoBellSlash } from 'react-icons/go';
 import { RxExit } from 'react-icons/rx';
 import { TbPhoto } from 'react-icons/tb';
-import { Alert, PopOver } from '@/components/index.js';
+import { HiOutlinePlusCircle } from 'react-icons/hi2';
+import { CgTrash } from 'react-icons/cg';
+import { Alert, Emoticon, FileModal, PopOver } from '@/components/index.js';
 import ReceiveMessage from '@/components/chat/receivemessage/ReceiveMessage.jsx';
 
 import useExitChatRoom from '@/hooks/queries/chat/useExitChatRoom';
@@ -20,9 +22,20 @@ import useGetMessage from '@/hooks/queries/chat/useGetMessage';
 import useThrottling from '@/hooks/useThrottling';
 import useWebSocketStore from '@/store/useWebSocketStore';
 import useUserIdStore from '@/store/useUserIdStore';
-import { PAGE_PATH } from '@/constants';
+import { PAGE_PATH, QUERY_KEYS } from '@/constants';
+import useModalStore from '@/store/useModalStore';
+import useGetEmoticon from '@/hooks/queries/chat/useGetEmoticon';
+import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
+import Mymessage from './myMessage/Mymessage';
+import NOIMG from '@/assets/images/profile.webp';
+import useFile from '@/hooks/useFile';
+import queryClient from '@/apis/queryClient';
 
 const Message = ({ room }) => {
+	const { handleFileSelectAndSend } = useFile();
+	const { fileOpen, setDelete } = useModalStore(state => state);
+	const [emoticon, setEmoticon] = useState(false);
+	const [emoOpen, setEmoOpen] = useState(false);
 	const scrollRef = useRef();
 	const [open, setOpen] = useState();
 	const { chatRoomId, imageKeyName, title } = room;
@@ -32,6 +45,10 @@ const Message = ({ room }) => {
 	const nav = useNavigate();
 	const { userId } = useUserIdStore();
 	const [input, setInput] = useState('');
+	const { data: spaceData } = useGetFamilySpaceId();
+	const { data: emoticonData } = useGetEmoticon({
+		familySpaceId: spaceData?.familySpaceId,
+	});
 	const {
 		messages,
 		sendMessage,
@@ -42,16 +59,16 @@ const Message = ({ room }) => {
 	} = useWebSocketStore();
 	const {
 		data: messageData,
-		fetchNextPage,
-		hasNextPage,
-		isFetchingNextPage,
+		fetchPreviousPage,
+		isFetchingPreviousPage,
+		hasPreviousPage,
 		isFetching,
 	} = useGetMessage({
 		chatRoomId,
-		take: 20,
+		take: 10,
 	});
 
-	console.log(messageData, hasNextPage);
+	console.log(messageData);
 
 	const scrollToBottom = () => {
 		if (scrollRef.current) {
@@ -64,18 +81,33 @@ const Message = ({ room }) => {
 		delay: 0,
 	});
 
-	const throttlingNewPage = useThrottling(fetchNextPage, 1 * 1000);
+	const throttlingNewPage = useThrottling(fetchPreviousPage, 1 * 1000);
 
 	useEffect(() => {
 		if (inView) {
-			!isFetching && hasNextPage && throttlingNewPage();
+			!isFetching && hasPreviousPage && throttlingNewPage();
 		}
-	}, [inView, isFetching, hasNextPage]);
+	}, [inView, isFetching, hasPreviousPage]);
 
 	useEffect(() => {
-		if (chatRoomId && !enter) {
+		if (chatRoomId && enter) {
+			exitChatRoom(chatRoomId);
+		}
+
+		if (chatRoomId) {
 			enterChatRoom(chatRoomId);
 		}
+		clearMessages();
+		scrollToBottom();
+
+		return () => {
+			if (enter) {
+				exitChatRoom(chatRoomId);
+			}
+			queryClient.removeQueries({
+				queryKey: [QUERY_KEYS.CHATROOMS, chatRoomId, 'message'],
+			});
+		};
 	}, [chatRoomId, enterChatRoom, enter]);
 
 	useEffect(() => {
@@ -89,12 +121,24 @@ const Message = ({ room }) => {
 		if (input.trim()) {
 			const message = JSON.stringify({
 				chatType: 'TALK',
+				imageKeyName: null,
 				content: input,
 				chatRoomId,
 			});
 			sendMessage(message);
 			setInput('');
 		}
+	};
+
+	const submitEmoticon = keyname => {
+		const message = JSON.stringify({
+			chatType: 'TALK',
+			imageKeyName: keyname,
+			content: null,
+			chatRoomId,
+		});
+		sendMessage(message);
+		setInput('');
 	};
 
 	const handleExit = () => {
@@ -140,6 +184,19 @@ const Message = ({ room }) => {
 		},
 	];
 
+	const emoItems = [
+		{
+			icon: <HiOutlinePlusCircle size={20} />,
+			message: '가족티콘 추가',
+			onClick: fileOpen,
+		},
+		{
+			icon: <CgTrash size={20} />,
+			message: '가족티콘 삭제',
+			onClick: setDelete,
+		},
+	];
+
 	return (
 		<S.Container>
 			<Alert
@@ -152,7 +209,12 @@ const Message = ({ room }) => {
 				<S.NavWrapper>
 					<IoIosArrowBack size={25} onClick={handleExit} />
 					<S.UserContainer onClick={handleInfo}>
-						<img src={data?.result.url} alt="profile" />
+						{imageKeyName ? (
+							<img src={data?.result.url} alt="profile" />
+						) : (
+							<img src={NOIMG} alt="profile" />
+						)}
+
 						<p>{title}</p>
 					</S.UserContainer>
 				</S.NavWrapper>
@@ -165,14 +227,12 @@ const Message = ({ room }) => {
 			</S.NavContainer>
 			<S.MessageContainer ref={scrollRef}>
 				<div ref={ref}>
-					{isFetchingNextPage && <div>Loading more messages...</div>}
+					{isFetchingPreviousPage && <div>Loading more messages...</div>}
 				</div>
-				{messageData?.reverse().map(page =>
+				{messageData?.map(page =>
 					page.result.chatResponseList.map(e =>
 						e.senderDTO.senderId === userId ? (
-							<S.MyContainer key={e.chatId}>
-								<S.MyMessage>{e.content}</S.MyMessage>
-							</S.MyContainer>
+							<Mymessage message={e} key={e.chatId} />
 						) : (
 							<ReceiveMessage member={e} key={e.chatId} />
 						),
@@ -183,18 +243,22 @@ const Message = ({ room }) => {
 					e.senderDTO?.senderName ? (
 						<ReceiveMessage member={e} key={idx} />
 					) : (
-						e.chatType === 'TALK' && (
-							<S.MyContainer key={idx}>
-								<S.MyMessage>{e.content}</S.MyMessage>
-							</S.MyContainer>
-						)
+						e.chatType === 'TALK' && <Mymessage message={e} key={idx} />
 					),
 				)}
 			</S.MessageContainer>
-			<S.InputContainer onSubmit={handleSend}>
+			<S.InputContainer onSubmit={handleSend} $emoticon={emoticon}>
 				<S.IconWrapper>
-					<HiOutlinePhotograph size={25} />
-					<FaRegSmile size={23} />
+					<S.FileInput
+						multiple
+						type="file"
+						id="file"
+						onChange={e => handleFileSelectAndSend(e, chatRoomId)}
+					/>
+					<label htmlFor="file">
+						<HiOutlinePhotograph size={25} />
+					</label>
+					<FaRegSmile size={23} onClick={() => setEmoticon(prev => !prev)} />
 				</S.IconWrapper>
 				<input
 					placeholder="메시지를 입력해주세요. (Enter: 전송 / Shift + Enter: 줄바꿈)"
@@ -206,6 +270,25 @@ const Message = ({ room }) => {
 					<FiSend size={25} />
 				</button>
 			</S.InputContainer>
+			<S.Emoticon $emoticon={emoticon}>
+				<S.EmotionBtn onClick={() => setEmoOpen(prev => !prev)}>
+					<p>수정</p>
+					<S.EmoPopOver $emoOpen={emoOpen}>
+						<PopOver items={emoItems} />
+					</S.EmoPopOver>
+				</S.EmotionBtn>
+				<S.EmoticonWrapper>
+					{emoticonData?.map(e => (
+						<Emoticon
+							emoticon={e}
+							key={e.familyEmoticonId}
+							familySpaceId={spaceData?.familySpaceId}
+							onClick={submitEmoticon}
+						/>
+					))}
+				</S.EmoticonWrapper>
+			</S.Emoticon>
+			<FileModal />
 		</S.Container>
 	);
 };

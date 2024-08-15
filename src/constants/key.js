@@ -1,5 +1,8 @@
 const QUERY_KEYS = {
+	// chat
 	CHATROOMS: 'chatrooms',
+	EMOTICONS: 'emoticon',
+
 	FAMILY: 'family',
 	MY_POSTS: 'my-posts',
 
@@ -8,6 +11,8 @@ const QUERY_KEYS = {
 	FAMILY_SPACE_ID: 'family-space-id',
 	POST_ID: 'post-id',
 	MODAL_IMG: 'modal-image',
+
+	SCHEDULE: 'schedule',
 
 	// notification settings
 	NOTIFICATION_SETTINGS: 'notification-settings',

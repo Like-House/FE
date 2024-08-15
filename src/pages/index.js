@@ -17,6 +17,7 @@ import MyPosts from './setting/MyPosts/MyPosts';
 import EditProfile from './setting/EditProfile/EditProfile';
 import FamilySettings from './setting/FamilySettings/FamilySettings';
 import AddSchedulePage from './calender/AddSchedule';
+import PatchSchedulePage from './calender/PatchSchedule';
 import DeleteAccount from './setting/DeleteAccount/DeleteAccount';
 import Logout from './setting/Logout/Logout';
 import ChangePassword from './setting/ChangePassword/ChangePassword';
@@ -54,4 +55,5 @@ export {
 	ChatUserInfo,
 	AddSchedulePage,
 	DetailPost,
+	PatchSchedulePage,
 };

@@ -49,7 +49,7 @@ const PAGE_PATH = {
 	NOTIFICATION_SETTINGS: 'notification-settings',
 	// /home/setting/edit-profile
 	ADD_SCHEDULE: '/add-schedule',
-	DETAILPOST: 'detailPost'
+	DETAILPOST: 'detailPost',
 };
 
 const API_PATH = {
@@ -63,10 +63,12 @@ const API_PATH = {
 
 	// posts
 	MY_POSTS: '/api/v0/posts/my-posts',
-	WRITE_POST: '/api/v0/posts',
+
+	PATCH_SCHEDULE: '/patch-schedule',
 
 	// chat
 	CHAT: '/api/v0/chat-rooms',
+	EMOTICON: 'api/v0/family-space/family-emoticon',
 
 	// family
 	FAMILY: 'api/v0/user-management',
@@ -77,7 +79,7 @@ const API_PATH = {
 	IMAGE: 'api/v0/s3/presigned',
 
 	// alarms
-	NOTIFICATION_SETTINGS: '/api/v0/users/alarms',
+	NOTIFICATION: '/api/v0/users/alarms',
 	NOTIFICATION_CHAT: '/api/v0/users/alarms/chats',
 	NOTIFICATION_COMMENT: '/api/v0/users/alarms/comments',
 	NOTIFICATION_COMMENT_REPLY: '/api/v0/users/alarms/comment-reply',
@@ -95,6 +97,9 @@ const API_PATH = {
 	KAKAO_REDIRECT: 'oauth2/authorization/kakao',
 	GOOGLE_REDITECT: 'oauth2/authorization/google',
 	NAVER_REDITECT: 'oauth2/authorization/naver',
+
+	//schedule
+	SCHEDULE: '/api/v0/schedules',
 };
 
 export { PAGE_PATH, API_PATH };

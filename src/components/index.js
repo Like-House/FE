@@ -25,6 +25,8 @@ import ChatRoom from './chat/chatroom/ChatRoom';
 import Message from './chat/message/Message';
 import ChangeRoom from './chat/changeroom/ChangeRoom';
 import MemberInfo from './chat/memberInfo/MemberInfo';
+import FileModal from './chat/modal/filemodal/FileModal';
+import Emoticon from './chat/emoticon/Emoticon';
 
 // settings
 import UserBox from './setting/userBox/UserBox';
@@ -58,4 +60,6 @@ export {
 	FamilyMember,
 	MemberInfo,
 	PostItem,
+	FileModal,
+	Emoticon,
 };

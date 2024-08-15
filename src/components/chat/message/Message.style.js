@@ -177,18 +177,54 @@ const MessageContainer = styled.div`
 	padding: 0 20px;
 `;
 
-const MyContainer = styled.div`
-	display: flex;
-	justify-content: flex-end;
-	margin: 7px 0;
+const Emoticon = styled.div`
+	display: ${({ $emoticon }) => ($emoticon ? 'flex' : 'none')};
+	flex-direction: column;
+	padding: 15px;
+	width: 93%;
+	height: 200px;
+	background-color: ${theme.COLOR.GRAY.GRAY_0};
+	border-radius: 20px;
+	margin-bottom: 10px;
 `;
 
-const MyMessage = styled.div`
-	background-color: ${theme.COLOR.MAIN.YELLOW};
-	max-width: 300px;
-	width: fit-content;
-	border-radius: 18px;
-	padding: 10px 15px;
+const EmotionBtn = styled.div`
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: end;
+
+	p {
+		padding-right: 10px;
+		width: fit-content;
+		font-size: ${FONT_SIZE.SM};
+		font-weight: bold;
+		&:hover {
+			cursor: pointer;
+			text-decoration: underline;
+		}
+	}
+`;
+
+const EmoPopOver = styled.div`
+	position: absolute;
+	top: 25px;
+	right: 10px;
+	display: ${({ $emoOpen }) => ($emoOpen ? 'flex' : 'none')};
+	z-index: 3;
+`;
+
+const EmoticonWrapper = styled.div`
+	display: flex;
+
+	flex-wrap: wrap;
+	height: 100%;
+	overflow-y: auto;
+	padding: 10px;
+`;
+
+const FileInput = styled.input`
+	display: none;
 `;
 
 export {
@@ -202,6 +238,9 @@ export {
 	NoChatContainer,
 	MessageContainer,
 	NavWrapper,
-	MyMessage,
-	MyContainer,
+	Emoticon,
+	EmotionBtn,
+	EmoPopOver,
+	EmoticonWrapper,
+	FileInput,
 };
