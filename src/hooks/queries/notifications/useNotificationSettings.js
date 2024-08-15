@@ -1,28 +1,30 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
-	getNotificationSettings,
-	updateNotificationSetting,
+  getNotificationSettings,
+  updateNotificationSettings,
 } from '@/apis/notifications';
 import { QUERY_KEYS } from '@/constants/key';
 
 const useNotificationSettings = () => {
-	const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-	const { data, isLoading, error } = useQuery({
-		queryKey: [QUERY_KEYS.NOTIFICATION_SETTINGS],
-		queryFn: getNotificationSettings,
-	});
+  const { data, isSuccess } = useQuery({
+    queryKey: [QUERY_KEYS.NOTIFICATION],
+    queryFn: getNotificationSettings,
+  });
 
-	const updateSetting = type => {
-		return useMutation(status => updateNotificationSetting(type, status), {
-			onSuccess: () => {
-				queryClient.invalidateQueries([QUERY_KEYS.NOTIFICATION_SETTINGS]);
-			},
-		});
-	};
+  const mutation = useMutation({
+    mutationFn: ({ type, status }) => updateNotificationSettings(type, status),
+    onSuccess: () => {
+      queryClient.invalidateQueries([QUERY_KEYS.NOTIFICATION]);
+    },
+  });
 
-	return { data, isLoading, error, updateSetting };
+  return {
+    notificationSettings: data,
+    isSuccess,
+    updateSetting: mutation.mutate,
+  };
 };
 
 export default useNotificationSettings;

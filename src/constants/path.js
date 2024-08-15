@@ -53,50 +53,52 @@ const PAGE_PATH = {
 };
 
 const API_PATH = {
-	// auth
-	SIGNUP: '/api/v0/auth/signup',
-	LOGIN: '/api/v0/auth/signin',
-	LOGOUT: '/api/v0/auth/signout',
-	EMAIL: '/api/v0/auth/email',
-	AUTH: '/api/v0/auth',
-	FCM: '/api/v0/auth/fcm',
+  // auth
+  SIGNUP: '/api/v0/auth/signup',
+  LOGIN: '/api/v0/auth/signin',
+  LOGOUT: '/api/v0/auth/signout',
+  EMAIL: '/api/v0/auth/email',
+  AUTH: '/api/v0/auth',
+  FCM: '/api/v0/auth/fcm',
 
-	// posts
-	MY_POSTS: '/api/v0/posts/my-posts',
-
+  // posts
+  MY_POSTS: '/api/v0/posts/my-posts',
+  
 	// chat
 	CHAT: '/api/v0/chat-rooms',
+	EMOTICON: 'api/v0/family-space/family-emoticon',
 
-	// family
-	FAMILY: 'api/v0/user-management',
-	FAMILY_SPACE: 'api/v0/family-space',
-	FAMILY_SPACE_ID: 'api/v0/family-space',
+  // family
+  FAMILY: 'api/v0/user-management',
+  FAMILY_SPACE: 'api/v0/family-space',
+  FAMILY_SPACE_ID: 'api/v0/family-space',
 
-	// image
-	IMAGE: 'api/v0/s3/presigned',
+  // image
+  IMAGE: 'api/v0/s3/presigned',
 
-	// alarms
-	NOTIFICATION_SETTINGS: '/api/v0/users/alarms',
-	NOTIFICATION_CHAT: '/api/v0/users/alarms/chats',
-	NOTIFICATION_COMMENT: '/api/v0/users/alarms/comments',
-	NOTIFICATION_COMMENT_REPLY: '/api/v0/users/alarms/comment-reply',
-	NOTIFICATION_EVENT: '/api/v0/users/alarms/events',
+  // alarms
+  NOTIFICATION: '/api/v0/users/alarms',
+  NOTIFICATION_CHAT: '/api/v0/users/alarms/chats',
+  NOTIFICATION_COMMENT: '/api/v0/users/alarms/comments',
+  NOTIFICATION_COMMENT_REPLY: '/api/v0/users/alarms/comment-reply',
+  NOTIFICATION_EVENT: '/api/v0/users/alarms/events',
 
-	// user
-	PROFILE: '/api/v0/users/profile',
-	BLOCK: '/api/v0/user-management/block',
+  // user
+  PROFILE: '/api/v0/users/profile',
+  BLOCK: '/api/v0/user-management/block',
 
-	// album
-	ALBUM: '/api/v0/family-album',
-	ALBUM_POST: '/api/v0/family-album/posts',
-
-	//schedule
-	SCHEDULE: '/api/v0/schedules',
+  // album
+  ALBUM: '/api/v0/family-album',
+  ALBUM_POST: '/api/v0/family-album/posts',
 
 	// social login
 	KAKAO_REDIRECT: 'oauth2/authorization/kakao',
 	GOOGLE_REDITECT: 'oauth2/authorization/google',
 	NAVER_REDITECT: 'oauth2/authorization/naver',
+  
+  //schedule
+	SCHEDULE: '/api/v0/schedules',
+
 };
 
 export { PAGE_PATH, API_PATH };

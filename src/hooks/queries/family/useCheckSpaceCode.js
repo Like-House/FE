@@ -3,14 +3,15 @@ import { useMutation } from '@tanstack/react-query';
 import theme from '@/theme/theme';
 import { checkSpaceCode } from '@/apis';
 import { toast } from 'sonner';
-import useFamilySpaceStore from '@/store/useFamilySpaceStore';
+import useEnterSpace from './useEnterSpace';
 
 const useCheckSpaceCode = () => {
-	const { setFamilySpaceId } = useFamilySpaceStore();
+	const { mutate: enterMutate } = useEnterSpace();
+
 	return useMutation({
 		mutationFn: checkSpaceCode,
 		onSuccess: data => {
-			setFamilySpaceId(data.result.familySpaceId);
+			enterMutate(data.result.familySpaceId);
 		},
 		onError: error => {
 			error.response &&
