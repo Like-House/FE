@@ -22,13 +22,14 @@ import useGetMessage from '@/hooks/queries/chat/useGetMessage';
 import useThrottling from '@/hooks/useThrottling';
 import useWebSocketStore from '@/store/useWebSocketStore';
 import useUserIdStore from '@/store/useUserIdStore';
-import { PAGE_PATH } from '@/constants';
+import { PAGE_PATH, QUERY_KEYS } from '@/constants';
 import useModalStore from '@/store/useModalStore';
 import useGetEmoticon from '@/hooks/queries/chat/useGetEmoticon';
 import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
 import Mymessage from './myMessage/Mymessage';
 import NOIMG from '@/assets/images/profile.webp';
 import useFile from '@/hooks/useFile';
+import queryClient from '@/apis/queryClient';
 
 const Message = ({ room }) => {
 	const { handleFileSelectAndSend } = useFile();
@@ -103,6 +104,9 @@ const Message = ({ room }) => {
 			if (enter) {
 				exitChatRoom(chatRoomId);
 			}
+			queryClient.removeQueries({
+				queryKey: [QUERY_KEYS.CHATROOMS, chatRoomId, 'message'],
+			});
 		};
 	}, [chatRoomId, enterChatRoom, enter]);
 
