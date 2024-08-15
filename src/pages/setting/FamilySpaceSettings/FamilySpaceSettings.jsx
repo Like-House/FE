@@ -11,6 +11,7 @@ import {
 import useDeleteFamilySpace from '@/hooks/queries/family/useDeleteFamilySpace';
 import { useNavigate } from 'react-router-dom';
 import { PAGE_PATH } from '@/constants';
+import useGetProfile from '@/hooks/queries/user/useGetProfile';
 
 function FamilySpaceSettings() {
   const { isOpen, openModal, closeModal } = useModal();
@@ -18,6 +19,7 @@ function FamilySpaceSettings() {
   const [isManager, setIsManager] = useState(false);
   const { mutate } = useDeleteFamilySpace();
   const nav = useNavigate();
+  const { data: profileData, isSuccess: isProfileSuccess } = useGetProfile();
 
   useEffect(() => {
     const fetchInviteCode = async () => {
@@ -36,11 +38,13 @@ function FamilySpaceSettings() {
 
         console.log('Family Data:', familyData);
 
-        if (familyData) {
+        if (familyData && isProfileSuccess && profileData) {
           const manager = familyData.familyDataList.find(
             (user) => user.isManager
           );
-          setIsManager(!!manager);
+          const userId = profileData.userId;
+
+          setIsManager(manager?.userId === userId);
         }
       } catch (error) {
         console.error('Error fetching family data:', error);
@@ -48,8 +52,10 @@ function FamilySpaceSettings() {
     };
 
     fetchInviteCode();
-    checkIsManager();
-  }, []);
+    if (isProfileSuccess && profileData) {
+      checkIsManager();
+    }
+  }, [isProfileSuccess, profileData]);
 
   const handleConfirm = () => {
     mutate();
