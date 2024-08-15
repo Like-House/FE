@@ -85,10 +85,10 @@ const API_PATH = {
 	NOTIFICATION_COMMENT_REPLY: '/api/v0/users/alarms/comment-reply',
 	NOTIFICATION_EVENT: '/api/v0/users/alarms/events',
 
-  // user
-  PROFILE: '/api/v0/users/profile',
-  BLOCK: '/api/v0/user-management/block',
-  PASSWORD: '/api/v0/users/password',
+	// user
+	PROFILE: '/api/v0/users/profile',
+	BLOCK: '/api/v0/user-management/block',
+	PASSWORD: '/api/v0/users/password',
 
 	// album
 	ALBUM: '/api/v0/family-album',
@@ -99,12 +99,7 @@ const API_PATH = {
 	GOOGLE_REDITECT: 'oauth2/authorization/google',
 	NAVER_REDITECT: 'oauth2/authorization/naver',
 
-	// social login
-	KAKAO_REDIRECT: 'oauth2/authorization/kakao',
-	GOOGLE_REDITECT: 'oauth2/authorization/google',
-	NAVER_REDITECT: 'oauth2/authorization/naver',
-  
-  //alert
+	//alert
 	ALERT: '/api/v0/family-space',
 
 	//schedule
