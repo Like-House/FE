@@ -1,48 +1,60 @@
 import * as A from './AddSchedule.style';
-
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 import Dropdown from '@/components/common/dropdown/Dropdown';
 import FloatingButton from '@/components/common/floatingbutton/floatingbutton';
 import Alert from '@/components/common/alert/alert';
 
 import DefaultIcon from '@/assets/images/floatingsetting.png';
-import useCreateSchedule from '@/hooks/queries/schedule/useCreateSchedule';
+import useGetSingleSchedule from '@/hooks/queries/schedule/useGetSingleSchedule';
+import usePatchSchedule from '@/hooks/queries/schedule/usePatchSchedule';
 
-const AddSchedulePage = () => {
+const PatchSchedule = () => {
+	const location = useLocation();
+	const { scheduleId } = location.state || {};
+	const navigate = useNavigate();
+
 	const [title, setTitle] = useState('');
 	const [date, setDate] = useState('');
 	const [content, setContent] = useState('');
 	const [scheduleType, setScheduleType] = useState('');
 	const [showAlert, setShowAlert] = useState(false);
 
-	const navigate = useNavigate();
+	const { data: scheduleData } = useGetSingleSchedule({
+		scheduleId: scheduleId ? scheduleId : null,
+	});
 
-	const { mutate: createSchedule } = useCreateSchedule();
+	const { mutate: patchSchedule } = usePatchSchedule();
+
+	useEffect(() => {
+		if (scheduleData) {
+			setTitle(scheduleData.title);
+			setDate(scheduleData.date);
+			setContent(scheduleData.content);
+			setScheduleType(scheduleData.dtype);
+		}
+	}, [scheduleData]);
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		if (!title || !date || !content || !scheduleType) {
-			setShowAlert(true);
-			return;
-		}
-		const newSchedule = { title, date, content, scheduleType };
-
-		createSchedule(newSchedule, {
-			onSuccess: () => {
-				navigate('/home/calender', { state: { schedule: newSchedule } });
+		patchSchedule(
+			{
+				scheduleId,
+				date,
+				dtype: scheduleType,
+				title,
+				content,
 			},
-			onError: error => {
-				console.log('일정 추가 실패:', error);
+			{
+				onSuccess: () => {
+					navigate('/home/calender');
+				},
+				onError: () => {
+					setShowAlert(true);
+				},
 			},
-		});
-	};
-
-	const handleClick = () => {
-		document
-			.querySelector('form')
-			.dispatchEvent(new Event('submit', { bubbles: true }));
+		);
 	};
 
 	const handleAlertConfirm = () => {
@@ -51,7 +63,7 @@ const AddSchedulePage = () => {
 
 	return (
 		<A.Container>
-			<h2>일정 추가</h2>
+			<h2>일정 수정</h2>
 			<A.Content>
 				<A.Form onSubmit={handleSubmit}>
 					<label>날짜</label>
@@ -69,6 +81,7 @@ const AddSchedulePage = () => {
 							onSelect={option => setScheduleType(option)}
 							openIcon={<RiArrowDropDownLine size={'30px'} />}
 							closeIcon={<RiArrowDropUpLine size={'30px'} />}
+							selectedOption={scheduleType}
 						/>
 					</A.Type>
 					<label>제목</label>
@@ -86,15 +99,15 @@ const AddSchedulePage = () => {
 						placeholder="내용을 입력해주세요."
 						required
 					/>
+					<A.Button>
+						<FloatingButton
+							type="submit"
+							backgroundColor="#FFC933"
+							borderColor="#FFC933"
+							icon={<img src={DefaultIcon} alt="default icon" />}
+						/>
+					</A.Button>
 				</A.Form>
-				<A.Button>
-					<FloatingButton
-						onClick={handleClick}
-						backgroundColor="#FFC933"
-						borderColor="#FFC933"
-						icon={<img src={DefaultIcon} alt="default icon" />}
-					/>
-				</A.Button>
 			</A.Content>
 
 			<Alert
@@ -106,4 +119,4 @@ const AddSchedulePage = () => {
 	);
 };
 
-export default AddSchedulePage;
+export default PatchSchedule;

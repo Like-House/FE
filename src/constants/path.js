@@ -1,54 +1,55 @@
 const PAGE_PATH = {
-  // post
-  BASE: '/',
-  HOME: '/home',
-  // Login
-  LOGIN: 'login',
-  // Signup
-  SIGN_UP: 'signup',
-  // Service
-  SERVICE: 'service',
-  // Service/InvitationLink
-  SERVICE_INVITATION_LINK: 'invitationlink',
-  //Service/CreateSpace
-  CREATE_SPACE: 'createspace',
-  // Chat
-  CHAT: 'chat',
-  ROOM: 'room',
-  MODIFY: 'modify',
-  INFO: 'info',
-  // Setting
-  SETTING: 'setting',
-  // Photo
-  PHOTO: 'photo',
-  // Calender
-  CALENDER: 'calender',
-  // Alert
-  ALERT: 'alert',
-  // Family
-  FAMILY: 'family',
-  // setting/change-password
-  CHANGE_PASSWORD: 'change-password',
-  // setting/my-posts
-  MY_POSTS: 'my-posts',
-  // setting/family-space-settings
-  FAMILY_SPACE_SETTINGS: 'family-space-settings',
-  // setting/edit-profile
-  EDIT_PROFILE: 'edit-profile',
-  // setting/family-settings
-  FAMILY_SETTINGS: 'family-settings',
-  // setting/delete-account
-  DELETE_ACCOUNT: 'delete-account',
-  // setting/family-edit
-  FAMILY_EDIT: 'family-edit',
-  // Q/A
-  QNA: 'qna',
-  // setting/logout
-  LOGOUT: 'logout',
-  // setting/NotificationSettings
-  NOTIFICATION_SETTINGS: 'notification-settings',
-  // /home/setting/edit-profile
-  ADD_SCHEDULE: '/add-schedule',
+	// post
+	BASE: '/',
+	HOME: '/home',
+	// Login
+	LOGIN: 'login',
+	// Signup
+	SIGN_UP: 'signup',
+	// Service
+	SERVICE: 'service',
+	// Service/InvitationLink
+	SERVICE_INVITATION_LINK: 'invitationlink',
+	//Service/CreateSpace
+	CREATE_SPACE: 'createspace',
+	// Chat
+	CHAT: 'chat',
+	ROOM: 'room',
+	MODIFY: 'modify',
+	INFO: 'info',
+	// Setting
+	SETTING: 'setting',
+	// Photo
+	PHOTO: 'photo',
+	// Calender
+	CALENDER: 'calender',
+	// Alert
+	ALERT: 'alert',
+	// Family
+	FAMILY: 'family',
+	// setting/change-password
+	CHANGE_PASSWORD: 'change-password',
+	// setting/my-posts
+	MY_POSTS: 'my-posts',
+	// setting/family-space-settings
+	FAMILY_SPACE_SETTINGS: 'family-space-settings',
+	// setting/edit-profile
+	EDIT_PROFILE: 'edit-profile',
+	// setting/family-settings
+	FAMILY_SETTINGS: 'family-settings',
+	// setting/delete-account
+	DELETE_ACCOUNT: 'delete-account',
+	// setting/family-edit
+	FAMILY_EDIT: 'family-edit',
+	// Q/A
+	QNA: 'qna',
+	// setting/logout
+	LOGOUT: 'logout',
+	// setting/NotificationSettings
+	NOTIFICATION_SETTINGS: 'notification-settings',
+	// /home/setting/edit-profile
+	ADD_SCHEDULE: '/add-schedule',
+	PATCH_SCHEDULE: '/patch-schedule',
 };
 
 const API_PATH = {
@@ -90,10 +91,14 @@ const API_PATH = {
   ALBUM: '/api/v0/family-album',
   ALBUM_POST: '/api/v0/family-album/posts',
 
-  // social login
-  KAKAO_REDIRECT: 'oauth2/authorization/kakao',
-  GOOGLE_REDITECT: 'oauth2/authorization/google',
-  NAVER_REDITECT: 'oauth2/authorization/naver',
+	// social login
+	KAKAO_REDIRECT: 'oauth2/authorization/kakao',
+	GOOGLE_REDITECT: 'oauth2/authorization/google',
+	NAVER_REDITECT: 'oauth2/authorization/naver',
+  
+  //schedule
+	SCHEDULE: '/api/v0/schedules',
+
 };
 
 export { PAGE_PATH, API_PATH };

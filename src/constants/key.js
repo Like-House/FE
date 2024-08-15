@@ -12,6 +12,8 @@ const QUERY_KEYS = {
 	POST_ID: 'post-id',
 	MODAL_IMG: 'modal-image',
 
+	SCHEDULE: 'schedule',
+
 	// notification settings
 	NOTIFICATION_SETTINGS: 'notification-settings',
 	NOTIFICATION_CHAT: 'notification-chat',
