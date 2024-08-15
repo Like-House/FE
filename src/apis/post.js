@@ -24,4 +24,11 @@ const getWritePost = async ({postData}) => {
 	return data;
 };
 
-export { getPosts, getMyPosts, getWritePost };
+const getPostById = async (postId) => {
+	const { data } = await axiosInstance.get(
+		`${API_PATH.WRITE_POST}/${postId}`,
+	);
+	return data;
+}
+
+export { getPosts, getMyPosts, getWritePost, getPostById };

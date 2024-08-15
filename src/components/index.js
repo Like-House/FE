@@ -17,6 +17,7 @@ import SignupForm from './form/signupForm/SignupForm';
 import LoginForm from './form/loginForm/LoginForm';
 import Settingbar from './settingbar/Settingbar';
 import CheckBox from './common/checkbox/CheckBox.jsx';
+import PostItem from './post/PostItem.jsx';
 
 // chat
 import Chatbar from './chat/chatbar/Chatbar';
@@ -56,4 +57,5 @@ export {
 	UserBox,
 	FamilyMember,
 	MemberInfo,
+	PostItem,
 };
