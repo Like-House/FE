@@ -35,6 +35,10 @@ const PostItem = ({
     handleMenuToggle(post.postId);
   };
 
+  const handlePopoverClick = (event) => {
+    event.stopPropagation();
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const options = {
@@ -74,7 +78,7 @@ const PostItem = ({
               <button onClick={handleMenuClick}>
                 <HiMiniEllipsisHorizontal />
               </button>
-              <S.Popover>
+              <S.Popover onClick={handlePopoverClick}>
                 {showMenu === post.postId && (
                   <PopOver items={menuItems} onMouseLeave={handleMouseLeave} />
                 )}

@@ -1,7 +1,7 @@
 import * as S from './PostDetailPage.style';
 import { useState, useEffect } from 'react';
 import { FaEdit, FaTrashAlt, FaRegBellSlash } from 'react-icons/fa';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import useGetPostById from "@/hooks/queries/posts/useGetPostById";
 import useDeletePost from '@/hooks/queries/posts/useDeletePost.js';
@@ -14,10 +14,11 @@ const LOCAL_STORAGE_LIKES_KEY = 'likes';
 
 const PostDetailPage = () => {
   const { postId } = useParams();
+  const navigate = useNavigate();
   const { data } = useGetPostById(postId);
   const post = data?.result;
 
-  const { mutate } = useDeletePost();
+  const { mutate: deletePost } = useDeletePost();
   const likePostMutation = useLikePost();
   const unlikePostMutation = useUnlikePost();
 
@@ -95,6 +96,14 @@ const PostDetailPage = () => {
     setShowMenu(false);
   };
 
+  const handleDeletePost = (postId) => {
+    deletePost(postId, {
+      onSuccess: () => {
+        navigate('/home');
+      },
+    });
+  };
+
   const menuItems = [
     {
       icon: <FaEdit />,
@@ -111,7 +120,7 @@ const PostDetailPage = () => {
       onClick: () => {
         console.log('삭제하기 클릭됨');
         if (postId) {
-          mutate(postId);
+          handleDeletePost(postId);
         }
         setShowMenu(null);
       },

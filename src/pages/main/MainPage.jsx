@@ -27,7 +27,7 @@ const MainPage = () => {
 
 	// console.log('familyId', data?.familySpaceId);
 
-	const {mutate} = useDeletePost();
+	const { mutate: deletePost } = useDeletePost();
 	const likePostMutation = useLikePost();
 	const unlikePostMutation = useUnlikePost();
 
@@ -122,7 +122,7 @@ const MainPage = () => {
 				console.log('삭제하기 클릭됨');
 				console.log(showMenu);
 				if (showMenu) {
-					mutate(showMenu);
+					deletePost(showMenu);
 				}
 				setShowMenu(null);
 			},
