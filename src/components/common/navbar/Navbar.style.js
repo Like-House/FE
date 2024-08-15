@@ -16,6 +16,7 @@ const Container = styled.div`
 		border: 1px solid ${theme.COLOR.GRAY.GRAY_350};
 		padding: 0 15px;
 		background-color: ${theme.COLOR.COMMON.WHITE};
+		height: 65px;
 	}
 `;
 

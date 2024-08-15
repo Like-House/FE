@@ -55,7 +55,6 @@ function Navbar() {
 				<NavLink to={`${PAGE_PATH.SERVICE}`}>서비스 이용</NavLink>
 				<NavLink to={`${PAGE_PATH.LOGIN}`}>로그인</NavLink>
 				<NavLink to={`${PAGE_PATH.SIGN_UP}`}>회원가입</NavLink>
-				<NavLink to={`${PAGE_PATH.QNA}`}>Q/A</NavLink>
 			</S.NavContainer>
 		);
 	}

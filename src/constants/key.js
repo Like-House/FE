@@ -1,5 +1,8 @@
 const QUERY_KEYS = {
+	// chat
 	CHATROOMS: 'chatrooms',
+	EMOTICONS: 'emoticon',
+
 	FAMILY: 'family',
 	MY_POSTS: 'my-posts',
 
