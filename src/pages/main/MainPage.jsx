@@ -48,39 +48,39 @@ const MainPage = () => {
 		localStorage.setItem(LOCAL_STORAGE_LIKES_KEY, JSON.stringify(likes));
 	}, [likes]);
 
-	const handleLike = (postId) => {
-		setLikes((prev) => {
-				const currentLike = prev[postId] || { count: 0, liked: false };
-				const liked = currentLike.liked;
-        const newCount = liked ? currentLike.count - 1 : currentLike.count + 1;
-				return {
-						...prev,
-						[postId]: { count: newCount, liked: !liked },
-				};
+	const handleLike = postId => {
+		setLikes(prev => {
+			const currentLike = prev[postId] || { count: 0, liked: false };
+			const liked = currentLike.liked;
+			const newCount = liked ? currentLike.count - 1 : currentLike.count + 1;
+			return {
+				...prev,
+				[postId]: { count: newCount, liked: !liked },
+			};
 		});
 
 		if (likes[postId]?.liked) {
-				unlikePostMutation.mutate(postId);
+			unlikePostMutation.mutate(postId);
 		} else {
-				likePostMutation.mutate(postId);
+			likePostMutation.mutate(postId);
 		}
 	};
 
-	const handleCommentClick = (postId) => {
+	const handleCommentClick = postId => {
 		setShowCommentInput(prev => ({
 			...prev,
 			[postId]: !prev[postId],
 		}));
 		if (!showCommentInput[postId]) {
-			setCommentInputs((prev) => ({ ...prev, [postId]: '' }));
+			setCommentInputs(prev => ({ ...prev, [postId]: '' }));
 		}
 	};
 
 	const handleCommentChange = (postId, value) => {
-		setCommentInputs((prev) => ({ ...prev, [postId]: value }));
+		setCommentInputs(prev => ({ ...prev, [postId]: value }));
 	};
 
-	const handleCommentSubmit = (postId) => {
+	const handleCommentSubmit = postId => {
 		if (commentInputs[postId]) {
 			setComments(prev => ({
 				...prev,
@@ -92,12 +92,12 @@ const MainPage = () => {
 			}));
 
 			addCommentMutation.mutate({ postId, content: commentInputs[postId] });
-			setCommentInputs((prev) => ({ ...prev, [postId]: '' }));
+			setCommentInputs(prev => ({ ...prev, [postId]: '' }));
 		}
 	};
 
-	const handleMenuToggle = (postId) => {
-		setShowMenu((prev) => (prev === postId ? null : postId));
+	const handleMenuToggle = postId => {
+		setShowMenu(prev => (prev === postId ? null : postId));
 	};
 
 	const handleMouseLeave = () => {
@@ -137,7 +137,7 @@ const MainPage = () => {
 		},
 	];
 
-	const handlePostClick = (postId) => {
+	const handlePostClick = postId => {
 		navigate(`/home/detailPost/${postId}`);
 	};
 
@@ -145,25 +145,25 @@ const MainPage = () => {
 		<S.PostContainer>
 			<S.PostList>
 				{boardList?.posts.map(post => (
-						<div key={post.postId} onClick={() => handlePostClick(post.postId)}>
-							<PostItem
-								post={post}
-								likes={likes}
-								onLike={handleLike}
-								onCommentClick={handleCommentClick}
-								commentCounts={commentCounts}
-								comments={comments}
-								showCommentInput={showCommentInput}
-								handleMenuToggle={handleMenuToggle}
-								showMenu={showMenu}
-								handleMouseLeave={handleMouseLeave}
-								menuItems={menuItems}
-								commentInputs={commentInputs}
-								handleCommentChange={handleCommentChange}
-								handleCommentSubmit={handleCommentSubmit}
-							/>
-						</div>
-        	))}
+					<div key={post.postId} onClick={() => handlePostClick(post.postId)}>
+						<PostItem
+							post={post}
+							likes={likes}
+							onLike={handleLike}
+							onCommentClick={handleCommentClick}
+							commentCounts={commentCounts}
+							comments={comments}
+							showCommentInput={showCommentInput}
+							handleMenuToggle={handleMenuToggle}
+							showMenu={showMenu}
+							handleMouseLeave={handleMouseLeave}
+							menuItems={menuItems}
+							commentInputs={commentInputs}
+							handleCommentChange={handleCommentChange}
+							handleCommentSubmit={handleCommentSubmit}
+						/>
+					</div>
+				))}
 			</S.PostList>
 			<S.RightSidebar>
 				<S.CalendarWrapper>

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const PostContainer = styled.div`
 	display: flex;
@@ -6,4 +6,4 @@ const PostContainer = styled.div`
 	background-color: #fafafa;
 `;
 
-export {PostContainer}
+export { PostContainer };

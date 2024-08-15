@@ -60,10 +60,4 @@ const AlbumWrapper = styled.div`
 	}
 `;
 
-export {
-	PostContainer,
-	PostList,
-	RightSidebar,
-	CalendarWrapper,
-	AlbumWrapper,
-};
+export { PostContainer, PostList, RightSidebar, CalendarWrapper, AlbumWrapper };
