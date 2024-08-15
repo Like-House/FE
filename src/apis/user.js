@@ -29,4 +29,12 @@ const updateProfile = async (profileData) => {
   return data;
 };
 
-export { getProfile, blockUser, unBlockUser, updateProfile };
+const changePassword = async (currentPassword, newPassword) => {
+  const { data } = await axiosInstance.patch(`${API_PATH.PASSWORD}`, {
+    currentPassword,
+    newPassword,
+  });
+  return data;
+};
+
+export { getProfile, blockUser, unBlockUser, updateProfile, changePassword };

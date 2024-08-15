@@ -62,10 +62,10 @@ const API_PATH = {
 
   // posts
   MY_POSTS: '/api/v0/posts/my-posts',
-  
-	// chat
-	CHAT: '/api/v0/chat-rooms',
-	EMOTICON: 'api/v0/family-space/family-emoticon',
+
+  // chat
+  CHAT: '/api/v0/chat-rooms',
+  EMOTICON: 'api/v0/family-space/family-emoticon',
 
   // family
   FAMILY: 'api/v0/user-management',
@@ -85,6 +85,7 @@ const API_PATH = {
   // user
   PROFILE: '/api/v0/users/profile',
   BLOCK: '/api/v0/user-management/block',
+  PASSWORD: '/api/v0/users/password',
 
   // album
   ALBUM: '/api/v0/family-album',
