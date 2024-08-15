@@ -29,7 +29,6 @@ const getRealImageUrl = async imageUrl => {
 		const { data } = await axiosInstance.post(`${API_PATH.IMAGE}/download`, {
 			keyName: imageUrl,
 		});
-
 		return data;
 	} catch (error) {
 		console.log(error);

@@ -3,22 +3,38 @@ import axiosInstance from './axios';
 import { API_PATH } from '@/constants';
 
 const getProfile = async () => {
-	const { data } = await axiosInstance.get(`${API_PATH.PROFILE}`);
+  const { data } = await axiosInstance.get(`${API_PATH.PROFILE}`);
 
-	return data;
+  return data;
 };
 
-const blockUser = async userId => {
-	const { data } = await axiosInstance.post(`${API_PATH.BLOCK}/${userId}`);
+const blockUser = async (userId) => {
+  const { data } = await axiosInstance.post(`${API_PATH.BLOCK}/${userId}`);
 
-	return data;
+  return data;
 };
 
-const unBlockUser = async userId => {
-	const { data } = await axiosInstance.post(
-		`${API_PATH.BLOCK}/release/${userId}`,
-	);
-	return data;
+const unBlockUser = async (userId) => {
+  const { data } = await axiosInstance.post(
+    `${API_PATH.BLOCK}/release/${userId}`
+  );
+  return data;
 };
 
-export { getProfile, blockUser, unBlockUser };
+const updateProfile = async (profileData) => {
+  const { data } = await axiosInstance.patch(
+    `${API_PATH.PROFILE}`,
+    profileData
+  );
+  return data;
+};
+
+const changePassword = async (currentPassword, newPassword) => {
+  const { data } = await axiosInstance.patch(`${API_PATH.PASSWORD}`, {
+    currentPassword,
+    newPassword,
+  });
+  return data;
+};
+
+export { getProfile, blockUser, unBlockUser, updateProfile, changePassword };

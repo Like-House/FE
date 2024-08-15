@@ -85,9 +85,10 @@ const API_PATH = {
 	NOTIFICATION_COMMENT_REPLY: '/api/v0/users/alarms/comment-reply',
 	NOTIFICATION_EVENT: '/api/v0/users/alarms/events',
 
-	// user
-	PROFILE: '/api/v0/users/profile',
-	BLOCK: '/api/v0/user-management/block',
+  // user
+  PROFILE: '/api/v0/users/profile',
+  BLOCK: '/api/v0/user-management/block',
+  PASSWORD: '/api/v0/users/password',
 
 	// album
 	ALBUM: '/api/v0/family-album',
