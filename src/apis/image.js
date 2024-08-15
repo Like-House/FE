@@ -17,6 +17,7 @@ const uploadImageToS3 = async ({ url, file }) => {
 				'Content-Type': file.type,
 			},
 		});
+		console.log(res);
 		return res;
 	} catch (error) {
 		console.log(error);

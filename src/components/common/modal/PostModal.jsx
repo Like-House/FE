@@ -9,10 +9,7 @@ import useGetFamilyList from '@/hooks/queries/family/useGetFamilyList';
 import Dropdown from '@/components/common/dropdown/Dropdown';
 import { createPresignedURL, uploadImageToS3 } from '@/apis';
 
-const PostModal = ({
-	isOpen,
-	closeModal
-}) => {
+const PostModal = ({ isOpen, closeModal }) => {
 	const [step, setStep] = useState(1);
 	const [inputValue, setInputValue] = useState('');
 	const [selectedOption, setSelectedOption] = useState('');
@@ -38,18 +35,14 @@ const PostModal = ({
 			const fileInput = document.createElement('input');
 			fileInput.type = 'file';
 			fileInput.accept = 'image/*';
-			fileInput.onchange = async (event) => {
+			fileInput.onchange = async event => {
 				const file = event.target.files[0];
 				if (file) {
-					const newImageKey = `${Date.now()}_${file.name}`;
-					setImageFile(file);
-					setImageKey(newImageKey);
+					const data = await createPresignedURL(file.name);
 
-					const { result: { url } } = await createPresignedURL(file.name);
+					await uploadImageToS3({ url: data.result.url, file });
 
-					await uploadImageToS3({ url, file });
-
-					setImageKey(newImageKey);
+					setImageKey(data.result.keyName);
 				}
 			};
 			fileInput.click();
@@ -64,40 +57,40 @@ const PostModal = ({
 				setStep(step + 1);
 			}
 		} else if (step === 2) {
-			const selectedFamily = familyList?.familyDataList?.find(family => family.name === selectedOption);
-      const userId = selectedFamily?.userId || 0; 
+			const selectedFamily = familyList?.familyDataList?.find(
+				family => family.name === selectedOption,
+			);
+			const userId = selectedFamily?.userId || 0;
 			const userName = selectedFamily?.name || 0;
-			console.log("이름", userName);
+			console.log('이름', userName);
 
-			const postData =
-				{ 
-					familySpaceId: data?.familySpaceId,
-					content: inputValue,
-					taggedUserIds: [
-						{
-							userId: userId,
-							nickname: userName,
-						}
-					],
-					imageUrls: [
-						imageKey,
-					]
-				};
+			const postData = {
+				familySpaceId: data?.familySpaceId,
+				content: inputValue,
+				taggedUserIds: [
+					{
+						userId: userId,
+						nickname: userName,
+					},
+				],
+				imageUrls: [imageKey],
+			};
 			console.log(postData);
 			writePost(postData);
 			closeModal();
 		}
 	};
 
-	const handleInputChange = (event) => {
+	const handleInputChange = event => {
 		setInputValue(event.target.value);
 	};
 
-	const handleDropdownChange = (option) => {
+	const handleDropdownChange = option => {
 		setSelectedOption(option);
 	};
 
-	const dropdownOptions = familyList?.familyDataList?.map(family => family.name) || [];
+	const dropdownOptions =
+		familyList?.familyDataList?.map(family => family.name) || [];
 
 	const renderContent = () => {
 		if (step === 1) {
@@ -133,16 +126,14 @@ const PostModal = ({
 								<BsXCircle />
 							</button>
 						</S.ModalHeader>
-						<S.ModalContent>
-							{renderContent()}
-						</S.ModalContent>
+						<S.ModalContent>{renderContent()}</S.ModalContent>
 						<S.ModalFooter>
 							<button onClick={handleLeftButtonClick}>
 								{step === 1 ? '사진첨부' : '이전'}
 							</button>
-							<button 
+							<button
 								onClick={handleRightButtonClick}
-								disabled={step === 1 && inputValue.trim() === ''} 
+								disabled={step === 1 && inputValue.trim() === ''}
 							>
 								{step === 1 ? '다음' : '제출'}
 							</button>
