@@ -7,7 +7,6 @@ import { FaEdit, FaTrashAlt, FaRegBellSlash } from 'react-icons/fa';
 import useFamilySpaceId from '@/hooks/useFamilySpaceId.js';
 import useGetPosts from '@/hooks/queries/posts/useGetPosts.js';
 import CustomCalendar from '@/components/common/calendar/CustomCalendar.jsx';
-import useGetImageUrl from '@/hooks/queries/image/useGetImageUrl.js';
 import useDeletePost from '@/hooks/queries/posts/useDeletePost.js';
 import useLikePost from '@/hooks/queries/posts/useLikePost.js';
 import useUnlikePost from '@/hooks/queries/posts/useUnLikePost.js';

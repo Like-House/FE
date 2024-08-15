@@ -2,6 +2,7 @@ import Avatar from '@/components/common/avatar/Avatar';
 import PopOver from '@/components/common/popover/PopOver';
 import * as S from './PostItem.style.js';
 import { HiMiniEllipsisHorizontal } from 'react-icons/hi2';
+import useGetImageUrl from '@/hooks/queries/image/useGetImageUrl.js';
 
 const PostItem = ({
   post,
@@ -19,6 +20,9 @@ const PostItem = ({
   handleCommentChange,
   handleCommentSubmit
 }) => {
+
+  const { data: realImageUrl } = useGetImageUrl(post.imageUrls[0]);
+  console.log(realImageUrl.result.url);
 
   const handleLikeClick = (event) => {
     event.stopPropagation();
@@ -86,9 +90,9 @@ const PostItem = ({
             </S.MenuButton>
           </S.PostHeader>
           <S.Content>{post.content}</S.Content>
-          {post.imageUrls && post.imageUrls.length > 0 && (
-            <S.Photo src={post.imageUrls[0]} alt="post photo" />
-          )}
+
+          <S.Photo src={realImageUrl} alt="post photo" />
+
           <S.Footer>
             <p onClick={handleLikeClick}>
               좋아요 {likes[post.postId]?.count || 0}
