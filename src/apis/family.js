@@ -49,18 +49,18 @@ const updateFamilyMember = async (userId, data) => {
 };
 
 const deleteFamilySpace = async () => {
-	const response = await axiosInstance.delete(`${API_PATH.FAMILY_SPACE}`);
-	return response.data;
+	const { data } = await axiosInstance.delete(`${API_PATH.FAMILY_SPACE}`);
+	return data;
 };
 
 const regenerateInviteCode = async () => {
-	const response = await axiosInstance.patch(`${API_PATH.FAMILY_SPACE}`);
-	return response.data;
+	const { data } = await axiosInstance.patch(`${API_PATH.FAMILY_SPACE}`);
+	return data;
 };
 
 const getInviteCode = async () => {
-	const response = await axiosInstance.get(`${API_PATH.FAMILY_SPACE}/code`);
-	return response.data;
+	const { data } = await axiosInstance.get(`${API_PATH.FAMILY_SPACE}/code`);
+	return data;
 };
 
 export {
