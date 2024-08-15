@@ -23,6 +23,8 @@ const YourMessage = styled.div`
 	width: fit-content;
 	border-radius: 18px;
 	padding: 10px 15px;
+	word-break: break-word;
+	overflow-wrap: break-word;
 `;
 
 const Emoticon = styled.img`
