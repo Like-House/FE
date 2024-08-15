@@ -1,17 +1,33 @@
 import * as S from './Mymessage.style';
 
-import useGetSendEmoticon from '@/hooks/queries/image/useGetSendEmoticon';
+import { useEffect, useState } from 'react';
+import { getRealImageUrl } from '@/apis';
 
 const Mymessage = ({ message }) => {
 	const { content, imageKeyName } = message;
-	const { data } = useGetSendEmoticon({ imageUrl: imageKeyName });
+	const [emoticon, setEmoticon] = useState(null);
+
+	useEffect(() => {
+		const fetchEmoticon = async () => {
+			if (imageKeyName) {
+				try {
+					const emoticon = await getRealImageUrl(imageKeyName);
+					setEmoticon(emoticon?.result.url);
+				} catch (error) {
+					console.log(error);
+				}
+			}
+		};
+
+		fetchEmoticon();
+	}, [imageKeyName]);
 
 	return (
 		<S.MyContainer>
 			{content && content !== 'null' ? (
 				<S.MyMessage>{content}</S.MyMessage>
 			) : (
-				<img src={data?.url} />
+				<img src={emoticon} />
 			)}
 		</S.MyContainer>
 	);

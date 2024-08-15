@@ -4,7 +4,8 @@ import { Avatar } from '@/components/index.js';
 
 import useGetFamilyImg from '@/hooks/queries/family/useGetFamilyImg';
 import NOIMG from '@/assets/images/profile.webp';
-import useGetSendEmoticon from '@/hooks/queries/image/useGetSendEmoticon';
+import { useEffect, useState } from 'react';
+import { getRealImageUrl } from '@/apis';
 
 const ReceiveMessage = ({ member }) => {
 	const { content, senderDTO, imageKeyName } = member;
@@ -12,7 +13,22 @@ const ReceiveMessage = ({ member }) => {
 		member.senderDTO.senderProfile,
 		member.senderDTO.senderId,
 	);
-	const { data: emoticonData } = useGetSendEmoticon({ imageUrl: imageKeyName });
+	const [emoticon, setEmoticon] = useState(null);
+
+	useEffect(() => {
+		const fetchEmoticon = async () => {
+			if (imageKeyName) {
+				try {
+					const emoticon = await getRealImageUrl(imageKeyName);
+					setEmoticon(emoticon?.result.url);
+				} catch (error) {
+					console.log(error);
+				}
+			}
+		};
+
+		fetchEmoticon();
+	}, [imageKeyName]);
 
 	return (
 		<S.YourMessageContainer>
@@ -23,7 +39,7 @@ const ReceiveMessage = ({ member }) => {
 			{content && content !== 'null' ? (
 				<S.YourMessage>{content}</S.YourMessage>
 			) : (
-				<S.Emoticon src={emoticonData?.url} />
+				<S.Emoticon src={emoticon} />
 			)}
 		</S.YourMessageContainer>
 	);
