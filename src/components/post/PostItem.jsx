@@ -68,11 +68,13 @@ const PostItem = ({
 		return `${year}년 ${month}월 ${day}일 ${ampm} ${hour}시 ${minute}분`;
 	};
 
+	console.log(post);
+
 	return (
 		<S.PostItem>
 			<S.PostWrapper>
 				<S.Profile>
-					<Avatar src={post.photo} />
+					<Avatar src={post.profileImage} alt='profile'/>
 				</S.Profile>
 
 				<S.Board>

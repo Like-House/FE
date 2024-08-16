@@ -14,7 +14,7 @@ const PostItem = styled.div`
 
 	gap: 30px;
 	width: 100%;
-	max-width: 600px;
+	max-width: 700px;
 `;
 
 const PostWrapper = styled.div`
@@ -111,6 +111,7 @@ const Content = styled.div`
 	margin-bottom: 13px;
 	font-size: ${FONT_SIZE.BASE};
 	width: 100%;
+	max-width: 500px;
 `;
 
 const Photo = styled.img`
