@@ -50,6 +50,7 @@ export default function ChangePassword() {
           onSuccess: () => {
             setIsAlertOpen(true);
             setErrorMessage({});
+            resetForm();
           },
           onError: (error) => {
             console.error('Password change error:', error);
@@ -61,6 +62,18 @@ export default function ChangePassword() {
         }
       );
     }
+  };
+
+  const resetForm = () => {
+    setCurrentPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
+    setErrorMessage({
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+    });
+    setTouchedFields({});
   };
 
   const handleCurrentPasswordChange = (e) => {
@@ -78,9 +91,9 @@ export default function ChangePassword() {
         currentPassword: '',
       }));
     }
+    setTouchedFields((prev) => ({ ...prev, currentPassword: true }));
   };
 
-  // 새로운 비밀번호 유효성 검사 및 상태 업데이트
   const handleNewPasswordChange = (e) => {
     const value = e.target.value;
     setNewPassword(value);
@@ -101,6 +114,7 @@ export default function ChangePassword() {
         newPassword: '',
       }));
     }
+    setTouchedFields((prev) => ({ ...prev, newPassword: true }));
   };
 
   const handleFocus = (field) => {
@@ -128,8 +142,6 @@ export default function ChangePassword() {
         <CustomInput
           value={currentPassword}
           onChange={handleCurrentPasswordChange}
-          onBlur={() => handleBlur('currentPassword')}
-          onFocus={() => handleFocus('currentPassword')}
           name='currentPassword'
           type='password'
           placeholder='현재 비밀번호를 입력해주세요.'
@@ -154,7 +166,6 @@ export default function ChangePassword() {
             <CustomInput
               value={newPassword}
               onChange={handleNewPasswordChange}
-              onBlur={() => handleBlur('newPassword')}
               name='newPassword'
               type='password'
               placeholder='새로운 비밀번호를 입력해주세요.'
@@ -175,19 +186,17 @@ export default function ChangePassword() {
                   />
                 )
               }
-              onFocus={() => handleFocus('newPassword')}
             />
           </S.LabelContent>
           <S.Label>새로운 비밀번호 확인</S.Label>
           <CustomInput
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            onBlur={() => handleBlur('confirmPassword')}
             name='confirmPassword'
             type='password'
             placeholder='새로운 비밀번호를 다시 입력해주세요.'
             size='BASE'
-            errors={errorMessage.confirmPassword}
+            errors={!!errorMessage.confirmPassword}
             success={confirmPassword !== '' && confirmPassword === newPassword}
             message={errorMessage.confirmPassword}
             icon={
@@ -198,7 +207,6 @@ export default function ChangePassword() {
                 />
               )
             }
-            onFocus={() => handleFocus('confirmPassword')}
           />
           {errorMessage.confirmPassword && (
             <S.Error>{errorMessage.confirmPassword}</S.Error>
