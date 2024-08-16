@@ -1,8 +1,8 @@
 import * as S from './ChangePassword.style';
-
 import { useState, useEffect } from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
 import { CustomButton, Alert, CustomInput } from '@/components/index';
+import useChangePassword from '@/hooks/queries/user/useChangePassword';
 
 export default function ChangePassword() {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -11,7 +11,9 @@ export default function ChangePassword() {
   const [errorMessage, setErrorMessage] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
   const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [focusField, setFocusField] = useState(null);
+  const [isCurrentPasswordValid, setIsCurrentPasswordValid] = useState(false);
+
+  const { mutate: changePassword } = useChangePassword();
 
   const validatePassword = (password) => {
     const passwordRegex =
@@ -21,12 +23,15 @@ export default function ChangePassword() {
 
   const handleSubmit = () => {
     let errors = {};
-    if (currentPassword !== 'correct_password') {
+
+    if (!isCurrentPasswordValid) {
       errors.currentPassword = '잘못된 비밀번호입니다. 다시 입력해주세요.';
     }
+
     if (!validatePassword(newPassword)) {
       errors.newPassword = '대문자 / 소문자 / 특수문자 포함, 8자리 이상';
     }
+
     if (newPassword !== confirmPassword) {
       errors.confirmPassword = '새로운 비밀번호가 일치하지 않습니다.';
     }
@@ -34,72 +39,83 @@ export default function ChangePassword() {
     setErrorMessage(errors);
 
     if (Object.keys(errors).length === 0) {
-      setIsAlertOpen(true);
-      setErrorMessage({});
+      changePassword(
+        { currentPassword, newPassword },
+        {
+          onSuccess: () => {
+            setIsAlertOpen(true);
+            setErrorMessage({});
+          },
+          onError: () => {
+            setErrorMessage({
+              currentPassword:
+                '비밀번호 변경에 실패했습니다. 다시 시도해주세요.',
+            });
+          },
+        }
+      );
     }
+  };
+
+  const handleCurrentPasswordChange = (e) => {
+    const value = e.target.value;
+    setCurrentPassword(value);
+
+    console.log('Current Password:', value);
+
+    changePassword(
+      { currentPassword: value, newPassword: '' },
+      {
+        onSuccess: () => {
+          setIsCurrentPasswordValid(true);
+          setErrorMessage((prev) => {
+            const { currentPassword, ...rest } = prev;
+            return rest;
+          });
+        },
+        onError: () => {
+          setIsCurrentPasswordValid(false);
+          setErrorMessage((prev) => ({
+            ...prev,
+            currentPassword: '잘못된 비밀번호입니다. 다시 입력해주세요.',
+          }));
+        },
+      }
+    );
   };
 
   const handleFocus = (field) => {
     setTouchedFields((prev) => ({ ...prev, [field]: true }));
-    setFocusField(field);
   };
 
   const handleBlur = (field) => {
     setTouchedFields((prev) => ({ ...prev, [field]: true }));
-    setFocusField(null);
   };
 
   const handleIconClick = (setValue) => {
     setValue('');
   };
 
-  useEffect(() => {
-    if (confirmPassword && confirmPassword !== newPassword) {
-      setErrorMessage((prev) => ({
-        ...prev,
-        confirmPassword: '새로운 비밀번호가 일치하지 않습니다.',
-      }));
-    } else {
-      setErrorMessage((prev) => {
-        const { confirmPassword, ...rest } = prev;
-        return rest;
-      });
-    }
-  }, [newPassword, confirmPassword]);
-
   const isFormValid =
-    currentPassword === 'correct_password' &&
+    isCurrentPasswordValid &&
     validatePassword(newPassword) &&
     newPassword === confirmPassword;
 
   return (
     <S.Container>
-      <S.Title>개인정보 수정</S.Title>
+      <S.Title>비밀번호 변경</S.Title>
       <S.Form>
         <S.Label>현재 비밀번호</S.Label>
         <CustomInput
           value={currentPassword}
-          onChange={(e) => {
-            setCurrentPassword(e.target.value);
-            if (e.target.value !== 'correct_password') {
-              setErrorMessage((prev) => ({
-                ...prev,
-                currentPassword: '잘못된 비밀번호입니다. 다시 입력해주세요.',
-              }));
-            } else {
-              setErrorMessage((prev) => {
-                const { currentPassword, ...rest } = prev;
-                return rest;
-              });
-            }
-          }}
+          onChange={handleCurrentPasswordChange}
           onBlur={() => handleBlur('currentPassword')}
           name='currentPassword'
           type='password'
           placeholder='현재 비밀번호를 입력해주세요.'
           size='BASE'
           errors={errorMessage.currentPassword}
-          success={currentPassword === 'correct_password'}
+          success={isCurrentPasswordValid}
           message={errorMessage.currentPassword}
           icon={
             !errorMessage.currentPassword &&
@@ -116,20 +132,7 @@ export default function ChangePassword() {
             <S.Label>새로운 비밀번호</S.Label>
             <CustomInput
               value={newPassword}
-              onChange={(e) => {
-                setNewPassword(e.target.value);
-                if (!validatePassword(e.target.value)) {
-                  setErrorMessage((prev) => ({
-                    ...prev,
-                    newPassword: '대문자 / 소문자 / 특수문자 포함, 8자리 이상',
-                  }));
-                } else {
-                  setErrorMessage((prev) => {
-                    const { newPassword, ...rest } = prev;
-                    return rest;
-                  });
-                }
-              }}
+              onChange={(e) => setNewPassword(e.target.value)}
               onBlur={() => handleBlur('newPassword')}
               name='newPassword'
               type='password'
@@ -155,20 +158,7 @@ export default function ChangePassword() {
           <S.Label>새로운 비밀번호 확인</S.Label>
           <CustomInput
             value={confirmPassword}
-            onChange={(e) => {
-              setConfirmPassword(e.target.value);
-              if (e.target.value !== newPassword) {
-                setErrorMessage((prev) => ({
-                  ...prev,
-                  confirmPassword: '새로운 비밀번호가 일치하지 않습니다.',
-                }));
-              } else {
-                setErrorMessage((prev) => {
-                  const { confirmPassword, ...rest } = prev;
-                  return rest;
-                });
-              }
-            }}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             onBlur={() => handleBlur('confirmPassword')}
             name='confirmPassword'
             type='password'
