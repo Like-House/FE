@@ -18,7 +18,6 @@ const WebSocketComponent = ({ children }) => {
 		};
 		webSocket.current.onclose = error => {
 			console.log('WebSocket closed:', error);
-			setTimeout(webSocket.current.onopen, 300);
 		};
 		webSocket.current.onerror = error => {
 			console.log('WebSocket error:', error);
