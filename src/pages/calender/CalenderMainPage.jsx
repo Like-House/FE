@@ -1,6 +1,6 @@
 import * as S from './CalenderMainPage.style';
 
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomCalendar from '@/components/common/calendar/CustomCalendar';
 import FloatingButton from '@/components/common/floatingbutton/floatingbutton';
@@ -43,7 +43,7 @@ const CalenderMainPage = () => {
 	const currentDate = getCurrentDate();
 
 	//날짜 선택 후 한국 시간으로 변경
-	const { date } = useCalendarStore();
+	const { date, setEvents } = useCalendarStore();
 	let selectedDate = null;
 	if (date) {
 		const utcDate = new Date(date);
@@ -70,6 +70,12 @@ const CalenderMainPage = () => {
 			)
 		: [];
 
+	useEffect(() => {
+		if (monthlyScheduleDataList) {
+			setEvents(monthlyScheduleData?.scheduleDataResponseList);
+		}
+	}, [monthlyScheduleDataList]);
+
 	//일 별 일정 무한 스크롤
 	const {
 		data: dailyScheduleData,
@@ -82,8 +88,6 @@ const CalenderMainPage = () => {
 		dailyScheduleData?.pages.flatMap(
 			page => page.result.scheduleDataResponseList,
 		) || [];
-
-	console.log(dailyScheduleDataList);
 
 	const observer = useRef();
 	const lastElementRef = useCallback(

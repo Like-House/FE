@@ -6,6 +6,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { GoDotFill } from 'react-icons/go';
 import { FaStar } from 'react-icons/fa';
 import { SlPresent } from 'react-icons/sl';
+import { IoSquare } from 'react-icons/io5';
 
 import { DAY_OF_WEEK } from '@/constants';
 import { getDayList, isCurrentMonth } from '@/utils';
@@ -32,18 +33,21 @@ const CustomCalendar = ({ size, hasBackgroundColor }) => {
 				eventDate.getDate() === date.getDate()
 			);
 		});
-		return event ? event.type : null;
+		return event ? event.dtype : null;
 	};
 
-	const getIcon = type => {
-		if (type === 'birthday') {
-			return <SlPresent color={theme.COLOR.YELLOW.YELLOW_800} />;
+	const getIcon = dtype => {
+		if (dtype === '생일') {
+			return <SlPresent color={theme.COLOR.YELLOW.YELLOW_800} size={10} />;
 		}
-		if (type === 'important') {
-			return <FaStar color={theme.COLOR.YELLOW.YELLOW_500} />;
+		if (dtype === '가족 행사') {
+			return <FaStar color={theme.COLOR.YELLOW.YELLOW_500} size={10} />;
 		}
-		if (type === 'plan') {
-			return <GoDotFill />;
+		if (dtype === '개인 일정') {
+			return <GoDotFill size={10} />;
+		}
+		if (dtype === '기일') {
+			return <IoSquare size={6} className="icon" />;
 		}
 		return null;
 	};
