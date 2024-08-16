@@ -1,6 +1,5 @@
-import * as S from './Message.style';
-
 import { useEffect, useRef, useState } from 'react';
+import * as S from './Message.style';
 import { useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { FiSend } from 'react-icons/fi';
@@ -14,7 +13,6 @@ import { HiOutlinePlusCircle } from 'react-icons/hi2';
 import { CgTrash } from 'react-icons/cg';
 import { Alert, Emoticon, FileModal, PopOver } from '@/components/index.js';
 import ReceiveMessage from '@/components/chat/receivemessage/ReceiveMessage.jsx';
-
 import useExitChatRoom from '@/hooks/queries/chat/useExitChatRoom';
 import useModal from '@/hooks/useModal';
 import useGetRealImageUrl from '@/hooks/queries/image/useGetRealImage';
@@ -32,11 +30,14 @@ import useFile from '@/hooks/useFile';
 import queryClient from '@/apis/queryClient';
 
 const Message = ({ room }) => {
+	const [disableInView, setDisableInView] = useState(true);
+	const messageEndRef = useRef();
+	const scrollRef = useRef();
+	const prevScrollHeightRef = useRef(0); // 이전 scrollHeight 저장용
 	const { handleFileSelectAndSend } = useFile();
 	const { fileOpen, setDelete } = useModalStore(state => state);
 	const [emoticon, setEmoticon] = useState(false);
 	const [emoOpen, setEmoOpen] = useState(false);
-	const scrollRef = useRef();
 	const [open, setOpen] = useState();
 	const { chatRoomId, imageKeyName, title } = room;
 	const { mutate } = useExitChatRoom();
@@ -60,45 +61,53 @@ const Message = ({ room }) => {
 	const {
 		data: messageData,
 		fetchPreviousPage,
-		isFetchingPreviousPage,
 		hasPreviousPage,
 		isFetching,
 	} = useGetMessage({
 		chatRoomId,
-		take: 10,
+		take: 15,
 	});
 
-	console.log(messageData);
-
-	const scrollToBottom = () => {
-		if (scrollRef.current) {
-			scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-		}
-	};
-
 	const { ref, inView } = useInView({
-		threshold: 0.5,
+		threshold: 0,
 		delay: 0,
+		skip: disableInView,
 	});
 
 	const throttlingNewPage = useThrottling(fetchPreviousPage, 1 * 1000);
 
 	useEffect(() => {
-		if (inView) {
-			!isFetching && hasPreviousPage && throttlingNewPage();
+		if (!disableInView && inView && !isFetching && hasPreviousPage) {
+			prevScrollHeightRef.current = scrollRef.current?.scrollHeight;
+			throttlingNewPage();
 		}
 	}, [inView, isFetching, hasPreviousPage]);
 
 	useEffect(() => {
-		if (chatRoomId && enter) {
-			exitChatRoom(chatRoomId);
+		if (messageData && prevScrollHeightRef.current > 0) {
+			const newScrollHeight = scrollRef.current?.scrollHeight;
+			scrollRef.current.scrollTop =
+				newScrollHeight - prevScrollHeightRef.current;
 		}
+	}, [messageData]);
 
+	useEffect(() => {
+		if (messageEndRef.current) {
+			messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
+		}
+	}, [messages]);
+
+	useEffect(() => {
 		if (chatRoomId) {
 			enterChatRoom(chatRoomId);
 		}
+
 		clearMessages();
-		scrollToBottom();
+
+		if (scrollRef.current) {
+			scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+			setDisableInView(false);
+		}
 
 		return () => {
 			if (enter) {
@@ -109,12 +118,6 @@ const Message = ({ room }) => {
 			});
 		};
 	}, [chatRoomId, enterChatRoom, enter]);
-
-	useEffect(() => {
-		if (isFetching || messages) {
-			scrollToBottom();
-		}
-	}, [messages, isFetching]);
 
 	const handleSend = e => {
 		e.preventDefault();
@@ -226,9 +229,7 @@ const Message = ({ room }) => {
 				</S.Menu>
 			</S.NavContainer>
 			<S.MessageContainer ref={scrollRef}>
-				<div ref={ref}>
-					{isFetchingPreviousPage && <div>Loading more messages...</div>}
-				</div>
+				<div ref={ref} />
 				{messageData?.map(page =>
 					page.result.chatResponseList.map(e =>
 						e.senderDTO.senderId === userId ? (
@@ -246,6 +247,7 @@ const Message = ({ room }) => {
 						e.chatType === 'TALK' && <Mymessage message={e} key={idx} />
 					),
 				)}
+				<div ref={messageEndRef} />
 			</S.MessageContainer>
 			<S.InputContainer onSubmit={handleSend} $emoticon={emoticon}>
 				<S.IconWrapper>
