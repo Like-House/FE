@@ -12,6 +12,8 @@ import useGetMonthlySchedule from '@/hooks/queries/schedule/useGetMonthlySchedul
 import useGetDailySchedule from '@/hooks/queries/schedule/useGetDailySchedule';
 import useCalendarStore from '@/store/useCalendarStore';
 import useDeleteSchedule from '@/hooks/queries/schedule/useDeleteSchedule';
+import { FaPlus } from 'react-icons/fa6';
+import Dtype from '@/components/dtype/Dtype';
 
 const CalenderMainPage = () => {
 	const navigate = useNavigate();
@@ -165,6 +167,8 @@ const CalenderMainPage = () => {
 		setShowAlert(false);
 	};
 
+	console.log(dailyScheduleDataList);
+
 	return (
 		<S.Container>
 			<S.Schedule>
@@ -175,7 +179,7 @@ const CalenderMainPage = () => {
 							onClick={handleClick}
 							backgroundColor="#FFC933"
 							borderColor="#FFC933"
-							icon={<span style={{ color: 'white', fontSize: '50px' }}>+</span>}
+							icon={<FaPlus />}
 						/>
 					</S.Button>
 				</S.Calender>
@@ -191,13 +195,14 @@ const CalenderMainPage = () => {
 											: null
 									}
 								>
-									<div>
-										<p>{schedule?.date}</p>
-										<br />
-										<strong>{schedule?.title}</strong>
-										<br />
-										<p>{schedule?.content}</p>
-									</div>
+									<S.ScheduleWrapper>
+										<Dtype dtype={schedule?.dtype} />
+										<S.ScheduleBox>
+											<p>{schedule?.date}</p>
+											<div>{schedule?.title}</div>
+											<p>{schedule?.content}</p>
+										</S.ScheduleBox>
+									</S.ScheduleWrapper>
 									<span
 										onClick={() => handlePopoverToggle(index)}
 										style={{ marginLeft: 'auto', cursor: 'pointer' }}
@@ -232,8 +237,10 @@ const CalenderMainPage = () => {
 								<li key={index}>
 									<strong>{schedule.title}</strong>
 									{schedule.date}
-									<br />
-									<p>{schedule.content}</p>
+									<S.Content>
+										<Dtype dtype={schedule?.dtype} mini={true} />
+										<p>{schedule.content}</p>
+									</S.Content>
 								</li>
 							))
 						) : (

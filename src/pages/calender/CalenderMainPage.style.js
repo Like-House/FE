@@ -1,17 +1,18 @@
 import styled from 'styled-components';
 import theme from '@/theme/theme';
+import { FONT_SIZE } from '@/constants';
 
 const Container = styled.div`
 	display: flex;
-	height: 100vh;
-	margin: 20px;
+	width: 100%;
+	height: 100%;
 `;
 
 const Schedule = styled.div`
-	flex: 5;
-
+	width: 75%;
+	height: 100%;
 	padding-top: 10px;
-	border-right: 1px solid #e0e0e0;
+	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		border-right: none;
@@ -19,22 +20,32 @@ const Schedule = styled.div`
 `;
 
 const Calender = styled.div`
+	width: 100%;
+	height: fit-content;
 	${theme.ALIGN.ROW_CENTER};
-	height: 50%;
 	position: relative;
 `;
 
 const Button = styled.div`
 	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	margin: 10px;
-
+	bottom: 0;
+	right: 10px;
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		botton: auto;
 		top: 0px;
 		right: 0px;
 		margin: 0px;
+	}
+
+	button {
+		width: 50px;
+		height: 50px;
+	}
+
+	svg {
+		color: ${theme.COLOR.COMMON.WHITE};
+		width: 20px;
+		height: 20px;
 	}
 `;
 
@@ -44,34 +55,20 @@ const ScheduleList = styled.div`
 
 	ul {
 		list-style-type: none;
-		padding: 0px;
 	}
 
 	li {
 		background-color: ${theme.COLOR.COMMON.WHITE};
 		border-radius: 10px;
 		padding: 20px;
-		transition: background-color 0.3s;
 		margin-bottom: 20px;
 
 		display: flex;
 		position: relative;
 
-		p {
-			font-size: 14px;
-			margin: 5px 0;
-		}
-
 		&:hover {
 			cursor: pointer;
 		}
-
-		strong {
-			font-size: 1.2em;
-		}
-	}
-
-	@media ${theme.WINDOW_SIZE.MOBILE} {
 	}
 `;
 
@@ -81,37 +78,54 @@ const RightSidebar = styled.div`
 	flex: 1;
 	margin: 50px;
 
-	ul {
-		list-style-type: none;
-		padding-top: 40px;
-	}
-
 	li {
-		background-color: white;
+		background-color: ${theme.COLOR.COMMON.WHITE};
 		border-radius: 10px;
 		padding: 20px;
-		transition: background-color 0.3s;
-		margin-bottom: 20px;
-		font-size: 12px;
-
-		p {
-			font-size: 12px;
-			margin: 10px 0 0;
-		}
+		margin: 15px 0;
 
 		&:hover {
 			cursor: pointer;
 		}
 
 		strong {
-			font-size: 1.5em;
-			color: #333;
-			padding-right: 10px;
+			margin-right: 10px;
 		}
 	}
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		display: none;
+	}
+`;
+
+const ScheduleWrapper = styled.div`
+	display: flex;
+	justify-content: center;
+`;
+
+const ScheduleBox = styled.div`
+	padding: 10px 0;
+	word-break: keep-all;
+
+	div {
+		margin-top: 10px;
+		font-weight: bold;
+		font-size: ${FONT_SIZE.XL};
+		margin-bottom: 3px;
+	}
+
+	p {
+		font-size: ${FONT_SIZE.SM};
+	}
+`;
+
+const Content = styled.div`
+	display: flex;
+	margin-top: 15px;
+
+	div {
+		padding: 0;
+		padding-right: 10px;
 	}
 `;
 
@@ -123,4 +137,7 @@ export {
 	ScheduleList,
 	PopOver,
 	RightSidebar,
+	ScheduleWrapper,
+	ScheduleBox,
+	Content,
 };
