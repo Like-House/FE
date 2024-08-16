@@ -31,6 +31,17 @@ const Logo = styled.img`
 
 const NavContainer = styled.nav`
 	${theme.ALIGN.ROW_CENTER};
+	button {
+		padding: 0;
+		padding-top: 3px;
+		border: none;
+		background-color: inherit;
+		font-size: ${FONT_SIZE.SM};
+		color: ${theme.COLOR.COMMON.BLACK};
+		margin: 0 13px;
+		cursor: pointer;
+	}
+
 	a {
 		font-size: ${FONT_SIZE.SM};
 		color: ${theme.COLOR.COMMON.BLACK};
@@ -52,8 +63,14 @@ const NavContainer = styled.nav`
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		width: 100%;
 		a {
-			font-size: ${FONT_SIZE.BASE};
-			margin: 0 17px;
+			font-size: ${FONT_SIZE.SM};
+			margin: 0 10px;
+
+			p {
+				img {
+					margin-right: 10px;
+				}
+			}
 		}
 	}
 `;
