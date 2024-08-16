@@ -11,6 +11,7 @@ import NOIMG from '@/assets/images/profile.webp';
 import useFcmTokenStore from '@/store/useFcmTokenStore.js';
 import usePostFcmToken from '@/hooks/queries/fcm/usePostFcmToken.js';
 import { useEffect } from 'react';
+import useLogout from '@/hooks/queries/user/useLogout';
 
 function Navbar() {
 	const { data: profile, isPending, isSuccess } = useGetProfile();
@@ -18,6 +19,7 @@ function Navbar() {
 	const isAuthenticated = isSuccess;
 	const { fcmToken } = useFcmTokenStore();
 	const { mutate } = usePostFcmToken();
+	const { mutate: logoutMutate } = useLogout();
 
 	useEffect(() => {
 		if (fcmToken && isAuthenticated) {
@@ -32,6 +34,7 @@ function Navbar() {
 			<S.NavContainer>
 				<NavLink to={`${PAGE_PATH.SERVICE}`}>서비스 이용</NavLink>
 				<NavLink to={`${PAGE_PATH.HOME}`}>가족 공간</NavLink>
+				<button onClick={logoutMutate}>로그아웃</button>
 				<NavLink
 					to={`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`}
 				>
