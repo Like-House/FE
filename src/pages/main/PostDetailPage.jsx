@@ -135,7 +135,6 @@ const PostDetailPage = () => {
 			},
 		},
 	];
-	console.log(post);
 
 	return (
 		<S.PostContainer>
