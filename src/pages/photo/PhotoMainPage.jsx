@@ -50,8 +50,10 @@ const PhotoMainPage = () => {
 	);
 
 	//presigned url로 변환
-	const imageQueries = useGetRealAlbum(albumData || []);
-	const imageUrls = imageQueries.map(query => query.data?.result.url || '');
+	const { data: imageUrlsData } = useGetRealAlbum({ albumData });
+	console.log('데이터 왔다잉', imageUrlsData);
+	const imageUrls = imageUrlsData?.presignedUrlDownLoadResponseLists || [];
+	console.log('마지막이다 ㅅㅂ', imageUrls);
 
 	//모달창 관리
 	const [openPost, setOpenPost] = useState(false);
@@ -118,14 +120,17 @@ const PhotoMainPage = () => {
 
 			<S.AlbumContainer>
 				{Array.isArray(albumData) &&
-					albumData.map((picture, index) => (
-						<S.PictureArea key={picture.postId}>
-							<S.Picture
-								src={imageUrls[index] || ''}
-								onClick={() => handleOpenPost(picture)}
-							/>
-						</S.PictureArea>
-					))}
+					albumData.map((picture, index) => {
+						const imageUrl = imageUrls[index]?.url || '';
+						return (
+							<S.PictureArea key={picture.postId}>
+								<S.Picture
+									src={imageUrl}
+									onClick={() => handleOpenPost(picture)}
+								/>
+							</S.PictureArea>
+						);
+					})}
 			</S.AlbumContainer>
 			{openPost && postData && (
 				<PhotoPostModal
