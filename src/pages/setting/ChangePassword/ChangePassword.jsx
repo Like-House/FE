@@ -1,5 +1,5 @@
 import * as S from './ChangePassword.style';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
 import { CustomButton, Alert, CustomInput } from '@/components/index';
 import useChangePassword from '@/hooks/queries/user/useChangePassword';
@@ -8,13 +8,14 @@ export default function ChangePassword() {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState({});
+  const [errorMessage, setErrorMessage] = useState({
+    currentPassword: '',
+    newPassword: '',
+  });
   const [touchedFields, setTouchedFields] = useState({});
   const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [isCurrentPasswordValid, setIsCurrentPasswordValid] = useState(false);
 
   const { mutate: changePassword } = useChangePassword();
-
   const validatePassword = (password) => {
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -24,7 +25,7 @@ export default function ChangePassword() {
   const handleSubmit = () => {
     let errors = {};
 
-    if (!isCurrentPasswordValid) {
+    if (!validatePassword(currentPassword)) {
       errors.currentPassword = '잘못된 비밀번호입니다. 다시 입력해주세요.';
     }
 
@@ -40,13 +41,14 @@ export default function ChangePassword() {
 
     if (Object.keys(errors).length === 0) {
       changePassword(
-        { currentPassword, newPassword },
+        { currentPassword, newPassword }, // 객체 형태로 전달
         {
           onSuccess: () => {
             setIsAlertOpen(true);
             setErrorMessage({});
           },
-          onError: () => {
+          onError: (error) => {
+            console.error('Password change error:', error);
             setErrorMessage({
               currentPassword:
                 '비밀번호 변경에 실패했습니다. 다시 시도해주세요.',
@@ -61,29 +63,41 @@ export default function ChangePassword() {
     const value = e.target.value;
     setCurrentPassword(value);
 
-    console.log('Current Password:', value);
-
-    changePassword(
-      { currentPassword: value, newPassword: '' },
-      {
-        onSuccess: () => {
-          setIsCurrentPasswordValid(true);
-          setErrorMessage((prev) => {
-            const { currentPassword, ...rest } = prev;
-            return rest;
-          });
-        },
-        onError: () => {
-          setIsCurrentPasswordValid(false);
-          setErrorMessage((prev) => ({
-            ...prev,
-            currentPassword: '잘못된 비밀번호입니다. 다시 입력해주세요.',
-          }));
-        },
-      }
-    );
+    // changePassword(
+    //   { currentPassword: value, newPassword: '' },
+    //   {
+    //     onSuccess: () => {
+    //       setIsCurrentPasswordValid(true);
+    //       setErrorMessage((prev) => {
+    //         const { currentPassword, ...rest } = prev;
+    //         return rest;
+    //       });
+    //     },
+    //     onError: () => {
+    //       setIsCurrentPasswordValid(false);
+    //       setErrorMessage((prev) => ({
+    //         ...prev,
+    //         currentPassword: '잘못된 비밀번호입니다. 다시 입력해주세요.',
+    //       }));
+    //     },
+    //   }
+    // );
   };
 
+  const handleNewPasswordChange = (e) => {
+    const value = e.target.value;
+    setNewPassword(value);
+
+    if (!validatePassword(newPassword)) {
+      setErrorMessage({
+        newPassword: '대문자 / 소문자 / 특수문자 포함, 8자리 이상',
+      });
+    } else {
+      setErrorMessage({
+        newPassword: '',
+      });
+    }
+  };
   const handleFocus = (field) => {
     setTouchedFields((prev) => ({ ...prev, [field]: true }));
   };
@@ -97,10 +111,9 @@ export default function ChangePassword() {
   };
 
   const isFormValid =
-    isCurrentPasswordValid &&
+    validatePassword(currentPassword) &&
     validatePassword(newPassword) &&
     newPassword === confirmPassword;
-
   return (
     <S.Container>
       <S.Title>비밀번호 변경</S.Title>
@@ -115,7 +128,6 @@ export default function ChangePassword() {
           placeholder='현재 비밀번호를 입력해주세요.'
           size='BASE'
           errors={errorMessage.currentPassword}
-          success={isCurrentPasswordValid}
           message={errorMessage.currentPassword}
           icon={
             !errorMessage.currentPassword &&
@@ -132,7 +144,7 @@ export default function ChangePassword() {
             <S.Label>새로운 비밀번호</S.Label>
             <CustomInput
               value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              onChange={handleNewPasswordChange}
               onBlur={() => handleBlur('newPassword')}
               name='newPassword'
               type='password'
@@ -151,9 +163,6 @@ export default function ChangePassword() {
               }
               onFocus={() => handleFocus('newPassword')}
             />
-            {errorMessage.newPassword && (
-              <S.Error>{errorMessage.newPassword}</S.Error>
-            )}
           </S.LabelContent>
           <S.Label>새로운 비밀번호 확인</S.Label>
           <CustomInput
