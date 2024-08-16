@@ -35,7 +35,7 @@ const Button = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: flex-end;
-	padding-right: 40px;
+	padding-right: 50px;
 
 	button {
 		width: 45px;
@@ -63,10 +63,14 @@ const Button = styled.div`
 
 const ScheduleList = styled.div`
 	margin: 40px;
+	${theme.ALIGN.COLUMN_CENTER};
 
 	ul {
+		height: 350px;
+
+		max-width: 900px;
 		width: 100%;
-		overflow: hidden;
+		overflow-y: auto;
 	}
 
 	li {
@@ -129,14 +133,14 @@ const ScheduleBox = styled.div`
 	width: 300px;
 
 	div {
-		margin-top: 10px;
+		margin-top: 5px;
 		font-weight: bold;
-		font-size: ${FONT_SIZE.XL};
+		font-size: ${FONT_SIZE.BASE};
 		margin-bottom: 3px;
 	}
 
 	p {
-		font-size: ${FONT_SIZE.SM};
+		font-size: ${FONT_SIZE.XS};
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;

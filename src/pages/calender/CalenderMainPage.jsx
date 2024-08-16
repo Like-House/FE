@@ -1,6 +1,6 @@
 import * as S from './CalenderMainPage.style';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomCalendar from '@/components/common/calendar/CustomCalendar';
 import FloatingButton from '@/components/common/floatingbutton/floatingbutton';
@@ -14,12 +14,18 @@ import useCalendarStore from '@/store/useCalendarStore';
 import useDeleteSchedule from '@/hooks/queries/schedule/useDeleteSchedule';
 import { FaPlus } from 'react-icons/fa6';
 import Dtype from '@/components/dtype/Dtype';
+import { useInView } from 'react-intersection-observer';
 
 const CalenderMainPage = () => {
 	const navigate = useNavigate();
 	const [showPopover, setShowPopover] = useState({});
 	const [showAlert, setShowAlert] = useState(false);
 	const [deleteScheduleId, setDeleteScheduleId] = useState(null);
+
+	const { ref, inView } = useInView({
+		threshold: 0,
+		delay: 0,
+	});
 
 	const getCurrentYearMonth = () => {
 		const now = new Date();
@@ -83,28 +89,8 @@ const CalenderMainPage = () => {
 		data: dailyScheduleData,
 		fetchNextPage,
 		hasNextPage,
-		isFetchingNextPage,
+		isFetching,
 	} = useGetDailySchedule({ date: selectedDate || currentDate });
-
-	const dailyScheduleDataList =
-		dailyScheduleData?.pages.flatMap(
-			page => page.result.scheduleDataResponseList,
-		) || [];
-
-	const observer = useRef();
-	const lastElementRef = useCallback(
-		node => {
-			if (isFetchingNextPage) return;
-			if (observer.current) observer.current.disconnect();
-			observer.current = new IntersectionObserver(entries => {
-				if (entries[0].isIntersecting && hasNextPage) {
-					fetchNextPage();
-				}
-			});
-			if (node) observer.current.observe(node);
-		},
-		[fetchNextPage, hasNextPage, isFetchingNextPage],
-	);
 
 	//일정 추가 페이지 이동
 	const handleClick = () => {
@@ -167,6 +153,14 @@ const CalenderMainPage = () => {
 		setShowAlert(false);
 	};
 
+	useEffect(() => {
+		if (inView) {
+			!isFetching && hasNextPage && fetchNextPage();
+		}
+	}, [inView, isFetching, hasNextPage]);
+
+	console.log(dailyScheduleData);
+
 	return (
 		<S.Container>
 			<S.Schedule>
@@ -183,31 +177,24 @@ const CalenderMainPage = () => {
 				</S.Button>
 				<S.ScheduleList>
 					<ul>
-						{dailyScheduleDataList?.length > 0 &&
-							dailyScheduleDataList.map((schedule, index) => (
-								<li
-									key={index}
-									ref={
-										index === dailyScheduleDataList.length - 1
-											? lastElementRef
-											: null
-									}
-								>
+						{dailyScheduleData?.map(d =>
+							d.result.scheduleDataResponseList.map((data, idx) => (
+								<li key={idx}>
 									<S.ScheduleWrapper>
-										<Dtype dtype={schedule?.dtype} />
+										<Dtype dtype={data.dtype} />
 										<S.ScheduleBox>
-											<p>{schedule?.date}</p>
-											<div>{schedule?.title}</div>
-											<p>{schedule?.content}</p>
+											<p>{data.date}</p>
+											<div>{data.title}</div>
+											<p>{data.content}</p>
 										</S.ScheduleBox>
 									</S.ScheduleWrapper>
 									<span
-										onClick={() => handlePopoverToggle(index)}
+										onClick={() => handlePopoverToggle(idx)}
 										style={{ marginLeft: 'auto', cursor: 'pointer' }}
 									>
 										<HiMiniEllipsisVertical />
 									</span>
-									{showPopover[index] && (
+									{showPopover[idx] && (
 										<div
 											style={{
 												position: 'absolute',
@@ -215,14 +202,15 @@ const CalenderMainPage = () => {
 												right: '40px',
 												zIndex: '1',
 											}}
-											onMouseLeave={() => handlePopoverClose(index)}
+											onMouseLeave={() => handlePopoverClose(idx)}
 										>
-											<PopOver items={popoverItems(schedule.scheduleId)} />
+											<PopOver items={popoverItems(data.scheduleId)} />
 										</div>
 									)}
 								</li>
-							))}
-						{isFetchingNextPage}
+							)),
+						)}
+						<div ref={ref} />
 					</ul>
 				</S.ScheduleList>
 			</S.Schedule>
