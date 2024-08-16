@@ -1,6 +1,6 @@
 import * as S from './Navbar.style';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { Avatar } from '@/components/index.js';
 import { PAGE_PATH } from '@/constants';
@@ -12,6 +12,9 @@ import useFcmTokenStore from '@/store/useFcmTokenStore.js';
 import usePostFcmToken from '@/hooks/queries/fcm/usePostFcmToken.js';
 import { useEffect } from 'react';
 import useLogout from '@/hooks/queries/user/useLogout';
+import { toast } from 'sonner';
+import theme from '@/theme/theme';
+import useEnterFamily from '@/hooks/queries/family/useEnterFamily';
 
 function Navbar() {
 	const { data: profile, isPending, isSuccess } = useGetProfile();
@@ -20,6 +23,12 @@ function Navbar() {
 	const { fcmToken } = useFcmTokenStore();
 	const { mutate } = usePostFcmToken();
 	const { mutate: logoutMutate } = useLogout();
+	const {
+		isError,
+		isSuccess: isSuccessFamilySpace,
+		error,
+	} = useEnterFamily(isAuthenticated);
+	const nav = useNavigate();
 
 	useEffect(() => {
 		if (fcmToken && isAuthenticated) {
@@ -27,13 +36,30 @@ function Navbar() {
 		}
 	}, [fcmToken, isAuthenticated, mutate]);
 
+	const handleFamilySpace = () => {
+		if (isSuccessFamilySpace) {
+			nav(`${PAGE_PATH.HOME}`);
+		}
+
+		if (isError) {
+			error.response &&
+				toast.error(error.response.data.message, {
+					duration: 1200,
+					style: {
+						color: theme.COLOR.COMMON.WHITE,
+						backgroundColor: theme.COLOR.COMMON.RED,
+					},
+				});
+		}
+	};
+
 	let content;
 
 	if (isAuthenticated) {
 		content = (
 			<S.NavContainer>
 				<NavLink to={`${PAGE_PATH.SERVICE}`}>서비스 이용</NavLink>
-				<NavLink to={`${PAGE_PATH.HOME}`}>가족 공간</NavLink>
+				<button onClick={handleFamilySpace}>가족 공간</button>
 				<button onClick={logoutMutate}>로그아웃</button>
 				<NavLink
 					to={`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`}
