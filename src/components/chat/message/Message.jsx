@@ -153,7 +153,7 @@ const Message = ({ room }) => {
 	const handleExit = () => {
 		exitChatRoom(chatRoomId);
 		clearMessages();
-		nav(-1);
+		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}`);
 	};
 	const handleConfirm = () => {
 		mutate(chatRoomId, {
