@@ -14,6 +14,7 @@ const PostItem = styled.div`
 
 	gap: 30px;
 	width: 100%;
+	max-width: 600px;
 `;
 
 const PostWrapper = styled.div`
