@@ -21,7 +21,6 @@ const getAlbumPost = async postId => {
 };
 
 const getRealImageUrlList = async imageUrls => {
-	console.log('앨범 데이터 지금 2번째 넘어왓다 ', imageUrls);
 	try {
 		const { data } = await axiosInstance.post(
 			`${API_PATH.IMAGE}/download/list`,
@@ -29,7 +28,6 @@ const getRealImageUrlList = async imageUrls => {
 				keyNames: imageUrls,
 			},
 		);
-		console.log('ㅅㅂ ', data.result);
 		return data.result;
 	} catch (error) {
 		console.log(error);

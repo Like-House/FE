@@ -51,9 +51,7 @@ const PhotoMainPage = () => {
 
 	//presigned url로 변환
 	const { data: imageUrlsData } = useGetRealAlbum({ albumData });
-	console.log('데이터 왔다잉', imageUrlsData);
 	const imageUrls = imageUrlsData?.presignedUrlDownLoadResponseLists || [];
-	console.log('마지막이다 ㅅㅂ', imageUrls);
 
 	//모달창 관리
 	const [openPost, setOpenPost] = useState(false);
