@@ -11,6 +11,7 @@ const Container = styled.div`
 const Schedule = styled.div`
 	min-width: 820px;
 	width: 70%;
+	height: 100vh;
 	padding-top: 10px;
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 
@@ -67,10 +68,18 @@ const ScheduleList = styled.div`
 
 	ul {
 		height: 350px;
-
 		max-width: 900px;
 		width: 100%;
 		overflow-y: auto;
+
+		&::-webkit-scrollbar {
+			width: 4px;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: ${theme.COLOR.MAIN.YELLOW};
+			border-radius: 40px;
+		}
 	}
 
 	li {
@@ -87,19 +96,24 @@ const ScheduleList = styled.div`
 			cursor: pointer;
 		}
 	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		li {
+			padding: 10px;
+		}
+	}
 `;
 
 const PopOver = styled.div``;
 
 const RightSidebar = styled.div`
-	display: flex;
-	flex-direction: column;
 	min-width: 260px;
 	flex: 1;
 	padding: 50px;
 	word-break: keep-all;
 
 	h2 {
+		min-width: 260px;
 		font-weight: 400;
 		padding-left: 3px;
 		margin-bottom: 30px;
@@ -167,6 +181,7 @@ const Content = styled.div`
 	margin-top: 15px;
 
 	p {
+		font-size: ${FONT_SIZE.SM};
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
@@ -180,9 +195,14 @@ const Content = styled.div`
 `;
 
 const MonthWrapper = styled.div`
+	min-width: 260px;
 	width: 100%;
 	height: 95%;
 	overflow-y: auto;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
 `;
 
 export {

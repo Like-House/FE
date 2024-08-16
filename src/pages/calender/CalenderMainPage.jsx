@@ -15,6 +15,7 @@ import useDeleteSchedule from '@/hooks/queries/schedule/useDeleteSchedule';
 import { FaPlus } from 'react-icons/fa6';
 import Dtype from '@/components/dtype/Dtype';
 import { useInView } from 'react-intersection-observer';
+import { PAGE_PATH } from '@/constants';
 
 const CalenderMainPage = () => {
 	const navigate = useNavigate();
@@ -79,15 +80,16 @@ const CalenderMainPage = () => {
 		yearMonth: currentYearMonth,
 		size: 7,
 	});
-	const monthlyScheduleDataList = monthlyScheduleData?.scheduleDataResponseList;
 
-	console.log(monthlyScheduleData);
+	// TODO:무한스크롤로 불러오면 달력에 아이콘을 할 수 없음
+	// const monthlyScheduleDataList =
+	// 	monthlyScheduleData?.result.scheduleDataResponseList;
 
-	useEffect(() => {
-		if (monthlyScheduleDataList) {
-			setEvents(monthlyScheduleData?.scheduleDataResponseList);
-		}
-	}, [monthlyScheduleDataList]);
+	// useEffect(() => {
+	// 	if (monthlyScheduleDataList) {
+	// 		setEvents(monthlyScheduleData?.scheduleDataResponseList);
+	// 	}
+	// }, [monthlyScheduleDataList]);
 
 	//일 별 일정 무한 스크롤
 	const {
@@ -99,12 +101,17 @@ const CalenderMainPage = () => {
 
 	//일정 추가 페이지 이동
 	const handleClick = () => {
-		navigate('/home/calender/add-schedule');
+		navigate(
+			`${PAGE_PATH.HOME}/${PAGE_PATH.CALENDER}${PAGE_PATH.ADD_SCHEDULE}`,
+		);
 	};
 
 	//일정 수정 페이지 이동
 	const handleEdit = scheduleId => {
-		navigate('/home/calender/patch-schedule', { state: { scheduleId } });
+		navigate(
+			`${PAGE_PATH.HOME}/${PAGE_PATH.CALENDER}${PAGE_PATH.PATCH_SCHEDULE}`,
+			{ state: { scheduleId } },
+		);
 	};
 
 	const { mutate: deleteScheduleMutate } = useDeleteSchedule();
@@ -166,7 +173,6 @@ const CalenderMainPage = () => {
 
 	useEffect(() => {
 		if (monthInView) {
-			console.log('Dd');
 			!mounthIsFetching && monthHasNextPage && fetchMonthNextPage();
 		}
 	}, [monthInView, monthHasNextPage, mounthIsFetching]);
