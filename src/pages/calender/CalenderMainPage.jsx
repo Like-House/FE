@@ -27,6 +27,11 @@ const CalenderMainPage = () => {
 		delay: 0,
 	});
 
+	const { ref: monthRef, inView: monthInView } = useInView({
+		threshold: 0,
+		delay: 0,
+	});
+
 	const getCurrentYearMonth = () => {
 		const now = new Date();
 		const year = now.getFullYear();
@@ -65,18 +70,18 @@ const CalenderMainPage = () => {
 	const currentYearMonth = getCurrentYearMonth();
 
 	//월 별 일정
-	const { data: monthlyScheduleData } = useGetMonthlySchedule({
+	const {
+		data: monthlyScheduleData,
+		isFetching: mounthIsFetching,
+		hasNextPage: monthHasNextPage,
+		fetchNextPage: fetchMonthNextPage,
+	} = useGetMonthlySchedule({
 		yearMonth: currentYearMonth,
-		page: 1,
-		size: 10,
+		size: 7,
 	});
 	const monthlyScheduleDataList = monthlyScheduleData?.scheduleDataResponseList;
 
-	const sortedMonthlyScheduleDataList = monthlyScheduleDataList
-		? [...monthlyScheduleDataList].sort(
-				(a, b) => new Date(a.date) - new Date(b.date),
-			)
-		: [];
+	console.log(monthlyScheduleData);
 
 	useEffect(() => {
 		if (monthlyScheduleDataList) {
@@ -159,7 +164,12 @@ const CalenderMainPage = () => {
 		}
 	}, [inView, isFetching, hasNextPage]);
 
-	console.log(dailyScheduleData);
+	useEffect(() => {
+		if (monthInView) {
+			console.log('Dd');
+			!mounthIsFetching && monthHasNextPage && fetchMonthNextPage();
+		}
+	}, [monthInView, monthHasNextPage, mounthIsFetching]);
 
 	return (
 		<S.Container>
@@ -177,8 +187,8 @@ const CalenderMainPage = () => {
 				</S.Button>
 				<S.ScheduleList>
 					<ul>
-						{dailyScheduleData?.map(d =>
-							d.result.scheduleDataResponseList.map((data, idx) => (
+						{dailyScheduleData?.map(e =>
+							e.result.scheduleDataResponseList.map((data, idx) => (
 								<li key={idx}>
 									<S.ScheduleWrapper>
 										<Dtype dtype={data.dtype} />
@@ -216,24 +226,27 @@ const CalenderMainPage = () => {
 			</S.Schedule>
 			<S.RightSidebar>
 				<h2>우리 가족 {currentMonth}월 일정</h2>
-				<div>
+				<S.MonthWrapper>
 					<ul>
-						{sortedMonthlyScheduleDataList?.length > 0 ? (
-							sortedMonthlyScheduleDataList.map((schedule, index) => (
-								<li key={index}>
-									<strong>{schedule.title}</strong>
-									<span>{schedule.date}</span>
-									<S.Content>
-										<Dtype dtype={schedule?.dtype} mini={true} />
-										<p>{schedule.content}</p>
-									</S.Content>
-								</li>
-							))
+						{monthlyScheduleData?.length > 0 ? (
+							monthlyScheduleData.map(e =>
+								e.result.scheduleDataResponseList.map((schedule, index) => (
+									<li key={index}>
+										<strong>{schedule.title}</strong>
+										<span>{schedule.date}</span>
+										<S.Content>
+											<Dtype dtype={schedule?.dtype} mini={true} />
+											<p>{schedule.content}</p>
+										</S.Content>
+									</li>
+								)),
+							)
 						) : (
 							<li>일정이 없습니다.</li>
 						)}
+						<div ref={monthRef} />
 					</ul>
-				</div>
+				</S.MonthWrapper>
 			</S.RightSidebar>
 			<Alert
 				message="일정을 삭제할까요?"

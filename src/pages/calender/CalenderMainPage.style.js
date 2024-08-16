@@ -5,7 +5,7 @@ import { FONT_SIZE } from '@/constants';
 const Container = styled.div`
 	display: flex;
 	width: 100%;
-	min-height: 100%;
+	height: 100vh;
 `;
 
 const Schedule = styled.div`
@@ -92,9 +92,11 @@ const ScheduleList = styled.div`
 const PopOver = styled.div``;
 
 const RightSidebar = styled.div`
+	display: flex;
+	flex-direction: column;
 	min-width: 260px;
 	flex: 1;
-	margin: 50px;
+	padding: 50px;
 	word-break: keep-all;
 
 	h2 {
@@ -177,6 +179,12 @@ const Content = styled.div`
 	}
 `;
 
+const MonthWrapper = styled.div`
+	width: 100%;
+	height: 95%;
+	overflow-y: auto;
+`;
+
 export {
 	Container,
 	Schedule,
@@ -188,4 +196,5 @@ export {
 	ScheduleWrapper,
 	ScheduleBox,
 	Content,
+	MonthWrapper,
 };
