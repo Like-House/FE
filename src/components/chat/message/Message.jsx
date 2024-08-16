@@ -17,7 +17,6 @@ import useExitChatRoom from '@/hooks/queries/chat/useExitChatRoom';
 import useModal from '@/hooks/useModal';
 import useGetRealImageUrl from '@/hooks/queries/image/useGetRealImage';
 import useGetMessage from '@/hooks/queries/chat/useGetMessage';
-import useThrottling from '@/hooks/useThrottling';
 import useWebSocketStore from '@/store/useWebSocketStore';
 import useUserIdStore from '@/store/useUserIdStore';
 import { PAGE_PATH, QUERY_KEYS } from '@/constants';
@@ -33,7 +32,7 @@ const Message = ({ room }) => {
 	const [disableInView, setDisableInView] = useState(true);
 	const messageEndRef = useRef();
 	const scrollRef = useRef();
-	const prevScrollHeightRef = useRef(0); // 이전 scrollHeight 저장용
+	const prevScrollHeightRef = useRef(0);
 	const { handleFileSelectAndSend } = useFile();
 	const { fileOpen, setDelete } = useModalStore(state => state);
 	const [emoticon, setEmoticon] = useState(false);
@@ -74,14 +73,24 @@ const Message = ({ room }) => {
 		skip: disableInView,
 	});
 
-	const throttlingNewPage = useThrottling(fetchPreviousPage, 1 * 1000);
+	console.log(messageData);
 
 	useEffect(() => {
-		if (!disableInView && inView && !isFetching && hasPreviousPage) {
-			prevScrollHeightRef.current = scrollRef.current?.scrollHeight;
-			throttlingNewPage();
-		}
-	}, [inView, isFetching, hasPreviousPage]);
+		const loadMessages = async () => {
+			if (!disableInView && inView && !isFetching && hasPreviousPage) {
+				prevScrollHeightRef.current = scrollRef.current?.scrollHeight;
+				await fetchPreviousPage();
+
+				const newScrollHeight = scrollRef.current?.scrollHeight;
+				if (scrollRef.current) {
+					scrollRef.current.scrollTop =
+						newScrollHeight - prevScrollHeightRef.current;
+				}
+			}
+		};
+
+		loadMessages();
+	}, [inView, isFetching, hasPreviousPage, disableInView]);
 
 	useEffect(() => {
 		if (messageData && prevScrollHeightRef.current > 0) {
@@ -98,16 +107,13 @@ const Message = ({ room }) => {
 	}, [messages]);
 
 	useEffect(() => {
-		if (chatRoomId) {
+		if (chatRoomId && scrollRef.current) {
 			enterChatRoom(chatRoomId);
-		}
-
-		clearMessages();
-
-		if (scrollRef.current) {
 			scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
 			setDisableInView(false);
 		}
+
+		clearMessages();
 
 		return () => {
 			if (enter) {
@@ -117,7 +123,7 @@ const Message = ({ room }) => {
 				queryKey: [QUERY_KEYS.CHATROOMS, chatRoomId, 'message'],
 			});
 		};
-	}, [chatRoomId, enterChatRoom, enter]);
+	}, [chatRoomId]);
 
 	const handleSend = e => {
 		e.preventDefault();
