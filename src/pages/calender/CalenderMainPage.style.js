@@ -5,17 +5,22 @@ import { FONT_SIZE } from '@/constants';
 const Container = styled.div`
 	display: flex;
 	width: 100%;
-	height: 100%;
+	min-height: 100%;
 `;
 
 const Schedule = styled.div`
-	width: 75%;
-	height: 100%;
+	min-width: 820px;
+	width: 70%;
 	padding-top: 10px;
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 
+	@media ${theme.WINDOW_SIZE.PC} {
+		min-width: 510px;
+		width: 100%;
+	}
+
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		border-right: none;
+		min-width: 0;
 	}
 `;
 
@@ -27,19 +32,14 @@ const Calender = styled.div`
 `;
 
 const Button = styled.div`
-	position: absolute;
-	bottom: 0;
-	right: 10px;
-	@media ${theme.WINDOW_SIZE.MOBILE} {
-		botton: auto;
-		top: 0px;
-		right: 0px;
-		margin: 0px;
-	}
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	padding-right: 40px;
 
 	button {
-		width: 50px;
-		height: 50px;
+		width: 45px;
+		height: 45px;
 	}
 
 	svg {
@@ -47,14 +47,26 @@ const Button = styled.div`
 		width: 20px;
 		height: 20px;
 	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		button {
+			width: 30px;
+			height: 30px;
+		}
+
+		svg {
+			width: 13px;
+			height: 13px;
+		}
+	}
 `;
 
 const ScheduleList = styled.div`
 	margin: 40px;
-	height: 400px;
 
 	ul {
-		list-style-type: none;
+		width: 100%;
+		overflow: hidden;
 	}
 
 	li {
@@ -65,6 +77,7 @@ const ScheduleList = styled.div`
 
 		display: flex;
 		position: relative;
+		width: 100%;
 
 		&:hover {
 			cursor: pointer;
@@ -75,8 +88,16 @@ const ScheduleList = styled.div`
 const PopOver = styled.div``;
 
 const RightSidebar = styled.div`
+	min-width: 260px;
 	flex: 1;
 	margin: 50px;
+	word-break: keep-all;
+
+	h2 {
+		font-weight: 400;
+		padding-left: 3px;
+		margin-bottom: 30px;
+	}
 
 	li {
 		background-color: ${theme.COLOR.COMMON.WHITE};
@@ -93,7 +114,7 @@ const RightSidebar = styled.div`
 		}
 	}
 
-	@media ${theme.WINDOW_SIZE.MOBILE} {
+	@media ${theme.WINDOW_SIZE.PC} {
 		display: none;
 	}
 `;
@@ -105,7 +126,7 @@ const ScheduleWrapper = styled.div`
 
 const ScheduleBox = styled.div`
 	padding: 10px 0;
-	word-break: keep-all;
+	width: 300px;
 
 	div {
 		margin-top: 10px;
@@ -116,12 +137,35 @@ const ScheduleBox = styled.div`
 
 	p {
 		font-size: ${FONT_SIZE.SM};
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		word-break: break-all;
+	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		width: 150px;
+
+		div {
+			font-size: ${FONT_SIZE.BASE};
+		}
+
+		p {
+			font-size: ${FONT_SIZE.SM};
+		}
 	}
 `;
 
 const Content = styled.div`
 	display: flex;
 	margin-top: 15px;
+
+	p {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		word-break: break-all;
+	}
 
 	div {
 		padding: 0;

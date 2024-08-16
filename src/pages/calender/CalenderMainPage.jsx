@@ -167,22 +167,20 @@ const CalenderMainPage = () => {
 		setShowAlert(false);
 	};
 
-	console.log(dailyScheduleDataList);
-
 	return (
 		<S.Container>
 			<S.Schedule>
 				<S.Calender>
 					<CustomCalendar size="LG" />
-					<S.Button>
-						<FloatingButton
-							onClick={handleClick}
-							backgroundColor="#FFC933"
-							borderColor="#FFC933"
-							icon={<FaPlus />}
-						/>
-					</S.Button>
 				</S.Calender>
+				<S.Button>
+					<FloatingButton
+						onClick={handleClick}
+						backgroundColor="#FFC933"
+						borderColor="#FFC933"
+						icon={<FaPlus />}
+					/>
+				</S.Button>
 				<S.ScheduleList>
 					<ul>
 						{dailyScheduleDataList?.length > 0 &&
@@ -236,7 +234,7 @@ const CalenderMainPage = () => {
 							sortedMonthlyScheduleDataList.map((schedule, index) => (
 								<li key={index}>
 									<strong>{schedule.title}</strong>
-									{schedule.date}
+									<span>{schedule.date}</span>
 									<S.Content>
 										<Dtype dtype={schedule?.dtype} mini={true} />
 										<p>{schedule.content}</p>
