@@ -13,9 +13,10 @@ const Container = styled.div`
 `;
 
 const Schedule = styled.div`
+	overflow-y: auto;
 	min-width: 820px;
 	width: 70%;
-	height: 100vh;
+	height: 100%;
 	padding-top: 10px;
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 
