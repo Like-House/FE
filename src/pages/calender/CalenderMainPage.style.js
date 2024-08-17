@@ -13,10 +13,9 @@ const Container = styled.div`
 `;
 
 const Schedule = styled.div`
-	overflow-y: auto;
+	height: 100%;
 	min-width: 820px;
 	width: 70%;
-	height: 100%;
 	padding-top: 10px;
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 
@@ -72,7 +71,7 @@ const ScheduleList = styled.div`
 	${theme.ALIGN.COLUMN_CENTER};
 
 	ul {
-		height: 350px;
+		height: 300px;
 		max-width: 900px;
 		width: 100%;
 		overflow-y: auto;
