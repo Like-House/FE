@@ -28,11 +28,6 @@ const CalenderMainPage = () => {
 		delay: 0,
 	});
 
-	const { ref: monthRef, inView: monthInView } = useInView({
-		threshold: 0,
-		delay: 0,
-	});
-
 	const getCurrentYearMonth = () => {
 		const now = new Date();
 		const year = now.getFullYear();
@@ -71,25 +66,17 @@ const CalenderMainPage = () => {
 	const currentYearMonth = getCurrentYearMonth();
 
 	//월 별 일정
-	const {
-		data: monthlyScheduleData,
-		isFetching: mounthIsFetching,
-		hasNextPage: monthHasNextPage,
-		fetchNextPage: fetchMonthNextPage,
-	} = useGetMonthlySchedule({
+	const { data: monthlyScheduleData } = useGetMonthlySchedule({
 		yearMonth: currentYearMonth,
-		size: 7,
 	});
 
-	// TODO:무한스크롤로 불러오면 달력에 아이콘을 할 수 없음
-	// const monthlyScheduleDataList =
-	// 	monthlyScheduleData?.result.scheduleDataResponseList;
+	const monthlyScheduleDataList = monthlyScheduleData?.scheduleDataResponseList;
 
-	// useEffect(() => {
-	// 	if (monthlyScheduleDataList) {
-	// 		setEvents(monthlyScheduleData?.scheduleDataResponseList);
-	// 	}
-	// }, [monthlyScheduleDataList]);
+	useEffect(() => {
+		if (monthlyScheduleDataList) {
+			setEvents(monthlyScheduleData?.scheduleDataResponseList);
+		}
+	}, [monthlyScheduleDataList]);
 
 	//일 별 일정 무한 스크롤
 	const {
@@ -171,12 +158,6 @@ const CalenderMainPage = () => {
 		}
 	}, [inView, isFetching, hasNextPage]);
 
-	useEffect(() => {
-		if (monthInView) {
-			!mounthIsFetching && monthHasNextPage && fetchMonthNextPage();
-		}
-	}, [monthInView, monthHasNextPage, mounthIsFetching]);
-
 	return (
 		<S.Container>
 			<S.Schedule>
@@ -234,9 +215,9 @@ const CalenderMainPage = () => {
 				<h2>우리 가족 {currentMonth}월 일정</h2>
 				<S.MonthWrapper>
 					<ul>
-						{monthlyScheduleData?.length > 0 ? (
-							monthlyScheduleData.map(e =>
-								e.result.scheduleDataResponseList.map((schedule, index) => (
+						{monthlyScheduleData?.scheduleDataResponseList.length > 0 ? (
+							monthlyScheduleData.scheduleDataResponseList.map(
+								(schedule, index) => (
 									<li key={index}>
 										<strong>{schedule.title}</strong>
 										<span>{schedule.date}</span>
@@ -245,12 +226,11 @@ const CalenderMainPage = () => {
 											<p>{schedule.content}</p>
 										</S.Content>
 									</li>
-								)),
+								),
 							)
 						) : (
 							<li>일정이 없습니다.</li>
 						)}
-						<div ref={monthRef} />
 					</ul>
 				</S.MonthWrapper>
 			</S.RightSidebar>

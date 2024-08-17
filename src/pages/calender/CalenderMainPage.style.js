@@ -6,6 +6,10 @@ const Container = styled.div`
 	display: flex;
 	width: 100%;
 	height: 100vh;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		height: 100dvh;
+	}
 `;
 
 const Schedule = styled.div`
@@ -100,6 +104,10 @@ const ScheduleList = styled.div`
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		li {
 			padding: 10px;
+		}
+
+		ul {
+			height: 250px;
 		}
 	}
 `;

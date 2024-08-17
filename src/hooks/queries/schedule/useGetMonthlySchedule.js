@@ -1,20 +1,15 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { QUERY_KEYS } from '@/constants';
 import { getMonthlySchedule } from '@/apis';
 
-const useGetMonthlySchedule = ({ yearMonth, size }) => {
-	return useInfiniteQuery({
+const useGetMonthlySchedule = ({ yearMonth }) => {
+	return useQuery({
 		queryKey: [QUERY_KEYS.SCHEDULE],
-		queryFn: ({ pageParam }) =>
-			getMonthlySchedule({ yearMonth, page: pageParam, size }),
-		initialPageParam: 1,
-		getNextPageParam: (lastPage, allPages) => {
-			return lastPage.result.isLast ? undefined : allPages.length + 1;
-		},
+		queryFn: () => getMonthlySchedule({ yearMonth }),
 		staleTime: 1000 * 60 * 30,
 		enabled: !!yearMonth,
-		select: data => data.pages,
+		select: data => data.result,
 	});
 };
 
