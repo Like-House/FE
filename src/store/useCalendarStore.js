@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 
 import { toDate } from 'date-fns-tz';
-import { eventsData } from '@/mocks/event';
 
 const useCalendarStore = create(set => {
 	const nowDate = toDate(Date.now(), { timeZone: 'Asia/Seoul' });
@@ -13,7 +12,7 @@ const useCalendarStore = create(set => {
 		},
 		selectedTimestamp: nowDate.setHours(0, 0, 0, 0),
 		date: '',
-		events: eventsData, // 추후 백엔드에서 받아오는 데이터로 변경할 예정
+		events: [],
 	};
 
 	return {
@@ -69,6 +68,11 @@ const useCalendarStore = create(set => {
 					date: new Date(selectedDate).toISOString(),
 				};
 			}),
+
+		setEvents: newEvents =>
+			set(() => ({
+				events: newEvents,
+			})),
 	};
 });
 
