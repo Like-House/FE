@@ -6,8 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useGetPostById from '@/hooks/queries/posts/useGetPostById';
 import useDeletePost from '@/hooks/queries/posts/useDeletePost.js';
 import useLikePost from '@/hooks/queries/posts/useLikePost.js';
-import useUnlikePost from '@/hooks/queries/posts/useUnlikePost.js';
-
+import useUnlikePost from '@/hooks/queries/posts/useUnLikePost.js';
 import PostItem from '@/components/post/PostItem.jsx';
 
 const LOCAL_STORAGE_LIKES_KEY = 'likes';

@@ -29,12 +29,17 @@ const updateProfile = async (profileData) => {
   return data;
 };
 
-const changePassword = async (currentPassword, newPassword) => {
-  const { data } = await axiosInstance.patch(`${API_PATH.PASSWORD}`, {
-    currentPassword,
-    newPassword,
-  });
-  return data;
+const changePassword = async ({ currentPassword, newPassword }) => {
+  try {
+    const { data } = await axiosInstance.patch(`${API_PATH.PASSWORD}`, {
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+    });
+    return data;
+  } catch (error) {
+    console.error('Error during password change:', error);
+    throw error;
+  }
 };
 
 export { getProfile, blockUser, unBlockUser, updateProfile, changePassword };
