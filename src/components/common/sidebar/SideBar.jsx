@@ -1,6 +1,5 @@
 import * as S from './SideBar.style.js';
 
-import { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { TbHome } from 'react-icons/tb';
 import { TbMessageCircle2Filled } from 'react-icons/tb';
@@ -38,7 +37,7 @@ const Sidebar = () => {
 
 	const handleOpenModal = () => {
 		openModal();
-	}
+	};
 
 	const handleProfile = () => {
 		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`);
@@ -75,10 +74,7 @@ const Sidebar = () => {
 					</S.Icon>
 					<p>메세지</p>
 				</NavLink>
-				<PostModal
-					isOpen={isOpen}
-					closeModal={closeModal}
-				/>
+				<PostModal isOpen={isOpen} closeModal={closeModal} />
 				<S.PC>
 					<NavLink to={PAGE_PATH.FAMILY}>
 						<S.Icon>
