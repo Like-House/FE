@@ -100,8 +100,13 @@ const PostDetailPage = () => {
 	};
 
 	const handleCommentSubmit = postId => {
+		console.log(commentInputs[postId]);
 		if (commentInputs[postId]) {
-			addCommentMutation.mutate({ postId, content: commentInputs[postId] }, {
+			addCommentMutation.mutate(
+				{ postId: postId,
+					parentId: null,
+					content: commentInputs[postId],
+				}, {
 				onSuccess: () => {
 					setComments(prev => ({
 						...prev,

@@ -38,8 +38,8 @@ const updatePost = async (postId, updatedData) => {
   return response.data;
 };
 
-const addComment = async ({postId, content}) => {
-	const response = await axiosInstance.post('/api/v0/comments', {postId, content});
+const addComment = async ({postId, content, parentId = 0}) => {
+	const response = await axiosInstance.post('/api/v0/comments', {postId, content, parentId});
 	return response.data;
 };
 
