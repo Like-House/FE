@@ -1,8 +1,9 @@
 import Avatar from '@/components/common/avatar/Avatar';
 import PopOver from '@/components/common/popover/PopOver';
-import * as S from './PostItem.style.js';
+import * as S from './PostItem.style';
 import { HiMiniEllipsisHorizontal } from 'react-icons/hi2';
 import useGetImageUrl from '@/hooks/queries/image/useGetImageUrl.js';
+import useAddComment from '@/hooks/queries/comment/useAddComment.js';
 
 const PostItem = ({
 	post,
@@ -10,12 +11,13 @@ const PostItem = ({
 	onLike,
 	onCommentClick,
 	commentCounts,
-	comments,
+	comments = {},
 	showCommentInput,
 	handleMenuToggle,
 	showMenu,
 	handleMouseLeave,
 	menuItems,
+	commentItems,
 	commentInputs,
 	handleCommentChange,
 	handleCommentSubmit,
@@ -68,7 +70,14 @@ const PostItem = ({
 		return `${year}년 ${month}월 ${day}일 ${ampm} ${hour}시 ${minute}분`;
 	};
 
-	console.log(post);
+	const handleKeyDown = event => {
+		if (event.key === 'Enter' && !event.shiftKey) {
+			event.preventDefault();
+			handleCommentSubmit(post.postId);
+		}
+	};
+
+	//console.log(post);
 
 	return (
 		<S.PostItem>
@@ -107,26 +116,59 @@ const PostItem = ({
 							댓글 {commentCounts[post.postId] || 0}
 						</p>
 					</S.Footer>
-
-					{showCommentInput[post.postId] && (
-						<S.CommentInputWrapper>
-							<S.CommentInput
-								value={commentInputs[post.postId]}
-								onChange={e => handleCommentChange(post.postId, e.target.value)}
-								onSubmit={() => handleCommentSubmit(post.postId)}
-								disabled={
-									!commentInputs[post.postId] ||
-									commentInputs[post.postId].trim() === ''
-								}
-							/>
-						</S.CommentInputWrapper>
-					)}
-					{comments[post.postId] &&
-						comments[post.postId].map((comment, index) => (
-							<S.Comment key={index}>{comment}</S.Comment>
-						))}
 				</S.Board>
 			</S.PostWrapper>
+
+				<S.CommentContainer>
+					{showCommentInput[post.postId] && (
+						<div>
+							<S.CommentInput onClick={handlePopoverClick}>
+								{/* 댓글 작성하는 본인 프로필 이미지 */}
+								<S.Profile>
+									<Avatar src={post.profileImage} alt='profile'/>
+								</S.Profile>
+								<input
+									value={commentInputs[post.postId]}
+									onChange={e => handleCommentChange(post.postId, e.target.value)}
+									onKeyDown={handleKeyDown}
+									placeholder="댓글을 입력하세요"
+								/>
+							</S.CommentInput>
+
+							{Array.isArray(comments[post.postId]) &&
+								comments[post.postId].map((comment, index) => (
+										<S.CommentWrapper key={`${post.postId}-${index}`}>
+
+											<S.Profile>
+												<Avatar src={post.profileImage} alt='profile'/>
+											</S.Profile>
+
+											<S.Board>
+												<S.PostHeader>
+													{/* 댓글 작성한 본인 이름, 작성한 시간 */}
+													<S.AuthorWrapper>
+														<S.Author>{post.authorNickname}</S.Author>
+														<S.DateTime>{formatDate(post.createdAt)}</S.DateTime>
+													</S.AuthorWrapper>
+
+													<S.MenuButton>
+														<button onClick={handleMenuClick}>
+															<HiMiniEllipsisHorizontal />
+														</button>
+														<S.Popover onClick={handlePopoverClick}>
+															{showMenu === post.postId && (
+																<PopOver items={commentItems} onMouseLeave={handleMouseLeave} />
+															)}
+														</S.Popover>
+													</S.MenuButton>
+												</S.PostHeader>
+												<div>{comment}</div>
+											</S.Board>
+										</S.CommentWrapper>
+								))}
+						</div>
+					)}
+				</S.CommentContainer>
 			<S.Divider />
 		</S.PostItem>
 	);

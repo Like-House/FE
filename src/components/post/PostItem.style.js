@@ -25,7 +25,7 @@ const PostWrapper = styled.div`
 const Profile = styled.div`
 	display: flex;
 	flex-direction: row;
-	width: 90px;
+	width: 110px;
 `;
 
 const Board = styled.div`
@@ -131,13 +131,39 @@ const Footer = styled.div`
 	}
 `;
 
-const Comment = styled.div`
-	margin: 30px 0 0 0;
+const CommentContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+
+	width: 100%;
+	max-width: 700px;
+`;
+
+const CommentInput = styled.div`
+	padding-top: 30px;
+	display: flex;
+	
+	input {
+		border: none;
+		background-color: ${theme.COLOR.BACKGROUND.WHITE};
+		width: 300px;
+	}
+
+	input:focus {
+		border: none;
+		outline: none;
+	}
+`;
+
+const CommentWrapper = styled.div`
+	display: flex;
+	width: 100%;
+
+	margin-top: 40px;
 `;
 
 export {
   PostItem,
-	PostHeader,
 	PostWrapper,
 	Profile,
 	AuthorWrapper,
@@ -148,9 +174,12 @@ export {
 	Board,
 	Footer,
 	Divider,
+	PostHeader,
 	Menu,
 	MenuButton,
 	Popover,
 	MenuItem,
-	Comment,
+	CommentContainer,
+	CommentInput,
+	CommentWrapper,
 }
