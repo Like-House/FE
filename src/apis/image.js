@@ -35,4 +35,24 @@ const getRealImageUrl = async imageUrl => {
 	}
 };
 
-export { createPresignedURL, uploadImageToS3, getRealImageUrl };
+const createPresignedURLs = async keynameList => {
+	const { data } = await axiosInstance.post(`${API_PATH.IMAGE}/upload/list`, {
+		keyNames: keynameList,
+	});
+	return data;
+};
+
+const getRealImageUrls = async keyNames => {
+	const { data } = await axiosInstance.post(`${API_PATH.IMAGE}/download/list`, {
+		keyNames,
+	});
+	return data;
+};
+
+export {
+	createPresignedURL,
+	uploadImageToS3,
+	getRealImageUrl,
+	createPresignedURLs,
+	getRealImageUrls,
+};

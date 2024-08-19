@@ -48,6 +48,7 @@ import {
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
+import HomeMainPage from './pages/home/HomeMainPage';
 
 const router = createBrowserRouter([
 	{
@@ -96,7 +97,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				index: true,
-				element: <MainPage />,
+				element: <HomeMainPage />,
 			},
 			{
 				path: `${PAGE_PATH.DETAILPOST}/:postId`,

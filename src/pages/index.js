@@ -26,6 +26,7 @@ import ChatDetailPage from './chat/chat-detail/ChatDetailPage';
 import ChatImgPage from './chat/chat-modifiy/ChatImgPage';
 import ChatUserInfo from './chat/chat-user-info/ChatUserInfo';
 import DetailPost from './main/PostDetailPage';
+import Comment from '../components/comment/Comment';
 
 export {
 	MainPage,
@@ -56,4 +57,5 @@ export {
 	AddSchedulePage,
 	DetailPost,
 	PatchSchedulePage,
+	Comment,
 };

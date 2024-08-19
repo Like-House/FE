@@ -71,13 +71,8 @@ const DateTime = styled.div`
 const MenuButton = styled.div`
 	position: relative;
 
-	button {
-		background: none;
-		border: none;
-		font-size: ${FONT_SIZE.XL};
+	svg {
 		cursor: pointer;
-		margin-left: auto;
-		position: relative;
 	}
 `;
 

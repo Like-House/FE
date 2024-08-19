@@ -65,8 +65,7 @@ const MainPage = () => {
 		}
 	};
 
-	const handleCommentClick = postId => {
-	};
+	const handleCommentClick = postId => {};
 
 	const handleMenuToggle = postId => {
 		setShowMenu(prev => (prev === postId ? null : postId));

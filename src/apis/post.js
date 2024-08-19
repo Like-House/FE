@@ -16,31 +16,58 @@ const getMyPosts = async ({ pageParam }) => {
 	return data;
 };
 
-const getWritePost = async ({postData}) => {
-	const { data } = await axiosInstance.post(
-		`${API_PATH.WRITE_POST}`,
-		postData
-	);
+const getWritePost = async ({ postData }) => {
+	const { data } = await axiosInstance.post(`${API_PATH.WRITE_POST}`, postData);
 	return data;
 };
 
-const getPostById = async (postId) => {
-	const { data } = await axiosInstance.get(
-		`${API_PATH.WRITE_POST}/${postId}`,
-	);
+const getPostById = async postId => {
+	const { data } = await axiosInstance.get(`${API_PATH.POST}/${postId}`);
 	return data;
 };
 
 const updatePost = async (postId, updatedData) => {
-  const response = await axiosInstance.put(
-		`${API_PATH.WRITE_POST}/${postId}`, updatedData
+	const response = await axiosInstance.put(
+		`${API_PATH.WRITE_POST}/${postId}`,
+		updatedData,
 	);
-  return response.data;
-};
-
-const addComment = async ({postId, content, parentId = 0}) => {
-	const response = await axiosInstance.post('/api/v0/comments', {postId, content, parentId});
 	return response.data;
 };
 
-export { getPosts, getMyPosts, getWritePost, getPostById, updatePost, addComment };
+const addComment = async ({ postId, content, parentId = 0 }) => {
+	const response = await axiosInstance.post('/api/v0/comments', {
+		postId,
+		content,
+		parentId,
+	});
+	return response.data;
+};
+
+const deletePost = async postId => {
+	const { data } = axiosInstance.delete(`${API_PATH.POST}/${postId}`);
+	return data;
+};
+
+const likePost = async postId => {
+	const { data } = await axiosInstance.post(`${API_PATH.POST}/${postId}/like`);
+	return data;
+};
+
+const unLikePost = async postId => {
+	const { data } = await axiosInstance.delete(
+		`${API_PATH.POST}/${postId}/like`,
+	);
+	return data;
+};
+
+export {
+	getPosts,
+	getMyPosts,
+	getWritePost,
+	getPostById,
+	updatePost,
+	addComment,
+	deletePost,
+	likePost,
+	unLikePost,
+};

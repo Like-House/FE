@@ -42,7 +42,7 @@ const PostItem = ({
 		handleMenuToggle(post.postId);
 	};
 
-  const handleCommentMenuClick = (commentId) => {
+	const handleCommentMenuClick = commentId => {
 		handleMenuToggle(post.postId, commentId);
 	};
 
@@ -84,16 +84,11 @@ const PostItem = ({
 		}
 	};
 
-	//console.log(post);
-	console.log(showMenu);
-	console.log(post.postId);
-
 	return (
 		<S.PostItem>
 			<S.PostWrapper>
 				<S.Profile>
-					<Avatar
-						src={data?.url} />
+					<Avatar src={data?.url} />
 				</S.Profile>
 
 				<S.Board>
@@ -109,7 +104,7 @@ const PostItem = ({
 							</button>
 							{showMenu === post.postId && (
 								<S.Popover onClick={handlePopoverClick}>
-										<PopOver items={menuItems} onMouseLeave={handleMouseLeave} />
+									<PopOver items={menuItems} onMouseLeave={handleMouseLeave} />
 								</S.Popover>
 							)}
 						</S.MenuButton>
@@ -129,58 +124,62 @@ const PostItem = ({
 				</S.Board>
 			</S.PostWrapper>
 
-				<S.CommentContainer>
-					{showCommentInput[post.postId] && (
-						<div>
-							<S.CommentInput onClick={handlePopoverClick}>
-								{/* 댓글 작성하는 본인 프로필 이미지 */}
+			<S.CommentContainer>
+				{showCommentInput[post.postId] && (
+					<div>
+						<S.CommentInput onClick={handlePopoverClick}>
+							{/* 댓글 작성하는 본인 프로필 이미지 */}
+							<S.Profile>
+								<Avatar src={data?.url} />
+							</S.Profile>
+							<input
+								value={commentInputs[post.postId]}
+								onChange={e => handleCommentChange(post.postId, e.target.value)}
+								onKeyDown={handleKeyDown}
+								placeholder="댓글을 입력하세요"
+							/>
+							<button onClick={() => handleCommentSubmit(post.postId)}>
+								댓글 달기
+							</button>
+						</S.CommentInput>
+
+						{comments[post.postId]?.map(comment => (
+							<S.CommentWrapper key={comment.id}>
 								<S.Profile>
-									<Avatar src={data?.url}/>
+									<Avatar src={data?.url} />
 								</S.Profile>
-								<input
-									value={commentInputs[post.postId]}
-									onChange={e => handleCommentChange(post.postId, e.target.value)}
-									onKeyDown={handleKeyDown}
-									placeholder="댓글을 입력하세요"
-								/>
-								<button onClick={() => handleCommentSubmit(post.postId)}>
-									댓글 달기
-								</button>
-							</S.CommentInput>
 
-							{comments[post.postId]?.map(comment => (
-  							<S.CommentWrapper key={comment.id}>
+								<S.Board>
+									<S.PostHeader>
+										{/* 댓글 작성한 본인 이름, 작성한 시간 */}
+										<S.AuthorWrapper>
+											<S.Author>{post.authorNickname}</S.Author>
+											<S.DateTime>{formatDate(post.createdAt)}</S.DateTime>
+										</S.AuthorWrapper>
 
-									<S.Profile>
-										<Avatar src={data?.url}/>
-									</S.Profile>
-
-									<S.Board>
-										<S.PostHeader>
-											{/* 댓글 작성한 본인 이름, 작성한 시간 */}
-											<S.AuthorWrapper>
-												<S.Author>{post.authorNickname}</S.Author>
-												<S.DateTime>{formatDate(post.createdAt)}</S.DateTime>
-											</S.AuthorWrapper>
-
-											<S.MenuButton>
-												<button onClick={() => handleCommentMenuClick(comment.id)}>
-													<HiMiniEllipsisHorizontal />
-												</button>
-												<S.Popover onClick={handlePopoverClick}>
-													{showMenu === comment.id && (
-														<PopOver items={commentItems} onMouseLeave={handleMouseLeave} />
-													)}
-												</S.Popover>
-											</S.MenuButton>
-										</S.PostHeader>
-										<div>{comment.content}</div>
-									</S.Board>
-								</S.CommentWrapper>
-								))}
-						</div>
-					)}
-				</S.CommentContainer>
+										<S.MenuButton>
+											<button
+												onClick={() => handleCommentMenuClick(comment.id)}
+											>
+												<HiMiniEllipsisHorizontal />
+											</button>
+											<S.Popover onClick={handlePopoverClick}>
+												{showMenu === comment.id && (
+													<PopOver
+														items={commentItems}
+														onMouseLeave={handleMouseLeave}
+													/>
+												)}
+											</S.Popover>
+										</S.MenuButton>
+									</S.PostHeader>
+									<div>{comment.content}</div>
+								</S.Board>
+							</S.CommentWrapper>
+						))}
+					</div>
+				)}
+			</S.CommentContainer>
 			<S.Divider />
 		</S.PostItem>
 	);
