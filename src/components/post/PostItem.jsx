@@ -34,6 +34,10 @@ const PostItem = ({
 		onCommentClick(post.postId);
 	};
 
+	const handleMenuClick = event => {
+		event.stopPropagation();
+	};
+
 	const handlePostMenuClick = () => {
 		handleMenuToggle(post.postId);
 	};
@@ -99,7 +103,7 @@ const PostItem = ({
 							<S.DateTime>{formatDate(post.createdAt)}</S.DateTime>
 						</S.AuthorWrapper>
 
-						<S.MenuButton>
+						<S.MenuButton onClick={handleMenuClick}>
 							<button onClick={() => handlePostMenuClick()}>
 								<HiMiniEllipsisHorizontal />
 							</button>
