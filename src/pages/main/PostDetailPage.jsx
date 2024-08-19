@@ -8,6 +8,7 @@ import useDeletePost from '@/hooks/queries/posts/useDeletePost.js';
 import useLikePost from '@/hooks/queries/posts/useLikePost.js';
 import useUnlikePost from '@/hooks/queries/posts/useUnlikePost.js';
 import useAddComment from '@/hooks/queries/comment/useAddComment.js';
+import useDeleteComment from '@/hooks/queries/comment/useDeleteComment';
 
 import PostItem from '@/components/post/PostItem.jsx';
 import CustomCalendar from '@/components/common/calendar/CustomCalendar';
@@ -26,6 +27,7 @@ const PostDetailPage = () => {
 	const likePostMutation = useLikePost();
 	const unlikePostMutation = useUnlikePost();
 	const addCommentMutation = useAddComment();
+	const deleteCommentMutation = useDeleteComment();
 
 	const [showMenu, setShowMenu] = useState(null);
 	const [likes, setLikes] = useState({});
@@ -107,23 +109,52 @@ const PostDetailPage = () => {
 					parentId: null,
 					content: commentInputs[postId],
 				}, {
-				onSuccess: () => {
-					setComments(prev => ({
-						...prev,
-						[postId]: [...(prev[postId] || []), commentInputs[postId]],
-					}));
-					setCommentCounts(prev => ({
-						...prev,
-						[postId]: (prev[postId] || 0) + 1,
-					}));
-					setCommentInputs(prev => ({ ...prev, [postId]: '' }));
-				},
-			});
-		}
-	};
+					onSuccess: (newComment) => { 
+						console.log('새 댓글:', newComment);
+						setComments(prev => ({
+							...prev,
+							[postId]: [...(prev[postId] || []), {
+								id: newComment.result.commentId,
+								content: newComment.result.content,
+							}],
+						}));
+						setCommentCounts(prev => ({
+							...prev,
+							[postId]: (prev[postId] || 0) + 1,
+						}));
+						setCommentInputs(prev => ({ ...prev, [postId]: '' }));
+					},
+				});
+			}
+		};
 
-	const handleMenuToggle = postId => {
-		setShowMenu(prev => (prev === postId ? null : postId));
+		console.log(showMenu);
+
+	const handleDeleteComment = (postId, commentId) => {
+    deleteCommentMutation.mutate(commentId, {
+      onSuccess: () => {
+        setComments(prev => {
+          const updatedComments = { ...prev };
+          if (updatedComments[postId]) {
+            updatedComments[postId] = updatedComments[postId].filter(comment => comment.id !== commentId);
+          }
+					console.log(commentId);
+          return updatedComments;
+        });
+        setCommentCounts(prev => ({
+          ...prev,
+          [postId]: (prev[postId] || 0) - 1,
+        }));
+      },
+    });
+  };
+
+	const handleMenuToggle = (postId, commentId = null) => {
+		if (commentId) {
+			setShowMenu(showMenu === commentId ? null : commentId);
+		} else {
+			setShowMenu(showMenu === postId ? null : postId);
+		}
 	};
 
 	const handleMouseLeave = () => {
@@ -144,7 +175,7 @@ const PostDetailPage = () => {
 			message: '수정하기',
 			onClick: () => {
 				console.log('수정하기 클릭됨');
-				setShowMenu(null);
+				setShowMenu({ postId: null, commentId: null });
 				// 수정로직 추가
 			},
 		},
@@ -156,7 +187,7 @@ const PostDetailPage = () => {
 				if (postId) {
 					handleDeletePost(postId);
 				}
-				setShowMenu(null);
+				setShowMenu({ postId: null, commentId: null });
 			},
 		},
 		{
@@ -164,7 +195,7 @@ const PostDetailPage = () => {
 			message: '알림끄기',
 			onClick: () => {
 				console.log('알림끄기 클릭됨');
-				setShowMenu(null);
+				setShowMenu({ postId: null, commentId: null });
 				togglePostAlarmMutation.mutate(showMenu);
 			},
 		},
@@ -176,19 +207,18 @@ const PostDetailPage = () => {
 			message: '댓글수정하기',
 			onClick: () => {
 				console.log('수정하기 클릭됨');
-				setShowMenu(null);
+				setShowMenu({ postId: null, commentId: null });
 				// 수정로직 추가
 			},
 		},
 		{
 			icon: <FaTrashAlt />,
-			message: '삭제하기',
+			message: '댓글삭제하기',
 			onClick: () => {
-				console.log('삭제하기 클릭됨');
-				if (postId) {
-					handleDeletePost(postId);
-				}
-				setShowMenu(null);
+				if (postId && commentId) {
+          handleDeleteComment(postId, commentId);
+        }
+				setShowMenu({ postId: null, commentId: null });
 			},
 		},
 		{
@@ -196,7 +226,7 @@ const PostDetailPage = () => {
 			message: '알림끄기',
 			onClick: () => {
 				console.log('알림끄기 클릭됨');
-				setShowMenu(null);
+				setShowMenu({ postId: null, commentId: null });
 				togglePostAlarmMutation.mutate(showMenu);
 			},
 		},
@@ -222,7 +252,6 @@ const PostDetailPage = () => {
 						commentInputs={commentInputs}
 						handleCommentChange={handleCommentChange}
 						handleCommentSubmit={handleCommentSubmit}
-						setComments={setComments} 
 					/>
 				)}
 			</S.PostList>

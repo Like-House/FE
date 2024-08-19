@@ -3,7 +3,6 @@ import PopOver from '@/components/common/popover/PopOver';
 import * as S from './PostItem.style';
 import { HiMiniEllipsisHorizontal } from 'react-icons/hi2';
 import useGetImageUrl from '@/hooks/queries/image/useGetImageUrl.js';
-import useAddComment from '@/hooks/queries/comment/useAddComment.js';
 
 const PostItem = ({
 	post,
@@ -29,14 +28,16 @@ const PostItem = ({
 		onLike(post.postId);
 	};
 
-	const handleCommentClick = event => {
-		event.stopPropagation();
+	const handleCommentClick = () => {
 		onCommentClick(post.postId);
 	};
 
-	const handleMenuClick = event => {
-		event.stopPropagation();
+	const handlePostMenuClick = () => {
 		handleMenuToggle(post.postId);
+	};
+
+  const handleCommentMenuClick = (commentId) => {
+		handleMenuToggle(post.postId, commentId);
 	};
 
 	const handlePopoverClick = event => {
@@ -78,6 +79,8 @@ const PostItem = ({
 	};
 
 	//console.log(post);
+	console.log(showMenu);
+	console.log(post.postId);
 
 	return (
 		<S.PostItem>
@@ -94,14 +97,14 @@ const PostItem = ({
 						</S.AuthorWrapper>
 
 						<S.MenuButton>
-							<button onClick={handleMenuClick}>
+							<button onClick={() => handlePostMenuClick()}>
 								<HiMiniEllipsisHorizontal />
 							</button>
-							<S.Popover onClick={handlePopoverClick}>
-								{showMenu === post.postId && (
-									<PopOver items={menuItems} onMouseLeave={handleMouseLeave} />
-								)}
-							</S.Popover>
+							{showMenu === post.postId && (
+								<S.Popover onClick={handlePopoverClick}>
+										<PopOver items={menuItems} onMouseLeave={handleMouseLeave} />
+								</S.Popover>
+							)}
 						</S.MenuButton>
 					</S.PostHeader>
 					<S.Content>{post.content}</S.Content>
@@ -135,36 +138,35 @@ const PostItem = ({
 								/>
 							</S.CommentInput>
 
-							{Array.isArray(comments[post.postId]) &&
-								comments[post.postId].map((comment, index) => (
-										<S.CommentWrapper key={`${post.postId}-${index}`}>
+							{comments[post.postId]?.map(comment => (
+  							<S.CommentWrapper key={comment.id}>
 
-											<S.Profile>
-												<Avatar src={post.profileImage} alt='profile'/>
-											</S.Profile>
+									<S.Profile>
+										<Avatar src={post.profileImage} alt='profile'/>
+									</S.Profile>
 
-											<S.Board>
-												<S.PostHeader>
-													{/* 댓글 작성한 본인 이름, 작성한 시간 */}
-													<S.AuthorWrapper>
-														<S.Author>{post.authorNickname}</S.Author>
-														<S.DateTime>{formatDate(post.createdAt)}</S.DateTime>
-													</S.AuthorWrapper>
+									<S.Board>
+										<S.PostHeader>
+											{/* 댓글 작성한 본인 이름, 작성한 시간 */}
+											<S.AuthorWrapper>
+												<S.Author>{post.authorNickname}</S.Author>
+												<S.DateTime>{formatDate(post.createdAt)}</S.DateTime>
+											</S.AuthorWrapper>
 
-													<S.MenuButton>
-														<button onClick={handleMenuClick}>
-															<HiMiniEllipsisHorizontal />
-														</button>
-														<S.Popover onClick={handlePopoverClick}>
-															{showMenu === post.postId && (
-																<PopOver items={commentItems} onMouseLeave={handleMouseLeave} />
-															)}
-														</S.Popover>
-													</S.MenuButton>
-												</S.PostHeader>
-												<div>{comment}</div>
-											</S.Board>
-										</S.CommentWrapper>
+											<S.MenuButton>
+												<button onClick={() => handleCommentMenuClick(comment.id)}>
+													<HiMiniEllipsisHorizontal />
+												</button>
+												<S.Popover onClick={handlePopoverClick}>
+													{showMenu === comment.id && (
+														<PopOver items={commentItems} onMouseLeave={handleMouseLeave} />
+													)}
+												</S.Popover>
+											</S.MenuButton>
+										</S.PostHeader>
+										<div>{comment.content}</div>
+									</S.Board>
+								</S.CommentWrapper>
 								))}
 						</div>
 					)}
