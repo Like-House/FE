@@ -142,16 +142,26 @@ const CommentContainer = styled.div`
 const CommentInput = styled.div`
 	padding-top: 30px;
 	display: flex;
+	align-items: center;
 	
 	input {
 		border: none;
 		background-color: ${theme.COLOR.BACKGROUND.WHITE};
-		width: 300px;
+		width: 400px;
 	}
 
 	input:focus {
 		border: none;
 		outline: none;
+	}
+
+	button {
+		width: 110px;
+		height: 40px;
+		border: none;
+		border-radius: 10px;
+		background-color: ${theme.COLOR.YELLOW.YELLOW_300};
+		cursor: pointer;
 	}
 `;
 

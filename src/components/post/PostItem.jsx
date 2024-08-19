@@ -143,6 +143,9 @@ const PostItem = ({
 									onKeyDown={handleKeyDown}
 									placeholder="댓글을 입력하세요"
 								/>
+								<button onClick={() => handleCommentSubmit(post.postId)}>
+									댓글 달기
+								</button>
 							</S.CommentInput>
 
 							{comments[post.postId]?.map(comment => (
