@@ -15,6 +15,8 @@ import useGetRealAlbum from '@/hooks/queries/album/useGetRealAlbum';
 import useGetModalImage from '@/hooks/queries/album/useGetModalImage';
 import useCalendarStore from '@/store/useCalendarStore';
 
+import { useNavigate } from 'react-router-dom';
+
 const PhotoMainPage = () => {
 	const { data: familyListData } = useGetFamilyList();
 	const options =
@@ -94,8 +96,12 @@ const PhotoMainPage = () => {
 		setSelectedPostid(null);
 	};
 
-	const goPostDetail = () => {
-		console.log('게시물 확인할게여');
+	const navigate = useNavigate();
+
+	const goPostDetail = selectedPostId => {
+		if (selectedPostId) {
+			navigate(`/home/detailPost/${selectedPostId}`);
+		}
 	};
 
 	return (
@@ -142,7 +148,7 @@ const PhotoMainPage = () => {
 					img={realImageUrl?.result.url}
 					onClose={handleClosePost}
 					avatar={realProfileUrl?.result.url}
-					goPostDetail={goPostDetail}
+					goPostDetail={() => goPostDetail(selectedPostId)}
 				/>
 			)}
 		</S.MainContainer>
