@@ -49,8 +49,12 @@ const PhotoMainPage = () => {
 		taggedId,
 	);
 
+	const vaildAlbumData = albumData.filter(picture => picture.imageUrl !== null);
+
 	//presigned url로 변환
-	const { data: imageUrlsData } = useGetRealAlbum({ albumData });
+	const { data: imageUrlsData } = useGetRealAlbum({
+		albumData: vaildAlbumData,
+	});
 	const imageUrls = imageUrlsData?.presignedUrlDownLoadResponseLists || [];
 
 	//모달창 관리
