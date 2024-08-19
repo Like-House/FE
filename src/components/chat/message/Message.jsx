@@ -29,7 +29,7 @@ import useFile from '@/hooks/useFile';
 import queryClient from '@/apis/queryClient';
 
 const Message = ({ room }) => {
-	const [disableInView, setDisableInView] = useState(true);
+	const [isMounted, setIsMounted] = useState(false);
 	const messageEndRef = useRef();
 	const scrollRef = useRef();
 	const prevScrollHeightRef = useRef(0);
@@ -68,16 +68,15 @@ const Message = ({ room }) => {
 	});
 
 	const { ref, inView } = useInView({
-		threshold: 0,
+		threshold: 1,
 		delay: 0,
-		skip: disableInView,
+		initialInView: false,
+		skip: !isMounted,
 	});
-
-	console.log(messageData);
 
 	useEffect(() => {
 		const loadMessages = async () => {
-			if (!disableInView && inView && !isFetching && hasPreviousPage) {
+			if (inView && !isFetching && hasPreviousPage) {
 				prevScrollHeightRef.current = scrollRef.current?.scrollHeight;
 				await fetchPreviousPage();
 
@@ -88,17 +87,15 @@ const Message = ({ room }) => {
 				}
 			}
 		};
-
-		loadMessages();
-	}, [inView, isFetching, hasPreviousPage, disableInView]);
+		if (isMounted) loadMessages();
+	}, [inView, isMounted, isFetching]);
 
 	useEffect(() => {
-		if (messageData && prevScrollHeightRef.current > 0) {
-			const newScrollHeight = scrollRef.current?.scrollHeight;
-			scrollRef.current.scrollTop =
-				newScrollHeight - prevScrollHeightRef.current;
+		if (isMounted && !isFetching && prevScrollHeightRef.current > 0) {
+			messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
 		}
-	}, [messageData]);
+		setIsMounted(true);
+	}, [isFetching, isMounted]);
 
 	useEffect(() => {
 		if (messageEndRef.current) {
@@ -109,8 +106,6 @@ const Message = ({ room }) => {
 	useEffect(() => {
 		if (chatRoomId && scrollRef.current) {
 			enterChatRoom(chatRoomId);
-			scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-			setDisableInView(false);
 		}
 
 		clearMessages();
@@ -235,7 +230,7 @@ const Message = ({ room }) => {
 				</S.Menu>
 			</S.NavContainer>
 			<S.MessageContainer ref={scrollRef}>
-				<div ref={ref} />
+				{isMounted && <div ref={ref} />}
 				{messageData?.map(page =>
 					page.result.chatResponseList.map(e =>
 						e.senderDTO.senderId === userId ? (
