@@ -3,6 +3,7 @@ import PopOver from '@/components/common/popover/PopOver';
 import * as S from './PostItem.style';
 import { HiMiniEllipsisHorizontal } from 'react-icons/hi2';
 import useGetImageUrl from '@/hooks/queries/image/useGetImageUrl.js';
+import useGetFamilyImg from '@/hooks/queries/family/useGetFamilyImg';
 
 const PostItem = ({
 	post,
@@ -22,6 +23,7 @@ const PostItem = ({
 	handleCommentSubmit,
 }) => {
 	const { data: realImageUrl } = useGetImageUrl(post?.imageUrls[0]);
+	const { data } = useGetFamilyImg(post.profileImage, post.postId);
 
 	const handleLikeClick = event => {
 		event.stopPropagation();
@@ -86,7 +88,8 @@ const PostItem = ({
 		<S.PostItem>
 			<S.PostWrapper>
 				<S.Profile>
-					<Avatar src={post.profileImage} alt='profile'/>
+					<Avatar
+						src={data?.url} />
 				</S.Profile>
 
 				<S.Board>
@@ -128,7 +131,7 @@ const PostItem = ({
 							<S.CommentInput onClick={handlePopoverClick}>
 								{/* 댓글 작성하는 본인 프로필 이미지 */}
 								<S.Profile>
-									<Avatar src={post.profileImage} alt='profile'/>
+									<Avatar src={data?.url}/>
 								</S.Profile>
 								<input
 									value={commentInputs[post.postId]}
@@ -142,7 +145,7 @@ const PostItem = ({
   							<S.CommentWrapper key={comment.id}>
 
 									<S.Profile>
-										<Avatar src={post.profileImage} alt='profile'/>
+										<Avatar src={data?.url}/>
 									</S.Profile>
 
 									<S.Board>
