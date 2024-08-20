@@ -7,12 +7,17 @@ import NoImg from '@/assets/images/profile.webp';
 import { HiMiniEllipsisHorizontal } from 'react-icons/hi2';
 import { FaEdit, FaTrashAlt, FaRegBellSlash } from 'react-icons/fa';
 import { useState } from 'react';
+import useDeleteComment from '@/hooks/queries/comment/useDeleteComment';
+import { useParams } from 'react-router-dom';
 
 const Comment = ({ comment }) => {
-	const { content, userNickname, createdAt, userProfileImage } = comment;
+	const { postId } = useParams();
+	const { content, userNickname, createdAt, userProfileImage, commentId } =
+		comment;
 	const [showMenu, setShowMenu] = useState(false);
 
 	const { data: userImg } = useGetNicknameImg(userNickname, userProfileImage);
+	const { mutate } = useDeleteComment(postId);
 
 	const handleMouseLeave = () => {
 		setShowMenu(false);
@@ -27,6 +32,9 @@ const Comment = ({ comment }) => {
 		{
 			icon: <FaTrashAlt />,
 			message: '댓글삭제하기',
+			onClick: () => {
+				mutate(commentId);
+			},
 		},
 		{
 			icon: <FaRegBellSlash />,

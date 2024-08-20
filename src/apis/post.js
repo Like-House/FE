@@ -34,15 +34,6 @@ const updatePost = async (postId, updatedData) => {
 	return response.data;
 };
 
-const addComment = async ({ postId, content, parentId }) => {
-	const { data } = await axiosInstance.post(`${API_PATH.COMMENT}`, {
-		postId,
-		content,
-		parentId,
-	});
-	return data;
-};
-
 const deletePost = async postId => {
 	const { data } = axiosInstance.delete(`${API_PATH.POST}/${postId}`);
 	return data;
@@ -60,6 +51,25 @@ const unLikePost = async postId => {
 	return data;
 };
 
+// comment
+
+const addComment = async ({ postId, content, parentId }) => {
+	const { data } = await axiosInstance.post(`${API_PATH.COMMENT}`, {
+		postId,
+		content,
+		parentId,
+	});
+	return data;
+};
+
+const deleteComment = async commentId => {
+	const { data } = await axiosInstance.delete(
+		`${API_PATH.COMMENT}/${commentId}`,
+	);
+
+	return data;
+};
+
 export {
 	getPosts,
 	getMyPosts,
@@ -70,4 +80,5 @@ export {
 	deletePost,
 	likePost,
 	unLikePost,
+	deleteComment,
 };
