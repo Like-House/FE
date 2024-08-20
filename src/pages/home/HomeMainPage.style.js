@@ -48,4 +48,16 @@ const AlbumWrapper = styled.div`
 	}
 `;
 
-export { PostContainer, PostList, RightSidebar, CalendarWrapper, AlbumWrapper };
+const RefBox = styled.div`
+	opacity: 0;
+	height: 10px;
+`;
+
+export {
+	PostContainer,
+	PostList,
+	RightSidebar,
+	CalendarWrapper,
+	AlbumWrapper,
+	RefBox,
+};

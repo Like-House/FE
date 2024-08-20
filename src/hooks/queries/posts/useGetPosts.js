@@ -6,13 +6,12 @@ import { QUERY_KEYS } from '@/constants';
 const useGetPosts = ({ familySpaceId, size }) => {
 	return useInfiniteQuery({
 		queryFn: ({ pageParam }) =>
-			getPosts({ familySpaceId, page: pageParam, size }),
+			getPosts({ familySpaceId, cursor: pageParam, size }),
 		initialPageParam: 1,
 		getNextPageParam: lastPage => {
-			if (lastPage.result.nextCursor === -1) {
-				return undefined;
-			}
-			return lastPage.result.nextCursor;
+			return lastPage.result.nextCursor !== -1
+				? lastPage.result.nextCursor
+				: undefined;
 		},
 		queryKey: [QUERY_KEYS.POSTS],
 		enabled: !!familySpaceId,

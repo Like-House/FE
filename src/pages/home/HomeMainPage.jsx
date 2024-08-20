@@ -33,13 +33,15 @@ const HomeMainPage = () => {
 		}
 	}, [inView, isFetching, hasNextPage]);
 
+	console.log(boardList);
+
 	return (
 		<S.PostContainer>
 			<S.PostList>
 				{boardList?.map(page =>
 					page?.result.posts.map(e => <PostItem post={e} key={e.postId} />),
 				)}
-				<div ref={ref}></div>
+				<S.RefBox ref={ref}>ref</S.RefBox>
 			</S.PostList>
 
 			<S.RightSidebar>

@@ -55,7 +55,9 @@ const AlbumWrapper = styled.div`
 	}
 `;
 
-const CommentWrapper = styled.div``;
+const CommentWrapper = styled.div`
+	width: 75%;
+`;
 
 const CommentInput = styled.form`
 	padding-top: 30px;

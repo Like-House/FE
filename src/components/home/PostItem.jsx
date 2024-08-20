@@ -23,6 +23,7 @@ const PostItem = ({ post }) => {
 		imageUrls,
 		profileImage,
 		createdAt,
+		owner,
 	} = post;
 	const [showMenu, setShowMenu] = useState(false);
 	const nav = useNavigate();
@@ -32,7 +33,7 @@ const PostItem = ({ post }) => {
 	const { mutate: deletePost } = useDeletePost();
 	const { mutate: likeMutate } = useLikePost(postId);
 
-	const menuItems = [
+	const ownerMenuItems = [
 		{
 			icon: <FaEdit />,
 			message: '수정하기',
@@ -47,9 +48,20 @@ const PostItem = ({ post }) => {
 			message: '삭제하기',
 			onClick: () => {
 				setShowMenu(false);
-				deletePost(postId); // TODO: 무효화가 되는데 다시 불러와짐
+				deletePost(postId);
 			},
 		},
+		{
+			icon: <FaRegBellSlash />,
+			message: '알림끄기',
+			onClick: () => {
+				setShowMenu(false);
+				console.log('알림끄기 클릭됨');
+			},
+		},
+	];
+
+	const menuItems = [
 		{
 			icon: <FaRegBellSlash />,
 			message: '알림끄기',
@@ -89,7 +101,10 @@ const PostItem = ({ post }) => {
 
 							{showMenu && (
 								<S.Popover>
-									<PopOver items={menuItems} onMouseLeave={handleMouseLeave} />
+									<PopOver
+										items={owner ? ownerMenuItems : menuItems}
+										onMouseLeave={handleMouseLeave}
+									/>
 								</S.Popover>
 							)}
 						</S.MenuButton>
