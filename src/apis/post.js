@@ -70,6 +70,15 @@ const deleteComment = async commentId => {
 	return data;
 };
 
+const patchComment = async ({ commentId, content }) => {
+	const { data } = await axiosInstance.patch(
+		`${API_PATH.COMMENT}/${commentId}`,
+		{ commentId, content },
+	);
+
+	return { data };
+};
+
 export {
 	getPosts,
 	getMyPosts,
@@ -81,4 +90,5 @@ export {
 	likePost,
 	unLikePost,
 	deleteComment,
+	patchComment,
 };

@@ -9,15 +9,19 @@ import { FaEdit, FaTrashAlt, FaRegBellSlash } from 'react-icons/fa';
 import { useState } from 'react';
 import useDeleteComment from '@/hooks/queries/comment/useDeleteComment';
 import { useParams } from 'react-router-dom';
+import usePatchComment from '@/hooks/queries/comment/usePatchComment';
 
 const Comment = ({ comment }) => {
 	const { postId } = useParams();
 	const { content, userNickname, createdAt, userProfileImage, commentId } =
 		comment;
 	const [showMenu, setShowMenu] = useState(false);
+	const [update, setUpdate] = useState(false);
+	const [userInput, setUserInput] = useState('');
 
 	const { data: userImg } = useGetNicknameImg(userNickname, userProfileImage);
 	const { mutate } = useDeleteComment(postId);
+	const { mutate: patchMutate } = usePatchComment(postId);
 
 	const handleMouseLeave = () => {
 		setShowMenu(false);
@@ -27,7 +31,9 @@ const Comment = ({ comment }) => {
 		{
 			icon: <FaEdit />,
 			message: '댓글수정하기',
-			onClick: () => {},
+			onClick: () => {
+				setUpdate(prev => !prev);
+			},
 		},
 		{
 			icon: <FaTrashAlt />,
@@ -45,6 +51,13 @@ const Comment = ({ comment }) => {
 		},
 	];
 
+	const handleUpdate = e => {
+		e.preventDefault();
+		patchMutate({ commentId, content: userInput });
+		setUserInput('');
+		setUpdate(false);
+	};
+
 	return (
 		<S.Container>
 			<S.Profile>
@@ -56,19 +69,38 @@ const Comment = ({ comment }) => {
 						<S.Author>{userNickname}</S.Author>
 						<S.DateTime>{formatDate(createdAt)}</S.DateTime>
 					</S.AuthorWrapper>
-					<S.MenuButton>
-						<HiMiniEllipsisHorizontal
-							onClick={() => setShowMenu(prev => !prev)}
-						/>
+					{!update && (
+						<S.MenuButton>
+							<HiMiniEllipsisHorizontal
+								onClick={() => setShowMenu(prev => !prev)}
+							/>
 
-						{showMenu && (
-							<S.Popover>
-								<PopOver items={commentItems} onMouseLeave={handleMouseLeave} />
-							</S.Popover>
-						)}
-					</S.MenuButton>
+							{showMenu && (
+								<S.Popover>
+									<PopOver
+										items={commentItems}
+										onMouseLeave={handleMouseLeave}
+									/>
+								</S.Popover>
+							)}
+						</S.MenuButton>
+					)}
 				</S.PostHeader>
-				<div>{content}</div>
+				{update ? (
+					<form onSubmit={handleUpdate}>
+						<input
+							placeholder={content}
+							type="text"
+							value={userInput}
+							onChange={e => setUserInput(e.target.value)}
+						/>
+						<button disabled={userInput === ''} onSubmit={handleUpdate}>
+							수정하기
+						</button>
+					</form>
+				) : (
+					<div>{content}</div>
+				)}
 			</S.Board>
 		</S.Container>
 	);
