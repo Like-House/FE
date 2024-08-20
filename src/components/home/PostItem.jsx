@@ -12,6 +12,7 @@ import useDeletePost from '@/hooks/queries/posts/useDeletePost';
 import useLikePost from '@/hooks/queries/posts/useLikePost';
 import { useNavigate } from 'react-router-dom';
 import { PAGE_PATH } from '@/constants';
+import PatchModal from '../post/patchmodal/PatchModal';
 
 const PostItem = ({ post }) => {
 	const {
@@ -26,6 +27,7 @@ const PostItem = ({ post }) => {
 		owner,
 	} = post;
 	const [showMenu, setShowMenu] = useState(false);
+	const [showModal, setShowModal] = useState(false);
 	const nav = useNavigate();
 
 	const { data } = useGetImageUrls(postId, imageUrls);
@@ -39,8 +41,7 @@ const PostItem = ({ post }) => {
 			message: '수정하기',
 			onClick: () => {
 				setShowMenu(false);
-				console.log('수정하기 클릭됨');
-				// 수정로직 추가
+				setShowModal(prev => !prev);
 			},
 		},
 		{
@@ -84,13 +85,23 @@ const PostItem = ({ post }) => {
 		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.DETAILPOST}/${postId}`);
 	};
 
+	const onClose = () => {
+		setShowModal(false);
+	};
+
 	return (
 		<S.PostItem>
+			{showModal && (
+				<PatchModal
+					onClose={onClose}
+					postId={postId}
+					avatar={profileImage ? userImg : NoImg}
+				/>
+			)}
 			<S.PostWrapper>
 				<S.Profile>
 					<Avatar src={profileImage ? userImg : NoImg} />
 				</S.Profile>
-
 				<S.Board>
 					<S.PostHeader>
 						<S.AuthorWrapper>

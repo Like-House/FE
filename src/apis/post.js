@@ -26,12 +26,12 @@ const getPostById = async postId => {
 	return data;
 };
 
-const updatePost = async (postId, updatedData) => {
-	const response = await axiosInstance.put(
-		`${API_PATH.WRITE_POST}/${postId}`,
+const updatePost = async ({ postId, updatedData }) => {
+	const { data } = await axiosInstance.put(
+		`${API_PATH.POST}/${postId}`,
 		updatedData,
 	);
-	return response.data;
+	return data;
 };
 
 const deletePost = async postId => {
