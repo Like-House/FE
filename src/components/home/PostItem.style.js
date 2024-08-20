@@ -107,12 +107,16 @@ const Content = styled.div`
 	font-size: ${FONT_SIZE.BASE};
 	width: 100%;
 	max-width: 500px;
+
+	cursor: pointer;
 `;
 
 const Photo = styled.img`
 	width: 500px;
 	border-radius: 10px;
 	margin-bottom: 10px;
+
+	cursor: pointer;
 `;
 
 const Footer = styled.div`

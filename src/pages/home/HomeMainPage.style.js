@@ -14,6 +14,10 @@ const PostList = styled.div`
 	width: 1000px;
 	height: 100%;
 	overflow-y: scroll;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
 `;
 
 const RightSidebar = styled.div`

@@ -53,6 +53,8 @@ const AlbumWrapper = styled.div`
 		width: 250px;
 		padding: 120px 0 0 130px;
 	}
+
+	cursor: pointer;
 `;
 
 const CommentWrapper = styled.div`

@@ -33,8 +33,6 @@ const HomeMainPage = () => {
 		}
 	}, [inView, isFetching, hasNextPage]);
 
-	console.log(boardList);
-
 	return (
 		<S.PostContainer>
 			<S.PostList>

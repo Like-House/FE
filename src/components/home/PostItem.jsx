@@ -80,6 +80,10 @@ const PostItem = ({ post }) => {
 		likeMutate(postId);
 	};
 
+	const handleDetail = () => {
+		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.DETAILPOST}/${postId}`);
+	};
+
 	return (
 		<S.PostItem>
 			<S.PostWrapper>
@@ -109,20 +113,19 @@ const PostItem = ({ post }) => {
 							)}
 						</S.MenuButton>
 					</S.PostHeader>
-					<S.Content>{content}</S.Content>
+					<S.Content onClick={handleDetail}>{content}</S.Content>
 					{data?.presignedUrlDownLoadResponseLists.map((e, idx) => (
-						<S.Photo src={e.url} alt="post photo" key={idx} />
+						<S.Photo
+							src={e.url}
+							alt="post photo"
+							key={idx}
+							onClick={handleDetail}
+						/>
 					))}
 
 					<S.Footer>
 						<p onClick={handleLike}>좋아요 {likeCount}</p>
-						<p
-							onClick={() =>
-								nav(`${PAGE_PATH.HOME}/${PAGE_PATH.DETAILPOST}/${postId}`)
-							}
-						>
-							댓글 {commentCount}
-						</p>
+						<p onClick={handleDetail}>댓글 {commentCount}</p>
 					</S.Footer>
 				</S.Board>
 			</S.PostWrapper>

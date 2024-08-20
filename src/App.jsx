@@ -35,8 +35,8 @@ import {
 	CalenderMainPage,
 	// HOME (홈 페이지)
 	PhotoMainPage,
-	MainPage,
 	DetailPost,
+	HomeMainPage,
 	// QNA (QNA 페이지)
 	QnaPage,
 	// SERVICE (서비스 이용 페이지)
@@ -48,7 +48,6 @@ import {
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
-import HomeMainPage from './pages/home/HomeMainPage';
 
 const router = createBrowserRouter([
 	{

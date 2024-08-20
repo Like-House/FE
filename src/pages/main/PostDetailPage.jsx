@@ -1,6 +1,6 @@
 import CustomCalendar from '@/components/common/calendar/CustomCalendar';
 import * as S from './PostDetailPage.style';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useGetPostById from '@/hooks/queries/posts/useGetPostById';
 import PostItem from '@/components/home/PostItem';
 import Comment from '@/components/post/Comment';
@@ -9,10 +9,12 @@ import useGetUserImg from '@/hooks/queries/user/useGetUserImg';
 import { Avatar } from '@/components';
 import { useState } from 'react';
 import useAddComment from '@/hooks/queries/comment/useAddComment';
+import { PAGE_PATH } from '@/constants';
 
 const PostDetailPage = () => {
 	const { postId } = useParams();
 	const [input, setInput] = useState('');
+	const nav = useNavigate();
 
 	const { data } = useGetPostById(postId);
 	const { data: profile } = useGetProfile();
@@ -54,7 +56,9 @@ const PostDetailPage = () => {
 				<S.CalendarWrapper>
 					<CustomCalendar size="BASE" hasBackgroundColor={true} />
 				</S.CalendarWrapper>
-				<S.AlbumWrapper>
+				<S.AlbumWrapper
+					onClick={() => nav(`${PAGE_PATH.HOME}/${PAGE_PATH.PHOTO}`)}
+				>
 					<h2>가족 앨범 보기</h2>
 					<p>가족과의 소중한 추억을 앨범으로 확인하세요</p>
 				</S.AlbumWrapper>
