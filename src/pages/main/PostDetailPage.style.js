@@ -57,6 +57,43 @@ const AlbumWrapper = styled.div`
 
 const CommentWrapper = styled.div``;
 
+const CommentInput = styled.form`
+	padding-top: 30px;
+	display: flex;
+	align-items: center;
+
+	input {
+		border: none;
+		background-color: ${theme.COLOR.BACKGROUND.WHITE};
+		width: 400px;
+
+		&:focus {
+			border: none;
+			outline: none;
+		}
+	}
+
+	button {
+		width: 110px;
+		height: 40px;
+		border: none;
+		border-radius: 10px;
+		background-color: ${theme.COLOR.YELLOW.YELLOW_300};
+		cursor: pointer;
+
+		&:disabled {
+			background-color: ${theme.COLOR.GRAY.GRAY_100};
+			cursor: not-allowed;
+		}
+	}
+`;
+
+const Profile = styled.div`
+	display: flex;
+	flex-direction: row;
+	width: 110px;
+`;
+
 export {
 	PostContainer,
 	PostList,
@@ -64,4 +101,6 @@ export {
 	CalendarWrapper,
 	AlbumWrapper,
 	CommentWrapper,
+	CommentInput,
+	Profile,
 };

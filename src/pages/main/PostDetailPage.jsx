@@ -4,15 +4,46 @@ import { useParams } from 'react-router-dom';
 import useGetPostById from '@/hooks/queries/posts/useGetPostById';
 import PostItem from '@/components/home/PostItem';
 import Comment from '@/components/post/Comment';
+import useGetProfile from '@/hooks/queries/user/useGetProfile';
+import useGetUserImg from '@/hooks/queries/user/useGetUserImg';
+import { Avatar } from '@/components';
+import { useState } from 'react';
+import useAddComment from '@/hooks/queries/comment/useAddComment';
 
 const PostDetailPage = () => {
 	const { postId } = useParams();
+	const [input, setInput] = useState('');
+
 	const { data } = useGetPostById(postId);
+	const { data: profile } = useGetProfile();
+	const { data: userImg } = useGetUserImg(profile?.imageKeyName);
+	const { mutate } = useAddComment(postId);
+
+	const handleSubmit = e => {
+		e.preventDefault();
+		console.log(postId, input);
+		mutate({ postId, content: input, parentId: null });
+		setInput('');
+	};
 
 	return (
 		<S.PostContainer>
 			<S.PostList>
 				{data && <PostItem post={data} />}
+				<S.CommentInput onSubmit={handleSubmit}>
+					<S.Profile>
+						<Avatar src={userImg?.url} />
+					</S.Profile>
+					<input
+						type="text"
+						value={input}
+						placeholder="댓글을 입력하세요"
+						onChange={e => setInput(e.target.value)}
+					/>
+					<button disabled={input === ''} onSubmit={handleSubmit}>
+						댓글 달기
+					</button>
+				</S.CommentInput>
 				<S.CommentWrapper>
 					{data?.comments.map(e => (
 						<Comment comment={e} key={e.commentId} />

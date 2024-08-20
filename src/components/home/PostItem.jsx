@@ -48,7 +48,6 @@ const PostItem = ({ post }) => {
 			onClick: () => {
 				setShowMenu(false);
 				deletePost(postId); // TODO: 무효화가 되는데 다시 불러와짐
-				// nav(`${PAGE_PATH.HOME}`);
 			},
 		},
 		{

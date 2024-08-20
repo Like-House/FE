@@ -67,6 +67,9 @@ const API_PATH = {
 	PATCH_SCHEDULE: '/patch-schedule',
 	POST: '/api/v0/posts',
 
+	// comment
+	COMMENT: '/api/v0/comments',
+
 	// chat
 	CHAT: '/api/v0/chat-rooms',
 	EMOTICON: 'api/v0/family-space/family-emoticon',

@@ -37,7 +37,6 @@ const Comment = ({ comment }) => {
 		},
 	];
 
-	console.log(userImg);
 	return (
 		<S.Container>
 			<S.Profile>
