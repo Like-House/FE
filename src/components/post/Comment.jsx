@@ -13,8 +13,14 @@ import usePatchComment from '@/hooks/queries/comment/usePatchComment';
 
 const Comment = ({ comment }) => {
 	const { postId } = useParams();
-	const { content, userNickname, createdAt, userProfileImage, commentId } =
-		comment;
+	const {
+		content,
+		userNickname,
+		createdAt,
+		userProfileImage,
+		commentId,
+		owner,
+	} = comment;
 	const [showMenu, setShowMenu] = useState(false);
 	const [update, setUpdate] = useState(false);
 	const [userInput, setUserInput] = useState('');
@@ -27,11 +33,12 @@ const Comment = ({ comment }) => {
 		setShowMenu(false);
 	};
 
-	const commentItems = [
+	const ownerCommentItems = [
 		{
 			icon: <FaEdit />,
 			message: '댓글수정하기',
 			onClick: () => {
+				setShowMenu(false);
 				setUpdate(prev => !prev);
 			},
 		},
@@ -42,6 +49,16 @@ const Comment = ({ comment }) => {
 				mutate(commentId);
 			},
 		},
+		{
+			icon: <FaRegBellSlash />,
+			message: '알림끄기',
+			onClick: () => {
+				console.log('알림끄기 클릭됨');
+			},
+		},
+	];
+
+	const commentItems = [
 		{
 			icon: <FaRegBellSlash />,
 			message: '알림끄기',
@@ -78,7 +95,7 @@ const Comment = ({ comment }) => {
 							{showMenu && (
 								<S.Popover>
 									<PopOver
-										items={commentItems}
+										items={owner ? ownerCommentItems : commentItems}
 										onMouseLeave={handleMouseLeave}
 									/>
 								</S.Popover>
