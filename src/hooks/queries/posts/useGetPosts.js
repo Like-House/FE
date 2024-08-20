@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, keepPreviousData } from '@tanstack/react-query';
 
 import { getPosts } from '@/apis';
 import { QUERY_KEYS } from '@/constants';
@@ -17,6 +17,7 @@ const useGetPosts = ({ familySpaceId, size }) => {
 		enabled: !!familySpaceId,
 		select: data => data.pages,
 		staleTime: 1000 * 60 * 30,
+		placeholderData: keepPreviousData,
 	});
 };
 
