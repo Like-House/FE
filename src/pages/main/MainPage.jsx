@@ -34,7 +34,6 @@ const MainPage = () => {
 	const [likes, setLikes] = useState({});
 	const [comments, setComments] = useState({});
 	const [commentCounts, setCommentCounts] = useState({});
-	const [commentInputs, setCommentInputs] = useState({});
 	const [showCommentInput, setShowCommentInput] = useState({});
 
 	useEffect(() => {
@@ -66,35 +65,7 @@ const MainPage = () => {
 		}
 	};
 
-	const handleCommentClick = postId => {
-		setShowCommentInput(prev => ({
-			...prev,
-			[postId]: !prev[postId],
-		}));
-		if (!showCommentInput[postId]) {
-			setCommentInputs(prev => ({ ...prev, [postId]: '' }));
-		}
-	};
-
-	const handleCommentChange = (postId, value) => {
-		setCommentInputs(prev => ({ ...prev, [postId]: value }));
-	};
-
-	const handleCommentSubmit = postId => {
-		if (commentInputs[postId]) {
-			setComments(prev => ({
-				...prev,
-				[postId]: [...prev[postId], commentInputs[postId]],
-			}));
-			setCommentCounts(prev => ({
-				...prev,
-				[postId]: prev[postId] + 1,
-			}));
-
-			addCommentMutation.mutate({ postId, content: commentInputs[postId] });
-			setCommentInputs(prev => ({ ...prev, [postId]: '' }));
-		}
-	};
+	const handleCommentClick = postId => {};
 
 	const handleMenuToggle = postId => {
 		setShowMenu(prev => (prev === postId ? null : postId));
@@ -158,9 +129,6 @@ const MainPage = () => {
 							showMenu={showMenu}
 							handleMouseLeave={handleMouseLeave}
 							menuItems={menuItems}
-							commentInputs={commentInputs}
-							handleCommentChange={handleCommentChange}
-							handleCommentSubmit={handleCommentSubmit}
 						/>
 					</div>
 				))}

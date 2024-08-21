@@ -1,15 +1,15 @@
-import { useMutation } from '@tanstack/react-query';
-import { updatePost } from '@/apis/post';
+import { putAlarmPost } from '@/apis';
 import queryClient from '@/apis/queryClient';
 import { QUERY_KEYS } from '@/constants';
+import { useMutation } from '@tanstack/react-query';
 
-const useUpdatePost = () => {
+const usePutAlarmPost = () => {
 	return useMutation({
-		mutationFn: updatePost,
+		mutationFn: putAlarmPost,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.POSTS] });
 		},
 	});
 };
 
-export default useUpdatePost;
+export default usePutAlarmPost;

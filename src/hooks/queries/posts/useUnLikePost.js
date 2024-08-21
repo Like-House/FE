@@ -1,18 +1,15 @@
-import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "@/apis/axios";
-import queryClient from "@/apis/queryClient";
-
-const unlikePost = async (postId) => {
-  await axiosInstance.delete(`/api/v0/posts/${postId}/like`);
-};
+import { useMutation } from '@tanstack/react-query';
+import queryClient from '@/apis/queryClient';
+import { unLikePost } from '@/apis';
+import { QUERY_KEYS } from '@/constants';
 
 const useUnlikePost = () => {
-  return useMutation({
-    mutationFn: unlikePost,
-    onSuccess: () => {
-        queryClient.invalidateQueries(['posts']);
-    }
-  });
+	return useMutation({
+		mutationFn: unLikePost,
+		onSuccess: () => {
+			queryClient.invalidateQueries([QUERY_KEYS.POSTS]);
+		},
+	});
 };
 
 export default useUnlikePost;

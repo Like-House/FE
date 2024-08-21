@@ -1,9 +1,9 @@
 import axiosInstance from './axios';
 import { API_PATH } from '@/constants';
 
-const getPosts = async ({ familySpaceId, page, size }) => {
+const getPosts = async ({ familySpaceId, cursor, size }) => {
 	const { data } = await axiosInstance.get(
-		`${API_PATH.FAMILY_SPACE}/${familySpaceId}/posts?page=${page}&size=${size}`,
+		`${API_PATH.FAMILY_SPACE}/${familySpaceId}/posts?cursor=${cursor}&size=${size}`,
 	);
 	return data;
 };
@@ -16,26 +16,97 @@ const getMyPosts = async ({ pageParam }) => {
 	return data;
 };
 
-const getWritePost = async ({postData}) => {
-	const { data } = await axiosInstance.post(
-		`${API_PATH.WRITE_POST}`,
-		postData
+const getWritePost = async ({ postData }) => {
+	const { data } = await axiosInstance.post(`${API_PATH.POST}`, postData);
+	return data;
+};
+
+const getPostById = async postId => {
+	const { data } = await axiosInstance.get(`${API_PATH.POST}/${postId}`);
+	return data;
+};
+
+const updatePost = async ({ postId, updatedData }) => {
+	const { data } = await axiosInstance.put(
+		`${API_PATH.POST}/${postId}`,
+		updatedData,
 	);
 	return data;
 };
 
-const getPostById = async (postId) => {
-	const { data } = await axiosInstance.get(
-		`${API_PATH.WRITE_POST}/${postId}`,
+const deletePost = async postId => {
+	const { data } = axiosInstance.delete(`${API_PATH.POST}/${postId}`);
+	return data;
+};
+
+const likePost = async postId => {
+	const { data } = await axiosInstance.post(`${API_PATH.POST}/${postId}/like`);
+	return data;
+};
+
+const unLikePost = async postId => {
+	const { data } = await axiosInstance.delete(
+		`${API_PATH.POST}/${postId}/like`,
 	);
 	return data;
 };
 
-const updatePost = async (postId, updatedData) => {
-  const response = await axiosInstance.put(
-		`${API_PATH.WRITE_POST}/${postId}`, updatedData
-	);
-  return response.data;
+// comment
+
+const addComment = async ({ postId, content, parentId }) => {
+	const { data } = await axiosInstance.post(`${API_PATH.COMMENT}`, {
+		postId,
+		content,
+		parentId,
+	});
+	return data;
 };
 
-export { getPosts, getMyPosts, getWritePost, getPostById, updatePost };
+const deleteComment = async commentId => {
+	const { data } = await axiosInstance.delete(
+		`${API_PATH.COMMENT}/${commentId}`,
+	);
+
+	return data;
+};
+
+const patchComment = async ({ commentId, content }) => {
+	const { data } = await axiosInstance.patch(
+		`${API_PATH.COMMENT}/${commentId}`,
+		{ commentId, content },
+	);
+
+	return { data };
+};
+
+// post & comment alarm
+const putAlarmPost = async ({ postId, enable }) => {
+	const { data } = await axiosInstance.put(
+		`${API_PATH.POST}/${postId}/post-alarm?enable=${enable}`,
+	);
+
+	return data;
+};
+
+const patchAlarmcomment = async ({ commentId, enable }) => {
+	const { data } = await axiosInstance.patch(
+		`${API_PATH.COMMENT}/${commentId}/comment-alarm?enable=${enable}`,
+	);
+	return data;
+};
+
+export {
+	getPosts,
+	getMyPosts,
+	getWritePost,
+	getPostById,
+	updatePost,
+	addComment,
+	deletePost,
+	likePost,
+	unLikePost,
+	deleteComment,
+	patchComment,
+	putAlarmPost,
+	patchAlarmcomment,
+};

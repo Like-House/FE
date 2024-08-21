@@ -1,16 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
+import { deleteComment } from '@/apis';
 import queryClient from '@/apis/queryClient';
 import { QUERY_KEYS } from '@/constants';
-import { deletePost } from '@/apis';
 import { toast } from 'sonner';
 import theme from '@/theme/theme';
 
-const useDeletePost = () => {
+const useDeleteComment = postId => {
 	return useMutation({
-		mutationFn: deletePost,
-		onSuccess: () => {
-			queryClient.invalidateQueries([QUERY_KEYS.POSTS]);
-		},
+		mutationFn: deleteComment,
+		onSuccess: () =>
+			queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.POSTS, postId] }),
 		onError: error => {
 			error.response &&
 				toast.error(error.response.data.message, {
@@ -24,4 +23,4 @@ const useDeletePost = () => {
 	});
 };
 
-export default useDeletePost;
+export default useDeleteComment;

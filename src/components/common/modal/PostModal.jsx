@@ -62,7 +62,6 @@ const PostModal = ({ isOpen, closeModal }) => {
 			);
 			const userId = selectedFamily?.userId || 0;
 			const userName = selectedFamily?.name || 0;
-			console.log('이름', userName);
 
 			const postData = {
 				familySpaceId: data?.familySpaceId,
@@ -73,7 +72,7 @@ const PostModal = ({ isOpen, closeModal }) => {
 						nickname: userName,
 					},
 				],
-				imageUrls: [imageKey],
+				imageUrls: imageKey ? [imageKey] : null,
 			};
 			console.log(postData);
 			writePost(postData);

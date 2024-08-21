@@ -35,8 +35,8 @@ import {
 	CalenderMainPage,
 	// HOME (홈 페이지)
 	PhotoMainPage,
-	MainPage,
 	DetailPost,
+	HomeMainPage,
 	// QNA (QNA 페이지)
 	QnaPage,
 	// SERVICE (서비스 이용 페이지)
@@ -96,7 +96,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				index: true,
-				element: <MainPage />,
+				element: <HomeMainPage />,
 			},
 			{
 				path: `${PAGE_PATH.DETAILPOST}/:postId`,

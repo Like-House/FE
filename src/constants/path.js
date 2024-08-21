@@ -66,6 +66,12 @@ const API_PATH = {
 	// posts
 	MY_POSTS: '/api/v0/posts/my-posts',
 	WRITE_POST: '/api/v0/posts',
+	PATCH_SCHEDULE: '/patch-schedule',
+	POST: '/api/v0/posts',
+
+	// comment
+	COMMENT: '/api/v0/comments',
+
 
 	// chat
 	CHAT: '/api/v0/chat-rooms',

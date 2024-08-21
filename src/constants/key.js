@@ -26,6 +26,9 @@ const QUERY_KEYS = {
 	USER: 'user',
 	PROFILE: 'profile',
 	USERIMG: 'userImg',
+
+	// post
+	POSTS: 'posts',
 };
 
 export { QUERY_KEYS };
