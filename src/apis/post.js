@@ -17,7 +17,7 @@ const getMyPosts = async ({ pageParam }) => {
 };
 
 const getWritePost = async ({ postData }) => {
-	const { data } = await axiosInstance.post(`${API_PATH.WRITE_POST}`, postData);
+	const { data } = await axiosInstance.post(`${API_PATH.POST}`, postData);
 	return data;
 };
 
@@ -79,6 +79,22 @@ const patchComment = async ({ commentId, content }) => {
 	return { data };
 };
 
+// post & comment alarm
+const putAlarmPost = async ({ postId, enable }) => {
+	const { data } = await axiosInstance.put(
+		`${API_PATH.POST}/${postId}/post-alarm?enable=${enable}`,
+	);
+
+	return data;
+};
+
+const patchAlarmcomment = async ({ commentId, enable }) => {
+	const { data } = await axiosInstance.patch(
+		`${API_PATH.COMMENT}/${commentId}/comment-alarm?enable=${enable}`,
+	);
+	return data;
+};
+
 export {
 	getPosts,
 	getMyPosts,
@@ -91,4 +107,6 @@ export {
 	unLikePost,
 	deleteComment,
 	patchComment,
+	putAlarmPost,
+	patchAlarmcomment,
 };

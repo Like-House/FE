@@ -4,7 +4,8 @@ import useGetImageUrls from '@/hooks/queries/image/useGetImageUrls';
 import useGetNicknameImg from '@/hooks/queries/posts/useGetNicknameImg';
 import NoImg from '@/assets/images/profile.webp';
 import { HiMiniEllipsisHorizontal } from 'react-icons/hi2';
-import { FaEdit, FaTrashAlt, FaRegBellSlash } from 'react-icons/fa';
+import { FaEdit, FaTrashAlt, FaRegBellSlash, FaRegBell } from 'react-icons/fa';
+import { BiSolidMessageRounded } from 'react-icons/bi';
 import { formatDate } from '@/utils';
 import { Avatar, PopOver } from '@/components';
 import { useState } from 'react';
@@ -13,6 +14,7 @@ import useLikePost from '@/hooks/queries/posts/useLikePost';
 import { useNavigate } from 'react-router-dom';
 import { PAGE_PATH } from '@/constants';
 import PatchModal from '../post/patchmodal/PatchModal';
+import usePutAlarmPost from '@/hooks/queries/posts/usePutAlarmPost';
 
 const PostItem = ({ post }) => {
 	const {
@@ -25,6 +27,7 @@ const PostItem = ({ post }) => {
 		profileImage,
 		createdAt,
 		owner,
+		postAlarmEnabled,
 	} = post;
 	const [showMenu, setShowMenu] = useState(false);
 	const [showModal, setShowModal] = useState(false);
@@ -34,6 +37,7 @@ const PostItem = ({ post }) => {
 	const { data: userImg } = useGetNicknameImg(authorNickname, profileImage);
 	const { mutate: deletePost } = useDeletePost();
 	const { mutate: likeMutate } = useLikePost(postId);
+	const { mutate: alarmMutate } = usePutAlarmPost();
 
 	const ownerMenuItems = [
 		{
@@ -53,22 +57,25 @@ const PostItem = ({ post }) => {
 			},
 		},
 		{
-			icon: <FaRegBellSlash />,
-			message: '알림끄기',
+			icon: postAlarmEnabled ? <FaRegBellSlash /> : <FaRegBell />,
+			message: postAlarmEnabled ? '알림 끄기' : '알람 켜기',
 			onClick: () => {
 				setShowMenu(false);
-				console.log('알림끄기 클릭됨');
+				alarmMutate({
+					postId,
+					enable: !postAlarmEnabled,
+				});
 			},
 		},
 	];
 
 	const menuItems = [
 		{
-			icon: <FaRegBellSlash />,
-			message: '알림끄기',
+			icon: <BiSolidMessageRounded />,
+			message: '채팅하기',
 			onClick: () => {
 				setShowMenu(false);
-				console.log('알림끄기 클릭됨');
+				nav(`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}`);
 			},
 		},
 	];
@@ -108,12 +115,10 @@ const PostItem = ({ post }) => {
 							<S.Author>{authorNickname}</S.Author>
 							<S.DateTime>{formatDate(createdAt)}</S.DateTime>
 						</S.AuthorWrapper>
-
 						<S.MenuButton>
 							<HiMiniEllipsisHorizontal
 								onClick={() => setShowMenu(prev => !prev)}
 							/>
-
 							{showMenu && (
 								<S.Popover>
 									<PopOver
@@ -133,7 +138,6 @@ const PostItem = ({ post }) => {
 							onClick={handleDetail}
 						/>
 					))}
-
 					<S.Footer>
 						<p onClick={handleLike}>좋아요 {likeCount}</p>
 						<p onClick={handleDetail}>댓글 {commentCount}</p>

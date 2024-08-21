@@ -27,7 +27,7 @@ const Chatbar = () => {
 		take: 10,
 	});
 	const { setUserId } = useUserIdStore(state => state);
-	const { ref } = useInView({
+	const { ref, inView } = useInView({
 		threshold: 0,
 		delay: 0,
 		initialInView: false,

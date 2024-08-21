@@ -5,11 +5,14 @@ import { Avatar, PopOver } from '@/components';
 import useGetNicknameImg from '@/hooks/queries/posts/useGetNicknameImg';
 import NoImg from '@/assets/images/profile.webp';
 import { HiMiniEllipsisHorizontal } from 'react-icons/hi2';
-import { FaEdit, FaTrashAlt, FaRegBellSlash } from 'react-icons/fa';
+import { FaEdit, FaTrashAlt, FaRegBellSlash, FaRegBell } from 'react-icons/fa';
+import { BiSolidMessageRounded } from 'react-icons/bi';
 import { useState } from 'react';
 import useDeleteComment from '@/hooks/queries/comment/useDeleteComment';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import usePatchComment from '@/hooks/queries/comment/usePatchComment';
+import usePatchAlarmComment from '@/hooks/queries/comment/usePatchAlarmComment';
+import { PAGE_PATH } from '@/constants';
 
 const Comment = ({ comment }) => {
 	const { postId } = useParams();
@@ -20,14 +23,17 @@ const Comment = ({ comment }) => {
 		userProfileImage,
 		commentId,
 		owner,
+		commentAlarmEnabled,
 	} = comment;
 	const [showMenu, setShowMenu] = useState(false);
 	const [update, setUpdate] = useState(false);
 	const [userInput, setUserInput] = useState('');
+	const nav = useNavigate();
 
 	const { data: userImg } = useGetNicknameImg(userNickname, userProfileImage);
 	const { mutate } = useDeleteComment(postId);
 	const { mutate: patchMutate } = usePatchComment(postId);
+	const { mutate: alarmMutate } = usePatchAlarmComment(postId);
 
 	const handleMouseLeave = () => {
 		setShowMenu(false);
@@ -50,20 +56,25 @@ const Comment = ({ comment }) => {
 			},
 		},
 		{
-			icon: <FaRegBellSlash />,
-			message: '알림끄기',
+			icon: commentAlarmEnabled ? <FaRegBellSlash /> : <FaRegBell />,
+			message: commentAlarmEnabled ? '알림 끄기' : '알람 켜기',
 			onClick: () => {
-				console.log('알림끄기 클릭됨');
+				setShowMenu(false);
+				alarmMutate({
+					commentId,
+					enable: !commentAlarmEnabled,
+				});
 			},
 		},
 	];
 
 	const commentItems = [
 		{
-			icon: <FaRegBellSlash />,
-			message: '알림끄기',
+			icon: <BiSolidMessageRounded />,
+			message: '채팅하기',
 			onClick: () => {
-				console.log('알림끄기 클릭됨');
+				setShowMenu(false);
+				nav(`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}`);
 			},
 		},
 	];

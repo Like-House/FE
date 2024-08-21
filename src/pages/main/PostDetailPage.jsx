@@ -23,7 +23,6 @@ const PostDetailPage = () => {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		console.log(postId, input);
 		mutate({ postId, content: input, parentId: null });
 		setInput('');
 	};
