@@ -110,8 +110,7 @@ const Day = styled.div`
 			props.$isSelected ? theme.COLOR.YELLOW.YELLOW_500 : 'transparent'};
 	}
 
-	svg {
-		width: 10px;
+	.icon {
 		height: 10px;
 	}
 `;

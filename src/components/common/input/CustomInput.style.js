@@ -80,6 +80,10 @@ const InputContainer = styled.div`
       border: none;
       background-color: ${theme.COLOR.GRAY.GRAY_50};
     `}
+
+	 svg {
+		cursor: pointer;
+	}
 `;
 
 const Input = styled.input`

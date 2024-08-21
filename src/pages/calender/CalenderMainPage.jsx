@@ -1,6 +1,6 @@
 import * as S from './CalenderMainPage.style';
 
-import { useCallback, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomCalendar from '@/components/common/calendar/CustomCalendar';
 import FloatingButton from '@/components/common/floatingbutton/floatingbutton';
@@ -12,12 +12,21 @@ import useGetMonthlySchedule from '@/hooks/queries/schedule/useGetMonthlySchedul
 import useGetDailySchedule from '@/hooks/queries/schedule/useGetDailySchedule';
 import useCalendarStore from '@/store/useCalendarStore';
 import useDeleteSchedule from '@/hooks/queries/schedule/useDeleteSchedule';
+import { FaPlus } from 'react-icons/fa6';
+import Dtype from '@/components/dtype/Dtype';
+import { useInView } from 'react-intersection-observer';
+import { PAGE_PATH } from '@/constants';
 
 const CalenderMainPage = () => {
 	const navigate = useNavigate();
 	const [showPopover, setShowPopover] = useState({});
 	const [showAlert, setShowAlert] = useState(false);
 	const [deleteScheduleId, setDeleteScheduleId] = useState(null);
+
+	const { ref, inView } = useInView({
+		threshold: 0,
+		delay: 0,
+	});
 
 	const getCurrentYearMonth = () => {
 		const now = new Date();
@@ -43,7 +52,7 @@ const CalenderMainPage = () => {
 	const currentDate = getCurrentDate();
 
 	//날짜 선택 후 한국 시간으로 변경
-	const { date } = useCalendarStore();
+	const { date, setEvents } = useCalendarStore();
 	let selectedDate = null;
 	if (date) {
 		const utcDate = new Date(date);
@@ -59,55 +68,37 @@ const CalenderMainPage = () => {
 	//월 별 일정
 	const { data: monthlyScheduleData } = useGetMonthlySchedule({
 		yearMonth: currentYearMonth,
-		page: 1,
-		size: 10,
 	});
+
 	const monthlyScheduleDataList = monthlyScheduleData?.scheduleDataResponseList;
 
-	const sortedMonthlyScheduleDataList = monthlyScheduleDataList
-		? [...monthlyScheduleDataList].sort(
-				(a, b) => new Date(a.date) - new Date(b.date),
-			)
-		: [];
+	useEffect(() => {
+		if (monthlyScheduleDataList) {
+			setEvents(monthlyScheduleData?.scheduleDataResponseList);
+		}
+	}, [monthlyScheduleDataList]);
 
 	//일 별 일정 무한 스크롤
 	const {
 		data: dailyScheduleData,
 		fetchNextPage,
 		hasNextPage,
-		isFetchingNextPage,
+		isFetching,
 	} = useGetDailySchedule({ date: selectedDate || currentDate });
-
-	const dailyScheduleDataList =
-		dailyScheduleData?.pages.flatMap(
-			page => page.result.scheduleDataResponseList,
-		) || [];
-
-	console.log(dailyScheduleDataList);
-
-	const observer = useRef();
-	const lastElementRef = useCallback(
-		node => {
-			if (isFetchingNextPage) return;
-			if (observer.current) observer.current.disconnect();
-			observer.current = new IntersectionObserver(entries => {
-				if (entries[0].isIntersecting && hasNextPage) {
-					fetchNextPage();
-				}
-			});
-			if (node) observer.current.observe(node);
-		},
-		[fetchNextPage, hasNextPage, isFetchingNextPage],
-	);
 
 	//일정 추가 페이지 이동
 	const handleClick = () => {
-		navigate('/home/calender/add-schedule');
+		navigate(
+			`${PAGE_PATH.HOME}/${PAGE_PATH.CALENDER}${PAGE_PATH.ADD_SCHEDULE}`,
+		);
 	};
 
 	//일정 수정 페이지 이동
 	const handleEdit = scheduleId => {
-		navigate('/home/calender/patch-schedule', { state: { scheduleId } });
+		navigate(
+			`${PAGE_PATH.HOME}/${PAGE_PATH.CALENDER}${PAGE_PATH.PATCH_SCHEDULE}`,
+			{ state: { scheduleId } },
+		);
 	};
 
 	const { mutate: deleteScheduleMutate } = useDeleteSchedule();
@@ -161,46 +152,46 @@ const CalenderMainPage = () => {
 		setShowAlert(false);
 	};
 
+	useEffect(() => {
+		if (inView) {
+			!isFetching && hasNextPage && fetchNextPage();
+		}
+	}, [inView, isFetching, hasNextPage]);
+
 	return (
 		<S.Container>
 			<S.Schedule>
 				<S.Calender>
 					<CustomCalendar size="LG" />
-					<S.Button>
-						<FloatingButton
-							onClick={handleClick}
-							backgroundColor="#FFC933"
-							borderColor="#FFC933"
-							icon={<span style={{ color: 'white', fontSize: '50px' }}>+</span>}
-						/>
-					</S.Button>
 				</S.Calender>
+				<S.Button>
+					<FloatingButton
+						onClick={handleClick}
+						backgroundColor="#FFC933"
+						borderColor="#FFC933"
+						icon={<FaPlus />}
+					/>
+				</S.Button>
 				<S.ScheduleList>
 					<ul>
-						{dailyScheduleDataList?.length > 0 &&
-							dailyScheduleDataList.map((schedule, index) => (
-								<li
-									key={index}
-									ref={
-										index === dailyScheduleDataList.length - 1
-											? lastElementRef
-											: null
-									}
-								>
-									<div>
-										<p>{schedule?.date}</p>
-										<br />
-										<strong>{schedule?.title}</strong>
-										<br />
-										<p>{schedule?.content}</p>
-									</div>
+						{dailyScheduleData?.map(e =>
+							e.result.scheduleDataResponseList.map((data, idx) => (
+								<li key={idx}>
+									<S.ScheduleWrapper>
+										<Dtype dtype={data.dtype} />
+										<S.ScheduleBox>
+											<p>{data.date}</p>
+											<div>{data.title}</div>
+											<p>{data.content}</p>
+										</S.ScheduleBox>
+									</S.ScheduleWrapper>
 									<span
-										onClick={() => handlePopoverToggle(index)}
+										onClick={() => handlePopoverToggle(idx)}
 										style={{ marginLeft: 'auto', cursor: 'pointer' }}
 									>
 										<HiMiniEllipsisVertical />
 									</span>
-									{showPopover[index] && (
+									{showPopover[idx] && (
 										<div
 											style={{
 												position: 'absolute',
@@ -208,35 +199,40 @@ const CalenderMainPage = () => {
 												right: '40px',
 												zIndex: '1',
 											}}
-											onMouseLeave={() => handlePopoverClose(index)}
+											onMouseLeave={() => handlePopoverClose(idx)}
 										>
-											<PopOver items={popoverItems(schedule.scheduleId)} />
+											<PopOver items={popoverItems(data.scheduleId)} />
 										</div>
 									)}
 								</li>
-							))}
-						{isFetchingNextPage}
+							)),
+						)}
+						<div ref={ref} />
 					</ul>
 				</S.ScheduleList>
 			</S.Schedule>
 			<S.RightSidebar>
 				<h2>우리 가족 {currentMonth}월 일정</h2>
-				<div>
+				<S.MonthWrapper>
 					<ul>
-						{sortedMonthlyScheduleDataList?.length > 0 ? (
-							sortedMonthlyScheduleDataList.map((schedule, index) => (
-								<li key={index}>
-									<strong>{schedule.title}</strong>
-									{schedule.date}
-									<br />
-									<p>{schedule.content}</p>
-								</li>
-							))
+						{monthlyScheduleData?.scheduleDataResponseList.length > 0 ? (
+							monthlyScheduleData.scheduleDataResponseList.map(
+								(schedule, index) => (
+									<li key={index}>
+										<strong>{schedule.title}</strong>
+										<span>{schedule.date}</span>
+										<S.Content>
+											<Dtype dtype={schedule?.dtype} mini={true} />
+											<p>{schedule.content}</p>
+										</S.Content>
+									</li>
+								),
+							)
 						) : (
 							<li>일정이 없습니다.</li>
 						)}
 					</ul>
-				</div>
+				</S.MonthWrapper>
 			</S.RightSidebar>
 			<Alert
 				message="일정을 삭제할까요?"

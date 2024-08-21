@@ -33,9 +33,9 @@ const getDailySchedule = async ({ date, cursor = 1, size = 5 }) => {
 	return data;
 };
 
-const getMonthlySchedule = async ({ yearMonth, page, size }) => {
+const getMonthlySchedule = async ({ yearMonth }) => {
 	const { data } = await axiosInstance.get(
-		`${API_PATH.SCHEDULE}/month?yearMonth=${yearMonth}&page=${page}&size=${size}`,
+		`${API_PATH.SCHEDULE}/month?yearMonth=${yearMonth}`,
 	);
 
 	return data;

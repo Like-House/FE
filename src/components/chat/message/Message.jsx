@@ -1,6 +1,5 @@
-import * as S from './Message.style';
-
 import { useEffect, useRef, useState } from 'react';
+import * as S from './Message.style';
 import { useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { FiSend } from 'react-icons/fi';
@@ -14,12 +13,10 @@ import { HiOutlinePlusCircle } from 'react-icons/hi2';
 import { CgTrash } from 'react-icons/cg';
 import { Alert, Emoticon, FileModal, PopOver } from '@/components/index.js';
 import ReceiveMessage from '@/components/chat/receivemessage/ReceiveMessage.jsx';
-
 import useExitChatRoom from '@/hooks/queries/chat/useExitChatRoom';
 import useModal from '@/hooks/useModal';
 import useGetRealImageUrl from '@/hooks/queries/image/useGetRealImage';
 import useGetMessage from '@/hooks/queries/chat/useGetMessage';
-import useThrottling from '@/hooks/useThrottling';
 import useWebSocketStore from '@/store/useWebSocketStore';
 import useUserIdStore from '@/store/useUserIdStore';
 import { PAGE_PATH, QUERY_KEYS } from '@/constants';
@@ -32,11 +29,14 @@ import useFile from '@/hooks/useFile';
 import queryClient from '@/apis/queryClient';
 
 const Message = ({ room }) => {
+	const [isMounted, setIsMounted] = useState(false);
+	const messageEndRef = useRef();
+	const scrollRef = useRef();
+	const prevScrollHeightRef = useRef(0);
 	const { handleFileSelectAndSend } = useFile();
 	const { fileOpen, setDelete } = useModalStore(state => state);
 	const [emoticon, setEmoticon] = useState(false);
 	const [emoOpen, setEmoOpen] = useState(false);
-	const scrollRef = useRef();
 	const [open, setOpen] = useState();
 	const { chatRoomId, imageKeyName, title } = room;
 	const { mutate } = useExitChatRoom();
@@ -60,45 +60,55 @@ const Message = ({ room }) => {
 	const {
 		data: messageData,
 		fetchPreviousPage,
-		isFetchingPreviousPage,
 		hasPreviousPage,
 		isFetching,
 	} = useGetMessage({
 		chatRoomId,
-		take: 10,
+		take: 15,
 	});
-
-	console.log(messageData);
-
-	const scrollToBottom = () => {
-		if (scrollRef.current) {
-			scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-		}
-	};
 
 	const { ref, inView } = useInView({
-		threshold: 0.5,
+		threshold: 1,
 		delay: 0,
+		initialInView: false,
+		skip: !isMounted,
 	});
 
-	const throttlingNewPage = useThrottling(fetchPreviousPage, 1 * 1000);
+	useEffect(() => {
+		const loadMessages = async () => {
+			if (inView && !isFetching && hasPreviousPage) {
+				prevScrollHeightRef.current = scrollRef.current?.scrollHeight;
+				await fetchPreviousPage();
+
+				const newScrollHeight = scrollRef.current?.scrollHeight;
+				if (scrollRef.current) {
+					scrollRef.current.scrollTop =
+						newScrollHeight - prevScrollHeightRef.current;
+				}
+			}
+		};
+		if (isMounted) loadMessages();
+	}, [inView, isMounted, isFetching]);
 
 	useEffect(() => {
-		if (inView) {
-			!isFetching && hasPreviousPage && throttlingNewPage();
+		if (isMounted && !isFetching && prevScrollHeightRef.current > 0) {
+			messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
 		}
-	}, [inView, isFetching, hasPreviousPage]);
+		setIsMounted(true);
+	}, [isFetching, isMounted]);
 
 	useEffect(() => {
-		if (chatRoomId && enter) {
-			exitChatRoom(chatRoomId);
+		if (messageEndRef.current) {
+			messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
 		}
+	}, [messages]);
 
-		if (chatRoomId) {
+	useEffect(() => {
+		if (chatRoomId && scrollRef.current) {
 			enterChatRoom(chatRoomId);
 		}
+
 		clearMessages();
-		scrollToBottom();
 
 		return () => {
 			if (enter) {
@@ -108,13 +118,7 @@ const Message = ({ room }) => {
 				queryKey: [QUERY_KEYS.CHATROOMS, chatRoomId, 'message'],
 			});
 		};
-	}, [chatRoomId, enterChatRoom, enter]);
-
-	useEffect(() => {
-		if (isFetching || messages) {
-			scrollToBottom();
-		}
-	}, [messages, isFetching]);
+	}, [chatRoomId]);
 
 	const handleSend = e => {
 		e.preventDefault();
@@ -144,7 +148,7 @@ const Message = ({ room }) => {
 	const handleExit = () => {
 		exitChatRoom(chatRoomId);
 		clearMessages();
-		nav(-1);
+		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.CHAT}`);
 	};
 	const handleConfirm = () => {
 		mutate(chatRoomId, {
@@ -226,9 +230,7 @@ const Message = ({ room }) => {
 				</S.Menu>
 			</S.NavContainer>
 			<S.MessageContainer ref={scrollRef}>
-				<div ref={ref}>
-					{isFetchingPreviousPage && <div>Loading more messages...</div>}
-				</div>
+				{isMounted && <div ref={ref} />}
 				{messageData?.map(page =>
 					page.result.chatResponseList.map(e =>
 						e.senderDTO.senderId === userId ? (
@@ -246,6 +248,7 @@ const Message = ({ room }) => {
 						e.chatType === 'TALK' && <Mymessage message={e} key={idx} />
 					),
 				)}
+				<div ref={messageEndRef} />
 			</S.MessageContainer>
 			<S.InputContainer onSubmit={handleSend} $emoticon={emoticon}>
 				<S.IconWrapper>

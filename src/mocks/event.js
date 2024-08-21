@@ -1,28 +1,28 @@
 // 캘린더 일정 확인 목데이터
 export const eventsData = [
 	{
-		date: '2024-07-21T09:00:00Z',
+		date: '2024-07-21',
 		title: 'Event',
-		type: 'birthday',
+		dtype: '개인 일정',
 	},
 	{
-		date: '2024-07-07T08:00:00.000Z',
+		date: '2024-07-07',
 		title: 'June 2024 Event',
-		type: 'important',
+		dtype: '가족 행사',
 	},
 	{
-		date: '2024-07-09T15:00:00.000Z', // 10일 오전 12시를 의미
+		date: '2024-07-09',
 		title: 'July 2024 Event 1',
-		type: 'birthday',
+		dtype: '생일',
 	},
 	{
-		date: '2024-07-20T00:00:00Z',
+		date: '2024-07-20',
 		title: 'July 2024 Event 2',
-		type: 'plan',
+		dtype: '개인 일정',
 	},
 	{
-		date: '2024-07-01T00:00:00Z',
+		date: '2024-07-01',
 		title: 'July 2024 Event 3',
-		type: 'plan',
+		dtype: '개인 일정',
 	},
 ];

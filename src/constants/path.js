@@ -50,6 +50,8 @@ const PAGE_PATH = {
 	// /home/setting/edit-profile
 	ADD_SCHEDULE: '/add-schedule',
 	DETAILPOST: 'detailPost',
+
+	PATCH_SCHEDULE: '/patch-schedule',
 };
 
 const API_PATH = {
@@ -69,6 +71,7 @@ const API_PATH = {
 
 	// comment
 	COMMENT: '/api/v0/comments',
+
 
 	// chat
 	CHAT: '/api/v0/chat-rooms',
