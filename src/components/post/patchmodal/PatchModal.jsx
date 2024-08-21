@@ -84,7 +84,6 @@ const PatchModal = ({ avatar, postId, onClose }) => {
 									/>
 								</div>
 								<S.Comment
-									type="text"
 									value={userInput}
 									onChange={e => setUserInput(e.target.value)}
 								/>

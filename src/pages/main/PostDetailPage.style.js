@@ -3,8 +3,14 @@ import theme from '@/theme/theme';
 
 const PostContainer = styled.div`
 	display: flex;
-	padding: 50px;
+	padding: 0 50px 50px 50px;
 	background-color: #fafafa;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		display: flex;
+		justify-content: center;
+		padding: 0 0 80px 0;
+	}
 `;
 
 const PostList = styled.div`
@@ -49,6 +55,10 @@ const AlbumWrapper = styled.div`
 	border-radius: 20px;
 	padding: 40px;
 
+	div {
+		max-width: 300px;
+	}
+
 	p {
 		width: 250px;
 		padding: 120px 0 0 130px;
@@ -58,13 +68,21 @@ const AlbumWrapper = styled.div`
 `;
 
 const CommentWrapper = styled.div`
-	width: 75%;
+	width: 620px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		width: 400px;
+	}
 `;
 
 const CommentInput = styled.form`
 	padding-top: 30px;
 	display: flex;
 	align-items: center;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		width: 440px;
+	}
 
 	input {
 		border: none;
@@ -74,6 +92,10 @@ const CommentInput = styled.form`
 		&:focus {
 			border: none;
 			outline: none;
+		}
+
+		@media ${theme.WINDOW_SIZE.MOBILE} {
+			width: 300px;
 		}
 	}
 
@@ -89,6 +111,10 @@ const CommentInput = styled.form`
 			background-color: ${theme.COLOR.GRAY.GRAY_100};
 			cursor: not-allowed;
 		}
+
+		@media ${theme.WINDOW_SIZE.MOBILE} {
+			font-size: 12px;
+			width: 100px;}
 	}
 `;
 
@@ -96,6 +122,9 @@ const Profile = styled.div`
 	display: flex;
 	flex-direction: row;
 	width: 110px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		margin-left: 20px;}
 `;
 
 export {
