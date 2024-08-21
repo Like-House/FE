@@ -11,7 +11,6 @@ import { useState } from 'react';
 import useAddComment from '@/hooks/queries/comment/useAddComment';
 import { PAGE_PATH } from '@/constants';
 
-
 const PostDetailPage = () => {
 	const { postId } = useParams();
 	const [input, setInput] = useState('');
