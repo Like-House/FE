@@ -1,5 +1,5 @@
 import * as S from './Settingbar.style';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { PAGE_PATH } from '@/constants/path';
 import moreIcon from '@/assets/images/moreBox.png';
 import useGetProfile from '@/hooks/queries/user/useGetProfile';
@@ -19,7 +19,12 @@ function Settingbar({ isopen }) {
   const { mutate: logout } = useLogout();
   const { mutate: deleteAccount } = useDeleteAccount();
 
-  return isopen ? (
+  const isSubPath = location.pathname !== settingBasePath;
+
+  const shouldShowSettingBar =
+    !isSubPath || !window.matchMedia('(max-width: 768px)').matches;
+
+  return isopen && shouldShowSettingBar ? (
     <S.Container>
       <S.NavBar>
         <S.MoreIcon src={moreIcon} alt='더보기' onClick={() => navigate(-1)} />
