@@ -60,6 +60,25 @@ const Profile = styled.div`
 	width: 110px;
 `;
 
+const Update = styled.form `
+	input {
+		border: none;
+		outline: none;
+		background-color: ${theme.COLOR.BACKGROUND.WHITE};
+	}
+
+	button {
+		border: none;
+		border-radius: 10px;
+		background-color: ${theme.COLOR.YELLOW.YELLOW_300};
+
+		&:disabled {
+			background-color: ${theme.COLOR.GRAY.GRAY_100};
+			cursor: not-allowed;
+		}
+	}
+`;
+
 export {
 	Container,
 	Board,
@@ -70,4 +89,5 @@ export {
 	MenuButton,
 	Popover,
 	Profile,
+	Update,
 };

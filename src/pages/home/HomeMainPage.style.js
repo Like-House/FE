@@ -5,13 +5,18 @@ const PostContainer = styled.div`
 	display: flex;
 	background-color: #fafafa;
 	height: 100vh;
+	padding: 0 50px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		padding: 0;
+	}
 `;
 
 const PostList = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 1000px;
+	width: 1200px;
 	height: 100%;
 	overflow-y: scroll;
 
@@ -45,6 +50,8 @@ const AlbumWrapper = styled.div`
 	background-color: ${theme.COLOR.COMMON.WHITE};
 	border-radius: 20px;
 	padding: 40px;
+
+	max-width: 300px;
 
 	p {
 		width: 250px;

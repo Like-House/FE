@@ -115,7 +115,7 @@ const Comment = ({ comment }) => {
 					)}
 				</S.PostHeader>
 				{update ? (
-					<form onSubmit={handleUpdate}>
+					<S.Update onSubmit={handleUpdate}>
 						<input
 							placeholder={content}
 							type="text"
@@ -125,7 +125,7 @@ const Comment = ({ comment }) => {
 						<button disabled={userInput === ''} onSubmit={handleUpdate}>
 							수정하기
 						</button>
-					</form>
+					</S.Update>
 				) : (
 					<div>{content}</div>
 				)}
