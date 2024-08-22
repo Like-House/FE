@@ -5,82 +5,128 @@ import theme from '@/theme/theme';
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
-
+	min-width: 700px;
 	width: 100%;
-	height: 100vh;
-
-	margin: 50px 70px;
-	gap: 30px;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		margin: 45px;
-		height: 70vh;
+		overflow-x: hidden;
+		min-width: 0;
 	}
 `;
 
 const Content = styled.div`
-	display: flex;
+	${theme.ALIGN.ROW_CENTER};
+	min-width: 600px;
+	width: 80%;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		min-width: 0px;
+	}
+`;
+
+const Wrapper = styled.div`
+	padding-top: 50px;
+	${theme.ALIGN.COLUMN_CENTER};
+	width: 100%;
+
+	h2 {
+		width: 80%;
+		text-align: start;
+		padding-bottom: 30px;
+		padding-left: 5px;
+	}
 `;
 
 const Form = styled.form`
+	padding: 40px 50px 100px;
+	position: relative;
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 
-	background-color: white;
+	background-color: ${theme.COLOR.COMMON.WHITE};
 	border-radius: 10px;
-
-	padding: 40px 60px;
-
-	width: 80%;
-	gap: 20px;
 
 	input {
 		border: none;
 		margin-bottom: 30px;
-		width: 400px;
+		width: 300px;
 		outline: none;
 	}
 
 	textarea {
-		border: none;
 		width: 500px;
-		height: 100px;
+		border: none;
+		height: 200px;
 		outline: none;
 		resize: none;
 	}
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		padding: 40px;
+		padding: 40px 50px 100px;
 
 		input {
-			width: 250px;
+			width: 100%;
 		}
 
 		textarea {
-			width: 250px;
+			width: 100%;
+			height: 100px;
 		}
 	}
 `;
 
 const Type = styled.div`
-	width: 500px;
-	height: 250px;
-
+	width: 100%;
+	height: 200px;
 	margin-bottom: 20px;
+
+	div {
+		padding: 0px;
+		width: 300px;
+		div {
+			width: 100%;
+		}
+	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		div {
+			width: 100%;
+		}
+	}
 `;
 
 const Button = styled.div`
 	position: absolute;
-	bottom: 70px;
-	right: 50px;
-	margin-top: auto;
+	bottom: 30px;
+	right: 30px;
+
+	button {
+		width: 50px;
+		height: 50px;
+
+		img {
+			width: 20px;
+			height: 20px;
+		}
+	}
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		position: absolute;
-		top: 10px;
+		bottom: 5px;
 		right: 10px;
 		margin: 10px;
+
+		button {
+			width: 40px;
+			height: 40px;
+
+			img {
+				width: 15px;
+				height: 15px;
+			}
+		}
 	}
 `;
 
-export { Container, Content, Button, Form, Type };
+export { Container, Wrapper, Content, Button, Form, Type };
