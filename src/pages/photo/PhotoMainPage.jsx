@@ -15,6 +15,8 @@ import useGetRealAlbum from '@/hooks/queries/album/useGetRealAlbum';
 import useGetModalImage from '@/hooks/queries/album/useGetModalImage';
 import useCalendarStore from '@/store/useCalendarStore';
 
+import { useNavigate } from 'react-router-dom';
+
 const PhotoMainPage = () => {
 	const { data: familyListData } = useGetFamilyList();
 	const options =
@@ -49,9 +51,13 @@ const PhotoMainPage = () => {
 		taggedId,
 	);
 
+	const vaildAlbumData = albumData.filter(picture => picture.imageUrl !== null);
+
 	//presigned url로 변환
-	const imageQueries = useGetRealAlbum(albumData || []);
-	const imageUrls = imageQueries.map(query => query.data?.result.url || '');
+	const { data: imageUrlsData } = useGetRealAlbum({
+		albumData: vaildAlbumData,
+	});
+	const imageUrls = imageUrlsData?.presignedUrlDownLoadResponseLists || [];
 
 	//모달창 관리
 	const [openPost, setOpenPost] = useState(false);
@@ -90,8 +96,12 @@ const PhotoMainPage = () => {
 		setSelectedPostid(null);
 	};
 
-	const goPostDetail = () => {
-		console.log('게시물 확인할게여');
+	const navigate = useNavigate();
+
+	const goPostDetail = selectedPostId => {
+		if (selectedPostId) {
+			navigate(`/home/detailPost/${selectedPostId}`);
+		}
 	};
 
 	return (
@@ -118,14 +128,17 @@ const PhotoMainPage = () => {
 
 			<S.AlbumContainer>
 				{Array.isArray(albumData) &&
-					albumData.map((picture, index) => (
-						<S.PictureArea key={picture.postId}>
-							<S.Picture
-								src={imageUrls[index] || ''}
-								onClick={() => handleOpenPost(picture)}
-							/>
-						</S.PictureArea>
-					))}
+					albumData.map((picture, index) => {
+						const imageUrl = imageUrls[index]?.url || '';
+						return (
+							<S.PictureArea key={picture.postId}>
+								<S.Picture
+									src={imageUrl}
+									onClick={() => handleOpenPost(picture)}
+								/>
+							</S.PictureArea>
+						);
+					})}
 			</S.AlbumContainer>
 			{openPost && postData && (
 				<PhotoPostModal
@@ -135,7 +148,7 @@ const PhotoMainPage = () => {
 					img={realImageUrl?.result.url}
 					onClose={handleClosePost}
 					avatar={realProfileUrl?.result.url}
-					goPostDetail={goPostDetail}
+					goPostDetail={() => goPostDetail(selectedPostId)}
 				/>
 			)}
 		</S.MainContainer>
