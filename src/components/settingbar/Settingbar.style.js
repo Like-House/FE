@@ -104,6 +104,7 @@ const isSocialLogindiv = styled(Link)`
 const LogoutSection = styled.div`
   margin-top: -30px;
   width: 100%;
+
   @media ${theme.WINDOW_SIZE.MOBILE} {
     margin-left: 20px;
     width: 88%;
