@@ -40,7 +40,7 @@ const NavBar = styled.div`
     padding: 35px;
     display: flex;
     background-color: ${COLOR.YELLOW.YELLOW_500};
-    margin-bottom: 12px;
+    margin-bottom: 32px;
   }
 `;
 
@@ -106,6 +106,8 @@ const LogoutSection = styled.div`
   width: 100%;
 
   @media ${theme.WINDOW_SIZE.MOBILE} {
+    position: absolute;
+    bottom: 25px;
     margin-left: 20px;
     width: 88%;
     height: 50px;
