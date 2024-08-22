@@ -104,7 +104,7 @@ const Message = ({ room }) => {
 	}, [messages]);
 
 	useEffect(() => {
-		if (chatRoomId && scrollRef.current) {
+		if (chatRoomId) {
 			enterChatRoom(chatRoomId);
 		}
 
@@ -201,6 +201,47 @@ const Message = ({ room }) => {
 		},
 	];
 
+	const [pageRendered, setPageRendered] = useState(false);
+	const [adjustingScroll, setAdjustingScroll] = useState(false);
+
+	useEffect(() => {
+		if (inView) {
+			if (!isFetching && hasPreviousPage && !adjustingScroll) {
+				const prevHeight = listRef.current?.scrollHeight || 0;
+				fetchPreviousPage().then(() => {
+					setAdjustingScroll(true);
+					setTimeout(() => {
+						console.log('prevHeight', prevHeight, listRef.current.scrollHeight);
+						if (listRef.current) {
+							listRef.current.scrollTop = listRef.current.scrollHeight;
+						}
+					});
+				});
+			}
+		}
+	});
+
+	const listRef = useRef();
+	let hasMessages = !!messages;
+	useEffect(() => {
+		if (hasMessages) {
+			console.log(listRef);
+			setTimeout(() => {
+				if (listRef.current) {
+					listRef.current.scrollTop = listRef.current?.scrollHeight;
+				}
+			}, 100);
+			setPageRendered(true);
+		}
+	}, [hasMessages]);
+	useEffect(() => {
+		if (listRef.current) {
+			if (listRef.current) {
+				listRef.current.scrollTop = listRef.current?.scrollHeight;
+			}
+		}
+	}, []);
+
 	return (
 		<S.Container>
 			<Alert
@@ -225,12 +266,12 @@ const Message = ({ room }) => {
 				<S.Menu>
 					<p onClick={() => setOpen(!open)}>메뉴</p>
 					<S.PopoverWrapper $open={open}>
-						<PopOver items={items} />
+						<PopOver items={items} onMouseLeave={() => setOpen(!open)} />
 					</S.PopoverWrapper>
 				</S.Menu>
 			</S.NavContainer>
-			<S.MessageContainer ref={scrollRef}>
-				{isMounted && <div ref={ref} />}
+			<S.MessageContainer ref={listRef}>
+				{!adjustingScroll && pageRendered && <div ref={ref} />}
 				{messageData?.map(page =>
 					page.result.chatResponseList.map(e =>
 						e.senderDTO.senderId === userId ? (
