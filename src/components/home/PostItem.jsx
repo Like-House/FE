@@ -7,7 +7,7 @@ import { HiMiniEllipsisHorizontal } from 'react-icons/hi2';
 import { FaEdit, FaTrashAlt, FaRegBellSlash, FaRegBell } from 'react-icons/fa';
 import { BiSolidMessageRounded } from 'react-icons/bi';
 import { formatDate } from '@/utils';
-import { Avatar, PopOver } from '@/components';
+import { Avatar } from '@/components';
 import { useState } from 'react';
 import useDeletePost from '@/hooks/queries/posts/useDeletePost';
 import useLikePost from '@/hooks/queries/posts/useLikePost';
@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { PAGE_PATH } from '@/constants';
 import PatchModal from '../post/patchmodal/PatchModal';
 import usePutAlarmPost from '@/hooks/queries/posts/usePutAlarmPost';
+import NewPopover from '../common/newPopover/NewPopover';
 
 const PostItem = ({ post }) => {
 	const {
@@ -116,17 +117,15 @@ const PostItem = ({ post }) => {
 							<S.DateTime>{formatDate(createdAt)}</S.DateTime>
 						</S.AuthorWrapper>
 						<S.MenuButton>
-							<HiMiniEllipsisHorizontal
-								onClick={() => setShowMenu(prev => !prev)}
-							/>
-							{showMenu && (
-								<S.Popover>
-									<PopOver
-										items={owner ? ownerMenuItems : menuItems}
-										onMouseLeave={handleMouseLeave}
-									/>
-								</S.Popover>
-							)}
+							<NewPopover
+								items={owner ? ownerMenuItems : menuItems}
+								onMouseLeave={handleMouseLeave}
+								showMenu={showMenu}
+							>
+								<HiMiniEllipsisHorizontal
+									onClick={() => setShowMenu(prev => !prev)}
+								/>
+							</NewPopover>
 						</S.MenuButton>
 					</S.PostHeader>
 					<S.Content onClick={handleDetail}>{content}</S.Content>

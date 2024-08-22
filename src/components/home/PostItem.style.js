@@ -78,9 +78,12 @@ const MenuButton = styled.div`
 
 const Popover = styled.div`
 	position: absolute;
-	top: 100%;
-	right: 0%;
+	right: 28%;
 	z-index: 10;
+
+	@media ${theme.WINDOW_SIZE.PC} {
+		right: 10%;
+	}
 `;
 
 const Menu = styled.div`
