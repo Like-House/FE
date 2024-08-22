@@ -29,10 +29,7 @@ import useFile from '@/hooks/useFile';
 import queryClient from '@/apis/queryClient';
 
 const Message = ({ room }) => {
-	const [isMounted, setIsMounted] = useState(false);
 	const messageEndRef = useRef();
-	const scrollRef = useRef();
-	const prevScrollHeightRef = useRef(0);
 	const { handleFileSelectAndSend } = useFile();
 	const { fileOpen, setDelete } = useModalStore(state => state);
 	const [emoticon, setEmoticon] = useState(false);
@@ -67,35 +64,58 @@ const Message = ({ room }) => {
 		take: 15,
 	});
 
+	console.log(messageData);
+
+	const [pageRendered, setPageRendered] = useState(false);
+	const [adjustingScroll, setAdjustingScroll] = useState(false);
+	const listRef = useRef();
+	let hasMessages = !!messageData;
+
 	const { ref, inView } = useInView({
 		threshold: 1,
 		delay: 0,
-		initialInView: false,
-		skip: !isMounted,
+		skip: !pageRendered,
 	});
 
 	useEffect(() => {
-		const loadMessages = async () => {
-			if (inView && !isFetching && hasPreviousPage) {
-				prevScrollHeightRef.current = scrollRef.current?.scrollHeight;
-				await fetchPreviousPage();
-
-				const newScrollHeight = scrollRef.current?.scrollHeight;
-				if (scrollRef.current) {
-					scrollRef.current.scrollTop =
-						newScrollHeight - prevScrollHeightRef.current;
-				}
-			}
-		};
-		if (isMounted) loadMessages();
-	}, [inView, isMounted, isFetching]);
+		if (listRef.current) {
+			listRef.current.scrollTop = listRef.current?.scrollHeight;
+		}
+	}, []);
 
 	useEffect(() => {
-		if (isMounted && !isFetching && prevScrollHeightRef.current > 0) {
-			messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
+		if (inView) {
+			if (!isFetching && hasPreviousPage && !adjustingScroll && pageRendered) {
+				const previousScrollHeight = listRef.current?.scrollHeight;
+
+				fetchPreviousPage().then(() => {
+					setAdjustingScroll(true);
+
+					setTimeout(() => {
+						if (listRef.current) {
+							listRef.current.scrollTop =
+								listRef.current.scrollHeight - previousScrollHeight;
+						}
+					}, 0);
+
+					setTimeout(() => {
+						setAdjustingScroll(false);
+					}, 2000);
+				});
+			}
 		}
-		setIsMounted(true);
-	}, [isFetching, isMounted]);
+	}, [inView, isFetching]);
+
+	useEffect(() => {
+		if (hasMessages) {
+			setTimeout(() => {
+				if (listRef.current) {
+					listRef.current.scrollTop = listRef.current?.scrollHeight;
+				}
+			}, 100);
+			setPageRendered(true);
+		}
+	}, [hasMessages]);
 
 	useEffect(() => {
 		if (messageEndRef.current) {
@@ -201,47 +221,6 @@ const Message = ({ room }) => {
 		},
 	];
 
-	const [pageRendered, setPageRendered] = useState(false);
-	const [adjustingScroll, setAdjustingScroll] = useState(false);
-
-	useEffect(() => {
-		if (inView) {
-			if (!isFetching && hasPreviousPage && !adjustingScroll) {
-				const prevHeight = listRef.current?.scrollHeight || 0;
-				fetchPreviousPage().then(() => {
-					setAdjustingScroll(true);
-					setTimeout(() => {
-						console.log('prevHeight', prevHeight, listRef.current.scrollHeight);
-						if (listRef.current) {
-							listRef.current.scrollTop = listRef.current.scrollHeight;
-						}
-					});
-				});
-			}
-		}
-	});
-
-	const listRef = useRef();
-	let hasMessages = !!messages;
-	useEffect(() => {
-		if (hasMessages) {
-			console.log(listRef);
-			setTimeout(() => {
-				if (listRef.current) {
-					listRef.current.scrollTop = listRef.current?.scrollHeight;
-				}
-			}, 100);
-			setPageRendered(true);
-		}
-	}, [hasMessages]);
-	useEffect(() => {
-		if (listRef.current) {
-			if (listRef.current) {
-				listRef.current.scrollTop = listRef.current?.scrollHeight;
-			}
-		}
-	}, []);
-
 	return (
 		<S.Container>
 			<Alert
@@ -260,7 +239,7 @@ const Message = ({ room }) => {
 							<img src={NOIMG} alt="profile" />
 						)}
 
-						<p>{title}</p>
+						<p>{title ? title : '알 수 없음'}</p>
 					</S.UserContainer>
 				</S.NavWrapper>
 				<S.Menu>
