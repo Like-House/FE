@@ -28,6 +28,7 @@ import ChatUserInfo from './chat/chat-user-info/ChatUserInfo';
 import DetailPost from './main/PostDetailPage';
 import Comment from '../components/comment/Comment';
 import HomeMainPage from './home/HomeMainPage';
+import ProfilePage from './profile/ProfilePage';
 
 export {
 	MainPage,
@@ -60,4 +61,5 @@ export {
 	PatchSchedulePage,
 	Comment,
 	HomeMainPage,
+	ProfilePage,
 };

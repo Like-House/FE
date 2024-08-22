@@ -62,7 +62,11 @@ function Navbar() {
 				<button onClick={handleFamilySpace}>가족 공간</button>
 				<button onClick={logoutMutate}>로그아웃</button>
 				<NavLink
-					to={`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`}
+					to={
+						isSuccessFamilySpace
+							? `${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.EDIT_PROFILE}`
+							: `/${PAGE_PATH.PROFILE_CHANGE}`
+					}
 				>
 					{isPending ? (
 						<p>loading...</p>
