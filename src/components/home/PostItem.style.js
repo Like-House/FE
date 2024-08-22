@@ -7,12 +7,13 @@ const PostItem = styled.div`
 	display: flex;
 	flex-direction: column;
 	background-color: ${theme.COLOR.BACKGROUND.WHITE};
-	border-radius: 10px;
+	border-radius: 20px;
 	padding: 20px;
 	padding-bottom: 0px;
 
 	width: 100%;
 	max-width: 700px;
+	cursor: pointer;
 `;
 
 const PostWrapper = styled.div`
@@ -71,6 +72,8 @@ const DateTime = styled.div`
 const MenuButton = styled.div`
 	margin-left: auto;
 
+	z-index: 100;
+
 	svg {
 		cursor: pointer;
 	}
@@ -115,13 +118,13 @@ const Content = styled.div`
 `;
 
 const Photo = styled.img`
-	max-width: 400px;
+	max-width: 450px;
 	border-radius: 10px;
 	margin-bottom: 10px;
 
 	cursor: pointer;
 
-	@media screen and (max-width: 1050px) {
+	@media ${theme.WINDOW_SIZE.TABLET} {
 		width: 350px;
 	}
 
@@ -136,9 +139,6 @@ const Footer = styled.div`
 	gap: 20px;
 	padding-top: 10px;
 	font-size: ${FONT_SIZE.SM};
-	p {
-		cursor: pointer;
-	}
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		font-size: ${FONT_SIZE.XS};
