@@ -51,6 +51,7 @@ function Settingbar({ isopen }) {
       <S.LogoutSection>
         <S.Logout to={`${settingBasePath}/logout`}>로그아웃</S.Logout>
       </S.LogoutSection>
+      {isSocialLogin && <S.isSocialLogindiv></S.isSocialLogindiv>}
     </S.Container>
   ) : (
     <div></div>
