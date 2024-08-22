@@ -45,6 +45,8 @@ import {
 	// SCHEDULE (일정 페이지)
 	AddSchedulePage,
 	PatchSchedulePage,
+	// 가족공간 입장 x -> 프로필 수정 페이지
+	ProfilePage,
 } from './pages';
 
 import { AuthLayout, HomeLayout } from './layout';
@@ -87,6 +89,10 @@ const router = createBrowserRouter([
 						element: <CreateSpace />,
 					},
 				],
+			},
+			{
+				path: `${PAGE_PATH.PROFILE_CHANGE}`,
+				element: <ProfilePage />,
 			},
 		],
 	},
