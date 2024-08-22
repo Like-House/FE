@@ -40,7 +40,7 @@ const NavBar = styled.div`
     padding: 35px;
     display: flex;
     background-color: ${COLOR.YELLOW.YELLOW_500};
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
 `;
 
