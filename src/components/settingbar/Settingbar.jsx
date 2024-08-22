@@ -28,26 +28,30 @@ function Settingbar({ isopen }) {
       </S.NavBar>
       <S.Section>
         <S.SectionTitle>가족 설정</S.SectionTitle>
-        <S.StyledLink to={`${settingBasePath}/family-space-settings`}>
+        <S.StyledLink
+          to={`${settingBasePath}/${PAGE_PATH.FAMILY_SPACE_SETTINGS}`}
+        >
           가족 공간 관리
         </S.StyledLink>
-        <S.StyledLink to={`${settingBasePath}/family-settings`}>
+        <S.StyledLink to={`${settingBasePath}/${PAGE_PATH.FAMILY_SETTINGS}`}>
           가족 관리
         </S.StyledLink>
       </S.Section>
       <S.Section>
         <S.SectionTitle>개인 설정</S.SectionTitle>
-        <S.StyledLink to={`${settingBasePath}/my-posts`}>
+        <S.StyledLink to={`${settingBasePath}/${PAGE_PATH.MY_POSTS}`}>
           내가 쓴 글
         </S.StyledLink>
-        <S.StyledLink to={`${settingBasePath}/notification-settings`}>
+        <S.StyledLink
+          to={`${settingBasePath}/${PAGE_PATH.NOTIFICATION_SETTINGS}`}
+        >
           알림 설정
         </S.StyledLink>
-        <S.StyledLink to={`${settingBasePath}/edit-profile`}>
+        <S.StyledLink to={`${settingBasePath}/${PAGE_PATH.EDIT_PROFILE}`}>
           개인정보 수정
         </S.StyledLink>
         {!isSocialLogin && (
-          <S.StyledLink to={`${settingBasePath}/change-password`}>
+          <S.StyledLink to={`${settingBasePath}/${PAGE_PATH.CHANGE_PASSWORD}`}>
             비밀번호 변경
           </S.StyledLink>
         )}
