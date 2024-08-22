@@ -38,8 +38,13 @@ const PhotoMainPage = () => {
 	const { date } = useCalendarStore();
 	let selectedDate = '';
 	if (date) {
-		selectedDate = date.split('T')[0];
+		const selectedKSTDate = new Date(
+			new Date(date).getTime() + 9 * 60 * 60 * 1000,
+		);
+		selectedDate = selectedKSTDate.toISOString().split('T')[0];
 	}
+
+	console.log(selectedDate);
 
 	const { data: familySpaceIdData } = useGetFamilySpaceId();
 	const familySpaceId = familySpaceIdData?.familySpaceId;
@@ -51,7 +56,11 @@ const PhotoMainPage = () => {
 		taggedId,
 	);
 
+	console.log('albumdata는', albumData);
+
 	const vaildAlbumData = albumData.filter(picture => picture.imageUrl !== null);
+
+	console.log('validalbumdata는 ', vaildAlbumData);
 
 	//presigned url로 변환
 	const { data: imageUrlsData } = useGetRealAlbum({
@@ -70,6 +79,8 @@ const PhotoMainPage = () => {
 
 	//앨범 클릭 api 통신
 	const { data: postData } = useGetAlbumPost(selectedPostId);
+
+	console.log('postdata는 ', postData);
 
 	const [postImageUrl, avatarUrl] = [
 		postData?.imageUrls[0],
@@ -127,8 +138,8 @@ const PhotoMainPage = () => {
 			</S.SideContainer>
 
 			<S.AlbumContainer>
-				{Array.isArray(albumData) &&
-					albumData.map((picture, index) => {
+				{Array.isArray(vaildAlbumData) &&
+					vaildAlbumData.map((picture, index) => {
 						const imageUrl = imageUrls[index]?.url || '';
 						return (
 							<S.PictureArea key={picture.postId}>
