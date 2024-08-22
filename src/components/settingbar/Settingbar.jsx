@@ -4,13 +4,26 @@ import { useNavigate } from 'react-router-dom';
 import { PAGE_PATH } from '@/constants/path';
 import moreIcon from '@/assets/images/moreBox.png';
 import useGetProfile from '@/hooks/queries/user/useGetProfile';
+import { useState } from 'react';
+import { Alert } from '..';
+import useLogout from '@/hooks/queries/user/useLogout';
 
 function Settingbar({ isopen }) {
+  const [isOpen, setIsOpen] = useState(false);
   const settingBasePath = `${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}`;
   const navigate = useNavigate();
 
   const { data: profile } = useGetProfile();
   const isSocialLogin = profile?.socialType !== 'LOCAL';
+  const { mutate } = useLogout();
+
+  const handleDeleteAccount = () => {
+    navigate(`${settingBasePath}/${PAGE_PATH.DELETE_ACCOUNT}`);
+  };
+
+  const handleLogout = () => {
+    navigate(`${settingBasePath}/${PAGE_PATH.LOGOUT}`);
+  };
 
   return isopen ? (
     <S.Container>
@@ -48,10 +61,22 @@ function Settingbar({ isopen }) {
           탈퇴하기
         </S.StyledLink>
       </S.Section>
-      <S.LogoutSection>
-        <S.Logout to={`${settingBasePath}/logout`}>로그아웃</S.Logout>
+      <S.LogoutSection onClick={() => setIsOpen(true)}>
+        <S.Logout>로그아웃</S.Logout>
       </S.LogoutSection>
-      {isSocialLogin && <S.isSocialLogindiv></S.isSocialLogindiv>}
+      {isSocialLogin && <S.isSocialLogindiv />}
+      <Alert
+        onClose={() => {
+          setIsOpen(false);
+        }}
+        message={'로그아웃 하시겠습니까?'}
+        isOpen={isOpen}
+        onConfirm={() => {
+          setIsOpen(false);
+          mutate(null);
+          navigate('/');
+        }}
+      />
     </S.Container>
   ) : (
     <div></div>
