@@ -117,6 +117,42 @@ const LogoutSection = styled.div`
   }
 `;
 
+const DeleteSection = styled.div`
+  display: block;
+  color: ${COLOR.GRAY.GRAY_800};
+  text-decoration: none;
+  font-size: ${FONT_SIZE.BASE};
+  width: 100%;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: ${COLOR.COMMON.WHITE};
+  }
+
+  @media ${theme.WINDOW_SIZE.MOBILE} {
+    margin-top: -5px;
+  }
+`;
+
+const Delete = styled.button`
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: ${COLOR.GRAY.GRAY_800};
+  text-decoration: none;
+  font-size: ${FONT_SIZE.BASE};
+  padding: 10px 20px;
+  width: 100%;
+  border-radius: 4px;
+  border: none;
+  background-color: inherit;
+  text-align: start;
+
+  &:hover {
+    background-color: ${COLOR.COMMON.WHITE};
+  }
+`;
+
 const Logout = styled.button`
   display: block;
   margin-top: 10px;
@@ -152,6 +188,8 @@ export {
   SectionTitle,
   StyledLink,
   LogoutSection,
+  DeleteSection,
   isSocialLogindiv,
+  Delete,
   Logout,
 };

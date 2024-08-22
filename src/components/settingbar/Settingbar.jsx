@@ -1,5 +1,4 @@
 import * as S from './Settingbar.style';
-
 import { useNavigate } from 'react-router-dom';
 import { PAGE_PATH } from '@/constants/path';
 import moreIcon from '@/assets/images/moreBox.png';
@@ -7,23 +6,18 @@ import useGetProfile from '@/hooks/queries/user/useGetProfile';
 import { useState } from 'react';
 import { Alert } from '..';
 import useLogout from '@/hooks/queries/user/useLogout';
+import useDeleteAccount from '@/hooks/queries/user/useDeleteAccount';
 
 function Settingbar({ isopen }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
   const settingBasePath = `${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}`;
   const navigate = useNavigate();
 
   const { data: profile } = useGetProfile();
   const isSocialLogin = profile?.socialType !== 'LOCAL';
-  const { mutate } = useLogout();
-
-  const handleDeleteAccount = () => {
-    navigate(`${settingBasePath}/${PAGE_PATH.DELETE_ACCOUNT}`);
-  };
-
-  const handleLogout = () => {
-    navigate(`${settingBasePath}/${PAGE_PATH.LOGOUT}`);
-  };
+  const { mutate: logout } = useLogout();
+  const { mutate: deleteAccount } = useDeleteAccount();
 
   return isopen ? (
     <S.Container>
@@ -57,24 +51,36 @@ function Settingbar({ isopen }) {
             비밀번호 변경
           </S.StyledLink>
         )}
-        <S.StyledLink to={`${settingBasePath}/delete-account`}>
-          탈퇴하기
-        </S.StyledLink>
+        <S.DeleteSection onClick={() => setIsDeleteAlertOpen(true)}>
+          <S.Delete>탈퇴하기</S.Delete>
+        </S.DeleteSection>
       </S.Section>
-      <S.LogoutSection onClick={() => setIsOpen(true)}>
+      <S.LogoutSection onClick={() => setIsLogoutOpen(true)}>
         <S.Logout>로그아웃</S.Logout>
       </S.LogoutSection>
       {isSocialLogin && <S.isSocialLogindiv />}
+
       <Alert
-        onClose={() => {
-          setIsOpen(false);
-        }}
+        onClose={() => setIsLogoutOpen(false)}
         message={'로그아웃 하시겠습니까?'}
-        isOpen={isOpen}
+        isOpen={isLogoutOpen}
         onConfirm={() => {
-          setIsOpen(false);
-          mutate(null);
+          setIsLogoutOpen(false);
+          logout(null);
           navigate('/');
+        }}
+      />
+
+      <Alert
+        onClose={() => setIsDeleteAlertOpen(false)}
+        isOpen={isDeleteAlertOpen}
+        message={'정말 탈퇴하시겠습니까?'}
+        detailMessage={
+          '이 계정을 탈퇴하면 기존에 생성된 가족 공간은 자동으로 삭제되며\n초대된 가족들은 자동적으로 해당 가족 공간에서 탈퇴처리 됩니다.\n한 번 삭제된 가족 공간은 복구가 불가능합니다.'
+        }
+        onConfirm={() => {
+          setIsDeleteAlertOpen(false);
+          deleteAccount(null);
         }}
       />
     </S.Container>
