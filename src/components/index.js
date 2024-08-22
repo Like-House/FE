@@ -32,6 +32,9 @@ import Emoticon from './chat/emoticon/Emoticon';
 import UserBox from './setting/userBox/UserBox';
 import FamilyMember from './setting/familyMember/FamilyMember';
 
+// base("/")
+import ServiceComponent from './service/ServiceComponent';
+
 export {
 	Navbar,
 	Sidebar,
@@ -62,4 +65,5 @@ export {
 	PostItem,
 	FileModal,
 	Emoticon,
+	ServiceComponent,
 };

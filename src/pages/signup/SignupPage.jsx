@@ -1,10 +1,19 @@
+import { useRef, useEffect } from 'react';
 import * as S from './SignupPage.style';
 
 import { SignupForm } from '@/components';
 
 const SignupPage = () => {
+	const containerRef = useRef(null);
+
+	useEffect(() => {
+		if (containerRef.current) {
+			containerRef.current.scrollIntoView({ behavior: 'auto', block: 'start' });
+		}
+	}, []);
+
 	return (
-		<S.Container>
+		<S.Container ref={containerRef}>
 			<S.SignupContainer>
 				<S.TextWrapper>
 					<h2>회원가입</h2>
