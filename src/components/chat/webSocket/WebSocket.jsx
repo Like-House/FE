@@ -43,7 +43,6 @@ const WebSocketComponent = ({ children }) => {
 		};
 
 		webSocket.current.onmessage = event => {
-			console.log(event);
 			if (event.data) {
 				// 받은 메시지
 				const msg = JSON.parse(event.data);
