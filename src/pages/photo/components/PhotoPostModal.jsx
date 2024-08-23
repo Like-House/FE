@@ -15,7 +15,6 @@ const PhotoPostModal = ({
 	const handleClick = () => {
 		goPostDetail();
 	};
-	console.log(goPostDetail);
 
 	return (
 		<S.Backdrop>

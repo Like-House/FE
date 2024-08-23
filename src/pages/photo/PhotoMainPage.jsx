@@ -38,7 +38,10 @@ const PhotoMainPage = () => {
 	const { date } = useCalendarStore();
 	let selectedDate = '';
 	if (date) {
-		selectedDate = date.split('T')[0];
+		const selectedKSTDate = new Date(
+			new Date(date).getTime() + 9 * 60 * 60 * 1000,
+		);
+		selectedDate = selectedKSTDate.toISOString().split('T')[0];
 	}
 
 	const { data: familySpaceIdData } = useGetFamilySpaceId();
@@ -127,8 +130,8 @@ const PhotoMainPage = () => {
 			</S.SideContainer>
 
 			<S.AlbumContainer>
-				{Array.isArray(albumData) &&
-					albumData.map((picture, index) => {
+				{Array.isArray(vaildAlbumData) &&
+					vaildAlbumData.map((picture, index) => {
 						const imageUrl = imageUrls[index]?.url || '';
 						return (
 							<S.PictureArea key={picture.postId}>
