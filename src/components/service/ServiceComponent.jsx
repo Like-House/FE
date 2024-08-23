@@ -8,6 +8,7 @@ import useCreateFamilyspace from '@/hooks/queries/family/useCreateFamilyspace';
 import InvitationIMG from '@/assets/images/InvitationLink.png';
 import CreateSpaceIMG from '@/assets/images/CreateSpace.png';
 
+
 const ServiceComponent = () => {
 	const navigate = useNavigate();
 	const [isAlertOpen, setIsAlertOpen] = useState(false);

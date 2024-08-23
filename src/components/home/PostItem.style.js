@@ -78,7 +78,7 @@ const DateTime = styled.div`
 
 const MenuButton = styled.div`
 	margin-left: auto;
-
+  
 	svg {
 		cursor: pointer;
 	}
