@@ -105,11 +105,9 @@ const Message = ({ room }) => {
 			if (listRef.current) {
 				listRef.current.scrollTop = listRef.current?.scrollHeight;
 			}
-			setTimeout(() => {
-				setPageRendered(true);
-			}, 0);
+			setPageRendered(true);
 		}
-	}, [hasMessages]);
+	}, [hasMessages, chatRoomId]);
 
 	useEffect(() => {
 		if (messageEndRef.current) {
