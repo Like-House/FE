@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { PAGE_PATH } from '@/constants';
 import { useState } from 'react';
 import useCreateFamilyspace from '@/hooks/queries/family/useCreateFamilyspace';
+import InvitationIMG from '@/assets/images/InvitationLink.png';
+import CreateSpaceIMG from '@/assets/images/CreateSpace.png';
+
 
 const ServiceComponent = () => {
 	const navigate = useNavigate();
@@ -45,10 +48,7 @@ const ServiceComponent = () => {
 					<S.InviteTitle>가족에게 초대링크를 받았어요!</S.InviteTitle>
 					<S.Card $bgColor={S.BgColor.YELLOW}>
 						<S.PictureContainer>
-							<S.PictureEnter
-								src="/src/assets/images/InvitationLink.png"
-								alt="Invitation Link"
-							/>
+							<S.PictureEnter src={InvitationIMG} alt="Invitation Link" />
 						</S.PictureContainer>
 						<S.CardContent>
 							<S.CardTitle>
@@ -71,10 +71,7 @@ const ServiceComponent = () => {
 					<S.CreateTitle>새로운 가족 공간을 만들고 싶어요.</S.CreateTitle>
 					<S.Card $bgColor={S.BgColor.WHITE}>
 						<S.PictureContainer>
-							<S.Picture
-								src="/src/assets/images/CreateSpace.png"
-								alt="Create Space"
-							/>
+							<S.Picture src={CreateSpaceIMG} alt="Create Space" />
 						</S.PictureContainer>
 						<S.CardContent>
 							<S.CardTitle>
