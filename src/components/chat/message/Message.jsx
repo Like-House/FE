@@ -61,10 +61,8 @@ const Message = ({ room }) => {
 		isFetching,
 	} = useGetMessage({
 		chatRoomId,
-		take: 15,
+		take: 20,
 	});
-
-	console.log(messageData);
 
 	const [pageRendered, setPageRendered] = useState(false);
 	const [adjustingScroll, setAdjustingScroll] = useState(false);
@@ -78,14 +76,10 @@ const Message = ({ room }) => {
 	});
 
 	useEffect(() => {
-		if (listRef.current) {
-			listRef.current.scrollTop = listRef.current?.scrollHeight;
-		}
-	}, []);
+		console.log('inView:', inView, 'pageRendered:', pageRendered);
 
-	useEffect(() => {
-		if (inView) {
-			if (!isFetching && hasPreviousPage && !adjustingScroll && pageRendered) {
+		if (inView && pageRendered) {
+			if (!isFetching && hasPreviousPage && !adjustingScroll) {
 				const previousScrollHeight = listRef.current?.scrollHeight;
 
 				fetchPreviousPage().then(() => {
@@ -108,12 +102,12 @@ const Message = ({ room }) => {
 
 	useEffect(() => {
 		if (hasMessages) {
+			if (listRef.current) {
+				listRef.current.scrollTop = listRef.current?.scrollHeight;
+			}
 			setTimeout(() => {
-				if (listRef.current) {
-					listRef.current.scrollTop = listRef.current?.scrollHeight;
-				}
-			}, 100);
-			setPageRendered(true);
+				setPageRendered(true);
+			}, 0);
 		}
 	}, [hasMessages]);
 
