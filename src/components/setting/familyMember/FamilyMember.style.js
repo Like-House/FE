@@ -126,7 +126,7 @@ const CustomButtonWrapper = styled.div`
 	display: block;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		display: ${({ isCurrentUser }) => (isCurrentUser ? 'none' : 'block')};
+		display: ${({ $isCurrentUser }) => ($isCurrentUser ? 'none' : 'block')};
 	}
 `;
 

@@ -41,7 +41,7 @@ const FamilyMember = ({ member, index, handleEditClick }) => {
 					</S.MemberDetails>
 				</S.MemberInfo>
 
-				<S.CustomButtonWrapper>
+				<S.CustomButtonWrapper $isCurrentUser={isCurrentUser}>
 					<CustomButton
 						btnType="secondary"
 						label="정보 수정"
