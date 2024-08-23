@@ -39,12 +39,6 @@ const AddSchedulePage = () => {
 		});
 	};
 
-	const handleClick = () => {
-		document
-			.querySelector('form')
-			.dispatchEvent(new Event('submit', { bubbles: true }));
-	};
-
 	const handleAlertConfirm = () => {
 		setShowAlert(false);
 	};
@@ -89,7 +83,6 @@ const AddSchedulePage = () => {
 						/>
 						<A.Button>
 							<FloatingButton
-								onClick={handleClick}
 								backgroundColor="#FFC933"
 								borderColor="#FFC933"
 								icon={<img src={DefaultIcon} alt="default icon" />}

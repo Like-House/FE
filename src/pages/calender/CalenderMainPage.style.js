@@ -13,10 +13,10 @@ const Container = styled.div`
 `;
 
 const Schedule = styled.div`
-	height: 100%;
+	${theme.ALIGN.COLUMN_CENTER};
+	height: 100vh;
 	min-width: 820px;
 	width: 70%;
-	padding-top: 10px;
 	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
 
 	@media ${theme.WINDOW_SIZE.PC} {
@@ -31,7 +31,6 @@ const Schedule = styled.div`
 
 const Calender = styled.div`
 	width: 100%;
-	height: fit-content;
 	${theme.ALIGN.ROW_CENTER};
 	position: relative;
 `;
@@ -67,11 +66,12 @@ const Button = styled.div`
 `;
 
 const ScheduleList = styled.div`
+	width: 90%;
+	height: 35%;
 	margin: 40px;
 	${theme.ALIGN.COLUMN_CENTER};
 
 	ul {
-		height: 300px;
 		max-width: 900px;
 		width: 100%;
 		overflow-y: auto;
@@ -157,6 +157,10 @@ const ScheduleBox = styled.div`
 	width: 300px;
 
 	div {
+		font-size: ${FONT_SIZE.SM};
+	}
+
+	h5 {
 		margin-top: 5px;
 		font-weight: bold;
 		font-size: ${FONT_SIZE.BASE};
@@ -172,14 +176,19 @@ const ScheduleBox = styled.div`
 	}
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
+		padding: 5px 0;
 		width: 150px;
 
-		div {
-			font-size: ${FONT_SIZE.BASE};
+		h5 {
+			font-size: ${FONT_SIZE.SM};
 		}
 
 		p {
 			font-size: ${FONT_SIZE.SM};
+		}
+
+		div {
+			font-size: ${FONT_SIZE.XS};
 		}
 	}
 `;

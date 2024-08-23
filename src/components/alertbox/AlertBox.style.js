@@ -33,11 +33,8 @@ const AlertInformation = styled.div`
 `;
 
 const AlertSender = styled.div`
-	font-size: ${FONT_SIZE.XL};
-
-	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
-		font-size: ${FONT_SIZE.LG};
-	}
+	font-size: ${FONT_SIZE.LG};
+	font-weight: bold;
 
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
 		font-size: ${FONT_SIZE.BASE};
@@ -45,11 +42,7 @@ const AlertSender = styled.div`
 `;
 
 const AlertMessage = styled.div`
-	font-size: ${FONT_SIZE.LG};
-
-	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
-		font-size: ${FONT_SIZE.BASE};
-	}
+	font-size: ${FONT_SIZE.BASE};
 
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
 		font-size: ${FONT_SIZE.SM};
@@ -57,12 +50,8 @@ const AlertMessage = styled.div`
 `;
 
 const AlertDate = styled.div`
-	font-size: ${FONT_SIZE.BASE};
+	font-size: ${FONT_SIZE.XS};
 	color: ${theme.COLOR.GRAY.GRAY_450};
-
-	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
-		font-size: ${FONT_SIZE.SM};
-	}
 
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
 		font-size: ${FONT_SIZE.XS};
@@ -70,7 +59,7 @@ const AlertDate = styled.div`
 `;
 
 const AlertIcon = styled.div`
-	> img {
+	& > img {
 		width: 28px;
 		height: 28px;
 	}
