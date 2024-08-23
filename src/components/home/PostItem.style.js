@@ -32,6 +32,10 @@ const Board = styled.div`
 	flex-direction: column;
 	flex-grow: 1;
 	width: 100%;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		margin-left: 10px;
+	}
 `;
 
 const Divider = styled.hr`
@@ -39,6 +43,10 @@ const Divider = styled.hr`
 	border: none;
 	border-top: 1px solid #ddd;
 	margin: 40px 0 5px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		width: 100%;
+	}
 `;
 
 const PostHeader = styled.div`

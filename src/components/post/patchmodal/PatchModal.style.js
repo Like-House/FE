@@ -101,9 +101,13 @@ const Content = styled.div`
 	height: auto;
 `;
 
-const Comment = styled.input`
-	font-size: ${FONT_SIZE.SM};
-	margin-bottom: 10px;
+const Comment = styled.textarea`
+	font-size: ${FONT_SIZE.XS};
+	margin: 20px;
+	width: 500px;
+	border: none;
+	resize: none;
+	outline: none;
 
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
 		font-size: ${FONT_SIZE.XL};
