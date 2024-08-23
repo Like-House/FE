@@ -59,6 +59,15 @@ const FamilyList = styled.div`
   margin-bottom: 50px;
 `;
 
+const MobileOnly = styled.div`
+  display: none;
+
+  @media ${theme.WINDOW_SIZE.MOBILE} {
+    display: block;
+    margin-bottom: 20px;
+  }
+`;
+
 export {
   Container,
   Section,
@@ -68,4 +77,5 @@ export {
   MoreIcon,
   MemberCount,
   FamilyList,
+  MobileOnly,
 };

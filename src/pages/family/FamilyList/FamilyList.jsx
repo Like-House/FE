@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { PAGE_PATH } from '@/constants/path';
 import useGetFamilyList from '@/hooks/queries/family/useGetFamilyList';
+import useGetProfile from '@/hooks/queries/user/useGetProfile';
 import { FamilyMember } from '@/components';
 import plusSettingIcon from '@/assets/images/plusSetting.png';
 
@@ -11,13 +12,20 @@ function FamilyList() {
   const navigate = useNavigate();
   const location = useLocation();
   const { data: familyData } = useGetFamilyList();
+  const { data: currentUser } = useGetProfile();
   const [familyMembers, setFamilyMembers] = useState([]);
+  const [currentUserData, setCurrentUserData] = useState(null);
 
   useEffect(() => {
-    if (familyData) {
+    if (familyData && currentUser) {
+      setCurrentUserData(
+        familyData.familyDataList.find(
+          (member) => member.userId === currentUser.userId
+        )
+      );
       setFamilyMembers(familyData.familyDataList);
     }
-  }, [familyData]);
+  }, [familyData, currentUser]);
 
   useEffect(() => {
     if (
@@ -50,6 +58,17 @@ function FamilyList() {
           onClick={handleMoreIconClick}
         />
       </S.MoreSection>
+
+      {currentUserData && (
+        <S.MobileOnly>
+          <FamilyMember
+            member={currentUserData}
+            index={-1}
+            handleEditClick={() => handleEditClick(-1)}
+          />
+        </S.MobileOnly>
+      )}
+
       <S.Section>
         <S.SectionTitle>가족 목록</S.SectionTitle>
         <S.MemberCount>({familyMembers.length}명)</S.MemberCount>
