@@ -38,7 +38,7 @@ const Wrapper = styled.div`
 `;
 
 const Form = styled.form`
-	padding: 40px 50px 100px;
+	padding: 40px 50px 40px;
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -46,6 +46,10 @@ const Form = styled.form`
 
 	background-color: ${theme.COLOR.COMMON.WHITE};
 	border-radius: 10px;
+
+	label {
+		padding-bottom: 10px;
+	}
 
 	input {
 		border: none;
