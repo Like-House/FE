@@ -74,7 +74,6 @@ const PostModal = ({ isOpen, closeModal }) => {
 				],
 				imageUrls: imageKey ? [imageKey] : null,
 			};
-			console.log(postData);
 			writePost(postData);
 			closeModal();
 		}
@@ -133,7 +132,7 @@ const PostModal = ({ isOpen, closeModal }) => {
 							<button
 								onClick={handleRightButtonClick}
 								disabled={
-									(step === 1 && inputValue.trim() === '') || 
+									(step === 1 && inputValue.trim() === '') ||
 									(step === 2 && selectedOption.trim() === '')
 								}
 							>
