@@ -64,6 +64,11 @@ const ContentWrapper = styled.div`
 	}
 `;
 
+const ContentWrapper2 = styled(ContentWrapper)`
+	margin-top: 300px;
+	margin-bottom: 150px;
+`;
+
 const ImgBox = styled.div`
 	margin-top: 180px;
 	${theme.ALIGN.ROW_CENTER};
@@ -91,6 +96,11 @@ const BackGround3 = styled(BackGround)`
 	}
 `;
 
+const BrBox = styled.div`
+	height: 5px;
+	margin-bottom: 100px;
+`;
+
 export {
 	Container,
 	ContentContainer,
@@ -100,4 +110,6 @@ export {
 	ImgBox,
 	BackGround2,
 	BackGround3,
+	BrBox,
+	ContentWrapper2,
 };

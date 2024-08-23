@@ -5,6 +5,12 @@ const PostContainer = styled.div`
 	display: flex;
 	padding: 50px;
 	background-color: #fafafa;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		display: flex;
+		justify-content: center;
+		padding: 0 0 80px 0;
+	}
 `;
 
 const PostList = styled.div`
@@ -12,15 +18,9 @@ const PostList = styled.div`
 	flex-direction: column;
 	align-items: center;
 	width: 1200px;
-	@media (max-width: 768px) {
-		/* 화면 너비가 768px 이하일 때 */
-		width: 90%;
-		min-width: auto;
-	}
-	@media (max-width: 480px) {
-		/* 화면 너비가 480px 이하일 때 */
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
 		width: 100%;
-		min-width: auto;
 	}
 `;
 
@@ -44,36 +44,52 @@ const CalendarWrapper = styled.div`
 `;
 
 const AlbumWrapper = styled.div`
-	height: 30%;
+	display: flex;
+	flex-direction: column;
+	cursor: pointer;
+	height: 200px;
 	background-color: ${theme.COLOR.COMMON.WHITE};
 	border-radius: 20px;
 	padding: 40px;
 
-	p {
-		width: 250px;
-		padding: 120px 0 0 130px;
-	}
+	max-width: 300px;
 
-	cursor: pointer;
+	p {
+		margin-top: auto;
+		align-self: end;
+	}
 `;
 
 const CommentWrapper = styled.div`
-	width: 75%;
+	width: 620px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		width: 330px;
+	}
 `;
 
 const CommentInput = styled.form`
 	padding-top: 30px;
 	display: flex;
 	align-items: center;
+	width: 620px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		width: 330px;
+	}
 
 	input {
 		border: none;
 		background-color: ${theme.COLOR.BACKGROUND.WHITE};
-		width: 400px;
+		width: 100%;
 
 		&:focus {
 			border: none;
 			outline: none;
+		}
+
+		@media ${theme.WINDOW_SIZE.MOBILE} {
+			width: 300px;
 		}
 	}
 
@@ -88,6 +104,11 @@ const CommentInput = styled.form`
 		&:disabled {
 			background-color: ${theme.COLOR.GRAY.GRAY_100};
 			cursor: not-allowed;
+		}
+
+		@media ${theme.WINDOW_SIZE.MOBILE} {
+			font-size: 12px;
+			width: 100px;
 		}
 	}
 `;

@@ -1,13 +1,16 @@
-import * as S from './EditProfile.style';
-import { useState, useEffect } from 'react';
-import { CustomButton, CustomInput, Alert, Avatar } from '@/components/index';
+import { Alert, Avatar, CustomButton, CustomInput } from '@/components';
+import * as S from './ProfilePage.style';
 import useGetProfile from '@/hooks/queries/user/useGetProfile';
 import useUpdateProfile from '@/hooks/queries/user/useUpdateProfile';
-import useGetUserImg from '@/hooks/queries/user/useGetUserImg.js';
-import useFile from '@/hooks/useFile.js';
-import { createPresignedURL, uploadImageToS3 } from '@/apis/index.js';
+import { useEffect, useState } from 'react';
+import useFile from '@/hooks/useFile';
+import { createPresignedURL, uploadImageToS3 } from '@/apis';
+import useGetUserImg from '@/hooks/queries/user/useGetUserImg';
+import { useNavigate } from 'react-router-dom';
+import { PAGE_PATH } from '@/constants';
 
-const EditProfile = () => {
+const ProfilePage = () => {
+	const nav = useNavigate();
 	const { data: profileData } = useGetProfile();
 	const { data: userImg } = useGetUserImg(profileData?.imageKeyName);
 
@@ -49,8 +52,8 @@ const EditProfile = () => {
 
 	const handleConfirm = () => {
 		setIsModalOpen(false);
+		nav(`${PAGE_PATH.BASE}`);
 	};
-
 	return (
 		<S.Container>
 			<S.Heading>개인정보 수정</S.Heading>
@@ -127,4 +130,4 @@ const EditProfile = () => {
 	);
 };
 
-export default EditProfile;
+export default ProfilePage;

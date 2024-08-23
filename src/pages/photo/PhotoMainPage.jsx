@@ -2,11 +2,9 @@ import * as S from './PhotoMainPage.style';
 
 import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 import { useState } from 'react';
-
 import PhotoPostModal from '@/pages/photo/components/PhotoPostModal.jsx';
 import CustomCalendar from '@/components/common/calendar/CustomCalendar';
 import { Dropdown } from '@/components';
-
 import useGetFamilyList from '@/hooks/queries/family/useGetFamilyList';
 import useGetAlbum from '@/hooks/queries/album/useGetAlbum';
 import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
@@ -14,6 +12,8 @@ import useGetAlbumPost from '@/hooks/queries/album/useGetAlbumPost';
 import useGetRealAlbum from '@/hooks/queries/album/useGetRealAlbum';
 import useGetModalImage from '@/hooks/queries/album/useGetModalImage';
 import useCalendarStore from '@/store/useCalendarStore';
+import { useNavigate } from 'react-router-dom';
+import { formatYMD } from '@/utils';
 
 const PhotoMainPage = () => {
 	const { data: familyListData } = useGetFamilyList();
@@ -36,7 +36,10 @@ const PhotoMainPage = () => {
 	const { date } = useCalendarStore();
 	let selectedDate = '';
 	if (date) {
-		selectedDate = date.split('T')[0];
+		const selectedKSTDate = new Date(
+			new Date(date).getTime() + 9 * 60 * 60 * 1000,
+		);
+		selectedDate = selectedKSTDate.toISOString().split('T')[0];
 	}
 
 	const { data: familySpaceIdData } = useGetFamilySpaceId();
@@ -49,9 +52,13 @@ const PhotoMainPage = () => {
 		taggedId,
 	);
 
+	const vaildAlbumData = albumData.filter(picture => picture.imageUrl !== null);
+
 	//presigned url로 변환
-	const imageQueries = useGetRealAlbum(albumData || []);
-	const imageUrls = imageQueries.map(query => query.data?.result.url || '');
+	const { data: imageUrlsData } = useGetRealAlbum({
+		albumData: vaildAlbumData,
+	});
+	const imageUrls = imageUrlsData?.presignedUrlDownLoadResponseLists || [];
 
 	//모달창 관리
 	const [openPost, setOpenPost] = useState(false);
@@ -78,20 +85,17 @@ const PhotoMainPage = () => {
 		{ imageUrl: avatarUrl } || '',
 	);
 
-	const convertToKST = utcDate => {
-		const kstDate = new Date(new Date(utcDate).getTime() + 9 * 60 * 60 * 1000);
-		return `${kstDate.getFullYear()}년 ${kstDate.getMonth() + 1}월 ${kstDate.getDate()}일`;
-	};
-
-	const postDate = convertToKST(postData?.createdAt);
-
 	const handleClosePost = () => {
 		setOpenPost(false);
 		setSelectedPostid(null);
 	};
 
-	const goPostDetail = () => {
-		console.log('게시물 확인할게여');
+	const navigate = useNavigate();
+
+	const goPostDetail = selectedPostId => {
+		if (selectedPostId) {
+			navigate(`/home/detailPost/${selectedPostId}`);
+		}
 	};
 
 	return (
@@ -117,25 +121,28 @@ const PhotoMainPage = () => {
 			</S.SideContainer>
 
 			<S.AlbumContainer>
-				{Array.isArray(albumData) &&
-					albumData.map((picture, index) => (
-						<S.PictureArea key={picture.postId}>
-							<S.Picture
-								src={imageUrls[index] || ''}
-								onClick={() => handleOpenPost(picture)}
-							/>
-						</S.PictureArea>
-					))}
+				{Array.isArray(vaildAlbumData) &&
+					vaildAlbumData.map((picture, index) => {
+						const imageUrl = imageUrls[index]?.url || '';
+						return (
+							<S.PictureArea key={picture.postId}>
+								<S.Picture
+									src={imageUrl}
+									onClick={() => handleOpenPost(picture)}
+								/>
+							</S.PictureArea>
+						);
+					})}
 			</S.AlbumContainer>
 			{openPost && postData && (
 				<PhotoPostModal
 					op={postData.authorNickname}
-					date={postDate}
+					date={formatYMD(postData?.createdAt)}
 					comment={postData.content}
 					img={realImageUrl?.result.url}
 					onClose={handleClosePost}
 					avatar={realProfileUrl?.result.url}
-					goPostDetail={goPostDetail}
+					goPostDetail={() => goPostDetail(selectedPostId)}
 				/>
 			)}
 		</S.MainContainer>

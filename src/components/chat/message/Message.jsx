@@ -29,10 +29,7 @@ import useFile from '@/hooks/useFile';
 import queryClient from '@/apis/queryClient';
 
 const Message = ({ room }) => {
-	const [isMounted, setIsMounted] = useState(false);
 	const messageEndRef = useRef();
-	const scrollRef = useRef();
-	const prevScrollHeightRef = useRef(0);
 	const { handleFileSelectAndSend } = useFile();
 	const { fileOpen, setDelete } = useModalStore(state => state);
 	const [emoticon, setEmoticon] = useState(false);
@@ -64,38 +61,51 @@ const Message = ({ room }) => {
 		isFetching,
 	} = useGetMessage({
 		chatRoomId,
-		take: 15,
+		take: 20,
 	});
+
+	const [pageRendered, setPageRendered] = useState(false);
+	const [adjustingScroll, setAdjustingScroll] = useState(false);
+	const listRef = useRef();
+	let hasMessages = !!messageData;
 
 	const { ref, inView } = useInView({
 		threshold: 1,
 		delay: 0,
-		initialInView: false,
-		skip: !isMounted,
+		skip: !pageRendered,
 	});
 
 	useEffect(() => {
-		const loadMessages = async () => {
-			if (inView && !isFetching && hasPreviousPage) {
-				prevScrollHeightRef.current = scrollRef.current?.scrollHeight;
-				await fetchPreviousPage();
+		if (inView && pageRendered) {
+			if (!isFetching && hasPreviousPage && !adjustingScroll) {
+				const previousScrollHeight = listRef.current?.scrollHeight;
 
-				const newScrollHeight = scrollRef.current?.scrollHeight;
-				if (scrollRef.current) {
-					scrollRef.current.scrollTop =
-						newScrollHeight - prevScrollHeightRef.current;
-				}
+				fetchPreviousPage().then(() => {
+					setAdjustingScroll(true);
+
+					setTimeout(() => {
+						if (listRef.current) {
+							listRef.current.scrollTop =
+								listRef.current.scrollHeight - previousScrollHeight;
+						}
+					}, 0);
+
+					setTimeout(() => {
+						setAdjustingScroll(false);
+					}, 2000);
+				});
 			}
-		};
-		if (isMounted) loadMessages();
-	}, [inView, isMounted, isFetching]);
+		}
+	}, [inView, isFetching]);
 
 	useEffect(() => {
-		if (isMounted && !isFetching && prevScrollHeightRef.current > 0) {
-			messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
+		if (hasMessages) {
+			if (listRef.current) {
+				listRef.current.scrollTop = listRef.current?.scrollHeight;
+			}
+			setPageRendered(true);
 		}
-		setIsMounted(true);
-	}, [isFetching, isMounted]);
+	}, [hasMessages, chatRoomId]);
 
 	useEffect(() => {
 		if (messageEndRef.current) {
@@ -104,7 +114,7 @@ const Message = ({ room }) => {
 	}, [messages]);
 
 	useEffect(() => {
-		if (chatRoomId && scrollRef.current) {
+		if (chatRoomId) {
 			enterChatRoom(chatRoomId);
 		}
 
@@ -219,18 +229,18 @@ const Message = ({ room }) => {
 							<img src={NOIMG} alt="profile" />
 						)}
 
-						<p>{title}</p>
+						<p>{title ? title : '알 수 없음'}</p>
 					</S.UserContainer>
 				</S.NavWrapper>
 				<S.Menu>
 					<p onClick={() => setOpen(!open)}>메뉴</p>
 					<S.PopoverWrapper $open={open}>
-						<PopOver items={items} />
+						<PopOver items={items} onMouseLeave={() => setOpen(!open)} />
 					</S.PopoverWrapper>
 				</S.Menu>
 			</S.NavContainer>
-			<S.MessageContainer ref={scrollRef}>
-				{isMounted && <div ref={ref} />}
+			<S.MessageContainer ref={listRef}>
+				{!adjustingScroll && pageRendered && <div ref={ref} />}
 				{messageData?.map(page =>
 					page.result.chatResponseList.map(e =>
 						e.senderDTO.senderId === userId ? (

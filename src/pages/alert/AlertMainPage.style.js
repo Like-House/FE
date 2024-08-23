@@ -35,7 +35,7 @@ const TabBarContainer = styled.div`
 		padding: 60px 20px 10px 20px;
 	}
 
-	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+	@media ${theme.WINDOW_SIZE.MOBILE} {
 		padding: 60px 14px 10px 14px;
 	}
 `;
@@ -45,7 +45,7 @@ const TabBarMenu = styled.div`
 	position: relative;
 	display: flex;
 	align-items: center;
-	font-size: ${FONT_SIZE.LG};
+	font-size: ${FONT_SIZE.BASE};
 	&::after {
 		content: '';
 		position: absolute;
@@ -54,10 +54,6 @@ const TabBarMenu = styled.div`
 		width: 100%;
 		border-bottom: ${({ $isActive }) =>
 			$isActive ? '3px solid black' : 'none'};
-	}
-
-	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
-		font-size: ${FONT_SIZE.BASE};
 	}
 
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
@@ -72,13 +68,16 @@ const NotificationCount = styled.span`
 	color: ${theme.COLOR.COMMON.WHITE};
 	border-radius: 50%;
 	line-height: 1;
-	font-size: ${FONT_SIZE.BASE};
 	position: absolute;
 	width: 16px;
 	height: 16px;
-	padding: 2px;
-	top: -2px;
-	right: -8px;
+	padding: 10px;
+	top: -5px;
+	right: -13px;
+
+	p {
+		font-size: ${FONT_SIZE.XS};
+	}
 
 	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
 		width: 14px;
@@ -87,10 +86,10 @@ const NotificationCount = styled.span`
 	}
 
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		padding: 9px;
 		width: 12px;
 		height: 12px;
-		font-size: ${FONT_SIZE.XS};
-		top: -12px;
+		top: -20px;
 	}
 `;
 

@@ -5,13 +5,18 @@ const PostContainer = styled.div`
 	display: flex;
 	background-color: #fafafa;
 	height: 100vh;
+	padding: 0 50px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		padding: 0;
+	}
 `;
 
 const PostList = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 1000px;
+	width: 1200px;
 	height: 100%;
 	overflow-y: scroll;
 
@@ -26,9 +31,11 @@ const RightSidebar = styled.div`
 	flex: 1;
 	height: 100vh;
 	gap: 30px;
-	padding: 20px 0 0 50px;
+	padding: 30px;
+	padding-left: 10px;
+	background: transparent;
 
-	@media ${theme.WINDOW_SIZE.MOBILE} {
+	@media ${theme.WINDOW_SIZE.PC} {
 		display: none;
 	}
 `;
@@ -40,15 +47,19 @@ const CalendarWrapper = styled.div`
 `;
 
 const AlbumWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
 	cursor: pointer;
-	height: 30%;
+	height: 200px;
 	background-color: ${theme.COLOR.COMMON.WHITE};
 	border-radius: 20px;
 	padding: 40px;
 
+	max-width: 300px;
+
 	p {
-		width: 250px;
-		padding: 120px 0 0 130px;
+		margin-top: auto;
+		align-self: end;
 	}
 `;
 

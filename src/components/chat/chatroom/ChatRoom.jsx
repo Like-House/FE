@@ -34,7 +34,7 @@ const ChatRoom = ({ room }) => {
 			)}
 			<S.UserContainer>
 				<div>
-					<h4>{title}</h4>
+					<h4>{title ? title : '알 수 없음'}</h4>
 				</div>
 			</S.UserContainer>
 		</S.Container>

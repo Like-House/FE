@@ -7,6 +7,7 @@ const useGetRealImageUrl = ({ imageUrl, chatRoomId }) => {
 	return useQuery({
 		queryFn: () => getRealImageUrl(imageUrl),
 		queryKey: [QUERY_KEYS.CHATROOMS, chatRoomId],
+		enabled: !!imageUrl,
 	});
 };
 

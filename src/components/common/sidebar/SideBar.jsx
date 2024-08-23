@@ -82,7 +82,9 @@ const Sidebar = () => {
 						</S.Icon>
 						<p>가족</p>
 					</NavLink>
-					<NavLink to={PAGE_PATH.SETTING}>
+					<NavLink
+						to={`${PAGE_PATH.HOME}/${PAGE_PATH.SETTING}/${PAGE_PATH.FAMILY_SPACE_SETTINGS}`}
+					>
 						<S.Icon>
 							<img src={settingIcon} alt="setting" />
 						</S.Icon>
