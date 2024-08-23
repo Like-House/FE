@@ -6,15 +6,14 @@ import { FONT_SIZE } from '@/constants';
 const PostItem = styled.div`
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
 	background-color: ${theme.COLOR.BACKGROUND.WHITE};
-	border-radius: 10px;
-	padding: 40px;
+	border-radius: 20px;
+	padding: 20px;
 	padding-bottom: 0px;
 
-	gap: 30px;
 	width: 100%;
 	max-width: 700px;
+	cursor: pointer;
 `;
 
 const PostWrapper = styled.div`
@@ -25,7 +24,7 @@ const PostWrapper = styled.div`
 const Profile = styled.div`
 	display: flex;
 	flex-direction: row;
-	width: 110px;
+	margin-right: 20px;
 `;
 
 const Board = styled.div`
@@ -43,24 +42,26 @@ const Divider = styled.hr`
 `;
 
 const PostHeader = styled.div`
-	width: 100%;
 	display: flex;
+	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: 20px;
-	position: relative;
 `;
 
 const AuthorWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	flex-grow: 1;
 `;
 
 const Author = styled.div`
 	font-weight: bold;
-	font-size: 20px;
+	font-size: ${FONT_SIZE.LG};
 	margin: 5px 0 10px;
+
+	@media ${theme.WINDOW_SIZE.PC} {
+		font-size: ${FONT_SIZE.BASE};
+	}
 `;
 
 const DateTime = styled.div`
@@ -69,7 +70,9 @@ const DateTime = styled.div`
 `;
 
 const MenuButton = styled.div`
-	position: relative;
+	margin-left: auto;
+
+	z-index: 100;
 
 	svg {
 		cursor: pointer;
@@ -78,9 +81,12 @@ const MenuButton = styled.div`
 
 const Popover = styled.div`
 	position: absolute;
-	top: 100%;
-	right: 0%;
+	right: 28%;
 	z-index: 10;
+
+	@media ${theme.WINDOW_SIZE.PC} {
+		right: 10%;
+	}
 `;
 
 const Menu = styled.div`
@@ -112,11 +118,19 @@ const Content = styled.div`
 `;
 
 const Photo = styled.img`
-	width: 500px;
+	max-width: 450px;
 	border-radius: 10px;
 	margin-bottom: 10px;
 
 	cursor: pointer;
+
+	@media ${theme.WINDOW_SIZE.TABLET} {
+		width: 350px;
+	}
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		width: 250px;
+	}
 `;
 
 const Footer = styled.div`
@@ -125,8 +139,9 @@ const Footer = styled.div`
 	gap: 20px;
 	padding-top: 10px;
 	font-size: ${FONT_SIZE.SM};
-	p {
-		cursor: pointer;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		font-size: ${FONT_SIZE.XS};
 	}
 `;
 

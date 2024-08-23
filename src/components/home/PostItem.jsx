@@ -7,14 +7,15 @@ import { HiMiniEllipsisHorizontal } from 'react-icons/hi2';
 import { FaEdit, FaTrashAlt, FaRegBellSlash, FaRegBell } from 'react-icons/fa';
 import { BiSolidMessageRounded } from 'react-icons/bi';
 import { formatDate } from '@/utils';
-import { Avatar, PopOver } from '@/components';
+import { Avatar } from '@/components';
 import { useState } from 'react';
 import useDeletePost from '@/hooks/queries/posts/useDeletePost';
 import useLikePost from '@/hooks/queries/posts/useLikePost';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PAGE_PATH } from '@/constants';
 import PatchModal from '../post/patchmodal/PatchModal';
 import usePutAlarmPost from '@/hooks/queries/posts/usePutAlarmPost';
+import NewPopover from '../common/newPopover/NewPopover';
 
 const PostItem = ({ post }) => {
 	const {
@@ -32,6 +33,7 @@ const PostItem = ({ post }) => {
 	const [showMenu, setShowMenu] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const nav = useNavigate();
+	const { pathname } = useLocation();
 
 	const { data } = useGetImageUrls(postId, imageUrls);
 	const { data: userImg } = useGetNicknameImg(authorNickname, profileImage);
@@ -89,7 +91,7 @@ const PostItem = ({ post }) => {
 	};
 
 	const handleDetail = () => {
-		nav(`${PAGE_PATH.HOME}/${PAGE_PATH.DETAILPOST}/${postId}`);
+		!showMenu && nav(`${PAGE_PATH.HOME}/${PAGE_PATH.DETAILPOST}/${postId}`);
 	};
 
 	const onClose = () => {
@@ -97,7 +99,11 @@ const PostItem = ({ post }) => {
 	};
 
 	return (
-		<S.PostItem>
+		<S.PostItem
+			$pathname={pathname}
+			$showMenu={showMenu}
+			onClick={handleDetail}
+		>
 			{showModal && (
 				<PatchModal
 					onClose={onClose}
@@ -116,20 +122,21 @@ const PostItem = ({ post }) => {
 							<S.DateTime>{formatDate(createdAt)}</S.DateTime>
 						</S.AuthorWrapper>
 						<S.MenuButton>
-							<HiMiniEllipsisHorizontal
-								onClick={() => setShowMenu(prev => !prev)}
-							/>
-							{showMenu && (
-								<S.Popover>
-									<PopOver
-										items={owner ? ownerMenuItems : menuItems}
-										onMouseLeave={handleMouseLeave}
-									/>
-								</S.Popover>
-							)}
+							<NewPopover
+								items={owner ? ownerMenuItems : menuItems}
+								onMouseLeave={handleMouseLeave}
+								showMenu={showMenu}
+							>
+								<HiMiniEllipsisHorizontal
+									onClick={e => {
+										e.stopPropagation();
+										setShowMenu(prev => !prev);
+									}}
+								/>
+							</NewPopover>
 						</S.MenuButton>
 					</S.PostHeader>
-					<S.Content onClick={handleDetail}>{content}</S.Content>
+					<S.Content>{content}</S.Content>
 					{data?.presignedUrlDownLoadResponseLists.map((e, idx) => (
 						<S.Photo
 							src={e.url}
@@ -140,7 +147,7 @@ const PostItem = ({ post }) => {
 					))}
 					<S.Footer>
 						<p onClick={handleLike}>좋아요 {likeCount}</p>
-						<p onClick={handleDetail}>댓글 {commentCount}</p>
+						<p>댓글 {commentCount}</p>
 					</S.Footer>
 				</S.Board>
 			</S.PostWrapper>

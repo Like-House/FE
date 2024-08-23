@@ -60,6 +60,18 @@ const Profile = styled.div`
 	width: 110px;
 `;
 
+const CommentEditInput = styled.input`
+	outline: none;
+	padding: 10px;
+	border: none;
+	background: transparent;
+`;
+
+const CommentInputContainer = styled.form`
+	display: flex;
+	flex-direction: row;
+`;
+
 export {
 	Container,
 	Board,
@@ -70,4 +82,6 @@ export {
 	MenuButton,
 	Popover,
 	Profile,
+	CommentEditInput,
+	CommentInputContainer,
 };

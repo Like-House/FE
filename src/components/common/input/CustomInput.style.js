@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import theme from '@/theme/theme';
-import { FONT_SIZE } from '@/constants';
+import { FONT_SIZE, RESPONSIVE_SIZE } from '@/constants';
 
 const getSize = size => {
 	switch (size) {
@@ -16,6 +16,24 @@ const getSize = size => {
 		default: // BASE(default)
 			return '600px';
 	}
+};
+
+const widthSize = {
+	XS: css`
+		width: 250px;
+	`,
+	SM: css`
+		width: 400px;
+	`,
+	BASE: css`
+		width: 600px;
+	`,
+	LG: css`
+		width: 750px;
+	`,
+	XL: css`
+		width: 900px;
+	`,
 };
 
 const Container = styled.div`
@@ -83,6 +101,14 @@ const InputContainer = styled.div`
 
 	 svg {
 		cursor: pointer;
+	}
+
+	@media (max-width: ${RESPONSIVE_SIZE.TABLET}) {
+		${widthSize['SM']}
+	}
+
+	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
+		${widthSize['XS']}
 	}
 `;
 
