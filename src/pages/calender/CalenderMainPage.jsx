@@ -180,8 +180,8 @@ const CalenderMainPage = () => {
 									<S.ScheduleWrapper>
 										<Dtype dtype={data.dtype} />
 										<S.ScheduleBox>
-											<p>{data.date}</p>
-											<div>{data.title}</div>
+											<div>{data.date}</div>
+											<h5>{data.title}</h5>
 											<p>{data.content}</p>
 										</S.ScheduleBox>
 									</S.ScheduleWrapper>
