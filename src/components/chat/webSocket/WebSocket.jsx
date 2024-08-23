@@ -22,7 +22,7 @@ const WebSocketComponent = ({ children }) => {
 			setWebSocket(webSocket.current);
 			clearTimeout(reconnectTimeout.current);
 
-			if (isReconnect.current) {
+			if (chatRoomId && isReconnect.current) {
 				enterChatRoom(chatRoomId);
 			}
 		};
