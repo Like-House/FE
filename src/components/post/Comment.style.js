@@ -58,6 +58,10 @@ const Profile = styled.div`
 	display: flex;
 	flex-direction: row;
 	width: 110px;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		width: 80px;
+	}
 `;
 
 const CommentEditInput = styled.input`
