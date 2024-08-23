@@ -166,7 +166,7 @@ const AlertMainPage = () => {
 							{menu}
 							{
 								<S.NotificationCount>
-									{getNotificationCount(menu)}
+									<p>{getNotificationCount(menu)}</p>
 								</S.NotificationCount>
 							}
 						</S.TabBarMenu>

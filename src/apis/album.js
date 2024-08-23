@@ -20,4 +20,18 @@ const getAlbumPost = async postId => {
 	return data;
 };
 
-export { getAlbum, getAlbumPost };
+const getRealImageUrlList = async imageUrls => {
+	try {
+		const { data } = await axiosInstance.post(
+			`${API_PATH.IMAGE}/download/list`,
+			{
+				keyNames: imageUrls,
+			},
+		);
+		return data.result;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export { getAlbum, getAlbumPost, getRealImageUrlList };

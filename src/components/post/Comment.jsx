@@ -1,7 +1,7 @@
 import * as S from './Comment.style';
 
 import { formatDate } from '@/utils';
-import { Avatar, PopOver } from '@/components';
+import { Avatar, CustomButton, PopOver } from '@/components';
 import useGetNicknameImg from '@/hooks/queries/posts/useGetNicknameImg';
 import NoImg from '@/assets/images/profile.webp';
 import { HiMiniEllipsisHorizontal } from 'react-icons/hi2';
@@ -115,17 +115,20 @@ const Comment = ({ comment }) => {
 					)}
 				</S.PostHeader>
 				{update ? (
-					<S.Update onSubmit={handleUpdate}>
-						<input
+					<S.CommentInputContainer onSubmit={handleUpdate}>
+						<S.CommentEditInput
 							placeholder={content}
 							type="text"
 							value={userInput}
 							onChange={e => setUserInput(e.target.value)}
 						/>
-						<button disabled={userInput === ''} onSubmit={handleUpdate}>
-							수정하기
-						</button>
-					</S.Update>
+						<CustomButton
+							label={<p>수정하기</p>}
+							disabled={userInput === ''}
+							onClick={handleUpdate}
+							btnType="primary"
+						/>
+					</S.CommentInputContainer>
 				) : (
 					<div>{content}</div>
 				)}

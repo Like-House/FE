@@ -5,19 +5,14 @@ import theme from '@/theme/theme';
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
-
+	min-width: 700px;
 	width: 100%;
-	height: 100vh;
-
-	margin: 50px 70px;
-	gap: 30px;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		margin: 45px;
-		height: 70vh;
+		overflow-x: hidden;
+		min-width: 0;
 	}
 `;
-
 const Content = styled.div`
 	display: flex;
 `;

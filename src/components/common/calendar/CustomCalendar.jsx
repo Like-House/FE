@@ -12,8 +12,12 @@ import { DAY_OF_WEEK } from '@/constants';
 import { getDayList, isCurrentMonth } from '@/utils';
 import theme from '@/theme/theme';
 import useCalendarStore from '@/store/useCalendarStore';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const CustomCalendar = ({ size, hasBackgroundColor }) => {
+	const { pathname } = useLocation();
+
 	const {
 		handleDayClick,
 		handleLeftClick,
@@ -21,6 +25,7 @@ const CustomCalendar = ({ size, hasBackgroundColor }) => {
 		selectedYearAndMonth,
 		selectedTimestamp,
 		events,
+		clear,
 	} = useCalendarStore();
 
 	const hasEvent = (timestamp, events) => {
@@ -51,6 +56,10 @@ const CustomCalendar = ({ size, hasBackgroundColor }) => {
 		}
 		return null;
 	};
+
+	useEffect(() => {
+		clear();
+	}, [pathname]);
 
 	return (
 		<S.Container $size={size} $hasBackgroundColor={hasBackgroundColor}>

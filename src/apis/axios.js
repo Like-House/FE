@@ -5,9 +5,6 @@ const axiosInstance = axios.create({
 	withCredentials: true,
 });
 
-/**
- * axiosInstance 실행 전에, 토큰을 넣음.
- */
 // axiosInstance.interceptors.request.use(
 // 	config => {
 // 		const token = localStorage.getItem('accessToken');
@@ -19,6 +16,16 @@ const axiosInstance = axios.create({
 // 	error => {
 // 		console.log(error);
 // 		return Promise.reject(error);
+// 	},
+// );
+
+// axiosInstance.interceptors.response.use(
+// 	function (response) {
+// 		return response;
+// 	},
+// 	async function (err) {
+// 		const originalConfig = err.config;
+// 		console.log(originalConfig, err);
 // 	},
 // );
 

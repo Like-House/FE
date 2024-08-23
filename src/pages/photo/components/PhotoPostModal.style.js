@@ -43,6 +43,10 @@ const ModalHeader = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	padding: 3% 6% 0 0;
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		padding: 5% 5% 0 0;
+	}
 `;
 
 const ModalFooter = styled.div`
@@ -77,6 +81,7 @@ const ProfileArea = styled.div`
 
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
 		margin-right: 18px;
+		margin-left: 10px;
 	}
 `;
 
@@ -93,25 +98,28 @@ const Content = styled.div`
 `;
 
 const OP = styled.div`
-	font-size: ${FONT_SIZE.TWO_XL};
+	font-size: ${FONT_SIZE.LG};
 	font-weight: 600;
-
-	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
-		font-size: ${FONT_SIZE.XL};
-	}
 `;
 
 const Date = styled.div`
 	color: ${theme.COLOR.GRAY.GRAY_750};
 	margin-bottom: 26px;
+	font-size: ${FONT_SIZE.SM};
 `;
 
 const Comment = styled.div`
 	margin-bottom: 20px;
-	font-size: ${FONT_SIZE.TWO_XL};
+	font-size: ${FONT_SIZE.BASE};
 
-	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
-		font-size: ${FONT_SIZE.XL};
+	@media ${theme.WINDOW_SIZE.MOBILE} {
+		display: -webkit-box;
+		word-wrap: break-word;
+		-webkit-line-clamp: 4;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		width: 90%;
 	}
 `;
 
@@ -122,7 +130,7 @@ const PostImg = styled.img`
 	margin-bottom: 20px;
 
 	@media (max-width: ${RESPONSIVE_SIZE.MOBILE}) {
-		width: 100%;
+		width: 90%;
 	}
 `;
 
@@ -136,6 +144,7 @@ const Button = styled.button`
 	border: none;
 	border-radius: 10px;
 	background-color: ${theme.COLOR.MAIN.YELLOW};
+	cursor: pointer;
 `;
 
 export {

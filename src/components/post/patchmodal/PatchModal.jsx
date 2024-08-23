@@ -18,7 +18,7 @@ const PatchModal = ({ avatar, postId, onClose }) => {
 	const [userInput, setUserInput] = useState('');
 	const [selected, setSelectedOption] = useState('');
 
-	const user = familyData?.familyDataList.filter(e => e.nickname === selected);
+	const user = familyData?.familyDataList.filter(e => e.name === selected);
 
 	useEffect(() => {
 		if (data?.content) {
@@ -46,10 +46,10 @@ const PatchModal = ({ avatar, postId, onClose }) => {
 							user && user.length > 0
 								? user[0].userId
 								: data?.taggedUsers[0].userId,
-						nickname:
+						name:
 							user && user.length > 0
-								? user[0].nickname
-								: data?.taggedUsers[0].nickname,
+								? user[0].name
+								: data?.taggedUsers[0].name,
 					},
 				],
 				imageUrls: data?.imageUrls,
@@ -74,16 +74,16 @@ const PatchModal = ({ avatar, postId, onClose }) => {
 						</S.ProfileArea>
 						<S.ContentContainer>
 							<S.Content>
-								<div>
-									<Dropdown
-										label={selected}
-										options={familyData?.familyDataList.map(e => e.nickname)}
-										openIcon={<RiArrowDropDownLine size={'30px'} />}
-										closeIcon={<RiArrowDropUpLine size={'30px'} />}
-										onSelect={handleDropdownChange}
-									/>
-								</div>
-								<S.Comment
+								<Dropdown
+									label={selected}
+									options={familyData?.familyDataList.map(e => e.name)}
+									openIcon={<RiArrowDropDownLine size={'30px'} />}
+									closeIcon={<RiArrowDropUpLine size={'30px'} />}
+									onSelect={handleDropdownChange}
+								/>
+								<S.PatchPostInput
+									type="text"
+									placeholder="새로운 게시글을 입력하세요."
 									value={userInput}
 									onChange={e => setUserInput(e.target.value)}
 								/>

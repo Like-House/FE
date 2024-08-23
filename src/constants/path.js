@@ -52,6 +52,9 @@ const PAGE_PATH = {
 	DETAILPOST: 'detailPost',
 
 	PATCH_SCHEDULE: '/patch-schedule',
+
+	// 가족공간 입장 x 프로필 수정
+	PROFILE_CHANGE: 'profile',
 };
 
 const API_PATH = {
@@ -71,7 +74,6 @@ const API_PATH = {
 
 	// comment
 	COMMENT: '/api/v0/comments',
-
 
 	// chat
 	CHAT: '/api/v0/chat-rooms',

@@ -60,23 +60,16 @@ const Profile = styled.div`
 	width: 110px;
 `;
 
-const Update = styled.form `
-	input {
-		border: none;
-		outline: none;
-		background-color: ${theme.COLOR.BACKGROUND.WHITE};
-	}
+const CommentEditInput = styled.input`
+	outline: none;
+	padding: 10px;
+	border: none;
+	background: transparent;
+`;
 
-	button {
-		border: none;
-		border-radius: 10px;
-		background-color: ${theme.COLOR.YELLOW.YELLOW_300};
-
-		&:disabled {
-			background-color: ${theme.COLOR.GRAY.GRAY_100};
-			cursor: not-allowed;
-		}
-	}
+const CommentInputContainer = styled.form`
+	display: flex;
+	flex-direction: row;
 `;
 
 export {
@@ -89,5 +82,6 @@ export {
 	MenuButton,
 	Popover,
 	Profile,
-	Update,
+	CommentEditInput,
+	CommentInputContainer,
 };
