@@ -50,21 +50,20 @@ const CalendarWrapper = styled.div`
 `;
 
 const AlbumWrapper = styled.div`
-	height: 30%;
+	display: flex;
+	flex-direction: column;
+	cursor: pointer;
+	height: 200px;
 	background-color: ${theme.COLOR.COMMON.WHITE};
 	border-radius: 20px;
 	padding: 40px;
 
-	div {
-		max-width: 300px;
-	}
+	max-width: 300px;
 
 	p {
-		width: 250px;
-		padding: 120px 0 0 130px;
+		margin-top: auto;
+		align-self: end;
 	}
-
-	cursor: pointer;
 `;
 
 const CommentWrapper = styled.div`
@@ -114,7 +113,8 @@ const CommentInput = styled.form`
 
 		@media ${theme.WINDOW_SIZE.MOBILE} {
 			font-size: 12px;
-			width: 100px;}
+			width: 100px;
+		}
 	}
 `;
 
@@ -124,7 +124,8 @@ const Profile = styled.div`
 	width: 110px;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		margin-left: 20px;}
+		margin-left: 20px;
+	}
 `;
 
 export {

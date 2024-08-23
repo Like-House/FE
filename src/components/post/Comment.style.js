@@ -62,14 +62,22 @@ const Profile = styled.div`
 
 const CommentEditInput = styled.input`
 	outline: none;
-	padding: 10px;
+	padding-right: 10px;
 	border: none;
 	background: transparent;
+	width: 400px;
+	margin-right: 10px;
 `;
 
 const CommentInputContainer = styled.form`
 	display: flex;
 	flex-direction: row;
+
+	button {
+		width: 110px;
+		height: 40px;
+		padding: 0;
+	}
 `;
 
 export {
