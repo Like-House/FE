@@ -99,11 +99,7 @@ const PostItem = ({ post }) => {
 	};
 
 	return (
-		<S.PostItem
-			$pathname={pathname}
-			$showMenu={showMenu}
-			onClick={handleDetail}
-		>
+		<S.PostItem $pathname={pathname} $showMenu={showMenu}>
 			{showModal && (
 				<PatchModal
 					onClose={onClose}
@@ -136,7 +132,7 @@ const PostItem = ({ post }) => {
 							</NewPopover>
 						</S.MenuButton>
 					</S.PostHeader>
-					<S.Content>{content}</S.Content>
+					<S.Content onClick={handleDetail}>{content}</S.Content>
 					{data?.presignedUrlDownLoadResponseLists.map((e, idx) => (
 						<S.Photo
 							src={e.url}
@@ -147,7 +143,7 @@ const PostItem = ({ post }) => {
 					))}
 					<S.Footer>
 						<p onClick={handleLike}>좋아요 {likeCount}</p>
-						<p>댓글 {commentCount}</p>
+						<p onClick={handleDetail}>댓글 {commentCount}</p>
 					</S.Footer>
 				</S.Board>
 			</S.PostWrapper>

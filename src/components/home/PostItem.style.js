@@ -13,7 +13,6 @@ const PostItem = styled.div`
 
 	width: 100%;
 	max-width: 700px;
-	cursor: pointer;
 `;
 
 const PostWrapper = styled.div`
@@ -147,6 +146,7 @@ const Footer = styled.div`
 	gap: 20px;
 	padding-top: 10px;
 	font-size: ${FONT_SIZE.SM};
+	cursor: pointer;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
 		font-size: ${FONT_SIZE.XS};

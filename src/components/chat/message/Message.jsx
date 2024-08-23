@@ -76,8 +76,6 @@ const Message = ({ room }) => {
 	});
 
 	useEffect(() => {
-		console.log('inView:', inView, 'pageRendered:', pageRendered);
-
 		if (inView && pageRendered) {
 			if (!isFetching && hasPreviousPage && !adjustingScroll) {
 				const previousScrollHeight = listRef.current?.scrollHeight;

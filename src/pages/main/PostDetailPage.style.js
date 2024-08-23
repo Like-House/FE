@@ -18,15 +18,9 @@ const PostList = styled.div`
 	flex-direction: column;
 	align-items: center;
 	width: 1200px;
-	@media (max-width: 768px) {
-		/* 화면 너비가 768px 이하일 때 */
-		width: 90%;
-		min-width: auto;
-	}
-	@media (max-width: 480px) {
-		/* 화면 너비가 480px 이하일 때 */
+
+	@media ${theme.WINDOW_SIZE.MOBILE} {
 		width: 100%;
-		min-width: auto;
 	}
 `;
 
@@ -50,28 +44,27 @@ const CalendarWrapper = styled.div`
 `;
 
 const AlbumWrapper = styled.div`
-	height: 30%;
+	display: flex;
+	flex-direction: column;
+	cursor: pointer;
+	height: 200px;
 	background-color: ${theme.COLOR.COMMON.WHITE};
 	border-radius: 20px;
 	padding: 40px;
 
-	div {
-		max-width: 300px;
-	}
+	max-width: 300px;
 
 	p {
-		width: 250px;
-		padding: 120px 0 0 130px;
+		margin-top: auto;
+		align-self: end;
 	}
-
-	cursor: pointer;
 `;
 
 const CommentWrapper = styled.div`
 	width: 620px;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		width: 400px;
+		width: 330px;
 	}
 `;
 
@@ -79,15 +72,16 @@ const CommentInput = styled.form`
 	padding-top: 30px;
 	display: flex;
 	align-items: center;
+	width: 620px;
 
 	@media ${theme.WINDOW_SIZE.MOBILE} {
-		width: 440px;
+		width: 330px;
 	}
 
 	input {
 		border: none;
 		background-color: ${theme.COLOR.BACKGROUND.WHITE};
-		width: 400px;
+		width: 100%;
 
 		&:focus {
 			border: none;
@@ -114,7 +108,8 @@ const CommentInput = styled.form`
 
 		@media ${theme.WINDOW_SIZE.MOBILE} {
 			font-size: 12px;
-			width: 100px;}
+			width: 100px;
+		}
 	}
 `;
 
@@ -122,9 +117,6 @@ const Profile = styled.div`
 	display: flex;
 	flex-direction: row;
 	width: 110px;
-
-	@media ${theme.WINDOW_SIZE.MOBILE} {
-		margin-left: 20px;}
 `;
 
 export {
