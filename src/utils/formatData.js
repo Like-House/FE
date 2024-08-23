@@ -25,4 +25,22 @@ const formatDate = dateString => {
 	return `${year}년 ${month}월 ${day}일 ${ampm} ${hour}시 ${minute}분`;
 };
 
-export { formatDate };
+const formatYMD = dateString => {
+	const date = new Date(dateString);
+	const options = {
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit',
+	};
+
+	const formatter = new Intl.DateTimeFormat('ko-KR', options);
+
+	const [year, month, day] = formatter
+		.formatToParts(date)
+		.filter(part => part.type !== 'literal')
+		.map(part => part.value);
+
+	return `${year}년 ${month}월 ${day}일`;
+};
+
+export { formatDate, formatYMD };

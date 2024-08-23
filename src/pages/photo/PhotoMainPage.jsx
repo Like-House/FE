@@ -2,11 +2,9 @@ import * as S from './PhotoMainPage.style';
 
 import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 import { useState } from 'react';
-
 import PhotoPostModal from '@/pages/photo/components/PhotoPostModal.jsx';
 import CustomCalendar from '@/components/common/calendar/CustomCalendar';
 import { Dropdown } from '@/components';
-
 import useGetFamilyList from '@/hooks/queries/family/useGetFamilyList';
 import useGetAlbum from '@/hooks/queries/album/useGetAlbum';
 import useGetFamilySpaceId from '@/hooks/queries/family/useGetFamilySpaceId';
@@ -14,8 +12,8 @@ import useGetAlbumPost from '@/hooks/queries/album/useGetAlbumPost';
 import useGetRealAlbum from '@/hooks/queries/album/useGetRealAlbum';
 import useGetModalImage from '@/hooks/queries/album/useGetModalImage';
 import useCalendarStore from '@/store/useCalendarStore';
-
 import { useNavigate } from 'react-router-dom';
+import { formatYMD } from '@/utils';
 
 const PhotoMainPage = () => {
 	const { data: familyListData } = useGetFamilyList();
@@ -87,13 +85,6 @@ const PhotoMainPage = () => {
 		{ imageUrl: avatarUrl } || '',
 	);
 
-	const convertToKST = utcDate => {
-		const kstDate = new Date(new Date(utcDate).getTime() + 9 * 60 * 60 * 1000);
-		return `${kstDate.getFullYear()}년 ${kstDate.getMonth() + 1}월 ${kstDate.getDate()}일`;
-	};
-
-	const postDate = convertToKST(postData?.createdAt);
-
 	const handleClosePost = () => {
 		setOpenPost(false);
 		setSelectedPostid(null);
@@ -146,7 +137,7 @@ const PhotoMainPage = () => {
 			{openPost && postData && (
 				<PhotoPostModal
 					op={postData.authorNickname}
-					date={postDate}
+					date={formatYMD(postData?.createdAt)}
 					comment={postData.content}
 					img={realImageUrl?.result.url}
 					onClose={handleClosePost}
